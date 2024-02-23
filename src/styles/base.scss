@@ -1,0 +1,17 @@
+@import '~bootstrap/scss/bootstrap';
+@import "variables.scss";
+
+body {
+	font-family: 'Mabry Pro', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+    background: #1B1C31;
+    color: rgba($color: #fff, $alpha: 0.6);
+}
+// Demo
+table{
+	td{
+		padding: 16px;
+		min-width: 220px;
+	}
+}
