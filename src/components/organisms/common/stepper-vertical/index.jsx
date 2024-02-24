@@ -1,10 +1,16 @@
 import SolStepperItem from "../../../molecules/stepper-item";
 import "./index.scss";
 
-const SolStepperVertical = () => {
+const SolStepperVertical = ({ steps = [], currentStep = 1 }) => {
     return <div className="sol-stepper-vertical">
-        <SolStepperItem />
-        <SolStepperItem />
+        {
+            steps.map((step, index) => <SolStepperItem
+                key={index}
+                step={step.step}
+                text={step.text}
+                status={step.step === currentStep ? 'active' : step.step < currentStep ? 'completed' : ''}
+            />)
+        }
     </div>
 }
 export default SolStepperVertical

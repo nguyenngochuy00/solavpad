@@ -2,18 +2,27 @@ import SolModal from "../../../atoms/modal";
 import SolItemCard from "../../../molecules/item-card";
 import "./index.scss";
 
-const SolConnectWalletDialog = ({ show, onClose }) => {
+const SolConnectWalletDialog = ({ show, extensions = [], onClose, onSelect }) => {
     const handleSelect = () => {
         // todo
-        onClose();
+        onSelect();
     }
 
     return <SolModal show={show} className="sol-connect-wallet-dialog" title="Connect wallet" onClose={onClose}>
-        <div className="sol-extensions">
-            <SolItemCard type="button" onClick={handleSelect} icon={<img src="/images/icons/metamask.svg" alt="" />} text="Metamask" />
-            <SolItemCard type="button" onClick={handleSelect} icon={<img src="/images/icons/binance-chain-wallet.svg" alt="" />} text="Binance Chain Wallet" />
-            <SolItemCard type="button" onClick={handleSelect} icon={<img src="/images/icons/trust.svg" alt="" />} text="Trust Wallet" />
-        </div>
+        {
+            extensions.length ? <div className="sol-extensions">
+                {
+                    extensions.map((asset, index) => <SolItemCard
+                        key={index}
+                        type="button"
+                        icon={<img src={asset.logo} alt={asset.name} />}
+                        text={asset.name}
+                        onClick={handleSelect}
+                    />)
+                }
+            </div> : <div className="sol-extensions-empty">No extensions found.</div>
+        }
+
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a href="#" className="sol-wallet-help">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

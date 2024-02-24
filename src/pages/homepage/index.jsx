@@ -1,7 +1,7 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import SolPageTitle from "../../components/molecules/page-title";
 import SolConnectWalletDialog from "../../components/organisms/common/connect-wallet-dialog";
 import SolYourWalletDialog from "../../components/organisms/common/your-wallet-dialog";
@@ -9,6 +9,9 @@ import SolLaunchpadDetailApproveDialog from "../../components/organisms/launchpa
 import SolLaunchpadDetailJoinPoolDialog from "../../components/organisms/launchpad-detail/join-pool-dialog";
 import SolHomepageTemplate from "../../components/templates/homepage";
 import { getAddressInfo } from "../../utils/solana.web3";
+import SolStepperVertical from "../../components/organisms/common/stepper-vertical";
+import SolBridgeSelectAssetDialog from "../../components/organisms/bridge/select-asset-dialog";
+import SolBridgeSelectNetworkDialog from "../../components/organisms/bridge/select-network-dialog";
 
 const SolHomepage = () => {
   const { select, wallets, publicKey, disconnect } = useWallet();
@@ -35,7 +38,9 @@ const SolHomepage = () => {
   const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
   const [showYourWalletModal, setShowYourWalletModal] = useState(false);
   const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
-  const [showApproveModal, setShowApproveModal] = useState(true);
+  const [showApproveModal, setShowApproveModal] = useState(false);
+  const [showSelectAssetModal, setShowSelectAssetModal] = useState(false);
+  const [showSelectNetworkModal, setShowSelectNetworkModal] = useState(true);
 
   return (
     <>
@@ -43,9 +48,31 @@ const SolHomepage = () => {
       <Container>
         <SolPageTitle>Homepage</SolPageTitle>
 
+        <Row>
+          <Col lg="3" className="bg-dark d-none">
+            {/* Stepper */}
+            <SolStepperVertical
+              steps={[
+                { step: 1, text: 'Checkpoints' },
+                { step: 2, text: 'Amount to Stake' },
+                { step: 3, text: 'Pre-authorization' },
+                { step: 4, text: 'Confirm' },
+                { step: 5, text: 'Confirmation' },
+              ]}
+              currentStep={2}
+            />
+          </Col>
+        </Row>
+
         {/* Connect wallet modal */}
         <SolConnectWalletDialog
           show={showConnectWalletModal}
+          extensions={[
+            { name: 'Metamask', logo: '/images/icons/metamask.svg' },
+            { name: 'Binance Chain Wallet', logo: '/images/icons/binance-chain-wallet.svg' },
+            { name: 'Trust Wallet', logo: '/images/icons/trust.svg' }
+          ]}
+          onSelect={() => setShowConnectWalletModal(false)}
           onClose={() => setShowConnectWalletModal(false)}
         />
 
@@ -75,6 +102,33 @@ const SolHomepage = () => {
           balance={3000}
           onClose={() => setShowApproveModal(false)}
           onApprove={() => setShowApproveModal(false)}
+        />
+
+        {/* Select asset modal */}
+        <SolBridgeSelectAssetDialog
+          show={showSelectAssetModal}
+          assets={[
+            { name: 'Solana', logo: '/images/icons/solana.svg' },
+            { name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
+            { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
+          ]}
+          selectedAsset={{ name: 'Ethereum', logo: '/images/icons/ethereum.svg' }}
+          onSearch={() => { }}
+          onSelect={() => setShowSelectAssetModal(false)}
+          onClose={() => setShowSelectAssetModal(false)}
+        />
+
+        {/* Select network modal */}
+        <SolBridgeSelectNetworkDialog
+          show={showSelectNetworkModal}
+          networks={[
+            { name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
+            { name: 'Solana', logo: '/images/icons/solana.svg' },
+            { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
+          ]}
+          selectedNetwork={{ name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }}
+          onSelect={() => setShowSelectNetworkModal(false)}
+          onClose={() => setShowSelectNetworkModal(false)}
         />
 
         {/* default connect button */}

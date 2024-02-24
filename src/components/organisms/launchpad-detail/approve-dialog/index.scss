@@ -24,7 +24,7 @@
 				-moz-appearance: textfield; /* Firefox */
 				&:focus {
 					outline: 0;
-					border-color: rgba(131, 80, 230, 0.5);
+					border-color: rgba($primary_color, 0.5);
 				}
 				&::-webkit-outer-spin-button,
 				&::-webkit-inner-spin-button {

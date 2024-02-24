@@ -1,3 +1,42 @@
-.sol-bridge-select-asset-dialog{
-    
+@import '../../../../styles/variables.scss';
+.sol-bridge-select-asset-dialog {
+	.sol-search {
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 1px $bg_card_color solid;
+		position: relative;
+		input {
+			display: flex;
+			padding: 10px 15px;
+			width: 100%;
+			height: 56px;
+			border-radius: 10px;
+			background-color: $bg_card_color;
+			padding-left: 66px;
+			border: 1px transparent solid;
+			transition: all ease-in-out 0.3s;
+			color: $white-color;
+			&:focus {
+				outline: 0;
+				border-color: rgba($primary_color, 0.5);
+			}
+		}
+		img {
+			position: absolute;
+			left: 21px;
+			width: 24px;
+			top: 16px;
+		}
+	}
+	.sol-assets {
+		display: flex;
+		flex-direction: column;
+		row-gap: 12px;
+		&-empty {
+			color: $text_color;
+			text-align: center;
+			font-size: 16px;
+			font-weight: 400;
+		}
+	}
 }

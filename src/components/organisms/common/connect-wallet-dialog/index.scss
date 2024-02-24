@@ -5,6 +5,12 @@
 		display: flex;
 		flex-direction: column;
 		row-gap: 15px;
+		&-empty {
+			color: $text_color;
+			text-align: center;
+			font-size: 16px;
+			font-weight: 400;
+		}
 	}
 	.sol-wallet-help {
 		display: flex;
@@ -16,7 +22,7 @@
 		transition: all ease-in-out 0.3s;
 		color: $text_color;
 		font-weight: 500;
-        line-height: 1;
+		line-height: 1;
 		span {
 			text-decoration: underline;
 		}
