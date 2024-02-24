@@ -3,15 +3,12 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import SolPageTitle from "../../components/molecules/page-title";
-import SolBridgeSelectAssetDialog from "../../components/organisms/bridge/select-asset-dialog";
-import SolBridgeSelectNetworkDialog from "../../components/organisms/bridge/select-network-dialog";
 import SolConnectWalletDialog from "../../components/organisms/common/connect-wallet-dialog";
 import SolYourWalletDialog from "../../components/organisms/common/your-wallet-dialog";
 import SolLaunchpadDetailApproveDialog from "../../components/organisms/launchpad-detail/approve-dialog";
 import SolLaunchpadDetailJoinPoolDialog from "../../components/organisms/launchpad-detail/join-pool-dialog";
 import SolHomepageTemplate from "../../components/templates/homepage";
 import { getAddressInfo } from "../../utils/solana.web3";
-import SolBridgeProcessDialog from "../../components/organisms/bridge/bridge-process-dialog";
 
 const SolHomepage = () => {
   const { select, wallets, publicKey, disconnect } = useWallet();
@@ -39,9 +36,6 @@ const SolHomepage = () => {
   const [showYourWalletModal, setShowYourWalletModal] = useState(false);
   const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
   const [showApproveModal, setShowApproveModal] = useState(false);
-  const [showSelectAssetModal, setShowSelectAssetModal] = useState(false);
-  const [showSelectNetworkModal, setShowSelectNetworkModal] = useState(false);
-  const [showBridgeProcessModal, setShowBridgeProcessModal] = useState(true);
 
   return (
     <>
@@ -89,39 +83,7 @@ const SolHomepage = () => {
           onApprove={() => setShowApproveModal(false)}
         />
 
-        {/* Select asset modal */}
-        <SolBridgeSelectAssetDialog
-          show={showSelectAssetModal}
-          assets={[
-            { name: 'Solana', logo: '/images/icons/solana.svg' },
-            { name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
-            { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
-          ]}
-          selectedAsset={{ name: 'Ethereum', logo: '/images/icons/ethereum.svg' }}
-          onSearch={() => { }}
-          onSelect={() => setShowSelectAssetModal(false)}
-          onClose={() => setShowSelectAssetModal(false)}
-        />
-
-        {/* Select network modal */}
-        <SolBridgeSelectNetworkDialog
-          show={showSelectNetworkModal}
-          networks={[
-            { name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
-            { name: 'Solana', logo: '/images/icons/solana.svg' },
-            { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
-          ]}
-          selectedNetwork={{ name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }}
-          onSelect={() => setShowSelectNetworkModal(false)}
-          onClose={() => setShowSelectNetworkModal(false)}
-        />
-
-        {/* Bridge process modal */}
-        <SolBridgeProcessDialog
-          show={showBridgeProcessModal}
-          onClose={() => setShowBridgeProcessModal(false)}
-        />
-
+       
         {/* default connect button */}
         <WalletMultiButton />
         {/* custom connect button */}

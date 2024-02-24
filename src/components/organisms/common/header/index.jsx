@@ -11,7 +11,6 @@ const SolHeader = () => {
             } />
             <SolButton caption="Disconnect" />
         </div>
-        <SolButton />
     </div>
 }
 export default SolHeader

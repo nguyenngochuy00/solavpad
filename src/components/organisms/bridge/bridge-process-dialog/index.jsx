@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import SolButton from "../../../atoms/button";
 import SolModal from "../../../atoms/modal";
@@ -9,41 +8,17 @@ import SolBridgeProcessStep3 from "./components/step-3";
 import SolBridgeProcessStep4 from "./components/step-4";
 import "./index.scss";
 
-const SolBridgeProcessDialog = ({ show, onClose }) => {
-    const [step, setStep] = useState(1);
-
-    const handlePrev = () => {
-        if (step === 1) return;
-        setStep(step - 1);
-    }
-
-    const handleNext = () => {
-        if (step === 4) return;
-        setStep(step + 1);
-    }
-
-    const handleDone = ()=>{
-        onClose();
-    }
-
+const SolBridgeProcessDialog = ({ show, steps, currentStep, onPrev, onNext, onDone, onClose }) => {
     return <SolModal size="lg" show={show} className="sol-bridge-process-dialog" title="Bridge process" onClose={onClose}>
         <Row>
             <Col lg="4">
-                <SolStepperVertical
-                    steps={[
-                        { step: 1, text: 'Confirmation' },
-                        { step: 2, text: 'Authorization' },
-                        { step: 3, text: 'Depositing' },
-                        { step: 4, text: 'Completion' }
-                    ]}
-                    currentStep={step}
-                />
+                <SolStepperVertical steps={steps} currentStep={currentStep} />
             </Col>
             <Col lg="8">
                 <div className="sol-bridge-process-content">
                     <div className="sol-bridge-process-body">
                         {/* Step 1 */}
-                        {step === 1 ?
+                        {currentStep === 1 ?
                             <SolBridgeProcessStep1
                                 amount={1}
                                 symbol="BlastFi"
@@ -54,7 +29,7 @@ const SolBridgeProcessDialog = ({ show, onClose }) => {
                             /> : <></>
                         }
                         {/* Step 2 */}
-                        {step === 2 ?
+                        {currentStep === 2 ?
                             <SolBridgeProcessStep2
                                 amount={1}
                                 symbol="BlastFi"
@@ -62,14 +37,14 @@ const SolBridgeProcessDialog = ({ show, onClose }) => {
                         }
 
                         {/* Step 3 */}
-                        {step === 3 ?
+                        {currentStep === 3 ?
                             <SolBridgeProcessStep3
                                 symbol="BlastFi"
                             /> : <></>
                         }
 
                         {/* Step 4 */}
-                        {step === 4 ?
+                        {currentStep === 4 ?
                             <SolBridgeProcessStep4
                                 status="pending"
                                 symbol="BlastFi"
@@ -78,11 +53,11 @@ const SolBridgeProcessDialog = ({ show, onClose }) => {
                     </div>
                     <div className="sol-bridge-process-action">
                         {
-                            step !== 4 ? <>
-                                <SolButton onClick={handlePrev} disabled={step === 1} caption="Previous" icon={<img src="/images/icons/prev.svg" alt="" />} />
-                                <SolButton onClick={handleNext} caption="Next" icon={<img src="/images/icons/next.svg" alt="" />} variant="primary" />
+                            currentStep !== 4 ? <>
+                                <SolButton onClick={onPrev} disabled={currentStep === 1} caption="Previous" icon={<img src="/images/icons/prev.svg" alt="" />} />
+                                <SolButton onClick={onNext} caption="Next" icon={<img src="/images/icons/next.svg" alt="" />} variant="primary" />
                             </> :
-                                <SolButton onClick={handleDone} caption="Done" variant="primary" />
+                                <SolButton onClick={onDone} caption="Done" variant="primary" />
                         }
                     </div>
                 </div>
