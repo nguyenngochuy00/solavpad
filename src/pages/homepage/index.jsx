@@ -1,17 +1,17 @@
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import SolPageTitle from "../../components/molecules/page-title";
+import SolBridgeSelectAssetDialog from "../../components/organisms/bridge/select-asset-dialog";
+import SolBridgeSelectNetworkDialog from "../../components/organisms/bridge/select-network-dialog";
 import SolConnectWalletDialog from "../../components/organisms/common/connect-wallet-dialog";
 import SolYourWalletDialog from "../../components/organisms/common/your-wallet-dialog";
 import SolLaunchpadDetailApproveDialog from "../../components/organisms/launchpad-detail/approve-dialog";
 import SolLaunchpadDetailJoinPoolDialog from "../../components/organisms/launchpad-detail/join-pool-dialog";
 import SolHomepageTemplate from "../../components/templates/homepage";
 import { getAddressInfo } from "../../utils/solana.web3";
-import SolStepperVertical from "../../components/organisms/common/stepper-vertical";
-import SolBridgeSelectAssetDialog from "../../components/organisms/bridge/select-asset-dialog";
-import SolBridgeSelectNetworkDialog from "../../components/organisms/bridge/select-network-dialog";
+import SolBridgeProcessDialog from "../../components/organisms/bridge/bridge-process-dialog";
 
 const SolHomepage = () => {
   const { select, wallets, publicKey, disconnect } = useWallet();
@@ -40,29 +40,14 @@ const SolHomepage = () => {
   const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showSelectAssetModal, setShowSelectAssetModal] = useState(false);
-  const [showSelectNetworkModal, setShowSelectNetworkModal] = useState(true);
+  const [showSelectNetworkModal, setShowSelectNetworkModal] = useState(false);
+  const [showBridgeProcessModal, setShowBridgeProcessModal] = useState(true);
 
   return (
     <>
       <SolHomepageTemplate />
       <Container>
         <SolPageTitle>Homepage</SolPageTitle>
-
-        <Row>
-          <Col lg="3" className="bg-dark d-none">
-            {/* Stepper */}
-            <SolStepperVertical
-              steps={[
-                { step: 1, text: 'Checkpoints' },
-                { step: 2, text: 'Amount to Stake' },
-                { step: 3, text: 'Pre-authorization' },
-                { step: 4, text: 'Confirm' },
-                { step: 5, text: 'Confirmation' },
-              ]}
-              currentStep={2}
-            />
-          </Col>
-        </Row>
 
         {/* Connect wallet modal */}
         <SolConnectWalletDialog
@@ -129,6 +114,12 @@ const SolHomepage = () => {
           selectedNetwork={{ name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }}
           onSelect={() => setShowSelectNetworkModal(false)}
           onClose={() => setShowSelectNetworkModal(false)}
+        />
+
+        {/* Bridge process modal */}
+        <SolBridgeProcessDialog
+          show={showBridgeProcessModal}
+          onClose={() => setShowBridgeProcessModal(false)}
         />
 
         {/* default connect button */}

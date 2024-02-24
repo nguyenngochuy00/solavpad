@@ -5,6 +5,9 @@
 		margin-top: 150px;
 		@media (min-width: 576px) {
 			max-width: 420px;
+			&.modal-lg {
+				max-width: 700px;
+			}
 		}
 	}
 	.modal-content {
@@ -18,18 +21,18 @@
 			color: $white_color;
 			font-size: 24px;
 			font-weight: 900;
-            margin-bottom: 0;
+			margin-bottom: 0;
 		}
-		.btn-close{
+		.btn-close {
 			filter: invert(1);
 		}
 	}
 	.modal-body {
-        padding: 10px 30px 30px;
+		padding: 10px 30px 30px;
 	}
-    .modal-footer{
-        border: 0;
-    }
+	.modal-footer {
+		border: 0;
+	}
 }
 .modal-backdrop {
 	background-color: $bg_modal_backdrop;

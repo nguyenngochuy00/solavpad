@@ -1,3 +1,66 @@
-.sol-bridge-process-dialog{
-    
+@import '../../../../styles/variables.scss';
+
+.sol-bridge-process-dialog {
+	.sol-bridge-process-content {
+		padding: 0 0px 0px 30px;
+		border-left: 1px solid rgba(255, 255, 255, 0.1);
+		.sol-bridge-process-body {
+			min-height: 310px;
+			color: $text_color;
+		}
+		.sol-bridge-process-title {
+			color: $white_color;
+			font-size: 20px;
+			font-weight: 900;
+			margin-bottom: 15px;
+		}
+		.sol-bridge-process-description {
+			margin-bottom: 20px;
+			small {
+				i {
+					font-size: 14px;
+					font-weight: 400;
+					line-height: 20px; /* 142.857% */
+				}
+			}
+			b {
+				color: $white_color;
+				font-weight: 500;
+			}
+		}
+		.sol-bridge-process-note {
+			border-radius: 20px;
+			background: $bg_card_color;
+			padding: 20px;
+			display: flex;
+			align-items: flex-start;
+			column-gap: 10px;
+			color: $warning_color;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 20px; /* 125% */
+			&.success {
+				color: $success_color;
+			}
+			&.error {
+				color: $danger_color;
+			}
+			b {
+				color: $white_color;
+				font-size: 16px;
+				font-weight: 500;
+				padding: 0 3px;
+			}
+		}
+		.sol-bridge-process-action {
+			border-top: 1px solid rgba($white_color, 0.1);
+			padding-top: 20px;
+			margin-top: 10px;
+			display: flex;
+			column-gap: 15px;
+			.sol-btn {
+				min-width: 140px;
+			}
+		}
+	}
 }

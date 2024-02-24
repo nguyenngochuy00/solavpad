@@ -1,3 +1,35 @@
-.sol-bridge-process-step1{
-    
+@import '../../../../../../styles/variables.scss';
+
+.sol-bridge-process-step1 {
+	.sol-bridge-process-card {
+		padding: 20px 30px;
+		background-color: $bg_card_color;
+		border-radius: 20px;
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			li {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				&:not(:last-child) {
+					padding-bottom: 15px;
+					margin-bottom: 15px;
+					border-bottom: 1px rgba($color: $white_color, $alpha: 0.1) solid;
+				}
+				div {
+					display: inline-flex;
+					align-items: center;
+					column-gap: 10px;
+					font-weight: 900;
+					color: $white_color;
+					img {
+						width: 24px;
+						border-radius: 5px;
+					}
+				}
+			}
+		}
+	}
 }
