@@ -27,6 +27,7 @@
 		height: 60px;
 	}
 	&-primary {
+		border: 0;
 		background: rgb(226, 80, 229);
 		background: linear-gradient(262deg, #e250e5 6%, #4b50e6 92%);
 		&::before {

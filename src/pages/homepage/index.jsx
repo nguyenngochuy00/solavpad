@@ -3,6 +3,10 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import SolPageTitle from "../../components/molecules/page-title";
+import SolConnectWalletDialog from "../../components/organisms/common/connect-wallet-dialog";
+import SolYourWalletDialog from "../../components/organisms/common/your-wallet-dialog";
+import SolLaunchpadDetailApproveDialog from "../../components/organisms/launchpad-detail/approve-dialog";
+import SolLaunchpadDetailJoinPoolDialog from "../../components/organisms/launchpad-detail/join-pool-dialog";
 import SolHomepageTemplate from "../../components/templates/homepage";
 import { getAddressInfo } from "../../utils/solana.web3";
 
@@ -28,11 +32,51 @@ const SolHomepage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey]);
 
+  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
+  const [showYourWalletModal, setShowYourWalletModal] = useState(false);
+  const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
+  const [showApproveModal, setShowApproveModal] = useState(true);
+
   return (
     <>
       <SolHomepageTemplate />
       <Container>
         <SolPageTitle>Homepage</SolPageTitle>
+
+        {/* Connect wallet modal */}
+        <SolConnectWalletDialog
+          show={showConnectWalletModal}
+          onClose={() => setShowConnectWalletModal(false)}
+        />
+
+        {/* Your wallet info modal */}
+        <SolYourWalletDialog
+          show={showYourWalletModal}
+          walletAddress="0xE0493DD5F947A93B8C0d750d317c46F393a0FBA2"
+          walletUrl="http://abc.com"
+          onClose={() => setShowYourWalletModal(false)}
+        />
+
+        {/* Join pool modal */}
+        <SolLaunchpadDetailJoinPoolDialog
+          show={showJoinPoolModal}
+          projectName="BlastFi"
+          amountSymbol='USDB'
+          balance={3000}
+          onClose={() => setShowJoinPoolModal(false)}
+          onJoin={() => setShowJoinPoolModal(false)}
+        />
+
+        {/* Approve modal */}
+        <SolLaunchpadDetailApproveDialog
+          show={showApproveModal}
+          projectName="BlastFi"
+          amountSymbol='USDB'
+          balance={3000}
+          onClose={() => setShowApproveModal(false)}
+          onApprove={() => setShowApproveModal(false)}
+        />
+
         {/* default connect button */}
         <WalletMultiButton />
         {/* custom connect button */}

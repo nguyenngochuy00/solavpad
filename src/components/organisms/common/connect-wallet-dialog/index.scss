@@ -1,3 +1,27 @@
-.sol-connect-wallet-dialog{
-    
+@import '../../../../styles/variables.scss';
+
+.sol-connect-wallet-dialog {
+	.sol-extensions {
+		display: flex;
+		flex-direction: column;
+		row-gap: 15px;
+	}
+	.sol-wallet-help {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-top: 30px;
+		column-gap: 10px;
+		text-decoration: none;
+		transition: all ease-in-out 0.3s;
+		color: $text_color;
+		font-weight: 500;
+        line-height: 1;
+		span {
+			text-decoration: underline;
+		}
+		&:hover {
+			color: $white-color;
+		}
+	}
 }
