@@ -1,26 +1,26 @@
 import { useState } from 'react';
+import { useDispatch } from "react-redux";
 import SolBridgeForm from '../../../components/organisms/bridge/bridge-form';
 import SolBridgeSelectAssetDialog from '../../../components/organisms/bridge/select-asset-dialog';
 import SolBridgeSelectNetworkDialog from '../../../components/organisms/bridge/select-network-dialog';
 import SolBridgeProcessDialogContainer from './bridge-process.container';
+import { toggleConnectWallet } from "../../../redux/actions/applicationAction";
+import { ASSETS, NETWORKS } from '../../../constants';
 
 const SolBridgeFormContainer = () => {
-    const ASSETS = [
-        { name: 'Solana', logo: '/images/icons/solana.svg' },
-        { name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
-        { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
-    ];
-    const NETWORKS = [
-        { name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
-        { name: 'Solana', logo: '/images/icons/solana.svg' },
-        { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
-    ]
+    const dispatch = useDispatch();
     const [showBridgeProcessModal, setShowBridgeProcessModal] = useState(false);
     const [showSelectAssetModal, setShowSelectAssetModal] = useState(false);
     const [showSelectNetworkModal, setShowSelectNetworkModal] = useState(false);
     const [keywordSearchAsset, setKeywordSearchAsset] = useState('');
     const [selectedAsset, setSelectedAsset] = useState(undefined);
     const [selectedNetwork, setSelectedNetwork] = useState(undefined);
+
+    // #region Connect wallet
+    const handleConnectWallet = () => {
+        dispatch(toggleConnectWallet(true))
+    }
+    // #endregion Connect wallet
 
     // #region Select asset
     const handleSelectAsset = () => {
@@ -66,9 +66,9 @@ const SolBridgeFormContainer = () => {
             onSelectAsset={handleSelectAsset}
             onSelectNetwork={handleSelectNetwork}
             onSwap={handleStartBridgeProcess}
+            onConnectWallet={handleConnectWallet}
         />
 
-        {/* Modals */}
         {/* Select asset modal */}
         <SolBridgeSelectAssetDialog
             show={showSelectAssetModal}

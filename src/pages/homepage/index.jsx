@@ -3,8 +3,6 @@ import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import SolPageTitle from "../../components/molecules/page-title";
-import SolConnectWalletDialog from "../../components/organisms/common/connect-wallet-dialog";
-import SolYourWalletDialog from "../../components/organisms/common/your-wallet-dialog";
 import SolLaunchpadDetailApproveDialog from "../../components/organisms/launchpad-detail/approve-dialog";
 import SolLaunchpadDetailJoinPoolDialog from "../../components/organisms/launchpad-detail/join-pool-dialog";
 import SolHomepageTemplate from "../../components/templates/homepage";
@@ -32,8 +30,6 @@ const SolHomepage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publicKey]);
 
-  const [showConnectWalletModal, setShowConnectWalletModal] = useState(false);
-  const [showYourWalletModal, setShowYourWalletModal] = useState(false);
   const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
   const [showApproveModal, setShowApproveModal] = useState(false);
 
@@ -42,26 +38,6 @@ const SolHomepage = () => {
       <SolHomepageTemplate />
       <Container>
         <SolPageTitle>Homepage</SolPageTitle>
-
-        {/* Connect wallet modal */}
-        <SolConnectWalletDialog
-          show={showConnectWalletModal}
-          extensions={[
-            { name: 'Metamask', logo: '/images/icons/metamask.svg' },
-            { name: 'Binance Chain Wallet', logo: '/images/icons/binance-chain-wallet.svg' },
-            { name: 'Trust Wallet', logo: '/images/icons/trust.svg' }
-          ]}
-          onSelect={() => setShowConnectWalletModal(false)}
-          onClose={() => setShowConnectWalletModal(false)}
-        />
-
-        {/* Your wallet info modal */}
-        <SolYourWalletDialog
-          show={showYourWalletModal}
-          walletAddress="0xE0493DD5F947A93B8C0d750d317c46F393a0FBA2"
-          walletUrl="http://abc.com"
-          onClose={() => setShowYourWalletModal(false)}
-        />
 
         {/* Join pool modal */}
         <SolLaunchpadDetailJoinPoolDialog
@@ -83,7 +59,7 @@ const SolHomepage = () => {
           onApprove={() => setShowApproveModal(false)}
         />
 
-       
+
         {/* default connect button */}
         <WalletMultiButton />
         {/* custom connect button */}

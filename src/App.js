@@ -7,24 +7,18 @@ import { WalletContext } from "./components/wallet-context";
 import store from "./redux/store/store";
 import AppRoutes from "./routes";
 import "./styles/base.scss";
-import SolHeader from "./components/organisms/common/header";
-import SolSidebar from "./components/organisms/common/sidebar";
 
 const App = () => {
   return (
     <>
-      <SolSidebar />
-      <main className="sol-main">
-        <SolHeader />
-        <WalletContext>
-          <Provider store={store}>
-            <Router>
-              <AppRoutes />
-            </Router>
-            <ToastContainer />
-          </Provider>
-        </WalletContext>
-      </main>
+      <WalletContext>
+        <Provider store={store}>
+          <Router>
+            <AppRoutes />
+          </Router>
+          <ToastContainer />
+        </Provider>
+      </WalletContext>
     </>
   );
 };

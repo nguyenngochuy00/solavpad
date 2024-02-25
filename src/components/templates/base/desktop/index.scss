@@ -1,0 +1,22 @@
+@import "../../../../styles/variables.scss";
+
+.sol-desktop-template{
+    .sol-main {
+        min-height: 100vh;
+      position: relative;
+      padding: 100px 60px 60px calc(60px + $sidebar_width);
+      &::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: $sidebar_width;
+        width: calc(100% - $sidebar_width);
+        height: 100%;
+        background-image: url(../../../../../public/images/background.jpeg);
+        background-size: cover;
+        background-attachment: fixed;
+        mix-blend-mode: multiply;
+        z-index: -1;
+      }
+    }
+}
