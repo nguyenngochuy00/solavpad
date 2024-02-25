@@ -1,6 +1,13 @@
-import "./index.scss";
+import './index.scss';
 
-const SolInfo = () => {
-    return <div className="sol-info"></div>
-}
-export default SolInfo
+const SolInfo = ({ label = '', value = '' }) => {
+	return (
+		<div className="sol-info">
+			<div className="sol-info-inner">
+				<div className="sol-info-label">{label}</div>
+				<div className="sol-info-value">{value}</div>
+			</div>
+		</div>
+	);
+};
+export default SolInfo;
