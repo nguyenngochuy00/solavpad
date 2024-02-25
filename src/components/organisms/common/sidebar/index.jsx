@@ -8,6 +8,7 @@ const SolSidebar = ({
     siteTitle,
     logoImage,
     menus = [],
+    activeMenu = '',
     isDarkMode,
     onMenuClick,
     onToggleMode
@@ -27,7 +28,7 @@ const SolSidebar = ({
                     disabled={menu.disabled}
                     icon={menu.icon}
                     text={menu.text}
-                    active={menu.active}
+                    active={menu.url === activeMenu}
                     onClick={() => onMenuClick(menu)}
                 />)
             }

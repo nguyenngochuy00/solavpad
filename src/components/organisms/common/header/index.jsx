@@ -2,13 +2,10 @@ import SolButton from "../../../atoms/button";
 import SolBreadcrumb from "../../../molecules/breadcrumb";
 import "./index.scss";
 
-const SolHeader = ({ onClickConnectWallet, onClickWallet }) => {
+const SolHeader = ({ breadcrumbs, onClickConnectWallet, onClickWallet }) => {
     return <div className="sol-header">
         <SolBreadcrumb
-            items={[
-                { text: 'Breadcrumb', url: '/' },
-                { text: '#Breadcrumb', url: '/', active: true }
-            ]}
+            items={breadcrumbs}
         />
         <div className="sol-header-right">
             <SolButton caption="Connect wallet" variant="primary" icon={
