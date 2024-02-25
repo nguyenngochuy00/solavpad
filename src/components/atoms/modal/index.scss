@@ -1,0 +1,42 @@
+@import '../../../styles/variables.scss';
+
+.sol-modal {
+	.modal-dialog {
+		margin-top: 150px;
+		@media (min-width: 576px) {
+			max-width: 420px;
+			&.modal-lg {
+				max-width: 700px;
+			}
+		}
+	}
+	.modal-content {
+		background-color: $bg_modal;
+		border-radius: 20px;
+	}
+	.modal-header {
+		padding: 20px 30px;
+		border: 0;
+		.modal-title {
+			color: $white_color;
+			font-size: 24px;
+			font-weight: 900;
+			margin-bottom: 0;
+		}
+		.btn-close {
+			filter: invert(1);
+		}
+	}
+	.modal-body {
+		padding: 10px 30px 30px;
+	}
+	.modal-footer {
+		border: 0;
+	}
+}
+.modal-backdrop {
+	background-color: $bg_modal_backdrop;
+	&.show {
+		opacity: 0.8;
+	}
+}

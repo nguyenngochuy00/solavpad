@@ -1,3 +1,33 @@
-.sol-your-wallet-dialog{
-    
+@import '../../../../styles/variables.scss';
+
+.sol-your-wallet-dialog {
+	.sol-wallet-info {
+		padding: 24px 20px 20px;
+		color: $white_color;
+		text-align: center;
+		border-radius: 10px;
+		background: $bg_sub_card_color;
+        margin-bottom: 30px;
+		.sol-wallet-address{
+			font-size: 20px;
+			font-weight: 900;
+			line-height: 28px; /* 140% */
+			word-wrap: break-word;
+		}
+		.sol-wallet-message{
+			color: $success_color;
+			font-size: 14px;
+			line-height: 14px;
+			margin-top: 10px;
+			height: 14px;
+		}
+	}
+	.sol-wallet-action {
+        display: flex;
+        align-items: center;
+		column-gap: 15px;
+		.sol-btn {
+			flex: 1;
+		}
+	}
 }

@@ -1,8 +1,8 @@
-import SolBridgeTemplate from "../../components/templates/bridge";
+import SolBridgeMainContainer from "./components/main.container";
 
 const SolBridgePage = () => {
     return <>
-        <SolBridgeTemplate />
+        <SolBridgeMainContainer />
     </>
 }
 export default SolBridgePage

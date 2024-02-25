@@ -1,3 +1,17 @@
+@import "../../../../styles/variables.scss";
+
 .sol-bridge-form{
-    
+    padding: 40px;
+    border-radius: 24px;
+    background-color: $bg_card_color;
+    min-height: 100%;
+    &-body{
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    &-action{
+        padding-top: 24px;
+        border-top: 1px solid rgba($white_color, 0.10);
+    }
 }
