@@ -1,16 +1,15 @@
 import { Buffer } from "buffer";
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import ScrollToTop from "../components/organisms/common/scroll-to-top";
 import SolDesktopPage from "../pages/base/desktop";
-
-const Error404Page = lazy(() => import("../pages/error-page/error-404"));
-const Homepage = lazy(() => import("../pages/homepage"));
-const SolLaunchpadPage = lazy(() => import("../pages/launchpad"));
-const SolLaunchpadDetailPage = lazy(() => import("../pages/launchpad-detail"));
-const SolStakingPage = lazy(() => import("../pages/staking"));
-const SolBridgePage = lazy(() => import("../pages/bridge"));
-const SolSupportPage = lazy(() => import("../pages/support"));
+import SolBridgePage from "../pages/bridge";
+import Error404Page from "../pages/error-page/error-404";
+import SolHomepage from "../pages/homepage";
+import SolLaunchpadPage from "../pages/launchpad";
+import SolLaunchpadDetailPage from "../pages/launchpad-detail";
+import SolStakingPage from "../pages/staking";
+import SolSupportPage from "../pages/support";
 
 window.Buffer = Buffer;
 
@@ -20,7 +19,7 @@ const AppRoutes = () => {
       <Suspense fallback={<></>}>
         <Routes>
           <Route path="/*" element={<SolDesktopPage />}>
-            <Route path="" element={<Homepage />} index />
+            <Route path="" element={<SolHomepage />} index />
             <Route path="launchpad" element={<SolLaunchpadPage />} />
             <Route path="launchpad/:id" element={<SolLaunchpadDetailPage />} />
             <Route path="staking" element={<SolStakingPage />} />

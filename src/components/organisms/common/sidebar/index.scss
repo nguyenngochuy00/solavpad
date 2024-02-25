@@ -1,12 +1,38 @@
 @import '../../../../styles/variables.scss';
 
-.sol-sidebar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 998;
-    background-color: $bg_secondary_color;
-    width: $sidebar_width;
-    height: 100vh;
-    padding: 20px;
+.sol-sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 998;
+	background-color: $bg_secondary_color;
+	width: $sidebar_width;
+	height: 100vh;
+	padding: 20px;
+	&-menu {
+		display: flex;
+		flex-direction: column;
+		padding: 32px 0 20px 20px;
+		row-gap: 5px;
+		height: calc(100% - 80px - 76px);
+		overflow-y: auto;
+		margin-left: -20px;
+		&::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background-color: rgba($color: #fff, $alpha: 0.02);
+			border-radius: 8px;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: linear-gradient(
+				262deg,
+				rgba(#e250e5, 06) 6%,
+				rgba(#4b50e6, 0.6) 92%
+			);
+			border-radius: 8px;
+		}
+	}
 }

@@ -1,3 +1,71 @@
-.sol-sidebar-item{
-    
+@import '../../../styles/variables.scss';
+
+.sol-sidebar-item-wrap {
+	position: relative;
+	&::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: -20px;
+		transform: translateY(-50%);
+		width: 90px;
+		height: 130px;
+		background-image: url(../../../../public/images/sidebar-active-bg.png);
+		background-size: cover;
+		background-position: top left;
+		opacity: 0;
+		transition: all ease-in-out 0.3s;
+		z-index: -1;
+	}
+	&.active {
+		&::before {
+			opacity: 1;
+			z-index: 0;
+		}
+		.sol-sidebar-item {
+			.sol-sidebar-item-icon {
+				background: rgba($white_color, 0.9);
+				color: $primary_color;
+			}
+		}
+	}
+	.sol-sidebar-item {
+		position: relative;
+		background-color: transparent;
+		border: 0;
+        padding: 0;
+		display: flex;
+		align-items: center;
+		column-gap: 10px;
+		width: 100%;
+		outline: 0;
+		color: $text_color;
+		font-size: 18px;
+		font-weight: 700;
+		transition: all ease-in-out 0.3s;
+		&:disabled {
+			pointer-events: none;
+			opacity: 0.5;
+		}
+		&:not(:disabled) {
+			&:hover {
+				color: $white_color;
+			}
+		}
+		&-icon {
+			width: 56px;
+			min-width: 56px;
+			height: 56px;
+			border-radius: 56px;
+			background: $bg_color;
+			margin: 7px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			img,
+			svg {
+				height: 24px;
+			}
+		}
+	}
 }
