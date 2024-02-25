@@ -1,6 +1,17 @@
-import "./index.scss";
+import './index.scss';
 
-const SolBreadcrumb = () => {
-    return <div className="sol-breadcrumb"></div>
-}
-export default SolBreadcrumb
+const SolBreadcrumb = ({ items = '' }) => {
+	return (
+		<div className="sol-breadcrumb">
+			<button type="button">
+				{items ? <span className="sol-items">{items}</span> : <></>}
+			</button>
+
+			<p>/</p>
+			<span className="sol-name">Breadcrumb</span>
+			<p>/</p>
+			<span className="sol-name-two">#Breadcrumb</span>
+		</div>
+	);
+};
+export default SolBreadcrumb;
