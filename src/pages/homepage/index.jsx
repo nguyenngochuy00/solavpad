@@ -75,7 +75,6 @@ const SolHomepage = () => {
 						<Button onClick={disconnect}>Disconnect wallet</Button>
 					</div>
 				)}
-				<SolButtonSample />
 				<SolCardSample />
 				<SolStatisticSample />
 				<SolProgressBarSample />
