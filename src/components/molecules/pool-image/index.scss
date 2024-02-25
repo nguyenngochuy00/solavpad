@@ -1,3 +1,47 @@
-.sol-pool-image{
-    
+@import '../../../styles/variables.scss';
+
+.sol-pool-image {
+	width: 316px;
+	padding: 10px 0px;
+	position: relative;
+
+	&-src {
+		height: 272px;
+		border-radius: 20px;
+	}
+
+	.sol-pool-network-info {
+		width: 147px;
+		display: flex;
+		padding: 5px;
+		justify-content: center;
+		align-items: center;
+		gap: 4px;
+		border-radius: 5px;
+		background: rgba(27, 28, 49, 0.6);
+		backdrop-filter: blur(3px);
+		position: absolute;
+		right: 19px;
+		bottom: 22px;
+
+		.sol-pool-network-icon {
+			width: 20px;
+			height: 20px;
+		}
+
+		.sol-pool-network-name {
+			width: 113px;
+			color: $white_color;
+			font-size: 13px;
+			font-weight: 700;
+			line-height: 13px;
+			text-transform: uppercase;
+
+			span {
+				color: rgba(255, 255, 255, 0.6);
+				font-weight: 400;
+				text-transform: lowercase;
+			}
+		}
+	}
 }
