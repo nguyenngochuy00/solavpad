@@ -1,34 +1,31 @@
+@import '../../../styles/variables.scss';
+
 .sol-logo {
 	display: flex;
-	gap: 50px;
-	padding: 10px;
-	.logo-image {
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		padding: 10px;
-		padding-bottom: 10px;
-		img {
-			width: 50px;
-			height: 50px;
-		}
+	padding: 10px 10px 0;
+	height: 80px;
+	border-bottom: 1px solid rgba($white_color, 0.1);
+	column-gap: 15px;
+	color: $text_color;
+	font-size: 30px;
+	font-weight: 700;
+	text-decoration: none;
+	transition: all ease-in-out 0.3s;
+	&:hover {
+		color: $white_color;
 	}
-	.logo-image-name {
+	&-image {
+		width: 50px;
+		min-width: 50px;
+		height: 50px;
+		overflow: hidden;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		gap: 15px;
-		padding: 10px;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		padding-bottom: 10px;
 		img {
-			width: 50px;
-			height: 50px;
-		}
-		span {
-			color: var(--Text-Color, rgba(255, 255, 255, 0.6));
-			font-size: 40px;
-			font-style: normal;
-			font-weight: 700;
-			line-height: normal;
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
 		}
 	}
 }

@@ -4,7 +4,11 @@ import "./index.scss";
 
 const SolSidebar = () => {
     return <div className="sol-sidebar">
-        <SolLogo />
+        <SolLogo
+            siteUrl="/"
+            siteTitle="Solav"
+            logoImage="/images/logo.png"
+        />
         <SolSidebarItem />
         <SolSidebarItem />
     </div>
