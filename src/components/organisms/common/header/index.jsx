@@ -4,7 +4,12 @@ import "./index.scss";
 
 const SolHeader = ({ onClickConnectWallet, onClickWallet }) => {
     return <div className="sol-header">
-        <SolBreadcrumb />
+        <SolBreadcrumb
+            items={[
+                { text: 'Breadcrumb', url: '/' },
+                { text: '#Breadcrumb', url: '/', active: true }
+            ]}
+        />
         <div className="sol-header-right">
             <SolButton caption="Connect wallet" variant="primary" icon={
                 <img src="/images/icons/wallet.svg" alt='' />

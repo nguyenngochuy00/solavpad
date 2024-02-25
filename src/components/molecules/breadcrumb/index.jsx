@@ -1,16 +1,24 @@
+import { Link } from 'react-router-dom';
 import './index.scss';
 
-const SolBreadcrumb = ({ items = '' }) => {
+const SolBreadcrumb = ({ items = [] }) => {
 	return (
 		<div className="sol-breadcrumb">
-			<button type="button">
-				{items ? <span className="sol-items">{items}</span> : <></>}
-			</button>
-
-			<p>/</p>
-			<span className="sol-name">Breadcrumb</span>
-			<p>/</p>
-			<span className="sol-name-two">#Breadcrumb</span>
+			<Link className='sol-breadcrumb-home' to="/">
+				<img src="/images/icons/home.svg" alt="" />
+			</Link>
+			{
+				items.map((item, index) => <span key={index} className='sol-breadcrumb-item'>
+					<span className='sol-breadcrumb-decoration'>/</span>
+					{
+						item.active ?
+							<span className='sol-breadcrumb-item-active'>{item.text}</span> :
+							<Link className='sol-breadcrumb-item-link' to={item.url}>
+								{item.text}
+							</Link>
+					}
+				</span>)
+			}
 		</div>
 	);
 };
