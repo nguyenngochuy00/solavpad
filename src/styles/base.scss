@@ -1,17 +1,69 @@
 @import '~bootstrap/scss/bootstrap';
-@import "variables.scss";
+@import 'variables.scss';
 
 body {
 	font-family: 'Mabry Pro', sans-serif;
 	font-size: 16px;
 	font-weight: 400;
-    background: #1B1C31;
-    color: rgba($color: #fff, $alpha: 0.6);
+	background: #1b1c31;
+	color: rgba($color: #fff, $alpha: 0.6);
 }
 // Demo
-table{
-	td{
+table {
+	td {
 		padding: 16px;
 		min-width: 220px;
+	}
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+input[type='checkbox'] {
+	position: relative;
+	cursor: pointer;
+	margin-top: 2px;
+	width: 20px;
+	height: 20px;
+	outline: 0;
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		top: 0;
+		left: 0;
+		border: 1px solid $text_color;
+		border-radius: 3px;
+		background-color: $bg_secondary_color;
+		transition: all ease-in-out .3s;
+	}
+	&:checked {
+		&:before {
+			background-color: $primary_color;
+		}
+		&:after {
+			content: '';
+			display: block;
+			width: 5px;
+			height: 10px;
+			border: solid $white_color;
+			border-width: 0 2px 2px 0;
+			-webkit-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			transform: rotate(45deg);
+			position: absolute;
+			top: 4px;
+			left: 8px;
+		}
 	}
 }

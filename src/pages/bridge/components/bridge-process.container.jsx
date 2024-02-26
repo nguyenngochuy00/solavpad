@@ -16,7 +16,7 @@ const SolBridgeProcessDialogContainer = ({ show, onClose }) => {
     }
 
     const handleNext = () => {
-        if (step === 4) return;
+        if (step === BRIDGE_STEPS.length) return;
         setStep(step + 1);
     }
 

@@ -1,0 +1,22 @@
+@import 'src/styles/variables.scss';
+
+.sol-staking-stake {
+	padding: 20px 30px;
+	&-content {
+		padding: 0 0px 0px 30px;
+		border-left: 1px solid rgba(255, 255, 255, 0.1);
+	}
+    &-body{
+		min-height: 435px;
+    }
+	&-action {
+		border-top: 1px solid rgba($white_color, 0.1);
+		padding-top: 20px;
+		margin-top: 10px;
+		display: flex;
+		column-gap: 15px;
+		.sol-btn {
+			min-width: 140px;
+		}
+	}
+}

@@ -1,3 +1,32 @@
-.sol-tab{
-    
+@import 'src/styles/variables.scss';
+
+.sol-tab {
+	flex: 1;
+	background-color: transparent;
+	border: 0;
+	display: flex;
+	justify-content: center;
+	padding: 18px 30px 20px 30px;
+	gap: 10px;
+	border-bottom: 3px solid transparent;
+	color: $text_color;
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all ease-in-out 0.3s;
+    outline: 0;
+	&:disabled {
+		pointer-events: none;
+		opacity: 0.5;
+	}
+	&:not(:disabled) {
+		&:hover {
+			color: $white_color;
+		}
+	}
+	&.active {
+		color: $white_color;
+		border-color: $primary_color;
+	}
 }
