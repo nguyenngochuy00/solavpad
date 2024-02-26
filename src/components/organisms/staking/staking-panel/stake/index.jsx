@@ -11,19 +11,19 @@ import SolButton from "src/components/atoms/button";
 const SolStakingStake = ({
     steps,
     currentStep,
-    symbol,
-    networkName,
-    connectedWallet = false,
-    tokenAvaiable = 0,
-    balanceAvailable = 0,
-    balanceSymbol,
-    stakeable = false,
-    confirmed,
-    amount = 0,
+    connectedWallet,
+    stakingSymbol,
+    currentBalance,
+    paymentBalance,
+    paymentSymbol,
+    paymentNetwork,
+    stakeable,
+    confirmedStake,
+    stakeAmount,
     stakeLoadingPercent,
     isValid = false,
-    onConfirm,
-    onAmountChange,
+    onConfirmStake,
+    onStakeAmountChange,
     onPrev,
     onNext,
     onDone
@@ -40,29 +40,31 @@ const SolStakingStake = ({
                 <div className="sol-staking-stake-content">
                     <div className="sol-staking-stake-body">
                         {currentStep === 1 ? <SolStakingStakeStep1
-                            symbol={symbol}
                             connectedWallet={connectedWallet}
-                            tokenAvaiable={tokenAvaiable}
-                            balanceAvailable={balanceAvailable}
-                            balanceSymbol={balanceSymbol}
-                            networkName={networkName}
+                            stakingSymbol={stakingSymbol}
+                            currentBalance={currentBalance}
+                            paymentBalance={paymentBalance}
+                            paymentSymbol={paymentSymbol}
+                            networkName={paymentNetwork}
                             stakeable={stakeable}
-                            confirmed={confirmed}
-                            onConfirm={onConfirm}
+                            confirmedStake={confirmedStake}
+                            onConfirmStake={onConfirmStake}
                         /> : <></>}
                         {currentStep === 2 ? <SolStakingStakeStep2
-                            amount={amount}
-                            symbol={symbol}
-                            onAmountChange={onAmountChange}
+                            stakeAmount={stakeAmount}
+                            stakingSymbol={stakingSymbol}
+                            onStakeAmountChange={onStakeAmountChange}
                         /> : <></>}
                         {currentStep === 3 ? <SolStakingStakeStep3
-                            percent={stakeLoadingPercent}
+                            stakeAmount={stakeAmount}
+                            stakingSymbol={stakingSymbol}
+                            stakeLoadingPercent={stakeLoadingPercent}
                         /> : <></>}
                         {currentStep === 4 ? <SolStakingStakeStep4
-                            symbol={symbol}
+                            stakingSymbol={stakingSymbol}
                         /> : <></>}
                         {currentStep === 5 ? <SolStakingStakeStep5
-                            symbol={symbol}
+                            stakingSymbol={stakingSymbol}
                         /> : <></>}
                     </div>
                     <div className="sol-staking-stake-action">

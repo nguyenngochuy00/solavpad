@@ -9,60 +9,63 @@ const SolStakingStakeContainer = () => {
         { step: 4, text: 'Confirm' },
         { step: 5, text: 'Confirmation' }
     ]
-    const [step, setStep] = useState(1);
-    const [confirmed, setConfirmed] = useState(false);
-    const [amount, setAmount] = useState(1);
+    const [currentStep, setCurrentStep] = useState(1);
+    const [stakeAmount, setStakeAmount] = useState(1);
     const connectedWallet = true;
-    const tokenAvaiable = 1;
-    const balanceAvailable = 1;
+    const currentBalance = 1;
+    const stakingSymbol = 'BSCPAD';
+    const paymentBalance = 1;
+    const paymentSymbol = "BNB";
+    const paymentNetwork = "Binance Smart Chain";
     const stakeable = true;
+    const [confirmedStake, setConfirmedStake] = useState(false);
     const stakeLoadingPercent = 100;
 
-    const handleConfirm = (confirm) => {
-        setConfirmed(confirm);
+    const handleConfirmStake = (confirm) => {
+        setConfirmedStake(confirm);
     }
 
-    const handleAmountChange = (newAmount) => {
-        setAmount(newAmount)
+    const handleStakeAmountChange = (newAmount) => {
+        setStakeAmount(newAmount)
     }
 
     const handlePrev = () => {
-        if (step === 1) return;
-        setStep(step - 1);
+        if (currentStep === 1) return;
+        setCurrentStep(currentStep - 1);
     }
 
     const handleNext = () => {
-        if (step === STEPS.length) return;
-        setStep(step + 1);
+        if (currentStep === STEPS.length) return;
+        setCurrentStep(currentStep + 1);
     }
 
     const handleDone = () => {
-        setStep(1);
+        setCurrentStep(1);
         console.log('Done');
     }
 
     return <>
         <SolStakingStake
-            currentStep={step}
             steps={STEPS}
-            symbol="BSCPAD"
-            networkName="Binance Smart Chain"
+            currentStep={currentStep}
             connectedWallet={connectedWallet}
-            tokenAvaiable={tokenAvaiable}
-            balanceAvailable={balanceAvailable}
-            balanceSymbol="BNB"
+            stakingSymbol={stakingSymbol}
+            currentBalance={currentBalance}
+            paymentBalance={paymentBalance}
+            paymentSymbol={paymentSymbol}
+            paymentNetwork={paymentNetwork}
             stakeable={stakeable}
-            confirmed={confirmed}
+            confirmedStake={confirmedStake}
+            stakeAmount={stakeAmount}
             stakeLoadingPercent={stakeLoadingPercent}
             isValid={
-                (step === 1 && confirmed && connectedWallet && tokenAvaiable && balanceAvailable && stakeable) ||
-                (step === 2 && amount) ||
-                (step === 3 && stakeLoadingPercent === 100) ||
-                (step === 4)
+                (currentStep === 1 && confirmedStake && connectedWallet && currentBalance && paymentBalance && stakeable) ||
+                (currentStep === 2 && stakeAmount) ||
+                (currentStep === 3 && stakeLoadingPercent === 100) ||
+                (currentStep === 4)
             }
-            amount={amount}
-            onAmountChange={handleAmountChange}
-            onConfirm={handleConfirm}
+            onStakeAmountChange={handleStakeAmountChange}
+            onConfirmStake={handleConfirmStake}
             onPrev={handlePrev}
             onNext={handleNext}
             onDone={handleDone}

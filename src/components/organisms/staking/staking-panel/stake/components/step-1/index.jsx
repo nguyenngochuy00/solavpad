@@ -1,70 +1,49 @@
 import { Link } from "react-router-dom";
+import SolCheckpoints from "src/components/organisms/common/checkpoints";
+import SolStakingStep from "src/components/organisms/common/staking-step";
 import { APP_ROUTES } from "src/constants";
-import "./index.scss";
 
 const SolStakingStakeStep1 = ({
-    symbol,
     connectedWallet = false,
-    tokenAvaiable = 0,
-    balanceAvailable = 0,
-    balanceSymbol,
-    networkName,
+    stakingSymbol,
+    currentBalance = 0,
+    paymentBalance = 0,
+    paymentSymbol,
+    paymentNetwork,
     stakeable = false,
-    confirmed = false,
-    onConfirm
+    confirmedStake = false,
+    onConfirmStake
 }) => {
-    return <div className="sol-staking-stake-step1">
-        <div className="sol-staking-step-title">Checkpoints</div>
-        <div className="sol-staking-step-description">The following conditions must be met to proceed:</div>
-        <div className="sol-staking-step-card">
-            {/* Checkpoint #1 */}
-            <div className="sol-staking-step-card-item">
-                <div className="icon">
-                    <img src={connectedWallet ? '/images/icons/avail.svg' : '/images/icons/not-avail.svg'} alt="" />
-                </div>
-                <div className="info">
-                    <h5>Connected with MetaMask</h5>
-                    <div>If not connected, click the "Connect Wallet" button in the top right corner</div>
-                </div>
-            </div>
-
-            {/* Checkpoint #2 */}
-            <div className="sol-staking-step-card-item">
-                <div className="icon">
-                    <img src={tokenAvaiable ? '/images/icons/avail.svg' : '/images/icons/not-avail.svg'} alt="" />
-                </div>
-                <div className="info">
-                    <h5>{symbol} available to deposit</h5>
-                    <div>Current Balance: {tokenAvaiable}</div>
-                </div>
-            </div>
-
-            {/* Checkpoint #3 */}
-            <div className="sol-staking-step-card-item">
-                <div className="icon">
-                    <img src={balanceAvailable ? '/images/icons/avail.svg' : '/images/icons/not-avail.svg'} alt="" />
-                </div>
-                <div className="info">
-                    <h5>{balanceSymbol} available in wallet</h5>
-                    <div>{balanceSymbol} is required to pay transaction fees on the {networkName} network. {balanceSymbol} Balance: 0.0000</div>
-                </div>
-            </div>
-
-            {/* Checkpoint #4 */}
-            <div className="sol-staking-step-card-item">
-                <div className="icon">
-                    <img src={stakeable ? '/images/icons/avail.svg' : '/images/icons/not-avail.svg'} alt="" />
-                </div>
-                <div className="info">
-                    <h5>Eligible to stake</h5>
-                    <div>You cannot stake if you have an active {symbol} unstake/withdrawal request</div>
-                </div>
-            </div>
-        </div>
-        <div className="sol-staking-step-confirm">
-            <input type="checkbox" checked={confirmed} onChange={e => onConfirm(e.target.checked)} />
+    return <SolStakingStep
+        title="Checkpoints"
+        description="The following conditions must be met to proceed:"
+        confirm={<>
+            <input type="checkbox" checked={confirmedStake} onChange={e => onConfirmStake(e.target.checked)} />
             <span>I have read the <Link to={APP_ROUTES.SUPPORT.url}>Terms and Conditions</Link></span>
-        </div>
-    </div>
+        </>}
+        className="sol-staking-stake-step1"
+    >
+        <SolCheckpoints
+            checkpoints={[
+                {
+                    checked: connectedWallet,
+                    title: 'Connected with MetaMask',
+                    description: 'If not connected, click the "Connect Wallet" button in the top right corner'
+                }, {
+                    checked: currentBalance,
+                    title: `${stakingSymbol} available to deposit`,
+                    description: `Current Balance: ${currentBalance}`
+                }, {
+                    checked: paymentBalance,
+                    title: `${paymentSymbol} available in wallet`,
+                    description: `${paymentSymbol} is required to pay transaction fees on the ${paymentNetwork} network. ${paymentSymbol} Balance: ${paymentBalance}`
+                }, {
+                    checked: stakeable,
+                    title: 'Eligible to stake',
+                    description: `You cannot stake if you have an active ${stakingSymbol} unstake/withdrawal request`
+                }
+            ]}
+        />
+    </SolStakingStep>
 }
 export default SolStakingStakeStep1

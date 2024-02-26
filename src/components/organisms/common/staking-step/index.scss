@@ -1,0 +1,43 @@
+@import 'src/styles/variables.scss';
+
+.sol-staking-step {
+	&-title {
+		color: $white_color;
+		font-size: 20px;
+		font-weight: 900;
+		margin-bottom: 15px;
+	}
+	&-description {
+		color: $text_color;
+		font-size: 16px;
+		font-weight: 400;
+		margin-bottom: 20px;
+		b {
+			color: $white_color;
+			font-weight: 500;
+		}
+		small {
+			i {
+				font-size: 14px;
+				font-weight: 400;
+				line-height: 20px; /* 142.857% */
+			}
+		}
+	}
+	&-confirm {
+		padding: 20px 0;
+		display: flex;
+		column-gap: 8px;
+		a {
+			color: $white_color;
+			transition: all ease-in-out 0.3s;
+			&:hover {
+				color: $primary_color;
+			}
+		}
+	}
+	&-highlight {
+		padding-top: 10px;
+		color: $white-color;
+	}
+}

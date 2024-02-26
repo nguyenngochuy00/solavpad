@@ -1,0 +1,10 @@
+@import 'src/styles/variables.scss';
+
+.sol-checkpoints {
+	display: flex;
+	padding: 20px;
+	flex-direction: column;
+	gap: 20px;
+	border-radius: 20px;
+	background: $bg_card_color;
+}

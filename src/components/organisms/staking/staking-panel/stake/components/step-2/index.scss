@@ -1,18 +1,6 @@
 @import 'src/styles/variables.scss';
 
 .sol-staking-stake-step2 {
-	.sol-staking-step-title {
-		color: $white_color;
-		font-size: 20px;
-		font-weight: 900;
-		margin-bottom: 15px;
-	}
-	.sol-staking-step-description {
-		color: $text_color;
-		font-size: 16px;
-		font-weight: 400;
-		margin-bottom: 20px;
-	}
 	.sol-staking-stake-input {
 		width: 300px;
 		max-width: 100%;
