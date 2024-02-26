@@ -1,8 +1,60 @@
+import { useState } from "react";
 import SolUnstakingWithdraw from "src/components/organisms/staking/staking-panel/withdraw";
 
 const SolStakingWithdrawContainer = () => {
+    const STEPS = [
+        { step: 1, text: 'Prerequisites' },
+        { step: 2, text: 'Initialize Withdrawal' },
+        { step: 3, text: 'Confirmation' }
+    ]
+    const [currentStep, setCurrentStep] = useState(1);
+    const connectedWallet = true;
+    const withdrawSymbol = 'BSCPAD';
+    const yourStakedAmount = 1;
+    const yourStakedRewards = 1;
+    const paymentBalance = 1;
+    const paymentSymbol = "BNB";
+    const [confirmedWithdraw, setConfirmedWithdraw] = useState(false);
+
+    const handleConfirmWithdraw = (confirm) => {
+        setConfirmedWithdraw(confirm);
+    }
+
+    const handlePrev = () => {
+        if (currentStep === 1) return;
+        setCurrentStep(currentStep - 1);
+    }
+
+    const handleNext = () => {
+        if (currentStep === STEPS.length) return;
+        setCurrentStep(currentStep + 1);
+    }
+
+    const handleDone = () => {
+        setCurrentStep(1);
+        console.log('Done');
+    }
+
     return <>
-        <SolUnstakingWithdraw />
+        <SolUnstakingWithdraw
+            steps={STEPS}
+            currentStep={currentStep}
+            connectedWallet={connectedWallet}
+            withdrawSymbol={withdrawSymbol}
+            yourStakedAmount={yourStakedAmount}
+            yourStakedRewards={yourStakedRewards}
+            paymentBalance={paymentBalance}
+            paymentSymbol={paymentSymbol}
+            confirmedWithdraw={confirmedWithdraw}
+            isValid={
+                (currentStep === 1 && confirmedWithdraw && connectedWallet && yourStakedAmount && yourStakedRewards && paymentBalance) ||
+                (currentStep !== 1)
+            }
+            onConfirmWithdraw={handleConfirmWithdraw}
+            onPrev={handlePrev}
+            onNext={handleNext}
+            onDone={handleDone}
+        />
     </>
 }
 export default SolStakingWithdrawContainer
