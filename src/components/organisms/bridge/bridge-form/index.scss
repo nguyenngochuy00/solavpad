@@ -9,9 +9,24 @@
         display: flex;
         flex-direction: column;
         row-gap: 20px;
+        padding-bottom: 20px;
     }
     &-action{
         padding-top: 24px;
         border-top: 1px solid rgba($white_color, 0.10);
+    }
+    &-row{
+        display: flex;
+        column-gap: 10px;
+        .sol-form-group{
+            flex: 1;
+        }
+    }
+    .sol-btn-swap{
+        padding: 40px 5px 10px;
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        cursor: pointer;
     }
 }
