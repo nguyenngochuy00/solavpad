@@ -1,8 +1,6 @@
 @import 'src/styles/variables.scss';
 
 .sol-card {
-	width: 546px;
-	height: 154px;
 	display: flex;
 	padding: 30px;
 	flex-direction: column;
@@ -10,7 +8,6 @@
 	background: rgba(255, 255, 255, 0.03);
 
 	&-header {
-		width: 100%;
 		height: 36px;
 		display: flex;
 		align-items: flex-start;
@@ -18,11 +15,9 @@
 
 		.sol-card-title {
 			padding: 10px 0px 10px 20px;
-			width: 119px;
 			color: $white_color;
 			font-size: 16px;
 			font-weight: 700;
-			line-height: 16px;
 			text-transform: uppercase;
 			margin: 0;
 		}
@@ -30,7 +25,6 @@
 
 	&-content {
 		width: 100%;
-		height: 58px;
 		display: flex;
 		padding: 30px 0px 12px 0px;
 		align-items: center;
@@ -38,11 +32,9 @@
 		border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
 
 		.sol-card-body {
-			width: 76px;
 			color: rgba(255, 255, 255, 0.6);
 			font-size: 16px;
 			font-weight: 400;
-			line-height: 16px;
 		}
 	}
 }
