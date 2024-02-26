@@ -7,7 +7,7 @@ import SolStakingWithdrawContainer from "./withdraw.container";
 const SolStakingPanelContainer = () => {
     const TABS = [
         { key: 'stake', text: 'Stake' },
-        { key: 'unstake', text: 'Unstake' },
+        { key: 'unstake', text: 'Unstake', disabled: true },
         { key: 'withdraw', text: 'Withdraw' }
     ]
     const [activeTab, setActiveTab] = useState(TABS[0].key);

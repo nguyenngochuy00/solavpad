@@ -6,6 +6,7 @@ const SolStakingTabs = ({ tabs = [], activeTab, onTabChange }) => {
         {tabs.map((tab, index) => <SolTab key={index}
             text={tab.text}
             active={activeTab === tab.key}
+            disabled={tab.disabled}
             onClick={() => onTabChange(tab.key)}
         />)}
     </div>
