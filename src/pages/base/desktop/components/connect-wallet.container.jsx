@@ -1,8 +1,8 @@
 import { get } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import SolConnectWalletDialog from "../../../../components/organisms/common/connect-wallet-dialog";
-import { CONNECT_WALLET_EXTEMSIONS } from "../../../../constants";
-import { toggleConnectWallet } from "../../../../redux/actions/applicationAction";
+import SolConnectWalletDialog from "src/components/organisms/common/connect-wallet-dialog";
+import { CONNECT_WALLET_EXTEMSIONS } from "src/constants";
+import { toggleConnectWallet } from "src/redux/actions/applicationAction";
 
 const SolConnectWalletContainer = () => {
     const dispatch = useDispatch();

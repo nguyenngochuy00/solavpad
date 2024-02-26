@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import 'src/styles/variables.scss';
 
 .sol-sidebar-item-wrap {
 	position: relative;
@@ -10,7 +10,7 @@
 		transform: translateY(-50%);
 		width: 90px;
 		height: 130px;
-		background-image: url(../../../../public/images/sidebar-active-bg.png);
+		background-image: url(~/public/images/sidebar-active-bg.png);
 		background-size: cover;
 		background-position: top left;
 		opacity: 0;

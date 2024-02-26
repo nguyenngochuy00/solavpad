@@ -1,7 +1,7 @@
 import { Col, Row } from "react-bootstrap";
-import SolButton from "../../../atoms/button";
-import SolModal from "../../../atoms/modal";
-import SolStepperVertical from "../../common/stepper-vertical";
+import SolButton from "src/components/atoms/button";
+import SolModal from "src/components/atoms/modal";
+import SolStepperVertical from "src/components/organisms/common/stepper-vertical";
 import SolBridgeProcessStep1 from "./components/step-1";
 import SolBridgeProcessStep2 from "./components/step-2";
 import SolBridgeProcessStep3 from "./components/step-3";

@@ -2,10 +2,10 @@ import { get } from "lodash";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import SolHeader from "../../../../components/organisms/common/header";
-import SolYourWalletDialog from "../../../../components/organisms/common/your-wallet-dialog";
-import { toggleConnectWallet, updateBreadcrumbs } from "../../../../redux/actions/applicationAction";
-import { getBreadcrumbs } from "../../../../utils/route.utils";
+import SolHeader from "src/components/organisms/common/header";
+import SolYourWalletDialog from "src/components/organisms/common/your-wallet-dialog";
+import { toggleConnectWallet, updateBreadcrumbs } from "src/redux/actions/applicationAction";
+import { getBreadcrumbs } from "src/utils/route.utils";
 
 const SolDesktopHeaderContainer = () => {
     const dispatch = useDispatch();

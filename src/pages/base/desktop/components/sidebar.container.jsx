@@ -2,10 +2,10 @@ import { get } from "lodash";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import SolSidebar from "../../../../components/organisms/common/sidebar";
-import { APP_MENUS, SITE_CONFIGS } from "../../../../constants";
-import { toggleDarkMode } from "../../../../redux/actions/applicationAction";
-import { getActiveRoute } from "../../../../utils/route.utils";
+import SolSidebar from "src/components/organisms/common/sidebar";
+import { APP_MENUS, SITE_CONFIGS } from "src/constants";
+import { toggleDarkMode } from "src/redux/actions/applicationAction";
+import { getActiveRoute } from "src/utils/route.utils";
 
 const SolDesktopSidebarContainer = () => {
     const location = useLocation();

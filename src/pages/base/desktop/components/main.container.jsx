@@ -1,4 +1,4 @@
-import SolDesktopTemplate from "../../../../components/templates/base/desktop";
+import SolDesktopTemplate from "src/components/templates/base/desktop";
 import SolConnectWalletContainer from "./connect-wallet.container";
 import SolDesktopHeaderContainer from "./header.container";
 import SolDesktopSidebarContainer from "./sidebar.container";

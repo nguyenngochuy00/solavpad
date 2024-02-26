@@ -1,4 +1,4 @@
-import SolStepperItem from "../../../molecules/stepper-item";
+import SolStepperItem from "src/components/molecules/stepper-item";
 import "./index.scss";
 
 const SolStepperVertical = ({ steps = [], currentStep = 1 }) => {

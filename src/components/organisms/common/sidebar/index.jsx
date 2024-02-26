@@ -1,5 +1,5 @@
-import SolLogo from "../../../molecules/logo";
-import SolSidebarItem from "../../../molecules/sidebar-item";
+import SolLogo from "src/components/molecules/logo";
+import SolSidebarItem from "src/components/molecules/sidebar-item";
 import "./index.scss";
 
 const SolSidebar = ({

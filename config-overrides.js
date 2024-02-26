@@ -1,4 +1,5 @@
 const { ProvidePlugin } = require('webpack');
+const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 
 module.exports = function (config, env) {
     return {
@@ -38,6 +39,7 @@ module.exports = function (config, env) {
                 url: require.resolve('url/'),
                 zlib: require.resolve('browserify-zlib'),
             },
+            plugins: config.resolve.plugins.filter(plugin => !(plugin instanceof ModuleScopePlugin))
         },
         ignoreWarnings: [/Failed to parse source map/],
     };

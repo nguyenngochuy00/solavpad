@@ -1,4 +1,4 @@
-import SolSupportTemplate from "../../components/templates/support";
+import SolSupportTemplate from "src/components/templates/support";
 
 const SolSupportPage = () => {
     return <>

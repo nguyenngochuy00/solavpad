@@ -1,6 +1,6 @@
 import { useState } from "react";
-import SolButton from "../../../atoms/button";
-import SolModal from "../../../atoms/modal";
+import SolButton from "src/components/atoms/button";
+import SolModal from "src/components/atoms/modal";
 import "./index.scss";
 
 const SolYourWalletDialog = ({ show, walletAddress, walletUrl, onClose }) => {

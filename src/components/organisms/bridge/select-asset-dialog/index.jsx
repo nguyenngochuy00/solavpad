@@ -1,5 +1,5 @@
-import SolModal from "../../../atoms/modal";
-import SolItemCard from "../../../molecules/item-card";
+import SolModal from "src/components/atoms/modal";
+import SolItemCard from "src/components/molecules/item-card";
 import "./index.scss";
 
 const SolBridgeSelectAssetDialog = ({ show, assets = [], selectedAsset, keyword, onSearch, onSelect, onClose }) => {

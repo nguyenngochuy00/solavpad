@@ -1,5 +1,5 @@
 import { Col, Row } from "react-bootstrap";
-import SolStepperVertical from "../../common/stepper-vertical";
+import SolStepperVertical from "src/components/organisms/common/stepper-vertical";
 import SolStakingWithdrawStep1 from "./components/step-1";
 import SolStakingWithdrawStep2 from "./components/step-2";
 import SolStakingWithdrawStep3 from "./components/step-3";

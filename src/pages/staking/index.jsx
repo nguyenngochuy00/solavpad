@@ -1,8 +1,8 @@
-import SolLaunchpadTemplate from "../../components/templates/launchpad";
+import SolStakingMainContainer from "./components/main.container"
 
 const SolStakingPage = () => {
     return <>
-        <SolLaunchpadTemplate />
+        <SolStakingMainContainer />
     </>
 }
 export default SolStakingPage

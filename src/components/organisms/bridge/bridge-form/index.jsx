@@ -1,4 +1,4 @@
-import SolButton from "../../../atoms/button";
+import SolButton from "src/components/atoms/button";
 import "./index.scss";
 
 const SolBridgeForm = ({ connectedWallet = false, onSelectAsset, onSelectNetwork, onConnectWallet, onSwap }) => {

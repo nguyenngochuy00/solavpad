@@ -1,7 +1,7 @@
-import SolLaunchpadBanner from "../../organisms/launchpad/banner";
-import SolLaunchpadCompleted from "../../organisms/launchpad/completed-launchpads";
-import SolLaunchpadOpening from "../../organisms/launchpad/opening-launchpads";
-import SolLaunchpadUpcoming from "../../organisms/launchpad/upcoming-launchpads";
+import SolLaunchpadBanner from "src/components/organisms/launchpad/banner";
+import SolLaunchpadCompleted from "src/components/organisms/launchpad/completed-launchpads";
+import SolLaunchpadOpening from "src/components/organisms/launchpad/opening-launchpads";
+import SolLaunchpadUpcoming from "src/components/organisms/launchpad/upcoming-launchpads";
 import "./index.scss";
 
 const SolLaunchpadTemplate = () => {

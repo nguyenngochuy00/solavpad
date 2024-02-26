@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
-import SolBridgeForm from '../../../components/organisms/bridge/bridge-form';
-import SolBridgeSelectAssetDialog from '../../../components/organisms/bridge/select-asset-dialog';
-import SolBridgeSelectNetworkDialog from '../../../components/organisms/bridge/select-network-dialog';
+import SolBridgeForm from 'src/components/organisms/bridge/bridge-form';
+import SolBridgeSelectAssetDialog from 'src/components/organisms/bridge/select-asset-dialog';
+import SolBridgeSelectNetworkDialog from 'src/components/organisms/bridge/select-network-dialog';
 import SolBridgeProcessDialogContainer from './bridge-process.container';
-import { toggleConnectWallet } from "../../../redux/actions/applicationAction";
-import { ASSETS, NETWORKS } from '../../../constants';
+import { toggleConnectWallet } from "src/redux/actions/applicationAction";
+import { ASSETS, NETWORKS } from 'src/constants';
 
 const SolBridgeFormContainer = () => {
     const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import SolLaunchpadTemplate from "../../components/templates/launchpad";
+import SolLaunchpadTemplate from "src/components/templates/launchpad";
 
 const SolLaunchpadPage = () => {
     return <>

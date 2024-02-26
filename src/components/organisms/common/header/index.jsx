@@ -1,5 +1,5 @@
-import SolButton from "../../../atoms/button";
-import SolBreadcrumb from "../../../molecules/breadcrumb";
+import SolButton from "src/components/atoms/button";
+import SolBreadcrumb from "src/components/molecules/breadcrumb";
 import "./index.scss";
 
 const SolHeader = ({ breadcrumbs, onClickConnectWallet, onClickWallet }) => {

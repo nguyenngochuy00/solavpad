@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SolBridgeProcessDialog from '../../../components/organisms/bridge/bridge-process-dialog';
+import SolBridgeProcessDialog from 'src/components/organisms/bridge/bridge-process-dialog';
 
 const SolBridgeProcessDialogContainer = ({ show, onClose }) => {
     const BRIDGE_STEPS = [

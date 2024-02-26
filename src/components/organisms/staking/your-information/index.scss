@@ -1,3 +1,37 @@
-.sol-staking-your-information{
-    
+@import 'src/styles/variables.scss';
+
+.sol-staking-your-information {
+	padding: 30px;
+	border-radius: 24px;
+	background: $bg_card_color;
+	backdrop-filter: blur(5px);
+	&-block {
+		padding-bottom: 15px;
+		display: flex;
+		flex-direction: column;
+		row-gap: 8px;
+		label {
+			color: $text_color;
+			font-size: 16px;
+			font-weight: 400;
+		}
+		b {
+			color: $white_color;
+			font-size: 18px;
+			font-weight: 900;
+			line-height: 24px; /* 133.333% */
+		}
+		&.last {
+			padding-bottom: 20px;
+			padding-top: 15px;
+			border-top: 1px solid rgba($white_color, 0.01);
+		}
+	}
+	&-action {
+		display: flex;
+		column-gap: 15px;
+		.sol-btn {
+			flex: 1;
+		}
+	}
 }

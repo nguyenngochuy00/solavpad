@@ -1,6 +1,6 @@
-import SolPageTitle from "../../../components/molecules/page-title";
-import SolBridgeImage from "../../../components/organisms/bridge/bridge-image";
-import SolBridgeTemplate from "../../../components/templates/bridge";
+import SolPageTitle from "src/components/molecules/page-title";
+import SolBridgeImage from "src/components/organisms/bridge/bridge-image";
+import SolBridgeTemplate from "src/components/templates/bridge";
 import SolBridgeFormContainer from "./bridge-form.container";
 
 const SolBridgeMainContainer = () => {
