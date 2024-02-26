@@ -1,3 +1,68 @@
-.sol-input-amount{
-    
+@import 'src/styles/variables.scss';
+
+.sol-input-amount {
+	width: 100%;
+	&-label {
+		color: $white_color;
+		font-size: 16px;
+		font-weight: 400;
+		margin-bottom: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&-sublabel {
+		font-size: 14px;
+	}
+	&-control {
+		position: relative;
+		&-input {
+			width: 100%;
+			padding: 10px 15px;
+			height: 56px;
+			border-radius: 10px;
+			background: $bg_card_color;
+			border: 1px transparent solid;
+			transition: all ease-in-out 0.3s;
+			color: $white-color;
+			font-size: 20px;
+			font-weight: 500;
+			&:disabled {
+				opacity: 0.5;
+			}
+			&:not(:disabled) {
+				&:focus {
+					outline: 0;
+					border-color: rgba($primary_color, 0.5);
+				}
+			}
+		}
+		.sol-btn-max {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 15px;
+			cursor: pointer;
+			display: inline-flex;
+			padding: 10px;
+			justify-content: center;
+			align-items: center;
+			border-radius: 5px;
+			border: 1px solid rgba($color: $primary_color, $alpha: 0.6);
+			color: $white_color;
+			font-size: 13px;
+            line-height: 1;
+			font-weight: 400;
+			transition: all ease-in-out 0.3s;
+            background-color: transparent;
+            text-transform: uppercase;
+			&:hover {
+				background-color: $primary_color;
+			}
+		}
+	}
+	&-note {
+		font-size: 14px;
+		padding-top: 8px;
+	}
 }

@@ -3,6 +3,7 @@ import SolItemCard from "src/components/molecules/item-card";
 import "./index.scss";
 
 const SolBridgeSelectNetworkDialog = ({ show, networks = [], selectedNetwork, onSelect, onClose }) => {
+    console.log(selectedNetwork)
     return <SolModal show={show} className="sol-bridge-select-network-dialog" title="Select network" onClose={onClose}>
         {networks.length ? <div className="sol-networks">
             {
