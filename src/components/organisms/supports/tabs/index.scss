@@ -1,0 +1,12 @@
+@import 'src/styles/variables.scss';
+
+.sol-support-tabs {
+	display: flex;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .sol-tab{
+        flex: unset;
+        &:first-child{
+            padding-left: 0;
+        }
+    }
+}

@@ -9,6 +9,7 @@ const SolFormGroup = ({
     value = '',
     note = '',
     readOnly = false,
+    required = false,
     onClick = () => { },
     onChange = () => { }
 }) => {
@@ -23,6 +24,7 @@ const SolFormGroup = ({
                 placeholder={placeholder}
                 value={value}
                 readOnly={readOnly}
+                required={required}
                 onClick={() => readOnly ? onClick() : null}
                 onChange={e => readOnly ? null : onChange(e.target.value)}
             />

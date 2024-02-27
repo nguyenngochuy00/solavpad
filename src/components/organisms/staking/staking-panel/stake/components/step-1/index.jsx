@@ -19,7 +19,7 @@ const SolStakingStakeStep1 = ({
         description="The following conditions must be met to proceed:"
         confirm={<>
             <input type="checkbox" checked={confirmedStake} onChange={e => onConfirmStake(e.target.checked)} />
-            <span>I have read the <Link to={APP_ROUTES.SUPPORT.url}>Terms and Conditions</Link></span>
+            <span>I have read the <Link to={APP_ROUTES.SUPPORTS.url}>Terms and Conditions</Link></span>
         </>}
         className="sol-staking-stake-step1"
     >

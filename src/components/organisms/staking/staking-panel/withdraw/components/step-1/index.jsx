@@ -18,7 +18,7 @@ const SolStakingWithdrawStep1 = ({
         description="In order to move to the next step, we are automatically checking that the following conditions are met:"
         confirm={<>
             <input type="checkbox" checked={confirmedWithdraw} onChange={e => onConfirmWithdraw(e.target.checked)} />
-            <span>I have read the <Link to={APP_ROUTES.SUPPORT.url}>Terms and Conditions</Link></span>
+            <span>I have read the <Link to={APP_ROUTES.SUPPORTS.url}>Terms and Conditions</Link></span>
         </>}
         className="sol-staking-withdraw-step1"
     >

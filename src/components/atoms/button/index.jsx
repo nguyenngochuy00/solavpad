@@ -7,11 +7,12 @@ const SolButton = ({
 	icon,
 	disabled = false,
 	caption = '',
+	type='button',
 	onClick
 }) => {
 	return (
 		<button
-			type="button"
+			type={type}
 			disabled={disabled}
 			onClick={onClick}
 			className={`sol-btn sol-btn-${variant} sol-btn-${size} ${className}`}

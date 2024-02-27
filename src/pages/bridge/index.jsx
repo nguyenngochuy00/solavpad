@@ -1,8 +1,6 @@
 import SolBridgeMainContainer from "./components/main.container";
 
 const SolBridgePage = () => {
-    return <>
-        <SolBridgeMainContainer />
-    </>
+    return <SolBridgeMainContainer />
 }
 export default SolBridgePage

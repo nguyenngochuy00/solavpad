@@ -11,8 +11,8 @@ const SolCard = ({ title = '', action = '', children, onAction }) => {
 					</span>
 				)}
 			</div>
-			<div className="sol-card-content">
-				<div className="sol-card-body">{children}</div>
+			<div className="sol-card-body">
+				{children}
 			</div>
 		</div>
 	);

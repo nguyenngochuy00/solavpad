@@ -1,0 +1,15 @@
+.sol-support-contact-form{
+    .sol-card{
+        padding-bottom: 0;
+    }
+    &-body{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        .sol-btn{
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+    }
+}
