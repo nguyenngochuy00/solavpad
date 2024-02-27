@@ -1,18 +1,25 @@
 @import 'src/styles/variables.scss';
 
 .sol-pool-image {
-	width: 316px;
-	padding: 10px 0px;
+	max-width: 100%;
 	position: relative;
 
 	&-src {
-		height: 272px;
 		border-radius: 20px;
+
+		&.sol-pool-image-src-small {
+			width: 316px;
+			height: 272px;
+		}
+
+		&.sol-pool-image-src-medium {
+			width: 280px;
+			height: 280px;
+		}
 	}
 
 	.sol-pool-network-info {
 		display: flex;
-		padding: 5px;
 		justify-content: center;
 		align-items: center;
 		gap: 4px;
@@ -23,17 +30,44 @@
 		right: 19px;
 		bottom: 22px;
 
+		&.sol-pool-network-info-right {
+			padding: 5px;
+			right: 19px;
+			bottom: 22px;
+		}
+
+		&.sol-pool-network-info-center {
+			width: 183px;
+			padding: 8px;
+			transform: translate(27%, -50%);
+			bottom: 12px;
+			right: 35%;
+		}
+
 		.sol-pool-network-icon {
-			width: 20px;
-			height: 20px;
+			&.sol-pool-network-icon-small {
+				width: 20px;
+				height: 20px;
+			}
+
+			&.sol-pool-network-icon-medium {
+				width: 24px;
+				height: 24px;
+			}
 		}
 
 		.sol-pool-network-name {
 			color: $white_color;
-			font-size: 13px;
 			font-weight: 700;
-			line-height: 13px;
 			text-transform: uppercase;
+
+			&.sol-pool-network-name-small {
+				font-size: 13px;
+			}
+
+			&.sol-pool-network-name-medium {
+				font-size: 16px;
+			}
 
 			span {
 				color: rgba(255, 255, 255, 0.6);
