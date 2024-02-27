@@ -15,15 +15,7 @@ const SolLaunchpadDetailSummary = ({
 }) => {
 	return (
 		<div className="sol-launchpad-detail-summary">
-			<SolPoolImage
-				src={imgURL}
-				networkIcon={networkIcon}
-				networkName={networkName}
-				styleImg="medium"
-				styleNetwork="center"
-				styleIcon="medium"
-				styleName="medium"
-			/>
+			<SolPoolImage src={imgURL} networkIcon={networkIcon} networkName={networkName} type='style-2' />
 			<div className="sol-launchpad-detail-summary-inner">
 				<div className="sol-launchpad-detail-summary-tag">
 					<span className={`sol-launchpad-detail-summary-${status}`}>

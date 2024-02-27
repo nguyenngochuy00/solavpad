@@ -1,76 +1,67 @@
 @import 'src/styles/variables.scss';
 
 .sol-pool-image {
-	max-width: 100%;
+	width: 100%;
+	height: 280px;
 	position: relative;
-
-	&-src {
-		border-radius: 20px;
-
-		&.sol-pool-image-src-small {
-			width: 316px;
-			height: 272px;
-		}
-
-		&.sol-pool-image-src-medium {
-			width: 280px;
-			height: 280px;
+	border-radius: 20px;
+	overflow: hidden;
+	&.type-2 {
+		height: 350px;
+		border-radius: 28px;
+		.sol-network {
+			padding: 8px;
+			font-size: 16px;
+			left: 50%;
+			right: auto;
+			transform: translateX(-50%);
+			border-radius: 10px;
+			.sol-network-icon{
+				width: 24px;
+				max-width: 24px;
+				height: 24px;
+			}
 		}
 	}
-
-	.sol-pool-network-info {
-		display: flex;
+	> img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	.sol-network {
+		position: absolute;
+		right: 20px;
+		bottom: 20px;
+		display: inline-flex;
+		padding: 5px;
 		justify-content: center;
 		align-items: center;
 		gap: 4px;
 		border-radius: 5px;
-		background: rgba(27, 28, 49, 0.6);
+		background: $bg_tag_color;
 		backdrop-filter: blur(3px);
-		position: absolute;
-
-		&.sol-pool-network-info-right {
-			padding: 5px;
-			right: 19px;
-			bottom: 22px;
-		}
-
-		&.sol-pool-network-info-center {
-			width: 183px;
-			padding: 8px;
-			transform: translate(27%, -50%);
-			bottom: 15px;
-			right: 35%;
-		}
-
-		.sol-pool-network-icon {
-			&.sol-pool-network-icon-small {
-				width: 20px;
-				height: 20px;
-			}
-
-			&.sol-pool-network-icon-medium {
-				width: 24px;
-				height: 24px;
-			}
-		}
-
-		.sol-pool-network-name {
+		color: $text_color;
+		font-size: 13px;
+		font-weight: 400;
+		white-space: nowrap;
+		b {
 			color: $white_color;
 			font-weight: 700;
 			text-transform: uppercase;
-
-			&.sol-pool-network-name-small {
-				font-size: 13px;
-			}
-
-			&.sol-pool-network-name-medium {
-				font-size: 16px;
-			}
-
-			span {
-				color: rgba(255, 255, 255, 0.6);
-				font-weight: 400;
-				text-transform: lowercase;
+		}
+		&-icon {
+			width: 20px;
+			max-width: 20px;
+			height: 20px;
+			border-radius: 5px;
+			overflow: hidden;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
 			}
 		}
 	}

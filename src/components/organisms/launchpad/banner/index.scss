@@ -20,7 +20,7 @@
 			margin-bottom: 10px;
 		}
 		.banner-des {
-			color: $text_banner_color;
+			color: $text_color;
 			align-self: stretch;
 			font-size: 18px;
 			font-style: normal;
@@ -43,6 +43,6 @@
 	img {
 		width: 100%;
 		max-width: 551px;
-		height: 459px;
+		max-height: 459px;
 	}
 }

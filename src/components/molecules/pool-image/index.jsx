@@ -1,38 +1,22 @@
 import './index.scss';
 
 const SolPoolImage = ({
+	type = 'type-1',
 	src = '',
-	styleImg = 'small',
 	networkIcon,
 	networkName = '',
 	onClick,
-	styleNetwork = 'right',
-	styleIcon = 'small',
-	styleName = 'small'
 }) => {
 	return (
-		<div className="sol-pool-image" onClick={onClick}>
-			<img
-				src={src}
-				alt="Pool1"
-				className={`sol-pool-image-src sol-pool-image-src-${styleImg}`}
-			/>
-			<div
-				className={`sol-pool-network-info sol-pool-network-info-${styleNetwork}`}
-			>
+		<div className={`sol-pool-image ${type}`} onClick={onClick}>
+			<img src={src} alt="" />
+			{networkName ? <div className='sol-network'>
 				{networkIcon && (
-					<img
-						src={networkIcon}
-						alt="Network"
-						className={`sol-pool-network-icon sol-pool-network-icon-${styleIcon}`}
-					/>
+					<span className='sol-network-icon'><img src={networkIcon} alt="" /></span>
 				)}
-				<span
-					className={`sol-pool-network-name sol-pool-network-name-${styleName}`}
-				>
-					{networkName} <span>network</span>
-				</span>
-			</div>
+				<span><b>{networkName}</b> network</span>
+			</div> : <></>
+			}
 		</div>
 	);
 };
