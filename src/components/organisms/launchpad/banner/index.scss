@@ -1,3 +1,48 @@
-.sol-launchpad-banner{
-    
+@import '../../../../../src/styles/variables.scss';
+
+.sol-launchpad-banner {
+	padding-top: 30px;
+
+	display: flex;
+	align-items: center;
+	gap: 30px;
+	align-self: stretch;
+	.banner-left {
+		display: flex;
+		flex-direction: column;
+		.banner-title {
+			color: $white_color;
+			font-size: 40px;
+			font-style: normal;
+			font-weight: 900;
+
+			text-transform: uppercase;
+			margin-bottom: 10px;
+		}
+		.banner-des {
+			color: $text_banner_color;
+			align-self: stretch;
+			font-size: 18px;
+			font-style: normal;
+			font-weight: 400;
+		}
+		.banner-statistic-group {
+			display: flex;
+			padding: 40px 0px 10px 0px;
+			align-items: flex-start;
+			align-self: stretch;
+
+			.banner-statistic-space {
+				width: 1px;
+				align-self: stretch;
+				background: $gradient_color;
+				margin-right: 24px;
+			}
+		}
+	}
+	img {
+		width: 100%;
+		max-width: 551px;
+		height: 459px;
+	}
 }
