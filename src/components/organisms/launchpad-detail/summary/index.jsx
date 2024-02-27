@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import SolAvailableOn from 'src/components/molecules/available-on';
 import SolPoolImage from 'src/components/molecules/pool-image';
 import './index.scss';
 
@@ -25,18 +25,12 @@ const SolLaunchpadDetailSummary = ({
 				</div>
 				<div className="sol-launchpad-detail-summary-title">{title}</div>
 				<div className="sol-launchpad-detail-summary-desc">{description}</div>
-				<div className="sol-launchpad-detail-summary-social">
-					<span>Available on:</span>
-					<Link className="img">
-						<img src={telegram} alt="" />
-					</Link>
-					<Link className="img">
-						<img src={twitter} alt="" />
-					</Link>
-					<Link className="img">
-						<img src={webURL} alt="" />
-					</Link>
-				</div>
+				<SolAvailableOn
+					telegram={telegram}
+					twitter={twitter}
+					webURL={webURL}
+					size='lg'
+				/>
 			</div>
 		</div>
 	);
