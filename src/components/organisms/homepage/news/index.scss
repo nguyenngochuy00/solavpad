@@ -1,0 +1,10 @@
+@import 'src/styles/variables.scss';
+
+.sol-homepage-news {
+	&-title {
+		color: $white_color;
+		font-size: 32px;
+		font-weight: 700;
+		margin-bottom: 40px;
+	}
+}

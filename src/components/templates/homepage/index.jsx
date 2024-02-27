@@ -1,6 +1,8 @@
 import "./index.scss";
 
-const SolHomepageTemplate = () => {
-    return <div className="sol-homepage-template"></div>
+const SolHomepageTemplate = ({ children }) => {
+    return <div className="sol-homepage-template">
+        {children}
+    </div>
 }
 export default SolHomepageTemplate

@@ -1,0 +1,48 @@
+@import 'src/styles/variables.scss';
+
+.sol-homepage-news-md {
+	position: relative;
+	display: flex;
+	height: 240px;
+	padding: 20px 40px;
+	align-items: center;
+	border-radius: 30px;
+	background: $bg_card_color;
+	overflow: hidden;
+    &:not(:last-child){
+        margin-bottom: 32px;
+    }
+	&:last-child{
+		img{
+			top: auto;
+			bottom: 0;
+		}
+	}
+	&-title {
+		display: flex;
+		color: $white_color;
+		font-size: 24px;
+		font-weight: 700;
+		margin-bottom: 0;
+        width: 240px;
+        max-width: 100%;
+		text-decoration: none;
+		transition: all ease-in-out .3s;
+		position: relative;
+		z-index: 2;
+		&:hover{
+			color: $primary_color;
+			transform: translateY(-10px);
+			~img{
+				transform: translateX(10px);
+				opacity: .6;
+			}
+		}
+	}
+	img {
+		position: absolute;
+		top: 0;
+		right: 0;
+		transition: all ease-in-out .3s;
+	}
+}

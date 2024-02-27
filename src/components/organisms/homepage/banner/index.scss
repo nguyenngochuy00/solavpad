@@ -1,0 +1,23 @@
+@import 'src/styles/variables.scss';
+
+.sol-homepage-banner {
+    padding: 15px 0;
+	&-title {
+		color: $white_color;
+		font-size: 40px;
+		font-weight: 900;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+	}
+	&-description {
+		color: $text_color;
+		font-size: 18px;
+		font-weight: 400;
+		margin-bottom: 30px;
+	}
+	&-action {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+}
