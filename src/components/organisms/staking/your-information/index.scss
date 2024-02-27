@@ -18,7 +18,7 @@
 		&.last {
 			padding-bottom: 20px;
 			padding-top: 15px;
-			border-top: 1px solid rgba($white_color, 0.1);
+			border-top: 1px solid $border_color;
 		}
 	}
 	&-action {

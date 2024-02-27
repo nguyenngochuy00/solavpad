@@ -1,0 +1,12 @@
+@import 'src/styles/variables.scss';
+
+.sol-launchpad-detail-tabs {
+	display: flex;
+	border-bottom: 1px solid $border_color;
+	.sol-tab {
+		flex: unset;
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}

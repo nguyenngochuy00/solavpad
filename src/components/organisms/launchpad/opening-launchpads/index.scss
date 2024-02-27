@@ -41,7 +41,7 @@
 		gap: 40px;
 		align-self: stretch;
 		padding-top: 10px;
-		border-top: 1px solid rgba($white_color, 0.1);
+		border-top: 1px solid $border_color;
 	}
 	&-progress {
 		padding: 16px 0;
@@ -59,7 +59,7 @@
 	}
 	&-action {
 		padding-top: 24px;
-		border-top: 1px solid rgba($white_color, 0.1);
+		border-top: 1px solid $border_color;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

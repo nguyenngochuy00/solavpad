@@ -4,7 +4,7 @@
 	display: flex;
 	padding: 10px 10px 0;
 	height: 80px;
-	border-bottom: 1px solid rgba($white_color, 0.1);
+	border-bottom: 1px solid $border_color;
 	column-gap: 15px;
 	color: $text_color;
 	font-size: 30px;
