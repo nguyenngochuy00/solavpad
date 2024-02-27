@@ -1,24 +1,21 @@
+@import 'src/styles/variables.scss';
 .sol-progress-bar {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	row-gap: 30px;
 	border-radius: 8px;
-	background: rgba(255, 255, 255, 0.1);
-
+	background: rgba($white_color, 0.1);
 	&-medium {
 		height: 10px;
-
 		.sol-progress-bar-inner {
 			height: 10px;
 			border-radius: 8px;
 			background: linear-gradient(90deg, #e250e5 4.68%, #4b50e6 91.89%);
 		}
 	}
-
 	&-lg {
 		height: 15px;
-
 		.sol-progress-bar-inner {
 			height: 15px;
 			border-radius: 8px;
