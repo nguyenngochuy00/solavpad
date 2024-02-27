@@ -1,96 +1,55 @@
+import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import SolButton from 'src/components/atoms/button';
+import SolAvailableOn from 'src/components/molecules/available-on';
 import SolInfo from 'src/components/molecules/info-block';
 import SolPoolImage from 'src/components/molecules/pool-image';
 import SolProgressBar from 'src/components/molecules/progress-bar';
 import './index.scss';
 
 const SolLaunchpadOpening = ({
-	src = '',
-	networkIcon,
-	networkName = '',
-	styleImg = '',
-	styleNetwork = '',
-	styleIcon = '',
-	styleName = '',
-	styleLabel = '',
-	styleValue = '',
-	telegram = '',
-	twitter = '',
-	webURL = '',
-	caption = '',
-	variant = '',
-	size = ''
+	sectionTitle = '',
+	projectData,
 }) => {
 	return (
-		<div className="sol-launchpad-opening">
-			<div className="sol-launchpad-opening-name">Opening Launchpads</div>
-			<div className="sol-launchpad-opening-main">
-				<Link to="/" className="sol-launchpad-opening-img">
-					<SolPoolImage src={src} networkIcon={networkIcon} networkName={networkName} type='type-2' />
-				</Link>
-				<div className="sol-launchpad-opening-info">
-					<Link to="/" className="info-title">
-						Fight of the Ages (Blue Diamond Private)
-					</Link>
-					<span className="info-des">
-						Fight of the Ages is fantasy Triple-A MOBA game project.
-					</span>
-					<div className="info-group">
-						<div>
-							<SolInfo
-								label="Swap rate"
-								value="1 BUSD = 6.666666 FOTA"
-								styleLabel="md"
-								styleValue="lg"
-							/>
+		<>
+			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
+			<div className="sol-launchpad-opening">
+				<Row className='gx-lg-5'>
+					<Col lg="4">
+						<Link to={projectData.routeUrl} className="sol-launchpad-opening-img">
+							<SolPoolImage src={projectData.logo} networkIcon={projectData.networkIcon} networkName={projectData.networkName} type='type-2' />
+						</Link>
+					</Col>
+					<Col lg="8">
+						<Link to={projectData.routeUrl} className="sol-launchpad-opening-title">{projectData.name}</Link>
+						<div className='sol-launchpad-opening-description'>{projectData.description}</div>
+						<div className='sol-launchpad-opening-stats'>
+							<SolInfo size='lg' label="Swap rate" value={projectData.swapRate} />
+							<SolInfo size='lg' label="Cap" value={projectData.cap} />
+							<SolInfo size='lg' label="Access" value={projectData.accessType} />
 						</div>
-						<div>
-							<SolInfo
-								label="Cap"
-								value="13,000 USDB"
-								styleLabel="md"
-								styleValue="lg"
-							/>
-						</div>
-						<div>
-							<SolInfo
-								label="Access"
-								value="Private"
-								styleLabel="md"
-								styleValue="lg"
-							/>
-						</div>
-					</div>
-					<div className="info-progress">
-						<span className="info-progress-name">Progress</span>
-						<SolProgressBar percent={70} />
-						<div className="info-progress-under">
-							<span className="info-progress-allocation">Allocation round</span>
-							<div className="info-progress-participants">
-								<span className="participants-number">10</span>
-								<span className="participants-number-text"> participants</span>
+						<div className='sol-launchpad-opening-progress'>
+							<div className='sol-launchpad-opening-progress-label'>Progress</div>
+							<SolProgressBar percent={projectData.progressPercent} size='lg' />
+							<div className='sol-launchpad-opening-progress-info'>
+								<span>Allocation round</span>
+								<span><b>{projectData.participants}</b> participants</span>
 							</div>
 						</div>
-					</div>
-					<div className="info-button">
-						<SolButton caption="Join Now" variant="primary" size="lg" />
-						<div className="info-button-web">
-							<span>Available on:</span>
-							<Link className="img">
-								<img src={telegram} alt="" />
-							</Link>
-							<Link className="img">
-								<img src={twitter} alt="" />
-							</Link>
-							<Link className="img">
-								<img src={webURL} alt="" />
-							</Link>
+						<div className='sol-launchpad-opening-action'>
+							<SolButton caption="Join Now" variant="primary" size="lg" />
+							<SolAvailableOn
+								telegram={projectData.telegram}
+								twitter={projectData.twitter}
+								webURL={projectData.webURL}
+								size='lg'
+							/>
 						</div>
-					</div>
-				</div>
+					</Col>
+				</Row>
 			</div>
-		</div>
+		</>
 	);
 };
 export default SolLaunchpadOpening;

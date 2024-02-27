@@ -1,3 +1,13 @@
-.sol-launchpad-template{
-    
+@import 'src/styles/variables.scss';
+
+.sol-launchpad-template {
+    .sol-launchpad-section{
+        margin-top: 60px;
+        > h3 {
+            color: $white_color;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+    }
 }

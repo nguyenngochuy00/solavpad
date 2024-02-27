@@ -1,11 +1,12 @@
-@import '../../../../../src/styles/variables.scss';
+@import 'src/styles/variables.scss';
 
 .sol-launchpad-opening {
-	display: flex;
-	padding-top: 60px;
-	flex-direction: column;
-	align-items: flex-start;
-	align-self: stretch;
+	padding: 40px 50px 40px 40px;
+	border-radius: 30px;
+	border: 1px solid $primary_color;
+	background: $card_bg_color;
+	box-shadow: 0px 0px 50px 10px $box_shadow_color;
+	backdrop-filter: blur(5px);
 	&-img {
 		display: flex;
 		text-decoration: none;
@@ -19,116 +20,51 @@
 			transition: all ease-in-out 0.3s;
 		}
 	}
-	&-name {
+	&-title {
 		color: $white_color;
-		font-size: 40px;
-		font-weight: 700;
+		font-size: 32px;
+		font-weight: 900;
+		text-decoration: none;
 		display: flex;
-		padding-bottom: 30px;
-		align-items: flex-start;
-		gap: 10px;
-		align-self: stretch;
-	}
-	&-main {
-		display: flex;
-		padding: 40px 50px 40px 40px;
-		align-items: flex-start;
-		gap: 50px;
-		align-self: stretch;
-		border-radius: 30px;
-		border: 1px solid $primary_color;
-		background: $card_bg_color;
-		box-shadow: 0px 0px 50px 10px $box_shadow_color;
-		backdrop-filter: blur(5px);
-		.sol-launchpad-opening-info {
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-			.info-title {
-				color: $white_color;
-				font-size: 32px;
-				font-weight: 900;
-				text-decoration: none;
-				display: flex;
-				transition: all ease-in-out 0.3s;
-				&:hover {
-					color: $primary_color;
-				}
-			}
-			.info-des {
-				color: $text_color;
-				font-size: 18px;
-				font-weight: 400;
-				padding: 10px 0 16px 0px;
-			}
-			.info-group {
-				display: flex;
-				align-items: center;
-				gap: 40px;
-				align-self: stretch;
-				padding-top: 16px;
-				border-top: 1px solid $box_shadow_color;
-			}
-			.info-progress {
-				display: flex;
-				flex-direction: column;
-				gap: 8px;
-				padding: 16px 0px;
-				.info-progress-name {
-					color: $text_color;
-					font-size: 18px;
-					font-weight: 400;
-				}
-				.info-progress-under {
-					display: flex;
-					justify-content: space-between;
-
-					.info-progress-allocation {
-						color: $white_color;
-						font-size: 16px;
-						font-weight: 400;
-						line-height: 1;
-					}
-					.info-progress-participants {
-						font-size: 16px;
-						line-height: 1;
-						color: $white_color;
-						.participants-number {
-							font-weight: 900;
-						}
-						.participants-number-text {
-							font-weight: 400;
-						}
-					}
-				}
-			}
-			.info-button {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding-top: 24px;
-				align-items: center;
-				align-self: stretch;
-				border-top: 1px solid $box_shadow_color;
-				.info-button-web {
-					display: flex;
-					align-items: center;
-					flex-direction: row;
-					column-gap: 16px;
-					span {
-						color: $text_color;
-						font-size: 18px;
-						font-weight: 400;
-					}
-					img {
-						width: 20px;
-						height: 20px;
-					}
-				}
-			}
+		transition: all ease-in-out 0.3s;
+		&:hover {
+			color: $primary_color;
 		}
 	}
-	.sol-btn {
-		min-width: 200px;
+	&-description {
+		font-size: 18px;
+		padding: 16px 0px;
+	}
+	&-stats {
+		display: flex;
+		align-items: center;
+		gap: 40px;
+		align-self: stretch;
+		padding-top: 10px;
+		border-top: 1px solid rgba($white_color, 0.1);
+	}
+	&-progress {
+		padding: 16px 0;
+		&-label {
+			font-size: 18px;
+			margin-bottom: 8px;
+		}
+		&-info {
+			margin-top: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			color: $white_color;
+		}
+	}
+	&-action {
+		padding-top: 24px;
+		border-top: 1px solid rgba($white_color, 0.1);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		.sol-btn {
+			min-width: 200px;
+		}
 	}
 }

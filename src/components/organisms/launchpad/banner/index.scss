@@ -1,48 +1,34 @@
-@import '../../../../../src/styles/variables.scss';
+@import 'src/styles/variables.scss';
 
 .sol-launchpad-banner {
-	padding-top: 30px;
-
-	display: flex;
-	align-items: center;
-	gap: 30px;
-	align-self: stretch;
-	.banner-left {
+	&-title {
+		color: $white_color;
+		font-size: 40px;
+		font-weight: 900;
+		text-transform: uppercase;
+		margin-bottom: 10px;
+	}
+	&-description {
+		font-size: 18px;
+	}
+	&-statistics {
+		padding: 40px 0 10px;
 		display: flex;
-		flex-direction: column;
-		.banner-title {
-			color: $white_color;
-			font-size: 40px;
-			font-style: normal;
-			font-weight: 900;
-
-			text-transform: uppercase;
-			margin-bottom: 10px;
-		}
-		.banner-des {
-			color: $text_color;
-			align-self: stretch;
-			font-size: 18px;
-			font-style: normal;
-			font-weight: 400;
-		}
-		.banner-statistic-group {
-			display: flex;
-			padding: 40px 0px 10px 0px;
-			align-items: flex-start;
-			align-self: stretch;
-
-			.banner-statistic-space {
-				width: 1px;
-				align-self: stretch;
-				background: $gradient_color;
-				margin-right: 24px;
+		flex-direction: wrap;
+		justify-content: space-between;
+		.sol-statistic {
+			position: relative;
+			&:not(:last-child) {
+				&:after {
+					content: '';
+					position: absolute;
+					top: 0;
+					right: 24px;
+					width: 1px;
+					height: 100%;
+					background: $gradient_color;
+				}
 			}
 		}
-	}
-	img {
-		width: 100%;
-		max-width: 551px;
-		max-height: 459px;
 	}
 }

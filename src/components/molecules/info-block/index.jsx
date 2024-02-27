@@ -3,17 +3,12 @@ import './index.scss';
 const SolInfo = ({
 	label = '',
 	value = '',
-	styleLabel = 'sm',
-	styleValue = 'sm'
+	size = 'md'
 }) => {
 	return (
-		<div className="sol-info">
-			<div className={`sol-info-label sol-info-label-${styleLabel}`}>
-				{label}
-			</div>
-			<div className={`sol-info-value sol-info-value-${styleValue}`}>
-				{value}
-			</div>
+		<div className={`sol-info ${size}`}>
+			<div className={`sol-info-label`}>{label}</div>
+			<div className='sol-info-value'>{value}</div>
 		</div>
 	);
 };

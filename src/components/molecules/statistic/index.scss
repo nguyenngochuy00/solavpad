@@ -8,14 +8,10 @@
 	&-value {
 		font-size: 36px;
 		font-weight: 900;
+		line-height: 1;
 		background: $gradient_color;
 		background-clip: text;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
-	}
-	&-label {
-		color: $text_color;
-		font-size: 16px;
-		font-weight: 400;
 	}
 }
