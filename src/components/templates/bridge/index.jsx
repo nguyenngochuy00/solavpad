@@ -8,7 +8,7 @@ const SolBridgeTemplate = ({ header, leftPanel, rightPanel }) => {
             <Col xl="6" lg="9">
                 {leftPanel}
             </Col>
-            <Col xl="6">
+            <Col xl="6" className="text-center">
                 <div className="d-none d-xl-block">
                     {rightPanel}
                 </div>
