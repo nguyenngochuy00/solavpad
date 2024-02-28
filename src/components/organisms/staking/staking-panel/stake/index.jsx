@@ -11,7 +11,7 @@ import SolButton from "src/components/atoms/button";
 const SolStakingStake = ({
     steps,
     currentStep,
-    connectedWallet,
+    walletInfo,
     stakingSymbol,
     currentBalance,
     paymentBalance,
@@ -40,7 +40,7 @@ const SolStakingStake = ({
                 <div className="sol-staking-stake-content">
                     <div className="sol-staking-stake-body">
                         {currentStep === 1 ? <SolStakingStakeStep1
-                            connectedWallet={connectedWallet}
+                            walletInfo={walletInfo}
                             stakingSymbol={stakingSymbol}
                             currentBalance={currentBalance}
                             paymentBalance={paymentBalance}
@@ -71,7 +71,7 @@ const SolStakingStake = ({
                         {
                             currentStep !== 5 ? <>
                                 <SolButton onClick={onPrev} disabled={currentStep === 1} caption="Previous" icon={<img src="/images/icons/prev.svg" alt="" />} />
-                                <SolButton onClick={onNext} disabled={!isValid} caption="Next" icon={<img src="/images/icons/next.svg" alt="" />} variant="primary" />
+                                <SolButton onClick={onNext} disabled={!isValid} caption="Next" className="icon-right" icon={<img src="/images/icons/next.svg" alt="" />} variant="primary" />
                             </> :
                                 <SolButton onClick={onDone} caption="Done" variant="primary" />
                         }

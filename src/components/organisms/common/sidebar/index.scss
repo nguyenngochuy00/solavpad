@@ -12,6 +12,20 @@
 	@media (max-width: 1399px) {
 		width: 220px;
 	}
+	@media (max-width: 767px) {
+		transform: translateX(-100%);
+		transition: all ease-in-out 0.3s;
+		&.show {
+			transform: translateX(0);
+		}
+	}
+	&.show {
+		~ .sol-sidebar-overlay {
+			max-width: 767px;
+			opacity: 1;
+			z-index: 997;
+		}
+	}
 	&-menu {
 		display: flex;
 		flex-direction: column;
@@ -40,5 +54,27 @@
 			);
 			border-radius: 8px;
 		}
+	}
+}
+
+.sol-sidebar-overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: -1;
+	width: 100vw;
+	max-width: 0;
+	height: 100vh;
+	background-color: rgba($color: $bg_modal_backdrop, $alpha: 0.9);
+	opacity: 0;
+	text-align: right;
+	padding: 30px;
+	svg{
+		width: auto;
+		height: 20px;
+		opacity: .8;
+	}
+	@media(min-width:768px){
+		display: none;
 	}
 }

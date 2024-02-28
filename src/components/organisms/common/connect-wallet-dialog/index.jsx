@@ -3,11 +3,6 @@ import SolItemCard from "src/components/molecules/item-card";
 import "./index.scss";
 
 const SolConnectWalletDialog = ({ show, extensions = [], onClose, onSelect }) => {
-    const handleSelect = () => {
-        // todo
-        onSelect();
-    }
-
     return <SolModal show={show} className="sol-connect-wallet-dialog" title="Connect wallet" onClose={onClose}>
         {
             extensions.length ? <div className="sol-extensions">
@@ -17,7 +12,7 @@ const SolConnectWalletDialog = ({ show, extensions = [], onClose, onSelect }) =>
                         type="button"
                         icon={<img src={asset.logo} alt={asset.name} />}
                         text={asset.name}
-                        onClick={handleSelect}
+                        onClick={onSelect}
                     />)
                 }
             </div> : <div className="sol-extensions-empty">No extensions found.</div>

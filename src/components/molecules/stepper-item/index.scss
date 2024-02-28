@@ -6,10 +6,13 @@
 	column-gap: 15px;
 	color: $white-color;
 	font-weight: 700;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    opacity: 0.5;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	opacity: 0.5;
+	@media (max-width: 767px) {
+		column-gap: 8px;
+	}
 	&-icon {
 		width: 32px;
 		height: 32px;
@@ -20,19 +23,24 @@
 		justify-content: center;
 		border-radius: 5px;
 	}
+	&-text {
+		@media (max-width: 767px) {
+			font-size: 12px;
+		}
+	}
 	&.completed,
-	&.active{
-		.sol-stepper-item-icon{
+	&.active {
+		.sol-stepper-item-icon {
 			background-color: $white_color;
 			color: $bg_color;
 		}
 	}
-    &.active{
-        color: $white_color;
-        opacity: 1;
-		.sol-stepper-item-icon{
+	&.active {
+		color: $white_color;
+		opacity: 1;
+		.sol-stepper-item-icon {
 			background-color: $white_color;
 			color: $bg_color;
 		}
-    }
+	}
 }

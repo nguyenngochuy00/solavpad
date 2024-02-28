@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SolBridgeForm from 'src/components/organisms/bridge/bridge-form';
 import SolBridgeSelectAssetDialog from 'src/components/organisms/bridge/select-asset-dialog';
 import SolBridgeSelectNetworkDialog from 'src/components/organisms/bridge/select-network-dialog';
 import { ASSETS, NETWORKS } from 'src/constants';
 import { toggleConnectWallet } from "src/redux/actions/applicationAction";
 import SolBridgeProcessDialogContainer from './bridge-process.container';
+import { get } from 'lodash';
 
 const SolBridgeFormContainer = () => {
     const dispatch = useDispatch();
-    const connectedWallet = true;
+    const walletInfo = useSelector((state) =>
+        get(state, "system.walletInfo", false)
+    );
     const [asset, setAsset] = useState(undefined);
     const [networkFrom, setNetworkFrom] = useState(undefined);
     const [networkTo, setNetworkTo] = useState(undefined);
@@ -22,7 +25,6 @@ const SolBridgeFormContainer = () => {
     const [selectedNetwork, setSelectedNetwork] = useState(undefined);
     const [destination, setDestination] = useState('');
     const [destinationIcon, setDestinationIcon] = useState('');
-    
 
     useEffect(() => {
         setYourBalance(0);
@@ -90,7 +92,7 @@ const SolBridgeFormContainer = () => {
 
     return <>
         <SolBridgeForm
-            connectedWallet={connectedWallet}
+            walletInfo={walletInfo}
             asset={asset}
             networkFrom={networkFrom}
             networkTo={networkTo}

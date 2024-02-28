@@ -11,6 +11,10 @@
 		padding: 30px;
 		border-radius: 24px;
 	}
+	@media (max-width: 767px) {
+		padding: 20px;
+		border-radius: 20px;
+	}
 	&-img {
 		display: flex;
 		text-decoration: none;
@@ -37,6 +41,9 @@
 		@media (max-width: 991px) {
 			font-size: 24px;
 		}
+		@media (max-width: 767px) {
+			font-size: 20px;
+		}
 		&:hover {
 			color: $primary_color;
 		}
@@ -44,6 +51,9 @@
 	&-description {
 		font-size: 18px;
 		padding: 16px 0px;
+		@media (max-width: 767px) {
+			font-size: 16px;
+		}
 	}
 	&-stats {
 		display: flex;
@@ -62,6 +72,9 @@
 		&-label {
 			font-size: 18px;
 			margin-bottom: 8px;
+			@media (max-width: 991px) {
+				font-size: 16px;
+			}
 		}
 		&-info {
 			margin-top: 8px;
@@ -69,6 +82,9 @@
 			align-items: center;
 			justify-content: space-between;
 			color: $white_color;
+			@media (max-width: 767px) {
+				font-size: 14px;
+			}
 		}
 	}
 	&-action {
@@ -77,8 +93,15 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		@media (max-width: 767px) {
+			flex-direction: column;
+			row-gap: 15px;
+		}
 		.sol-btn {
 			min-width: 200px;
+			@media (max-width: 767px) {
+				width: 100%;
+			}
 		}
 	}
 }

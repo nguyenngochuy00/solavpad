@@ -22,6 +22,12 @@
 		height: 300px;
 		margin-bottom: 24px;
 	}
+	@media (max-width: 1199px) {
+		height: 420px;
+		padding: 24px;
+		margin-bottom: 20px;
+		border-radius: 20px;
+	}
 	&::before {
 		content: '';
 		position: absolute;

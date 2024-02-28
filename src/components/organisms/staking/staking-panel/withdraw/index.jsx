@@ -9,7 +9,7 @@ import "./index.scss";
 const SolStakingWithdraw = ({
     steps,
     currentStep,
-    connectedWallet,
+    walletInfo,
     withdrawSymbol,
     yourStakedAmount,
     yourStakedRewards,
@@ -34,7 +34,7 @@ const SolStakingWithdraw = ({
                 <div className="sol-staking-stake-content">
                     <div className="sol-staking-stake-body">
                         {currentStep === 1 ? <SolStakingWithdrawStep1
-                            connectedWallet={connectedWallet}
+                            walletInfo={walletInfo}
                             withdrawSymbol={withdrawSymbol}
                             yourStakedAmount={yourStakedAmount}
                             yourStakedRewards={yourStakedRewards}

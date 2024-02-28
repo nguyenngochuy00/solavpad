@@ -1,11 +1,18 @@
+import { get } from "lodash"
 import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import SolLaunchpadDetailApproveDialog from "src/components/organisms/launchpad-detail/approve-dialog"
 import SolLaunchpadDetailJoinPoolDialog from "src/components/organisms/launchpad-detail/join-pool-dialog"
 import SolLaunchpadDetailPoolCard from "src/components/organisms/launchpad-detail/pool-card"
+import { toggleConnectWallet } from "src/redux/actions/applicationAction"
 
 const SolLaunchpadDetailPoolCardContainer = () => {
+    const dispatch = useDispatch();
     const [showJoinModal, setShowJoinModal] = useState(false);
     const [showApproveModal, setShowApproveModal] = useState(false);
+    const walletInfo = useSelector((state) =>
+        get(state, "system.walletInfo", false)
+    );
 
     const handleJoinPool = () => {
         setShowJoinModal(false);
@@ -15,9 +22,14 @@ const SolLaunchpadDetailPoolCardContainer = () => {
         setShowApproveModal(false);
     }
 
+    const handleShowConnectWallet = () => {
+        dispatch(toggleConnectWallet(true));
+    }
+
     return <>
         <SolLaunchpadDetailPoolCard
             opening
+            walletInfo={walletInfo}
             countDownTime="0d 4h 42m 32s"
             yourBalance="110,000,780.0000 BUSD"
             yourBalanceConvert="3.0000 ETH"
@@ -30,6 +42,7 @@ const SolLaunchpadDetailPoolCardContainer = () => {
             participants="10"
             onJoinPool={() => setShowJoinModal(true)}
             onApprove={() => setShowApproveModal(true)}
+            onConnectWallet={() => handleShowConnectWallet()}
         />
         <SolLaunchpadDetailJoinPoolDialog
             show={showJoinModal}

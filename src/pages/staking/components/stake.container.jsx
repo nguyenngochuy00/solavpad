@@ -1,4 +1,6 @@
+import { get } from "lodash";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import SolStakingStake from "src/components/organisms/staking/staking-panel/stake";
 
 const SolStakingStakeContainer = () => {
@@ -11,7 +13,9 @@ const SolStakingStakeContainer = () => {
     ]
     const [currentStep, setCurrentStep] = useState(1);
     const [stakeAmount, setStakeAmount] = useState(1);
-    const connectedWallet = true;
+    const walletInfo = useSelector((state) =>
+        get(state, "system.walletInfo", false)
+    );
     const currentBalance = 1;
     const stakingSymbol = 'BSCPAD';
     const paymentBalance = 1;
@@ -48,7 +52,7 @@ const SolStakingStakeContainer = () => {
         <SolStakingStake
             steps={STEPS}
             currentStep={currentStep}
-            connectedWallet={connectedWallet}
+            walletInfo={walletInfo}
             stakingSymbol={stakingSymbol}
             currentBalance={currentBalance}
             paymentBalance={paymentBalance}
@@ -59,7 +63,7 @@ const SolStakingStakeContainer = () => {
             stakeAmount={stakeAmount}
             stakeLoadingPercent={stakeLoadingPercent}
             isValid={
-                (currentStep === 1 && confirmedStake && connectedWallet && currentBalance && paymentBalance && stakeable) ||
+                (currentStep === 1 && confirmedStake && walletInfo && currentBalance && paymentBalance && stakeable) ||
                 (currentStep === 2 && stakeAmount) ||
                 (currentStep === 3 && stakeLoadingPercent === 100) ||
                 (currentStep === 4)

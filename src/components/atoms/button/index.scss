@@ -80,4 +80,9 @@
 			height: 100%;
 		}
 	}
+	&.icon-right{
+		.sol-icon{
+			order: 2;
+		}
+	}
 }

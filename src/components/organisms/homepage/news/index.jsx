@@ -29,6 +29,7 @@ const SolHomepageNews = ({ sectionTitle, news = [] }) => {
                             url={news[2].url}
                             image={news[2].image}
                             title={news[2].title}
+                            className="last"
                         /> : <></>}
                     </Col>
                 </Row>

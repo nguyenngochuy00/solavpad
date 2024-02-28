@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 import SolHeader from "src/components/organisms/common/header";
 import SolYourWalletDialog from "src/components/organisms/common/your-wallet-dialog";
-import { toggleConnectWallet, updateBreadcrumbs } from "src/redux/actions/applicationAction";
+import { toggleConnectWallet, toggleSidebar, updateBreadcrumbs, updateWalletInfo } from "src/redux/actions/applicationAction";
 import { getBreadcrumbs } from "src/utils/route.utils";
 
 const SolDesktopHeaderContainer = () => {
@@ -14,6 +14,12 @@ const SolDesktopHeaderContainer = () => {
 
     const breadcrumbs = useSelector((state) =>
         get(state, "system.breadcrumbs", false)
+    );
+    const sidebarExpaned = useSelector((state) =>
+        get(state, "system.sidebarExpaned", false)
+    );
+    const walletInfo = useSelector((state) =>
+        get(state, "system.walletInfo", false)
     );
     const [showYourWalletModal, setShowYourWalletModal] = useState(false);
 
@@ -30,19 +36,30 @@ const SolDesktopHeaderContainer = () => {
         setShowYourWalletModal(true);
     }
 
+    const handleToggleSidebar = () => {
+        dispatch(toggleSidebar(!sidebarExpaned));
+    }
+
+    const handleDisconnectWallet = () => {
+        dispatch(updateWalletInfo(undefined));
+    }
+
     return <>
         {/* Header organisms */}
         <SolHeader
+            walletInfo={walletInfo}
             breadcrumbs={breadcrumbs}
             onClickWallet={handleShowYourWallet}
             onClickConnectWallet={handleShowConnectWallet}
+            onToggleSidebar={handleToggleSidebar}
+            onDisconnectWallet={handleDisconnectWallet}
         />
 
         {/* Your wallet info modal */}
         <SolYourWalletDialog
             show={showYourWalletModal}
-            walletAddress="0xE0493DD5F947A93B8C0d750d317c46F393a0FBA2"
-            walletUrl="http://abc.com"
+            walletAddress={walletInfo?.address}
+            walletUrl={walletInfo?.walletUrl}
             onClose={() => setShowYourWalletModal(false)}
         />
     </>

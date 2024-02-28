@@ -1,10 +1,10 @@
 import SolButton from "src/components/atoms/button";
 import SolFormGroup from "src/components/molecules/form-group";
-import "./index.scss";
 import SolInputAmount from "src/components/molecules/input-amount";
+import "./index.scss";
 
 const SolBridgeForm = ({
-    connectedWallet = false,
+    walletInfo,
     yourBalance,
     asset,
     networkFrom,
@@ -58,7 +58,7 @@ const SolBridgeForm = ({
                 subLabel={<>Available: {yourBalance}</>}
                 value={amount}
                 maxValue={yourBalance}
-                readOnly={!connectedWallet}
+                readOnly={!walletInfo}
                 note={<>
                     <div className="d-flex align-items-center justify-content-between">
                         <span>Daily Limit (Per Address)</span>
@@ -85,7 +85,7 @@ const SolBridgeForm = ({
             />
         </div>
         <div className="sol-bridge-form-action">
-            {connectedWallet ?
+            {walletInfo ?
                 <SolButton size="lg" variant="primary" className="w-100" caption="Swap" onClick={onSwap} /> :
                 <SolButton size="lg" variant="primary" className="w-100" caption="Connect wallet" onClick={onConnectWallet} />
             }

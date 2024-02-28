@@ -4,7 +4,7 @@ import SolStakingStep from "src/components/organisms/common/staking-step";
 import { APP_ROUTES } from "src/constants";
 
 const SolStakingStakeStep1 = ({
-    connectedWallet = false,
+    walletInfo,
     stakingSymbol,
     currentBalance = 0,
     paymentBalance = 0,
@@ -26,7 +26,7 @@ const SolStakingStakeStep1 = ({
         <SolCheckpoints
             checkpoints={[
                 {
-                    checked: connectedWallet,
+                    checked: walletInfo,
                     title: 'Connected with MetaMask',
                     description: 'If not connected, click the "Connect Wallet" button in the top right corner'
                 }, {

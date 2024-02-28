@@ -2,7 +2,7 @@ import { get } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import SolConnectWalletDialog from "src/components/organisms/common/connect-wallet-dialog";
 import { CONNECT_WALLET_EXTEMSIONS } from "src/constants";
-import { toggleConnectWallet } from "src/redux/actions/applicationAction";
+import { toggleConnectWallet, updateWalletInfo } from "src/redux/actions/applicationAction";
 
 const SolConnectWalletContainer = () => {
     const dispatch = useDispatch();
@@ -12,10 +12,15 @@ const SolConnectWalletContainer = () => {
     );
 
     const handleSelectConnect = () => {
+        dispatch(updateWalletInfo({
+            connected: true,
+            address: '0xE0493DD5F947A93B8C0d750d317c46F393a0FBA2',
+            walletUrl: 'https://google.com'
+        }))
         dispatch(toggleConnectWallet(false));
     }
 
-    const handleCloseConnectWallet = ()=>{
+    const handleCloseConnectWallet = () => {
         dispatch(toggleConnectWallet(false));
     }
 

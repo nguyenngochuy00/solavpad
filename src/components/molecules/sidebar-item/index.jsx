@@ -5,7 +5,6 @@ const SolSidebarItem = ({
     text,
     disabled = false,
     active,
-    expanded = true,
     onClick
 }) => {
     return <div className={`sol-sidebar-item-wrap ${active ? 'active' : ''}`}>
@@ -13,7 +12,7 @@ const SolSidebarItem = ({
             <span className="sol-sidebar-item-icon">
                 {icon}
             </span>
-            {expanded ? <span className="sol-sidebar-item-text">{text}</span> : <></>}
+            {text ? <span className="sol-sidebar-item-text">{text}</span> : <></>}
         </button>
     </div>
 }

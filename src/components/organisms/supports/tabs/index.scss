@@ -8,5 +8,9 @@
         &:first-child{
             padding-left: 0;
         }
+        @media(max-width:767px){
+            font-size: 14px;
+            text-align: left;
+        }
     }
 }

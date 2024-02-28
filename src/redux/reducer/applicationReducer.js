@@ -1,11 +1,13 @@
-import { SET_LATEST_BLOCK_NUMBER, TOGGLE_CONNECT_WALLET, TOGGLE_DARK_MODE, UPDATE_BREADCRUMBS } from '../types/application';
+import { SET_LATEST_BLOCK_NUMBER, TOGGLE_CONNECT_WALLET, TOGGLE_DARK_MODE, TOGGLE_SIDEBAR, UPDATE_BREADCRUMBS, UPDATE_WALLET_INFO } from '../types/application';
 
 const initialState = {
     total: 0,
     onDay: 0,
     darkMode: true,
     breadcrumbs: [{ text: 'Homepage', url: '/', active: true }],
-    showConnectWallet: false
+    showConnectWallet: false,
+    sidebarExpaned: true,
+    walletInfo: undefined
 };
 
 const applicationReducer = (state = initialState, action) => {
@@ -25,10 +27,20 @@ const applicationReducer = (state = initialState, action) => {
                 ...state,
                 showConnectWallet: action.payload
             };
+        case TOGGLE_SIDEBAR:
+            return {
+                ...state,
+                sidebarExpaned: action.payload
+            };
         case UPDATE_BREADCRUMBS:
             return {
                 ...state,
                 breadcrumbs: action.payload
+            };
+        case UPDATE_WALLET_INFO:
+            return {
+                ...state,
+                walletInfo: action.payload
             };
 
         default:

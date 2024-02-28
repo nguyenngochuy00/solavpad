@@ -1,4 +1,6 @@
+import { get } from "lodash";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import SolUnstakingWithdraw from "src/components/organisms/staking/staking-panel/withdraw";
 
 const SolStakingWithdrawContainer = () => {
@@ -8,7 +10,9 @@ const SolStakingWithdrawContainer = () => {
         { step: 3, text: 'Confirmation' }
     ]
     const [currentStep, setCurrentStep] = useState(1);
-    const connectedWallet = true;
+    const walletInfo = useSelector((state) =>
+        get(state, "system.walletInfo", false)
+    );
     const withdrawSymbol = 'BSCPAD';
     const yourStakedAmount = 1;
     const yourStakedRewards = 1;
@@ -39,7 +43,7 @@ const SolStakingWithdrawContainer = () => {
         <SolUnstakingWithdraw
             steps={STEPS}
             currentStep={currentStep}
-            connectedWallet={connectedWallet}
+            walletInfo={walletInfo}
             withdrawSymbol={withdrawSymbol}
             yourStakedAmount={yourStakedAmount}
             yourStakedRewards={yourStakedRewards}
@@ -47,7 +51,7 @@ const SolStakingWithdrawContainer = () => {
             paymentSymbol={paymentSymbol}
             confirmedWithdraw={confirmedWithdraw}
             isValid={
-                (currentStep === 1 && confirmedWithdraw && connectedWallet && yourStakedAmount && yourStakedRewards && paymentBalance) ||
+                (currentStep === 1 && confirmedWithdraw && walletInfo && yourStakedAmount && yourStakedRewards && paymentBalance) ||
                 (currentStep !== 1)
             }
             onConfirmWithdraw={handleConfirmWithdraw}

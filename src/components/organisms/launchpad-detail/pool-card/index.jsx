@@ -6,6 +6,7 @@ import "./index.scss";
 
 const SolLaunchpadDetailPoolCard = ({
     opening,
+    walletInfo,
     countDownTime,
     yourBalance,
     yourBalanceConvert,
@@ -17,7 +18,8 @@ const SolLaunchpadDetailPoolCard = ({
     progressPercent,
     participants,
     onJoinPool,
-    onApprove
+    onApprove,
+    onConnectWallet
 }) => {
     return <div className="sol-launchpad-detail-pool-card">
         <Row className="gx-lg-5">
@@ -45,8 +47,11 @@ const SolLaunchpadDetailPoolCard = ({
                         <span><b>{participants}</b> participants</span>
                     </div>
                     <div className="sol-launchpad-detail-pool-card-action">
-                        <SolButton variant="primary" size="lg" caption="Join Pool" onClick={onJoinPool} />
-                        <SolButton size="lg" caption="Join Pool" onClick={onApprove} />
+                        {walletInfo ? <>
+                            <SolButton variant="primary" size="lg" caption="Join Pool" onClick={onJoinPool} />
+                            <SolButton size="lg" caption="Approve" onClick={onApprove} />
+                        </> : <SolButton variant="primary" size="lg" caption="Connect wallet" onClick={onConnectWallet} />
+                        }
                     </div>
                 </div>
             </Col>

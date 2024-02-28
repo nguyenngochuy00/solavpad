@@ -1,29 +1,39 @@
-@import "src/styles/variables.scss";
+@import 'src/styles/variables.scss';
 
-.sol-desktop-template{
-    .sol-main {
-        min-height: 100vh;
-      position: relative;
-      padding: 100px 60px 60px calc(60px + $sidebar_width);
-      @media (max-width: 1399px) {
-        padding: 100px 40px 40px calc(40px + 220px);
-        &::before{
-          left: 220px;
-          width: calc(100% - 220px);
-        }
-      }
-      &::before{
-        content: '';
-        position: absolute;
-        top: 0;
-        left: $sidebar_width;
-        width: calc(100% - $sidebar_width);
-        height: 100%;
-        background-image: url(~/public/images/background.jpeg);
-        background-size: cover;
-        background-attachment: fixed;
-        mix-blend-mode: multiply;
-        z-index: -1;
-      }
-    }
+.sol-desktop-template {
+	.sol-main {
+		min-height: 100vh;
+		position: relative;
+		padding: 100px 60px 60px calc(60px + $sidebar_width);
+		@media (max-width: 1399px) {
+			padding: 100px 40px 40px calc(40px + 220px);
+		}
+		@media (max-width: 767px) {
+			padding: 100px 24px 24px 24px;
+      min-height: 100px;
+      height: 100vh;
+      overflow-y: auto;
+		}
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: $sidebar_width;
+			width: calc(100% - $sidebar_width);
+			height: 100%;
+			background-image: url(~/public/images/background.jpeg);
+			background-size: cover;
+			background-attachment: fixed;
+			mix-blend-mode: multiply;
+			z-index: -1;
+			@media (max-width: 1399px) {
+				left: 220px;
+				width: calc(100% - 220px);
+			}
+			@media (max-width: 767px) {
+				left: 0;
+				width: 100%;
+			}
+		}
+	}
 }

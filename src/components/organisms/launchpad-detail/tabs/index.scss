@@ -8,11 +8,23 @@
 		row-gap: 10px;
 		column-gap: 40px;
 	}
+	@media (max-width: 767px) {
+		row-gap: 5px;
+		column-gap: 30px;
+	}
 	.sol-tab {
 		flex: unset;
 		@media (max-width: 991px) {
 			padding-left: 0;
 			padding-right: 0;
+		}
+		@media (max-width: 767px) {
+			font-size: 14px;
+			padding-bottom: 5px;
+			width: calc(50% - 15px);
+			white-space: nowrap;
+			text-align: left;
+			justify-content: flex-start;
 		}
 		&:first-child {
 			padding-left: 0;

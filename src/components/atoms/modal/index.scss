@@ -17,11 +17,17 @@
 	.modal-header {
 		padding: 20px 30px;
 		border: 0;
+		@media (max-width: 767px) {
+			padding: 20px;
+		}
 		.modal-title {
 			color: $white_color;
 			font-size: 24px;
 			font-weight: 900;
 			margin-bottom: 0;
+			@media (max-width: 767px) {
+				font-size: 20px;
+			}
 		}
 		.btn-close {
 			filter: invert(1);
@@ -29,6 +35,9 @@
 	}
 	.modal-body {
 		padding: 10px 30px 30px;
+		@media (max-width: 767px) {
+			padding: 10px 20px 20px;
+		}
 	}
 	.modal-footer {
 		border: 0;
@@ -37,6 +46,6 @@
 .modal-backdrop {
 	background-color: $bg_modal_backdrop;
 	&.show {
-		opacity: 0.8;
+		opacity: 0.8 !important;
 	}
 }
