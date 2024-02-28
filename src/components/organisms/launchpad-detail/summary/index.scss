@@ -2,14 +2,7 @@
 
 .sol-launchpad-detail-summary {
 	padding: 30px 0 50px;
-	display: flex;
-	flex-direction: row;
-	column-gap: 40px;
 	position: relative;
-	.sol-pool-image {
-		width: 280px;
-		min-width: 280px;
-	}
 	&-network-info {
 		padding: 8px;
 		display: flex;

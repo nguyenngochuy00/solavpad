@@ -25,7 +25,7 @@ const SolLaunchpadBanner = ({
 						}
 					</div>
 				</Col>
-				<Col xl="6" lg="5" className='order-1 order-lg-2'>
+				<Col xl="6" lg="5" className='order-1 order-lg-2 text-center'>
 					{image ? <img className="img-fluid" src={image} alt="" /> : <></>}
 				</Col>
 			</Row>

@@ -4,6 +4,10 @@
 	.sol-bridge-process-content {
 		padding: 0 0px 0px 30px;
 		border-left: 1px solid rgba(255, 255, 255, 0.1);
+		@media (max-width: 991px) {
+			padding: 0;
+			border: 0;
+		}
 		.sol-bridge-process-body {
 			min-height: 310px;
 		}

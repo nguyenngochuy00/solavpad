@@ -16,16 +16,22 @@ const SolHomepageNews = ({ sectionTitle, news = [] }) => {
                 />
             </Col>
             <Col xxl="4" lg="5">
-                {news.length > 1 ? <SolHomepageNewsItemMd
-                    url={news[1].url}
-                    image={news[1].image}
-                    title={news[1].title}
-                /> : <></>}
-                {news.length > 2 ? <SolHomepageNewsItemMd
-                    url={news[2].url}
-                    image={news[2].image}
-                    title={news[2].title}
-                /> : <></>}
+                <Row>
+                    <Col lg="12" md="6">
+                        {news.length > 1 ? <SolHomepageNewsItemMd
+                            url={news[1].url}
+                            image={news[1].image}
+                            title={news[1].title}
+                        /> : <></>}
+                    </Col>
+                    <Col lg="12" md="6">
+                        {news.length > 2 ? <SolHomepageNewsItemMd
+                            url={news[2].url}
+                            image={news[2].image}
+                            title={news[2].title}
+                        /> : <></>}
+                    </Col>
+                </Row>
             </Col>
         </Row>
     </div> : <></>

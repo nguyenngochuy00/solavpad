@@ -2,12 +2,25 @@
 
 .sol-staking-stake {
 	padding: 20px 30px;
+	@media (max-width: 1399px) {
+		padding: 20px;
+	}
 	&-content {
 		padding: 0 0px 0px 30px;
 		border-left: 1px solid rgba(255, 255, 255, 0.1);
+		@media (max-width: 1399px) {
+			padding-left: 20px;
+		}
+		@media (max-width: 991px) {
+			padding: 0;
+			border: 0;
+		}
 	}
     &-body{
 		min-height: 435px;
+		@media (max-width: 991px) {
+			min-height: 390px;
+		}
     }
 	&-action {
 		border-top: 1px solid $border_color;

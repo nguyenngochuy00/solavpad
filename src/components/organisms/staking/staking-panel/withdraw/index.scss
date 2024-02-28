@@ -1,3 +1,6 @@
 .sol-staking-withdraw{
     padding: 20px 30px; 
+	@media (max-width: 1399px) {
+		padding: 20px;
+	}
 }

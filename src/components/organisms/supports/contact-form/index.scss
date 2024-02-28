@@ -10,6 +10,9 @@
         .sol-btn{
             margin-top: 20px;
             margin-bottom: 30px;
+            @media(max-width:991px){
+                width: 100%;
+            }
         }
     }
 }

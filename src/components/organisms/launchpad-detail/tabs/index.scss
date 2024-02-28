@@ -3,8 +3,17 @@
 .sol-launchpad-detail-tabs {
 	display: flex;
 	border-bottom: 1px solid $border_color;
+	@media (max-width: 991px) {
+		flex-wrap: wrap;
+		row-gap: 10px;
+		column-gap: 40px;
+	}
 	.sol-tab {
 		flex: unset;
+		@media (max-width: 991px) {
+			padding-left: 0;
+			padding-right: 0;
+		}
 		&:first-child {
 			padding-left: 0;
 		}

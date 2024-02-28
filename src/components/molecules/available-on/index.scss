@@ -9,6 +9,11 @@
 	&.lg {
 		font-size: 18px;
 	}
+	@media(max-width:991px){
+		span{
+			display: none;
+		}
+	}
 	a {
 		color: $text_color;
 		transition: all ease-in-out 0.3s;

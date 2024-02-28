@@ -6,20 +6,20 @@
 	row-gap: 30px;
 	border-radius: 8px;
 	background: rgba($white_color, 0.1);
-	&-medium {
+	height: 10px;
+	.sol-progress-bar-inner {
 		height: 10px;
-		.sol-progress-bar-inner {
-			height: 10px;
-			border-radius: 8px;
-			background: linear-gradient(90deg, #e250e5 4.68%, #4b50e6 91.89%);
-		}
+		border-radius: 8px;
+		background: linear-gradient(90deg, #e250e5 4.68%, #4b50e6 91.89%);
 	}
 	&-lg {
-		height: 15px;
-		.sol-progress-bar-inner {
+		@media (min-width: 1200px) {
 			height: 15px;
-			border-radius: 8px;
-			background: linear-gradient(90deg, #e250e5 4.68%, #4b50e6 91.89%);
+			.sol-progress-bar-inner {
+				height: 15px;
+				border-radius: 8px;
+				background: linear-gradient(90deg, #e250e5 4.68%, #4b50e6 91.89%);
+			}
 		}
 	}
 }

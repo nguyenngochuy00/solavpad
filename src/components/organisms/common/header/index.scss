@@ -4,11 +4,11 @@
 	position: fixed;
 	top: 0;
 	left: $sidebar_width;
-    width: calc(100% - $sidebar_width);
+	width: calc(100% - $sidebar_width);
 	background-color: rgba($color: $bg_color, $alpha: 0.9);
 	backdrop-filter: blur(10px);
-    z-index: 996;
-    padding: 20px 60px;
+	z-index: 996;
+	padding: 20px 60px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -19,8 +19,11 @@
 		padding: 20px 40px;
 	}
 	&-right {
-        display: inline-flex;
-        align-items: center;
-        column-gap: 20px;
+		display: inline-flex;
+		align-items: center;
+		column-gap: 20px;
+		@media (max-width: 1199px) {
+			column-gap: 15px;
+		}
 	}
 }

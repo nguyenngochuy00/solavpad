@@ -24,7 +24,7 @@ const SolSupportsContactForm = ({ title, image, formData, onSubmit }) => {
     return <div className="sol-support-contact-form">
         <SolCard title={title}>
             <Row className="gx-xl-5 align-items-center">
-                <Col lg="6">
+                <Col xl="6" lg="7">
                     <form onSubmit={handleSubmit}>
                         <div className="sol-support-contact-form-body">
                             <SolFormGroup
@@ -58,10 +58,12 @@ const SolSupportsContactForm = ({ title, image, formData, onSubmit }) => {
                         </div>
                     </form>
                 </Col>
-                <Col lg="6">
-                    {
-                        image ? <img className="img-fluid" src={image} alt="" /> : <></>
-                    }
+                <Col xl="6" lg="5">
+                    <div className="d-none d-lg-block">
+                        {
+                            image ? <img className="img-fluid" src={image} alt="" /> : <></>
+                        }
+                    </div>
                 </Col>
             </Row>
         </SolCard>

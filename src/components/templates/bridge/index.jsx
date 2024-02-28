@@ -5,11 +5,13 @@ const SolBridgeTemplate = ({ header, leftPanel, rightPanel }) => {
     return <div className="sol-bridge-template">
         {header}
         <Row>
-            <Col lg="6">
+            <Col xl="6" lg="9">
                 {leftPanel}
             </Col>
-            <Col lg="6">
-                {rightPanel}
+            <Col xl="6">
+                <div className="d-none d-xl-block">
+                    {rightPanel}
+                </div>
             </Col>
         </Row>
     </div>

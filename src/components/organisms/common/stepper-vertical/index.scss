@@ -1,5 +1,22 @@
-.sol-stepper-vertical{
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
+.sol-stepper-vertical {
+	display: flex;
+	flex-direction: column;
+	row-gap: 15px;
+	@media (max-width: 991px) {
+		flex-direction: row;
+		justify-content: space-between;
+		margin-bottom: 20px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		.sol-stepper-item {
+			.sol-stepper-item-text {
+				display: none;
+			}
+			&.active {
+				.sol-stepper-item-text {
+					display: block;
+				}
+			}
+		}
+	}
 }

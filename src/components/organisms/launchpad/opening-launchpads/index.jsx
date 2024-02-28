@@ -15,13 +15,13 @@ const SolLaunchpadOpening = ({
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
 			<div className="sol-launchpad-opening">
-				<Row className='gx-xl-5 gy-4'>
-					<Col xxl="4" xl="5">
+				<Row className='gx-xxl-5 gy-4'>
+					<Col xl="4">
 						<Link to={projectData.routeUrl} className="sol-launchpad-opening-img">
 							<SolPoolImage src={projectData.logo} networkIcon={projectData.networkIcon} networkName={projectData.networkName} type='type-2' />
 						</Link>
 					</Col>
-					<Col xxl="8" xl="7">
+					<Col xl="8">
 						<Link to={projectData.routeUrl} className="sol-launchpad-opening-title">{projectData.name}</Link>
 						<div className='sol-launchpad-opening-description'>{projectData.description}</div>
 						<div className='sol-launchpad-opening-stats'>

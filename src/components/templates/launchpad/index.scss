@@ -1,17 +1,23 @@
 @import 'src/styles/variables.scss';
 
 .sol-launchpad-template {
-    .sol-launchpad-section{
-        margin-top: 60px;
-        > h3 {
-            color: $white_color;
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            @media(max-width:1199px){
-                font-size: 28px;
-                margin-bottom: 20px;
+	.sol-launchpad-section {
+		margin-top: 60px;
+		@media (max-width: 1199px) {
+			margin-top: 40px;
+		}
+		> h3 {
+			color: $white_color;
+			font-size: 40px;
+			font-weight: 700;
+			margin-bottom: 30px;
+			@media (max-width: 1399px) {
+				font-size: 28px;
+				margin-bottom: 20px;
+			}
+            @media (max-width: 991px) {
+                font-size: 24px;
             }
-        }
-    }
+		}
+	}
 }

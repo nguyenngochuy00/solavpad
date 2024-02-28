@@ -10,7 +10,7 @@ const SolHomepageBanner = ({ title, description, actions, image }) => {
                 <div className="sol-homepage-banner-description">{description}</div>
                 <div className="sol-homepage-banner-action">{actions}</div>
             </Col>
-            <Col lg="6" className="order-1 order-lg-2">
+            <Col lg="6" className="order-1 order-lg-2 text-center">
                 <img src={image} className="img-fluid" alt="" />
             </Col>
         </Row>

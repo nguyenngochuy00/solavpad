@@ -1,6 +1,9 @@
 .sol-launchpad-detail-template{
     .sol-launchpad-detail-details{
         margin-top: 60px;
+		@media (max-width: 991px) {
+            margin-top: 40px;
+        }
     }
     .sol-launchpad-detail-tab-content{
         padding: 40px 0;

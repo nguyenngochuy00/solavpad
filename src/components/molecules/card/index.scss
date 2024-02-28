@@ -8,7 +8,6 @@
 	background: rgba(255, 255, 255, 0.03);
 
 	&-header {
-		height: 36px;
 		display: flex;
 		align-items: flex-start;
 		border-left: 2px solid $primary_color;
@@ -19,6 +18,9 @@
 			font-weight: 700;
 			text-transform: uppercase;
 			margin: 0;
+			@media (max-width: 1199px) {
+				font-size: 16px;
+			}
 		}
 	}
 

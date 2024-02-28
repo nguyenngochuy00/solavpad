@@ -21,6 +21,7 @@
 	cursor: pointer;
 	@media (max-width: 1199px) {
 		font-size: 14px;
+		min-width: 100px;
 	}
 	&-lg {
 		@media (min-width: 1200px) {

@@ -5,6 +5,9 @@
     border-radius: 24px;
     background-color: $bg_card_color;
     min-height: 100%;
+	@media (max-width: 1399px) {
+        padding: 24px;
+    }
     &-body{
         display: flex;
         flex-direction: column;
