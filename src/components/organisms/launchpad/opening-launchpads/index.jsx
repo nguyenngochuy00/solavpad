@@ -38,7 +38,7 @@ const SolLaunchpadOpening = ({
 							</div>
 						</div>
 						<div className='sol-launchpad-opening-action'>
-							<SolButton caption="Join Now" variant="primary" size="lg" />
+							<Link to={projectData.routeUrl} className='sol-btn sol-btn-lg sol-btn-primary'>Join Now</Link>
 							<SolAvailableOn
 								telegram={projectData.telegram}
 								twitter={projectData.twitter}
