@@ -6,9 +6,15 @@
 	position: relative;
 	border-radius: 20px;
 	overflow: hidden;
+	@media(max-width:1399px){
+		height: auto;
+	}
 	&.type-2 {
 		height: 350px;
 		border-radius: 28px;
+		@media(max-width:1399px){
+			height: auto;
+		}
 		.sol-network {
 			padding: 8px;
 			left: 50%;

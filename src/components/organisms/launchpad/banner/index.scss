@@ -1,12 +1,8 @@
 @import 'src/styles/variables.scss';
 
 .sol-launchpad-banner {
-	&-title {
-		color: $white_color;
-		font-size: 40px;
-		font-weight: 900;
-		text-transform: uppercase;
-		margin-bottom: 10px;
+	@media(max-width:1199px){
+		padding: 30px 0;
 	}
 	&-description {
 		font-size: 18px;
@@ -27,6 +23,10 @@
 					width: 1px;
 					height: 100%;
 					background: $gradient_color;
+					@media (max-width: 1199px) {
+						right: 12px;
+						opacity: .5;
+					}
 				}
 			}
 		}

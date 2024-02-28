@@ -8,11 +8,14 @@
 		color: $white_color;
 		font-size: 15px;
 		font-weight: 900;
+		white-space: nowrap;
 	}
-	&.lg{
-		font-size: 18px;
-		.sol-info-value{
-			font-size: 20px;
+	&.lg {
+		@media (min-width: 1200px) {
+			font-size: 18px;
+			.sol-info-value {
+				font-size: 20px;
+			}
 		}
 	}
 }

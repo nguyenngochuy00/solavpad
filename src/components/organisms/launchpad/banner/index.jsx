@@ -1,4 +1,5 @@
 import { Col, Row } from 'react-bootstrap';
+import SolPageTitle from 'src/components/molecules/page-title';
 import SolStatistic from 'src/components/molecules/statistic';
 import './index.scss';
 
@@ -11,8 +12,8 @@ const SolLaunchpadBanner = ({
 	return (
 		<div className="sol-launchpad-banner">
 			<Row className="gx-lg-5 gy-4 align-items-center">
-				<Col lg="6" className='order-2 order-lg-1'>
-					<h1 className="sol-launchpad-banner-title">{title}</h1>
+				<Col xl="6" lg="7" className='order-2 order-lg-1'>
+					<SolPageTitle>{title}</SolPageTitle>
 					<div className="sol-launchpad-banner-description">{description}</div>
 					<div className="sol-launchpad-banner-statistics">
 						{
@@ -24,7 +25,7 @@ const SolLaunchpadBanner = ({
 						}
 					</div>
 				</Col>
-				<Col lg="6" className='order-1 order-lg-2'>
+				<Col xl="6" lg="5" className='order-1 order-lg-2'>
 					{image ? <img className="img-fluid" src={image} alt="" /> : <></>}
 				</Col>
 			</Row>

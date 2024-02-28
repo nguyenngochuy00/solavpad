@@ -5,6 +5,13 @@
         min-height: 100vh;
       position: relative;
       padding: 100px 60px 60px calc(60px + $sidebar_width);
+      @media (max-width: 1399px) {
+        padding: 100px 40px 40px calc(40px + 220px);
+        &::before{
+          left: 220px;
+          width: calc(100% - 220px);
+        }
+      }
       &::before{
         content: '';
         position: absolute;

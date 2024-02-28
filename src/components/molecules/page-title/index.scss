@@ -6,4 +6,8 @@
 	font-weight: 900;
 	text-transform: uppercase;
 	margin-bottom: 30px;
+	@media(max-width:1199px){
+		font-size: 30px;
+		margin-bottom: 20px;
+	}
 }

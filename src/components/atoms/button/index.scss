@@ -19,11 +19,16 @@
 	position: relative;
 	overflow: hidden;
 	cursor: pointer;
+	@media (max-width: 1199px) {
+		font-size: 14px;
+	}
 	&-lg {
-		font-size: 18px;
-		padding: 12px 40px;
-		border-radius: 32px;
-		height: 60px;
+		@media (min-width: 1200px) {
+			font-size: 18px;
+			padding: 12px 40px;
+			border-radius: 32px;
+			height: 60px;
+		}
 	}
 	&-primary {
 		border: 0;

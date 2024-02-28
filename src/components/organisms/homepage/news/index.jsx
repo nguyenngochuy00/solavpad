@@ -7,7 +7,7 @@ const SolHomepageNews = ({ sectionTitle, news = [] }) => {
     return news.length ? <div className="sol-homepage-news">
         {sectionTitle ? <h2 className="sol-homepage-news-title">{sectionTitle}</h2> : <></>}
         <Row>
-            <Col lg="8">
+            <Col xxl="8" lg="7">
                 <SolHomepageNewsItemLg
                     url={news[0].url}
                     image={news[0].image}
@@ -15,7 +15,7 @@ const SolHomepageNews = ({ sectionTitle, news = [] }) => {
                     description={news[0].description}
                 />
             </Col>
-            <Col lg="4">
+            <Col xxl="4" lg="5">
                 {news.length > 1 ? <SolHomepageNewsItemMd
                     url={news[1].url}
                     image={news[1].image}

@@ -5,6 +5,11 @@
 	flex-direction: column;
 	row-gap: 10px;
 	padding-right: 24px;
+	&-label{
+		@media (max-width: 1199px) {
+			font-size: 14px;
+		}
+	}
 	&-value {
 		font-size: 36px;
 		font-weight: 900;
@@ -13,5 +18,8 @@
 		background-clip: text;
 		-webkit-background-clip: text;
 		-webkit-text-fill-color: transparent;
+		@media (max-width: 1199px) {
+			font-size: 30px;
+		}
 	}
 }

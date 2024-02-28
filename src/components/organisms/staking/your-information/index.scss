@@ -26,6 +26,9 @@
 		column-gap: 15px;
 		.sol-btn {
 			flex: 1;
+			@media(max-width:1399px){
+				min-width: 80px;
+			}
 		}
 	}
 }

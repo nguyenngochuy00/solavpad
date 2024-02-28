@@ -1,4 +1,5 @@
 import SolAvailableOn from 'src/components/molecules/available-on';
+import SolPageTitle from 'src/components/molecules/page-title';
 import SolPoolImage from 'src/components/molecules/pool-image';
 import './index.scss';
 
@@ -23,7 +24,7 @@ const SolLaunchpadDetailSummary = ({
 					</span>
 					<span>BUSD</span>
 				</div>
-				<div className="sol-launchpad-detail-summary-title">{title}</div>
+				<SolPageTitle>{title}</SolPageTitle>
 				<div className="sol-launchpad-detail-summary-desc">{description}</div>
 				<SolAvailableOn
 					telegram={telegram}

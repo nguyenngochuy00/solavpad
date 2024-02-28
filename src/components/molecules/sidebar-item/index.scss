@@ -16,6 +16,10 @@
 		opacity: 0;
 		transition: all ease-in-out 0.3s;
 		z-index: -1;
+		@media (max-width: 1399px) {
+			width: 80px;
+			height: 116px;
+		}
 	}
 	&.active {
 		&::before {
@@ -34,7 +38,7 @@
 		position: relative;
 		background-color: transparent;
 		border: 0;
-        padding: 0;
+		padding: 0;
 		display: flex;
 		align-items: center;
 		column-gap: 10px;
@@ -44,6 +48,9 @@
 		font-size: 18px;
 		font-weight: 700;
 		transition: all ease-in-out 0.3s;
+		@media (max-width: 1399px) {
+			font-size: 16px;
+		}
 		&:disabled {
 			pointer-events: none;
 			opacity: 0.5;
@@ -63,9 +70,18 @@
 			display: inline-flex;
 			align-items: center;
 			justify-content: center;
+			@media (max-width: 1399px) {
+				width: 46px;
+				min-width: 46px;
+				height: 46px;
+				border-radius: 46px;
+			}
 			img,
 			svg {
 				height: 24px;
+				@media (max-width: 1399px) {
+					height: 20px;
+				}
 			}
 		}
 	}

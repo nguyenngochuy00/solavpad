@@ -13,6 +13,11 @@
 	align-items: center;
 	justify-content: space-between;
 	height: 90px;
+	@media (max-width: 1399px) {
+		left: 220px;
+		width: calc(100% - 220px);
+		padding: 20px 40px;
+	}
 	&-right {
         display: inline-flex;
         align-items: center;
