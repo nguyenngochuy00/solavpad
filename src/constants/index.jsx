@@ -69,3 +69,8 @@ export const NETWORKS = [
     { name: 'Solana', logo: '/images/icons/solana.svg' },
     { name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
 ]
+export const LAUNCHPAD_STATUS = {
+    OPENING: 'O',
+    UPCOMING: 'P',
+    COMPLETED: 'C'
+}

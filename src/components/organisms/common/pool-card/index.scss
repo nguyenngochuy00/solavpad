@@ -1,22 +1,27 @@
 @import 'src/styles/variables.scss';
 
 .sol-pool-card {
-	padding: 20px;
+	padding: 24px;
 	border-radius: 30px;
-	border: 1px solid $primary_color;
+	border: 1px solid transparent;
 	background: $card_bg_color;
-	box-shadow: 0px 0px 50px 10px $box_shadow_color;
 	backdrop-filter: blur(5px);
-	&-img {
-		display: flex;
-		text-decoration: none;
-		margin-bottom: 20px;
-		width: 100%;
+	@media (max-width: 767px) {
+		padding: 20px;
+		border-radius: 20px;
+	}
+	a {
 		&:hover {
+			color: $primary_color;
 			img {
-				transform: scale(1.05);
+				transform: scale(1.1);
 			}
 		}
+	}
+	&-img {
+		display: block;
+		text-decoration: none;
+		margin-bottom: 20px;
 		img {
 			transform-origin: center;
 			transition: all ease-in-out 0.3s;
@@ -29,39 +34,43 @@
 		text-decoration: none;
 		display: flex;
 		transition: all ease-in-out 0.3s;
-		&:hover {
-			color: $primary_color;
-		}
 	}
 	&-description {
 		font-size: 16px;
 		padding: 15px 0px;
 	}
 	&-availabe {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
 		padding-bottom: 15px;
+		.sol-available-on {
+			width: 100%;
+			span {
+				margin-right: auto;
+			}
+		}
 	}
 	&-stats {
 		display: flex;
 		align-items: center;
 		gap: 40px;
 		align-self: stretch;
-		padding-top: 10px;
-		border-top: 1px solid $border_color;
+		padding: 10px 0;
+		border-top: 1px dashed $border_color;
+		flex-wrap: wrap;
+		row-gap: 20px;
 	}
 	&-progress {
-		padding: 20px 0;
+		padding: 10px 0;
 		&-label {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			margin-bottom: 8px;
+			font-size: 14px;
 			.progress-label {
-				font-size: 16px;
+				b {
+					color: $white_color;
+				}
 			}
-
 			.progress-participants {
 				b {
 					color: $white_color;
@@ -74,6 +83,7 @@
 			align-items: center;
 			justify-content: space-between;
 			color: $white_color;
+			font-size: 14px;
 			.progress-info-parti {
 				color: $text_color;
 			}
@@ -81,12 +91,10 @@
 	}
 
 	&-action {
-		padding-top: 24px;
-		border-top: 1px solid $border_color;
+		padding-top: 20px;
+		border-top: 1px dashed $border_color;
 		align-items: center;
-
 		.sol-btn {
-			min-width: 200px;
 			width: 100%;
 		}
 	}

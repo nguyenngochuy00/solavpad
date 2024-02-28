@@ -1,5 +1,5 @@
 import SolLaunchpadUpcoming from 'src/components/organisms/launchpad/upcoming-launchpads';
-import { APP_ROUTES } from 'src/constants';
+import { APP_ROUTES, LAUNCHPAD_STATUS } from 'src/constants';
 
 const SolLaunchpadUpcomingContainer = () => {
 	const PROJECTS = [
@@ -18,7 +18,7 @@ const SolLaunchpadUpcomingContainer = () => {
 			telegram: '/images/icons/telegram.svg',
 			twitter: '/images/icons/twitter.svg',
 			webURL: '/images/icons/webURL.svg',
-			showProgress: false
+			status: LAUNCHPAD_STATUS.UPCOMING
 		},
 		{
 			routeUrl: `/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(':id', 1)}`,
@@ -35,7 +35,7 @@ const SolLaunchpadUpcomingContainer = () => {
 			telegram: '/images/icons/telegram.svg',
 			twitter: '/images/icons/twitter.svg',
 			webURL: '/images/icons/webURL.svg',
-			showProgress: false
+			status: LAUNCHPAD_STATUS.UPCOMING
 		},
 		{
 			routeUrl: `/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(':id', 1)}`,
@@ -52,14 +52,9 @@ const SolLaunchpadUpcomingContainer = () => {
 			telegram: '/images/icons/telegram.svg',
 			twitter: '/images/icons/twitter.svg',
 			webURL: '/images/icons/webURL.svg',
-			showProgress: false
+			status: LAUNCHPAD_STATUS.UPCOMING
 		}
 	];
-	return (
-		<SolLaunchpadUpcoming
-			sectionTitle="Upcoming Launchpads"
-			projects={PROJECTS}
-		/>
-	);
+	return <SolLaunchpadUpcoming sectionTitle="Upcoming Launchpads" projects={PROJECTS} />;
 };
 export default SolLaunchpadUpcomingContainer;

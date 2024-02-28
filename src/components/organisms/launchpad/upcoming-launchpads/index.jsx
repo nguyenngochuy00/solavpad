@@ -1,14 +1,19 @@
-import './index.scss';
+import { Col, Row } from 'react-bootstrap';
 import SolPoolCard from '../../common/pool-card';
+import './index.scss';
 
 const SolLaunchpadUpcoming = ({ sectionTitle = '', projects }) => {
 	return (
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
 			<div className="sol-launchpad-upcoming">
-				{projects.map((project, index) => (
-					<SolPoolCard key={index} projectData={project} />
-				))}
+				<Row>
+					{projects.map((project, index) => (
+						<Col key={index} xxl="4" lg="6">
+							<SolPoolCard projectData={project} />
+						</Col>
+					))}
+				</Row>
 			</div>
 		</>
 	);

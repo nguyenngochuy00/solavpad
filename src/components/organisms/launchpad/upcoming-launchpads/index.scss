@@ -1,4 +1,10 @@
 .sol-launchpad-upcoming {
-	display: flex;
-	column-gap: 32px;
+	.row {
+		--bs-gutter-x: 32px;
+		--bs-gutter-y: 32px;
+		@media (max-width: 767px) {
+			--bs-gutter-x: 24px;
+			--bs-gutter-y: 24px;
+		}
+	}
 }
