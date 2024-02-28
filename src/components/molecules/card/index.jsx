@@ -1,8 +1,8 @@
 import './index.scss';
 
-const SolCard = ({ title = '', action = '', children, onAction }) => {
+const SolCard = ({ className = '', title = '', action = '', children, onAction }) => {
 	return (
-		<div className="sol-card">
+		<div className={`sol-card ${className}`}>
 			<div className="sol-card-header">
 				<h2 className="sol-card-title">{title}</h2>
 				{action && (

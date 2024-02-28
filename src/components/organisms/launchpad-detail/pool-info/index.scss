@@ -1,5 +1,79 @@
 @import 'src/styles/variables.scss';
 
 .sol-launchpad-detail-pool-info {
-	
+	.row {
+		--bs-gutter-x: 32px;
+		--bs-gutter-y: 32px;
+		@media (max-width: 767px) {
+			--bs-gutter-x: 24px;
+			--bs-gutter-y: 24px;
+		}
+	}
+	.sol-card {
+		&:not(:last-child) {
+			margin-bottom: 32px;
+			@media (max-width: 767px) {
+				margin-bottom: 24px;
+			}
+		}
+		.sol-card-header {
+			flex-wrap: wrap;
+			.sol-card-title {
+				margin-right: 20px;
+			}
+			.sol-card-action {
+				@media (max-width: 1199px) {
+					margin-left: 10px;
+				}
+			}
+		}
+		.sol-card-body {
+			padding: 15px 0 0;
+		}
+	}
+	table {
+		width: 100%;
+		tr {
+			td {
+				vertical-align: top;
+				padding: 12px 0;
+				color: $text_color;
+				@media (max-width: 1199px) {
+					display: block;
+					text-align: left !important;
+					padding-left: 0 !important;
+					&:first-child {
+						padding-bottom: 0;
+					}
+					&:last-child {
+						padding: 5px 0 15px;
+					}
+				}
+				div {
+					&:not(:last-child) {
+						margin-bottom: 8px;
+					}
+					b{
+						white-space: nowrap;
+					}
+				}
+				span {
+					display: inline-block;
+					width: 70px;
+					text-align: left;
+				}
+				b {
+					color: $white_color;
+					font-weight: 900;
+				}
+				&:last-child {
+					padding-left: 20px;
+					text-align: right;
+				}
+			}
+			&:not(:last-child) {
+				border-bottom: 1px $border_color solid;
+			}
+		}
+	}
 }

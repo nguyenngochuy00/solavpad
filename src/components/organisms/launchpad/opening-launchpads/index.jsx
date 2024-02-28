@@ -1,6 +1,5 @@
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import SolButton from 'src/components/atoms/button';
 import SolAvailableOn from 'src/components/molecules/available-on';
 import SolInfo from 'src/components/molecules/info-block';
 import SolPoolImage from 'src/components/molecules/pool-image';

@@ -13,17 +13,32 @@
 
 	&-header {
 		display: flex;
-		align-items: flex-start;
+		align-items: center;
 		border-left: 2px solid $primary_color;
 
 		.sol-card-title {
+			font-size: 16px;
 			padding: 10px 0px 10px 20px;
 			color: $white_color;
 			font-weight: 700;
 			text-transform: uppercase;
 			margin: 0;
+			line-height: 1;
+			white-space: nowrap;
 			@media (max-width: 1199px) {
 				font-size: 16px;
+			}
+		}
+		.sol-card-action {
+			margin-left: auto;
+			color: $primary_color;
+			font-size: 14px;
+			font-weight: 500;
+			text-transform: uppercase;
+			transition: all ease-in-out 0.3s;
+			cursor: pointer;
+			&:hover {
+				color: $white_color;
 			}
 		}
 	}
