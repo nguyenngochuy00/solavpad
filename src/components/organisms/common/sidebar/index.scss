@@ -43,7 +43,7 @@
 
 		&::-webkit-scrollbar-track {
 			background-color: rgba($color: #fff, $alpha: 0.02);
-			border-radius: 8px;
+			border-radius: 3px;
 		}
 
 		&::-webkit-scrollbar-thumb {
@@ -52,7 +52,7 @@
 				rgba(#e250e5, 06) 6%,
 				rgba(#4b50e6, 0.6) 92%
 			);
-			border-radius: 8px;
+			border-radius: 3px;
 		}
 	}
 }
