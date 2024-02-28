@@ -21,7 +21,7 @@ const SolLaunchpadDetailPoolCard = ({
     onApprove,
     onConnectWallet
 }) => {
-    return <div className="sol-launchpad-detail-pool-card">
+    return <div className={`sol-launchpad-detail-pool-card ${opening ? 'active' : ''}`}>
         <Row className="gx-lg-5">
             <Col lg="4">
                 <div className="sol-launchpad-detail-pool-card-left">
@@ -46,13 +46,15 @@ const SolLaunchpadDetailPoolCard = ({
                         <span>{opening ? 'Allocation round' : `${progressPercent}%`}</span>
                         <span><b>{participants}</b> participants</span>
                     </div>
-                    <div className="sol-launchpad-detail-pool-card-action">
-                        {walletInfo ? <>
-                            <SolButton variant="primary" size="lg" caption="Join Pool" onClick={onJoinPool} />
-                            <SolButton size="lg" caption="Approve" onClick={onApprove} />
-                        </> : <SolButton variant="primary" size="lg" caption="Connect wallet" onClick={onConnectWallet} />
-                        }
-                    </div>
+                    {opening ?
+                        <div className="sol-launchpad-detail-pool-card-action">
+                            {walletInfo ? <>
+                                <SolButton variant="primary" size="lg" caption="Join Pool" onClick={onJoinPool} />
+                                <SolButton size="lg" caption="Approve" onClick={onApprove} />
+                            </> : <SolButton variant="primary" size="lg" caption="Connect wallet" onClick={onConnectWallet} />
+                            }
+                        </div> : <></>
+                    }
                 </div>
             </Col>
         </Row>
