@@ -4,7 +4,7 @@ import "./index.scss";
 const SolBridgeTemplate = ({ header, leftPanel, rightPanel }) => {
     return <div className="sol-bridge-template">
         {header}
-        <Row>
+        <Row className="align-items-center">
             <Col xl="6" lg="9">
                 {leftPanel}
             </Col>
