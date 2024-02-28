@@ -1,6 +1,16 @@
-import "./index.scss";
+import './index.scss';
+import SolPoolCard from '../../common/pool-card';
 
-const SolLaunchpadUpcoming = () => {
-    return <div className="sol-launchpad-upcoming"></div>
-}
-export default SolLaunchpadUpcoming
+const SolLaunchpadUpcoming = ({ sectionTitle = '', projects }) => {
+	return (
+		<>
+			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
+			<div className="sol-launchpad-upcoming">
+				{projects.map((project, index) => (
+					<SolPoolCard key={index} projectData={project} />
+				))}
+			</div>
+		</>
+	);
+};
+export default SolLaunchpadUpcoming;
