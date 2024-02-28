@@ -53,6 +53,9 @@
 			column-gap: 15px;
 		}
 		.sol-btn-disconnect{
+			.sol-icon{
+				display: none;
+			}
 			@media(max-width:767px){
 				width: 50px;
 				min-width: 50px;
