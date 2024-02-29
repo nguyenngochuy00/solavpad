@@ -7,8 +7,7 @@ const SolLaunchpadDetailSummaryContainer = () => {
         networkName="SOLANA"
         title="Cryptopolis (Blue Diamond Private)"
         status="closed"
-        description="NFT based game where you can collect, earn, win and display your NFTs while playing and socializing with your friends.
-    "
+        description="NFT based game where you can collect, earn, win and display your NFTs while playing and socializing with your friends."
         telegram="../images/icons/telegram.svg"
         twitter="../images/icons/twitter.svg"
         webURL="../images/icons/webURL.svg"

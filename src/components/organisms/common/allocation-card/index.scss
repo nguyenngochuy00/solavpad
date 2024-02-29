@@ -1,3 +1,44 @@
-.sol-allocation-card{
-    
+@import 'src/styles/variables.scss';
+.sol-allocation-card {
+	position: relative;
+    padding: 24px;
+	border-radius: 10px;
+	background: rgba($white_color, 0.02);
+	height: 100%;
+	&-info {
+		display: flex;
+		column-gap: 10px;
+		justify-content: space-between;
+		margin-bottom: 15px;
+		@media (max-width: 1399px) {
+			flex-wrap: wrap;
+            row-gap: 20px;
+		}
+		.sol-btn {
+			padding: 10px 20px;
+			height: 38px;
+			font-size: 14px;
+			min-width: 80px;
+            border-radius: 18px;
+			@media (max-width: 1399px) {
+				width: 100%;
+			}
+		}
+	}
+	&-action{
+		min-width: 125px;
+	}
+	&-time {
+		font-size: 14px;
+		opacity: 0.6;
+	}
+	&-index {
+		color: $white_color;
+		font-size: 40px;
+		font-weight: 900;
+		position: absolute;
+		opacity: 0.05;
+		bottom: 5px;
+		right: 10px;
+	}
 }
