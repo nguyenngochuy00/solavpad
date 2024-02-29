@@ -1,7 +1,11 @@
-.sol-launchpad-detail-token-metrics{
-    &-chart{
-        width: 500px;
-        max-width: 100%;
-        margin: 0 auto;
-    }
+@import 'src/styles/variables.scss';
+
+.sol-launchpad-detail-token-metrics {
+	padding: 30px;
+	border-radius: 24px;
+	background: $bg_sub_card_color;
+	@media (max-width: 767px) {
+		padding: 20px;
+		border-radius: 20px;
+	}
 }

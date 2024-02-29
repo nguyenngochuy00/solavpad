@@ -1,3 +1,16 @@
-.sol-launchpad-detail-allocation{
-    
+@import 'src/styles/variables.scss';
+
+.sol-launchpad-detail-allocation {
+	@media (max-width: 767px) {
+		padding: 20px;
+		border-radius: 20px;
+	}
+    .row {
+		--bs-gutter-x: 24px;
+		--bs-gutter-y: 24px;
+		@media (max-width: 767px) {
+			--bs-gutter-x: 20px;
+			--bs-gutter-y: 20px;
+		}
+	}
 }
