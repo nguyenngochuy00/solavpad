@@ -44,7 +44,7 @@ export const getIDOProjectDetail = async () => {
 		const idoInfo = await program.account.idoAccount.fetch(
 			CROWD_FUNDIND_CONTRACT
 		);
-		console.log('getIDOProjectDetail=====', idoInfo);
+		return idoInfo;
 	} catch (error) {
 		console.log('errrr', error);
 		return null;

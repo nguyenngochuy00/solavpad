@@ -1,6 +1,7 @@
-import SolLaunchpadDetailPoolInfo from "src/components/organisms/launchpad-detail/pool-info"
+import SolLaunchpadDetailPoolInfo from 'src/components/organisms/launchpad-detail/pool-info';
 
-const SolLaunchpadDetailPoolInfoContainer = ({data}) => {
-    return <SolLaunchpadDetailPoolInfo poolData={data} />
-}
-export default SolLaunchpadDetailPoolInfoContainer
+const SolLaunchpadDetailPoolInfoContainer = ({ data }) => {
+	console.log('laaaaaaaaa', data);
+	return <SolLaunchpadDetailPoolInfo poolData={data} />;
+};
+export default SolLaunchpadDetailPoolInfoContainer;

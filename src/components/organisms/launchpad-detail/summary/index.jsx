@@ -17,9 +17,14 @@ const SolLaunchpadDetailSummary = ({
 }) => {
 	return (
 		<div className="sol-launchpad-detail-summary">
-			<Row className='gx-xl-5 gy-4'>
-				<Col xl="4" lg="6" className='pe-xl-0 pe-lg-4'>
-					<SolPoolImage src={imgURL} networkIcon={networkIcon} networkName={networkName} type='style-2' />
+			<Row className="gx-xl-5 gy-4">
+				<Col xl="4" lg="6" className="pe-xl-0 pe-lg-4">
+					<SolPoolImage
+						src={imgURL}
+						networkIcon={networkIcon}
+						networkName={networkName}
+						type="style-2"
+					/>
 				</Col>
 				<Col xl="8" lg="6">
 					<div className="sol-launchpad-detail-summary-inner">
@@ -27,15 +32,17 @@ const SolLaunchpadDetailSummary = ({
 							<span className={`sol-launchpad-detail-summary-${status}`}>
 								{status}
 							</span>
-							<span>BUSD</span>
+							<span>SOL</span>
 						</div>
 						<SolPageTitle>{title}</SolPageTitle>
-						<div className="sol-launchpad-detail-summary-desc">{description}</div>
+						<div className="sol-launchpad-detail-summary-desc">
+							{description}
+						</div>
 						<SolAvailableOn
 							telegram={telegram}
 							twitter={twitter}
 							webURL={webURL}
-							size='lg'
+							size="lg"
 						/>
 					</div>
 				</Col>

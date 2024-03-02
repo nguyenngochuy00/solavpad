@@ -1,33 +1,13 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import SolLaunchpadDetailApproveDialog from 'src/components/organisms/launchpad-detail/approve-dialog';
 import SolLaunchpadDetailJoinPoolDialog from 'src/components/organisms/launchpad-detail/join-pool-dialog';
-import { getAddressInfo } from 'src/utils/solana.web3';
 import SolHomepageMainContainer from './components/main.container';
 
 const SolHomepage = () => {
 	const { select, wallets, publicKey, disconnect } = useWallet();
-	const [balance, setBalance] = useState(0);
-	console.log(balance);
-
-	const getBalanceOfWallet = async () => {
-		try {
-			const res = await getAddressInfo(publicKey);
-			console.log('11111', res);
-			setBalance(res);
-		} catch (error) {}
-	};
-
-	useEffect(() => {
-		if (publicKey) {
-			getBalanceOfWallet(publicKey);
-		} else {
-			setBalance(0);
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [publicKey]);
 
 	const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
 	const [showApproveModal, setShowApproveModal] = useState(false);

@@ -1,4 +1,5 @@
 import { BigNumber } from 'bignumber.js';
+import { LAUNCHPAD_STATUS } from 'src/constants';
 
 export const minimizeAddress = (address, start = 8, end = 8) => {
 	if (!address) return 'N/A';
@@ -24,4 +25,18 @@ export const formatNumberDownRound = (number, decimal = 9) => {
 	const valueConcated = bigValueFormatted.replace(/\.?0+$/, '');
 
 	return valueConcated;
+};
+
+export const getProjectStatusTag = status => {
+	switch (status) {
+		case LAUNCHPAD_STATUS.COMPLETED:
+			return 'closed';
+		case LAUNCHPAD_STATUS.OPENING:
+			return 'opening';
+		case LAUNCHPAD_STATUS.UPCOMING:
+			return 'upcoming';
+
+		default:
+			return 'opening';
+	}
 };

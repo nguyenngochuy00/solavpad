@@ -1,16 +1,20 @@
-import SolLaunchpadDetailSummary from "src/components/organisms/launchpad-detail/summary"
+import { get } from 'lodash';
+import SolLaunchpadDetailSummary from 'src/components/organisms/launchpad-detail/summary';
+import { getProjectStatusTag } from 'src/utils/helpers';
 
-const SolLaunchpadDetailSummaryContainer = () => {
-    return <SolLaunchpadDetailSummary
-        imgURL="../images/images/FOTA_2.png"
-        networkIcon="../images/images/Solana_logo_1.png"
-        networkName="SOLANA"
-        title="Cryptopolis (Blue Diamond Private)"
-        status="closed"
-        description="NFT based game where you can collect, earn, win and display your NFTs while playing and socializing with your friends."
-        telegram="../images/icons/telegram.svg"
-        twitter="../images/icons/twitter.svg"
-        webURL="../images/icons/webURL.svg"
-    />
-}
-export default SolLaunchpadDetailSummaryContainer
+const SolLaunchpadDetailSummaryContainer = ({ data }) => {
+	return (
+		<SolLaunchpadDetailSummary
+			imgURL="../images/images/FOTA_2.png"
+			networkIcon="../images/images/Solana_logo_1.png"
+			networkName="SOLANA"
+			title={get(data, 'name', '')}
+			status={getProjectStatusTag(data?.state)}
+			description={data?.description}
+			telegram={data?.telegram}
+			twitter={data?.twitter}
+			webURL={data?.website}
+		/>
+	);
+};
+export default SolLaunchpadDetailSummaryContainer;
