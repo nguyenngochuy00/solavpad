@@ -1,11 +1,11 @@
-import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import SolLaunchpadDetailApproveDialog from "src/components/organisms/launchpad-detail/approve-dialog";
-import SolLaunchpadDetailJoinPoolDialog from "src/components/organisms/launchpad-detail/join-pool-dialog";
-import { getAddressInfo } from "src/utils/solana.web3";
-import SolHomepageMainContainer from "./components/main.container";
+import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
+import { useEffect, useState } from 'react';
+import { Button, Container } from 'react-bootstrap';
+import SolLaunchpadDetailApproveDialog from 'src/components/organisms/launchpad-detail/approve-dialog';
+import SolLaunchpadDetailJoinPoolDialog from 'src/components/organisms/launchpad-detail/join-pool-dialog';
+import { getAddressInfo } from 'src/utils/solana.web3';
+import SolHomepageMainContainer from './components/main.container';
 
 const SolHomepage = () => {
 	const { select, wallets, publicKey, disconnect } = useWallet();
@@ -32,19 +32,19 @@ const SolHomepage = () => {
 	const [showJoinPoolModal, setShowJoinPoolModal] = useState(false);
 	const [showApproveModal, setShowApproveModal] = useState(false);
 
-  return (
-    <>
-      <SolHomepageMainContainer />
-      <Container className="d-none">
-        {/* Join pool modal */}
-        <SolLaunchpadDetailJoinPoolDialog
-          show={showJoinPoolModal}
-          projectName="BlastFi"
-          amountSymbol='USDB'
-          balance={3000}
-          onClose={() => setShowJoinPoolModal(false)}
-          onJoin={() => setShowJoinPoolModal(false)}
-        />
+	return (
+		<>
+			<SolHomepageMainContainer />
+			<Container className="d-none">
+				{/* Join pool modal */}
+				<SolLaunchpadDetailJoinPoolDialog
+					show={showJoinPoolModal}
+					projectName="BlastFi"
+					amountSymbol="USDB"
+					balance={3000}
+					onClose={() => setShowJoinPoolModal(false)}
+					onJoin={() => setShowJoinPoolModal(false)}
+				/>
 
 				{/* Approve modal */}
 				<SolLaunchpadDetailApproveDialog
