@@ -1,8 +1,13 @@
 import { Col, Row } from 'react-bootstrap';
 import SolCard from 'src/components/molecules/card';
 import './index.scss';
+import { BigNumber } from 'bignumber.js';
+import { formatNumberDownRound } from 'src/utils/helpers';
+import { get } from 'lodash';
 
-const SolLaunchpadDetailPoolInfo = ({ poolData }) => {
+const SolLaunchpadDetailPoolInfo = ({ projectInfo, idoInfo }) => {
+	console.log('projectInfo', projectInfo);
+	console.log('idoInfo', idoInfo);
 	return (
 		<div className="sol-launchpad-detail-pool-info">
 			<Row>
@@ -13,49 +18,71 @@ const SolLaunchpadDetailPoolInfo = ({ poolData }) => {
 								<tr>
 									<td>Opens</td>
 									<td>
-										<b>{poolData?.opens}</b>
+										<b>
+											{new Date(idoInfo?.openTimestamp * 1000).toLocaleString()}
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>FCFS Opens</td>
 									<td>
-										<b>{poolData.fcfsOpens}</b>
+										<b>{projectInfo?.fcfsOpens}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Closes</td>
 									<td>
-										<b>{poolData.closes}</b>
+										<b>{projectInfo?.closes}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Swap Rate</td>
 									<td>
-										<b>{poolData.swapRate}</b>
+										<b>{`1 ◎ = ${formatNumberDownRound(idoInfo?.rate, 0)} ${
+											projectInfo?.symbol
+										}`}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Cap</td>
 									<td>
-										<b>{poolData.cap}</b>
+										<b>
+											{formatNumberDownRound(
+												new BigNumber(idoInfo?.cap)
+													.dividedBy(
+														10 ** get(idoInfo, 'raiseTokenDecimals', 9)
+													)
+													.toString(),
+												0
+											)}
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Total Users Participated</td>
 									<td>
-										<b>{poolData.totalUsersParticipated}</b>
+										<b>
+											{formatNumberDownRound(
+												new BigNumber(idoInfo?.participated)
+													.dividedBy(
+														10 ** get(idoInfo, 'raiseTokenDecimals', 9)
+													)
+													.toString(),
+												0
+											)}
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Total Funds Swapped</td>
 									<td>
-										<b>{poolData.totalFundsSwapped}</b>
+										<b>{projectInfo?.totalFundsSwapped}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Access Type</td>
 									<td>
-										<b>{poolData.accessType}</b>
+										<b>{projectInfo?.isPrivate ? 'Private' : 'Public'}</b>
 									</td>
 								</tr>
 							</tbody>
@@ -69,13 +96,13 @@ const SolLaunchpadDetailPoolInfo = ({ poolData }) => {
 								<tr>
 									<td>Name</td>
 									<td>
-										<b>{poolData.name}</b>
+										<b>{projectInfo?.name}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Token Symbol</td>
 									<td>
-										<b>{poolData.symbol}</b>
+										<b>{projectInfo?.symbol}</b>
 									</td>
 								</tr>
 							</tbody>
@@ -85,19 +112,19 @@ const SolLaunchpadDetailPoolInfo = ({ poolData }) => {
 					<SolCard title="Schedule">
 						<table>
 							<tbody>
-								{poolData.schedule.map((item, index) => (
+								{idoInfo?.rounds.map((item, index) => (
 									<tr key={index}>
 										<td>
-											<b>{item.round}</b>
+											<b>{item.name}</b>
 										</td>
 										<td>
 											<div>
 												<span>Opens:</span>
-												<b>{item.opens}</b>
+												<b>{item.durationSeconds}</b>
 											</div>
 											<div>
 												<span>Closes:</span>
-												<b>{item.closes}</b>
+												<b>{'item.closes'}</b>
 											</div>
 										</td>
 									</tr>

@@ -21,10 +21,11 @@ const SolLaunchpadDetailMainContainer = () => {
 	const [showJoinModal, setShowJoinModal] = useState(false);
 	const [showApproveModal, setShowApproveModal] = useState(false);
 	const [projectInfo, setProjectInfo] = useState(null);
+	const [idoInfo, setIdoInfo] = useState(null);
 
 	useEffect(() => {
 		if (String(params?.id).trim().length > 0) {
-			getIDOProjectDetail();
+			getIDODetail();
 			// TO-DO: fake get project info, call api later
 			getProjectInfo(params?.id);
 		} else {
@@ -40,9 +41,10 @@ const SolLaunchpadDetailMainContainer = () => {
 		setProjectInfo(data);
 	};
 
-	const getIDOProjectDetail = async () => {
+	const getIDODetail = async () => {
 		const data = await getIDOProjectDetail();
-		console.log('data', data);
+		console.log('dataaaaaaaaa', data);
+		setIdoInfo(data);
 	};
 
 	const TABS = [
@@ -159,7 +161,10 @@ const SolLaunchpadDetailMainContainer = () => {
 						<></>
 					)}
 					{activeTab === TABS[1].key ? (
-						<SolLaunchpadDetailPoolInfoContainer data={DATA.poolInfo} />
+						<SolLaunchpadDetailPoolInfoContainer
+							idoInfo={idoInfo}
+							projectInfo={projectInfo}
+						/>
 					) : (
 						<></>
 					)}
