@@ -17,7 +17,8 @@
 	],
 	"dependencies": {
 		"@coral-xyz/anchor": "^0.29.0",
-		"@ngraveio/bc-ur": "^1.1.9",
+		"@keystonehq/bc-ur-registry": "^0.6.4",
+		"@ngraveio/bc-ur": "github:ngraveio/bc-ur",
 		"@project-serum/anchor": "^0.26.0",
 		"@solana/wallet-adapter-base": "0.9.23",
 		"@solana/wallet-adapter-react": "0.15.35",
