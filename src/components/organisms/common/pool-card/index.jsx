@@ -85,7 +85,7 @@ const SolPoolCard = ({ projectData, status = LAUNCHPAD_STATUS.OPENING }) => {
 			{projectData.status === LAUNCHPAD_STATUS.UPCOMING ? (
 				<div className="sol-pool-card-img">
 					<SolPoolImage
-						src={'/images/images/FOTA_2.png'}
+						src={projectData.logo}
 						networkIcon={'/images/images/Solana_logo_1.png'}
 						networkName={'SOLANA'}
 					/>
@@ -99,7 +99,7 @@ const SolPoolCard = ({ projectData, status = LAUNCHPAD_STATUS.OPENING }) => {
 					className="sol-pool-card-img"
 				>
 					<SolPoolImage
-						src={'/images/images/FOTA_2.png'}
+						src={projectData?.logo}
 						networkIcon={'/images/images/Solana_logo_1.png'}
 						networkName={'SOLANA'}
 					/>

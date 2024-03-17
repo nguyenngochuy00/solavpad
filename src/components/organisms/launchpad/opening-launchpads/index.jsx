@@ -13,14 +13,15 @@ const SolLaunchpadOpening = ({ sectionTitle = '', projectData }) => {
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
 			<div className="sol-launchpad-opening">
-				<Row className="gx-xxl-5 gy-4">
+		 {projectData ? 
+			<Row className="gx-xxl-5 gy-4">
 					<Col xl="4">
 						<Link
-							to={projectData.routeUrl}
+							to={projectData?.routeUrl}
 							className="sol-launchpad-opening-img"
 						>
 							<SolPoolImage
-								src={'/images/images/FOTA_2.png'}
+								src={projectData?.logo}
 								networkIcon={'/images/images/Solana_logo_1.png'}
 								networkName={'SOLANA'}
 								type="type-2"
@@ -29,13 +30,13 @@ const SolLaunchpadOpening = ({ sectionTitle = '', projectData }) => {
 					</Col>
 					<Col xl="8">
 						<Link
-							to={projectData.routeUrl}
+							to={projectData?.routeUrl}
 							className="sol-launchpad-opening-title"
 						>
-							{projectData.name}
+							{projectData?.name}
 						</Link>
 						<div className="sol-launchpad-opening-description">
-							{projectData.description}
+							{projectData?.description}
 						</div>
 						<div className="sol-launchpad-opening-stats">
 							<SolInfo
@@ -65,7 +66,7 @@ const SolLaunchpadOpening = ({ sectionTitle = '', projectData }) => {
 							<div className="sol-launchpad-opening-progress-info">
 								<span>Allocation round</span>
 								<span>
-									<b>{projectData.participants}</b> participants
+									<b>{projectData?.participants}</b> participants
 								</span>
 							</div>
 						</div>
@@ -80,14 +81,18 @@ const SolLaunchpadOpening = ({ sectionTitle = '', projectData }) => {
 								Join Now
 							</Link>
 							<SolAvailableOn
-								telegram={projectData.telegram}
-								twitter={projectData.twitter}
-								webURL={projectData.website}
+								telegram={projectData?.telegram}
+								twitter={projectData?.twitter}
+								webURL={projectData?.website}
 								size="lg"
 							/>
 						</div>
 					</Col>
 				</Row>
+				:
+				<div> No projects currently open</div>
+		 }
+				
 			</div>
 		</>
 	);

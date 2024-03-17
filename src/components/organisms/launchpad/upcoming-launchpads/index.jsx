@@ -8,6 +8,8 @@ const SolLaunchpadUpcoming = ({ sectionTitle = '', projects }) => {
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
 			<div className="sol-launchpad-upcoming">
+				{
+					projects?.length > 0 ?
 				<Row>
 					{projects
 						.filter(item => item?.state === LAUNCHPAD_STATUS.UPCOMING)
@@ -20,6 +22,9 @@ const SolLaunchpadUpcoming = ({ sectionTitle = '', projects }) => {
 							</Col>
 						))}
 				</Row>
+				:<div> No projects  coming</div>
+				}
+				
 			</div>
 		</>
 	);
