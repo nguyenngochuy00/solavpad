@@ -10,7 +10,7 @@ import SolLaunchpadDetailYourAllocationContainer from './your-allocation.contain
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { find } from 'lodash';
-import { getIDOProjectDetail } from 'src/services/solana.helper';
+import { getIDOProjectDetail } from 'src/services/blockchain/solana.helper';
 import projects from '../../../constants/project/project.json';
 import { APP_ROUTES, LAUNCHPAD_STATUS } from 'src/constants';
 

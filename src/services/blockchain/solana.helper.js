@@ -17,7 +17,6 @@ import {
 	BN,
 	Provider
 } from '@project-serum/anchor';
-import { CROWD_FUNDIND_CONTRACT } from 'src/constants/contract';
 import idl from '../idl/crowdfunding.json';
 
 const DEV_NET = clusterApiUrl('devnet');
