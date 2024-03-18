@@ -5,7 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import SolHeader from "src/components/organisms/common/header";
 import SolYourWalletDialog from "src/components/organisms/common/your-wallet-dialog";
 import { toggleConnectWallet, toggleSidebar, updateBreadcrumbs, updateWalletInfo } from "src/redux/actions/applicationAction";
-import { getBreadcrumbs } from "src/utils/route.utils";
+import { getBreadcrumbs } from "src/services/route.utils";
 
 const SolDesktopHeaderContainer = () => {
     const dispatch = useDispatch();

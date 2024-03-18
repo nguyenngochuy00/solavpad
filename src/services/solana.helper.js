@@ -30,20 +30,18 @@ const opts = {
 const getProvider = () => {
 	const provider = new AnchorProvider(
 		connection,
-		window.solana,
+		// window.solana,
 		opts.preflightCommitment
 	);
 	return provider;
 };
 
-export const getIDOProjectDetail = async () => {
+export const getIDOProjectDetail = async (contractAddress) => {
 	try {
 		const programID = new PublicKey(idl?.metadata?.address);
 		const provider = getProvider();
 		const program = new Program(idl, programID, provider);
-		const idoInfo = await program.account.idoAccount.fetch(
-			CROWD_FUNDIND_CONTRACT
-		);
+		const idoInfo = await program.account.idoAccount.fetch(contractAddress);
 		return idoInfo;
 	} catch (error) {
 		console.log('errrr', error);

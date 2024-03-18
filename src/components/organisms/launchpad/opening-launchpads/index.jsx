@@ -5,7 +5,7 @@ import SolInfo from 'src/components/molecules/info-block';
 import SolPoolImage from 'src/components/molecules/pool-image';
 import SolProgressBar from 'src/components/molecules/progress-bar';
 import './index.scss';
-import { formatNumberDownRound } from 'src/utils/helpers';
+import { formatNumberDownRound } from 'src/services/helpers';
 import { APP_ROUTES } from 'src/constants';
 
 const SolLaunchpadOpening = ({ sectionTitle = '', projectData }) => {

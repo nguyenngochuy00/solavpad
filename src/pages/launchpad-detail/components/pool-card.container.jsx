@@ -6,7 +6,7 @@ import SolLaunchpadDetailJoinPoolDialog from 'src/components/organisms/launchpad
 import SolLaunchpadDetailPoolCard from 'src/components/organisms/launchpad-detail/pool-card';
 import { toggleConnectWallet } from 'src/redux/actions/applicationAction';
 import { useSolBalance } from '../../../hooks/useState';
-import { formatNumberDownRound } from 'src/utils/helpers';
+import { formatNumberDownRound } from 'src/services/helpers';
 
 const SolLaunchpadDetailPoolCardContainer = () => {
 	const dispatch = useDispatch();

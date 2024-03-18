@@ -9,8 +9,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateWalletInfo } from 'src/redux/actions/applicationAction';
 import { SOLANA_EXPLORER_URL } from 'src/constants';
-import { formatNumberDownRound, minimizeAddress } from 'src/utils/helpers';
-import { getAddressInfo } from 'src/utils/solana.web3';
+import { formatNumberDownRound, minimizeAddress } from 'src/services/helpers';
+import { getAddressInfo } from 'src/services/solana.web3';
 import { useSolBalance } from 'src/hooks/useState';
 
 const SolHeader = ({

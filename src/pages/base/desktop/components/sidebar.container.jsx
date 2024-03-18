@@ -6,7 +6,7 @@ import SolSidebar from "src/components/organisms/common/sidebar";
 import { APP_MENUS, SITE_CONFIGS } from "src/constants";
 import useIsMobile from "src/hooks/useIsMobile";
 import { toggleDarkMode, toggleSidebar } from "src/redux/actions/applicationAction";
-import { getActiveRoute } from "src/utils/route.utils";
+import { getActiveRoute } from "src/services/route.utils";
 
 const SolDesktopSidebarContainer = () => {
     const location = useLocation();

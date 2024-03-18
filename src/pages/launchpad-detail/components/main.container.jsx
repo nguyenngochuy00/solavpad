@@ -10,7 +10,7 @@ import SolLaunchpadDetailYourAllocationContainer from './your-allocation.contain
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { find } from 'lodash';
-import { getIDOProjectDetail } from 'src/utils/crowd-funding.utils';
+import { getIDOProjectDetail } from 'src/services/solana.helper';
 import projects from '../../../constants/project/project.json';
 import { APP_ROUTES, LAUNCHPAD_STATUS } from 'src/constants';
 
@@ -25,6 +25,7 @@ const SolLaunchpadDetailMainContainer = () => {
 
 	useEffect(() => {
 		if (String(params?.id).trim().length > 0) {
+
 			getIDODetail();
 			// TO-DO: fake get project info, call api later
 			getProjectInfo(params?.id);
@@ -43,7 +44,7 @@ const SolLaunchpadDetailMainContainer = () => {
 
 	const getIDODetail = async () => {
 		const data = await getIDOProjectDetail();
-		console.log('dataaaaaaaaa', data);
+		debugger
 		setIdoInfo(data);
 	};
 

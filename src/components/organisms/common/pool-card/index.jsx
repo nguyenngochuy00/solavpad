@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import SolButton from 'src/components/atoms/button';
 import moment from 'moment';
-import { formatNumberDownRound } from 'src/utils/helpers';
+import { formatNumberDownRound } from 'src/services/helpers';
 
 // {
 // 	"id": 99,

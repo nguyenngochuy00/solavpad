@@ -2,7 +2,7 @@ import { Col, Row } from 'react-bootstrap';
 import SolCard from 'src/components/molecules/card';
 import './index.scss';
 import { BigNumber } from 'bignumber.js';
-import { formatNumberDownRound } from 'src/utils/helpers';
+import { formatNumberDownRound } from 'src/services/helpers';
 import { get } from 'lodash';
 
 const SolLaunchpadDetailPoolInfo = ({ projectInfo, idoInfo }) => {

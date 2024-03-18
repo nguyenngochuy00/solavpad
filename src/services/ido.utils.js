@@ -1,0 +1,174 @@
+import { BN } from '@project-serum/anchor';
+import { PublicKey } from '@solana/web3.js';
+import { utils } from '@coral-xyz/anchor';
+
+
+const RoundClass = {
+    Allocation,
+    FcfsPrepare,
+    Fcfs,
+}
+export class IdoUtil {
+    fcfsTimestamp = (idoAccount)=>{
+
+        let ts = idoAccount.openTimestamp;
+        const rounds = idoAccount.rounds
+        for(let i = 0; i < rounds.length; i++) {
+       
+            if(rounds[i].class == RoundClass.FcfsPrepare)
+                return ts;
+            if(rounds[i].class == RoundClass.Fcfs)
+                return ts;
+            ts += (rounds[i].durationSeconds);
+        }
+        return ts;
+    }
+    closeTimestamp = (idoAccount)=>{
+
+        let ts = idoAccount.openTimestamp;
+        const rounds = idoAccount.rounds
+        for(let i = 0; i < rounds.length; i++) {
+    
+            ts += (rounds[i].durationSeconds);
+        }
+        return ts;
+    
+    }
+    isClosed = (currentTimestamp, idoAccount)=> {
+
+
+        const {participated, cap, closed} = idoAccount;
+        if(closed || currentTimestamp >= this.closeTimestamp(idoAccount) || participated >= cap)
+            return true;
+            
+        return false;
+    }
+    getAllocationRemaining  = ( round , tier  , idoAccount, userPda ) => {
+
+        if(tier == 0 || round == 0){
+            return new BN(0);
+        }
+        const roundIndex  = round - 1;
+        const tierIndex   = tier - 1;
+        if(roundIndex > idoAccount.tiers.length || tierIndex > idoAccount.tiers.length ||tierIndex != userPda.tierIndex){
+            return new BN(0);
+        }
+        if(userPda.allocated){
+            const participated = userPda.participateAmount;
+            const allocated = idoAccount.rounds[roundIndex].tierAllocations[tierIndex];
+            if(participated < allocated)
+                return allocated.sub(participated);
+        }
+    
+        return new BN(0);
+    }
+    idoInfo = (idoAccount, currentTimestamp)=>{
+        let totalAllocationsCount = 0;
+        let fcfsTS = this.fcfsTimestamp(idoAccount);
+        let closeTS = this.closeTimestamp(idoAccount);
+        let state = "C";
+        if(!this.isClosed(currentTimestamp ,idoAccount)) {
+                
+            if(currentTimestamp< idoAccount.openTimestamp)
+                state = "P";
+            else {
+                
+                if(fcfsTS == closeTS && currentTimestamp < closeTS || fcfsTS < closeTS && currentTimestamp < fcfsTS)
+                    state = "O";
+                    
+                if(fcfsTS < closeTS && currentTimestamp >= fcfsTS && currentTimestamp < closeTS)
+                    state = "F";
+                
+            }  
+            
+            let tiers = idoAccount.tiers;
+    
+      
+            for(let i = 0; i < tiers.length; i++){
+                let tierAllocatedCount = tiers[i].allocatedCount;
+    
+                totalAllocationsCount += tierAllocatedCount;
+            }
+            
+        }
+      
+        return {
+            raiseToken: idoAccount.raiseToken,
+            raiseTokenDecimals: idoAccount.raiseTokenDecimals,
+            rate: idoAccount.rate,
+            openTimestamp: idoAccount.openTimestamp,
+            fcfsTS: fcfsTS, 
+            closeTS: closeTS,
+            allocationsCount: totalAllocationsCount,
+            state: state,
+            participatedCount: idoAccount.participatedCount, 
+            participated: idoAccount.participated,
+            cap: idoAccount.cap,
+        }
+    }
+    infoWallet = (idoAccount, userPda, currentTimestamp) =>{
+        let round = 0;
+        let roundState = 4;
+        let roundStateText = "";
+        let roundTimestamp = 0;
+        let tier =  userPda.tierIndex;
+        let tierName = tier == 0 ? "-" : idoAccount.tiers[(tier -1)].name;
+        if(!this.isClosed(currentTimestamp, idoAccount)){
+            let ts = idoAccount.openTimestamp;
+            if(currentTimestamp < ts){
+                roundState = 0;
+                roundStateText = "Allocation Round <u>opens</u> in:";
+                roundTimestamp = ts;
+            }else{
+                let r ;
+                for (let i = 0; i < idoAccount.rounds.length; i++) {
+                    round += 1;
+                    r = idoAccount.rounds[i];
+                    ts +=  r.durationSeconds;
+                    if(currentTimestamp < ts){
+                        if(r.class == RoundClass.Allocation) {       
+                            roundState = 1;
+                            roundStateText = "Allocation Round <u>closes</u> in:";
+                            roundTimestamp = ts;
+                        } 
+    
+                    }
+                    if(r.class == RoundClass.FcfsPrepare) {
+                                
+                        roundState = 2;
+                        roundStateText = "FCFS Round <u>opens</u> in:";
+                        roundTimestamp = ts;
+    
+                    }
+    
+                    if(r.class == RoundClass.Fcfs) {
+                        roundState = 3;
+                        roundStateText = "FCFS Round <u>closes</u> in:";
+                        roundTimestamp = ts;
+                    }
+                    break;
+                    
+                }
+            }
+        }
+        return {tier, tierName, round, roundState, roundStateText, roundTimestamp}
+    
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+// interface WalletInfo {
+//     tier: number, tierName: String, round :number, roundState :number, roundStateText: string, roundTimestamp: number
+// }
+
+

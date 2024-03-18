@@ -1,6 +1,6 @@
 import { get } from 'lodash';
 import SolLaunchpadDetailSummary from 'src/components/organisms/launchpad-detail/summary';
-import { getProjectStatusTag } from 'src/utils/helpers';
+import { getProjectStatusTag } from 'src/services/helpers';
 
 const SolLaunchpadDetailSummaryContainer = ({ data }) => {
 	return (
