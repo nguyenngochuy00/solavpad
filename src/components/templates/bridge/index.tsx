@@ -1,0 +1,29 @@
+import { Col, Row } from 'react-bootstrap';
+import './index.scss';
+
+type SolBridgeTemplateProps = {
+	header: JSX.Element;
+	leftPanel: JSX.Element;
+	rightPanel: JSX.Element;
+};
+
+const SolBridgeTemplate = ({
+	header,
+	leftPanel,
+	rightPanel
+}: SolBridgeTemplateProps) => {
+	return (
+		<div className="sol-bridge-template">
+			{header}
+			<Row className="align-items-center">
+				<Col xl="6" lg="9">
+					{leftPanel}
+				</Col>
+				<Col xl="6" className="text-center">
+					<div className="d-none d-xl-block">{rightPanel}</div>
+				</Col>
+			</Row>
+		</div>
+	);
+};
+export default SolBridgeTemplate;
