@@ -1,0 +1,5 @@
+// Nothing
+
+export function Mock () {
+
+}
