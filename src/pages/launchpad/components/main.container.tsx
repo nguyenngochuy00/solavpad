@@ -6,10 +6,14 @@ import SolLaunchpadOpeningContainer from './opening.container';
 import SolLaunchpadUpcomingContainer from './upcoming.container';
 
 const SolLaunchpadMainContainer = () => {
+	//get project from api
+	//split project to opening, upcoming, completed
+
+
 	return (
 		<SolLaunchpadTemplate
 			banner={<SolLaunchpadBannerContainer />}
-			section1={<SolLaunchpadOpeningContainer />}
+			section1={<SolLaunchpadOpeningContainer  />}
 			section2={<SolLaunchpadUpcomingContainer />}
 			section3={<SolLaunchpadCompletedContainer />}
 		/>

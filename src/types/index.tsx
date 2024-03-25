@@ -14,8 +14,8 @@ export interface TabType {
 }
 
 export interface ProjectDetail {
-	id?: number | string;
-	contract?: string;
+	id: number | string;
+	contract?: string | null;
 	contractVersion?: number;
 	openTime?: string;
 	closeTime?: string;
@@ -160,3 +160,5 @@ export interface UserStraitPda {
      claimAmount: BN, //16
      owner: PublicKey,//32
 }
+
+
