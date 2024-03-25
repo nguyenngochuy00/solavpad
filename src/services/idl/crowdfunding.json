@@ -57,7 +57,7 @@
         },
         {
           "name": "openTimestamp",
-          "type": "u32"
+          "type": "i64"
         },
         {
           "name": "allocationDuration",
@@ -77,7 +77,7 @@
         },
         {
           "name": "idoId",
-          "type": "u32"
+          "type": "u64"
         }
       ]
     },
@@ -354,6 +354,47 @@
       ]
     },
     {
+      "name": "modifyTierAllocatedMulti",
+      "accounts": [
+        {
+          "name": "idoAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "adminWallet",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u8"
+        },
+        {
+          "name": "addresses",
+          "type": {
+            "vec": "publicKey"
+          }
+        },
+        {
+          "name": "remove",
+          "type": "bool"
+        }
+      ]
+    },
+    {
       "name": "setupReleaseToken",
       "accounts": [
         {
@@ -573,7 +614,7 @@
       "args": [
         {
           "name": "openTimestamp",
-          "type": "u32"
+          "type": "i64"
         }
       ]
     },
@@ -738,6 +779,11 @@
           "isSigner": false
         },
         {
+          "name": "releaseTokenPoolAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "user",
           "isMut": true,
           "isSigner": true
@@ -819,11 +865,11 @@
           },
           {
             "name": "idoId",
-            "type": "u32"
+            "type": "u64"
           },
           {
             "name": "openTimestamp",
-            "type": "u32"
+            "type": "i64"
           },
           {
             "name": "participatedCount",
@@ -1112,6 +1158,11 @@
       "code": 6014,
       "name": "ReleaseTokenAccountNotMatch",
       "msg": "Release token account of user not match"
+    },
+    {
+      "code": 6015,
+      "name": "CannotParseData",
+      "msg": "Cannot parse data to account"
     }
   ],
   "metadata": {

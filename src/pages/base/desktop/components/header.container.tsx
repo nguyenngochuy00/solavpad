@@ -5,7 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import SolHeader from '../../../../components/organisms/common/header';
 import SolYourWalletDialog from '../../../../components/organisms/common/your-wallet-dialog';
 import { toggleConnectWallet, toggleSidebar, updateBreadcrumbs, updateWalletInfo } from '../../../../redux/actions/applicationAction';
-import { getBreadcrumbs } from '../../../../services/route.utils';
+import { getBreadcrumbs } from '../../../../services/utils/route.utils';
 
 
 const SolDesktopHeaderContainer = () => {

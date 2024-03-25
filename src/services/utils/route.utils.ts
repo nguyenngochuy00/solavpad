@@ -1,5 +1,5 @@
 import { Location, Params } from 'react-router-dom';
-import { APP_MENUS, APP_ROUTES } from '../constants';
+import { APP_MENUS, APP_ROUTES } from '../../constants';
 
 export const getActiveRoute = (location: Location<any>) => {
 	if (location?.pathname === '/') {
@@ -10,10 +10,7 @@ export const getActiveRoute = (location: Location<any>) => {
 	);
 };
 
-export const getBreadcrumbs = (
-	location: Location<any>,
-	params: Readonly<Params<string>>
-) => {
+export const getBreadcrumbs = (location: Location<any>,params: Readonly<Params<string>>) => {
 	if (location?.pathname === '/') {
 		return [{ text: APP_ROUTES.HOMEPAGE.text, url: '', active: true }];
 	}

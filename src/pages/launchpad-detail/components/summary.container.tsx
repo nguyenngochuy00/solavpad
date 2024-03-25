@@ -2,7 +2,7 @@ import { get } from 'lodash';
 // import SolLaunchpadDetailSummary from 'src/components/organisms/launchpad-detail/summary';
 // import { getProjectStatusTag } from 'src/services/helpers';
 import SolLaunchpadDetailSummary from '../../../components/organisms/launchpad-detail/summary';
-import { getProjectStatusTag } from '../../../services/helpers';
+import { getProjectStatusTag } from '../../../services/helpers/helpers';
 import { ProjectDetail } from '../../../types';
 
 

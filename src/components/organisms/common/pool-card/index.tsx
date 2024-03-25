@@ -12,7 +12,7 @@ import Countdown from 'react-countdown';
 import moment from 'moment';
 // import { formatNumberDownRound } from 'src/services/helpers';
 import { APP_ROUTES, LAUNCHPAD_STATUS } from '../../../../constants';
-import { formatNumberDownRound } from '../../../../services/helpers';
+import { formatNumberDownRound } from '../../../../services/helpers/helpers';
 import { ProjectDetail } from '../../../../types';
 import SolButton from '../../../atoms/button';
 import SolAvailableOn from '../../../molecules/available-on';

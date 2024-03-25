@@ -22,7 +22,7 @@ import SolButton from '../../../atoms/button';
 import {
 	formatNumberDownRound,
 	minimizeAddress
-} from '../../../../services/helpers';
+} from '../../../../services/helpers/helpers';
 
 type BreadcrumbItem = {
 	label?: string;

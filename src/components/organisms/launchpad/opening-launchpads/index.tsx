@@ -1,7 +1,7 @@
 import { Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../../constants';
-import { formatNumberDownRound } from '../../../../services/helpers';
+import { formatNumberDownRound } from '../../../../services/helpers/helpers';
 import { ProjectDetail } from '../../../../types';
 import SolAvailableOn from '../../../molecules/available-on';
 import SolInfo from '../../../molecules/info-block';

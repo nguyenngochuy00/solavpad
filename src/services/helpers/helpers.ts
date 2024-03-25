@@ -1,5 +1,5 @@
 import { BigNumber } from 'bignumber.js';
-import { LAUNCHPAD_STATUS } from '../constants';
+import { LAUNCHPAD_STATUS } from '../../constants';
 // import { LAUNCHPAD_STATUS } from 'src/constants';
 
 export const minimizeAddress = (address: string, start: number = 8, end: number = 8) => {

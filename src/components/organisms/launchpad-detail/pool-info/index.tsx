@@ -10,7 +10,7 @@ import {
 	Key
 } from 'react';
 import SolCard from '../../../molecules/card';
-import { formatNumberDownRound } from '../../../../services/helpers';
+import { formatNumberDownRound } from '../../../../services/helpers/helpers';
 import { IdoInfoType, ProjectDetail } from '../../../../types';
 
 interface SolLaunchpadDetailPoolInfoProps {

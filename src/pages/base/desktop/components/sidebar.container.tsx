@@ -9,7 +9,7 @@ import {
 	toggleDarkMode,
 	toggleSidebar
 } from '../../../../redux/actions/applicationAction';
-import { getActiveRoute } from '../../../../services/route.utils';
+import { getActiveRoute } from '../../../../services/utils/route.utils';
 
 const SolDesktopSidebarContainer = () => {
 	const location = useLocation();

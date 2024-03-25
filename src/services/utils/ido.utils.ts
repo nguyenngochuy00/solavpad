@@ -1,7 +1,8 @@
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { utils } from '@coral-xyz/anchor';
-import { IdoInfoType, RoundClass, RoundItem, UserStraitPda } from '../types';
+import { IdoInfoType, RoundClass, RoundItem, UserStraitPda } from '../../types';
+import { WalletInfo } from '../../types/ido.type';
 
 
 
@@ -119,9 +120,7 @@ export const getIdoInfo = (idoAccount: IdoInfoType, currentTimestamp: number)=>{
 
 
 
-interface WalletInfo {
-    tier: number, tierName: String, round :number, roundState :number, roundStateText: string, roundTimestamp: number
-}
+
 
 export const getInfoWallet = (idoAccount: IdoInfoType, userPda: UserStraitPda, currentTimestamp: number) : WalletInfo=>{
     let round = 0;
