@@ -6,7 +6,7 @@ const AUTHORITY_IDO = "ido_pad";
 const AUTHORITY_ADMIN = "admin_ido";
 const AUTHORITY_USER = "wl_ido_pad";
 
-export class IDOHelper {
+class IDOFindPDA {
 
     getPdaAdmin = (programId: PublicKey, ido_pda: PublicKey) => {
 
@@ -18,7 +18,7 @@ export class IDOHelper {
             programId);
         return idoPDAs;
     }
-    
+
     getPdaIdo = (programId: PublicKey, ido_id: number) => {
         let idoIdBuff = new anchor.BN(ido_id);
         const [idoPDAs, _] = PublicKey.findProgramAddressSync(
@@ -41,5 +41,6 @@ export class IDOHelper {
             programId);
         return idoPDAs;
     }
-
 }
+
+export const IdoFindPda = new IDOFindPDA();

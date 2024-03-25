@@ -15,7 +15,7 @@ export interface TabType {
 
 export interface ProjectDetail {
 	id: number | string;
-	contract?: string | null;
+	contract: string | null;
 	contractVersion?: number;
 	openTime?: string;
 	closeTime?: string;

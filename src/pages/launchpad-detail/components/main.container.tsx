@@ -10,9 +10,9 @@ import { find } from 'lodash';
 import projects from '../../../constants/project/project.json';
 import SolLaunchpadDetailTabs from '../../../components/organisms/launchpad-detail/tabs';
 import SolLaunchpadDetailTemplate from '../../../components/templates/launchpad-detail';
-import { getIDOProjectDetail } from '../../../services/blockchain/solana.helper';
 import { APP_ROUTES } from '../../../constants';
 import { IdoInfoType, ProjectDetail, TabType } from '../../../types';
+import { getProjectDetail } from '../../../services/blockchain/solana.web3';
 
 const SolLaunchpadDetailMainContainer: React.FC = () => {
 	const navigate = useNavigate();
@@ -43,7 +43,11 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 	};
 
 	const getIDODetail = async () => {
-		const data = await getIDOProjectDetail('');
+		debugger
+		console.log("projectInfo", projectInfo);
+		
+		if(!projectInfo?.contract) return
+		const data = await getProjectDetail(projectInfo?.contract);
 		setIdoInfo(data);
 	};
 
