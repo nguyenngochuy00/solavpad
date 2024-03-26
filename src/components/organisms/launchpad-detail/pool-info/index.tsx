@@ -1,21 +1,14 @@
-import { Col, Row } from 'react-bootstrap';
-import './index.scss';
 import { BigNumber } from 'bignumber.js';
 import { get } from 'lodash';
-import {
-	ReactElement,
-	JSXElementConstructor,
-	ReactNode,
-	ReactPortal,
-	Key
-} from 'react';
-import SolCard from '../../../molecules/card';
+import { Col, Row } from 'react-bootstrap';
 import { formatNumberDownRound } from '../../../../services/helpers/helpers';
-import { IdoInfoType, ProjectDetail } from '../../../../types';
+import { IdoInfoType, ProjectDetail, RoundItem } from '../../../../types';
+import SolCard from '../../../molecules/card';
+import './index.scss';
 
 interface SolLaunchpadDetailPoolInfoProps {
 	projectInfo: ProjectDetail | undefined;
-	idoInfo: IdoInfoType | undefined;
+	idoInfo: ProjectDetail | undefined;
 }
 
 const SolLaunchpadDetailPoolInfo = ({
@@ -135,47 +128,26 @@ const SolLaunchpadDetailPoolInfo = ({
 					<SolCard title="Schedule">
 						<table>
 							<tbody>
-								{idoInfo?.rounds.map(
-									(
-										item: {
-											name:
-												| string
-												| number
-												| boolean
-												| ReactElement<any, string | JSXElementConstructor<any>>
-												| Iterable<ReactNode>
-												| ReactPortal
-												| null
-												| undefined;
-											durationSeconds:
-												| string
-												| number
-												| boolean
-												| ReactElement<any, string | JSXElementConstructor<any>>
-												| Iterable<ReactNode>
-												| ReactPortal
-												| null
-												| undefined;
-										},
-										index: Key | null | undefined
-									) => (
-										<tr key={index}>
-											<td>
-												<b>{item.name}</b>
-											</td>
-											<td>
-												<div>
-													<span>Opens:</span>
-													<b>{item.durationSeconds}</b>
-												</div>
-												<div>
-													<span>Closes:</span>
-													<b>{'item.closes'}</b>
-												</div>
-											</td>
-										</tr>
-									)
-								)}
+								{idoInfo?.rounds &&
+									idoInfo?.rounds.map(
+										(item: RoundItem, index: number) => (
+											<tr key={index}>
+												<td>
+													<b>{item.name}</b>
+												</td>
+												<td>
+													<div>
+														<span>Opens:</span>
+														<b>{item.durationSeconds}</b>
+													</div>
+													<div>
+														<span>Closes:</span>
+														<b>{'item.closes'}</b>
+													</div>
+												</td>
+											</tr>
+										)
+									)}
 							</tbody>
 						</table>
 					</SolCard>

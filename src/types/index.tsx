@@ -13,58 +13,7 @@ export interface TabType {
 	disabled?: boolean
 }
 
-export interface ProjectDetail {
-	id: number | string;
-	contract: string | null;
-	contractVersion?: number;
-	openTime?: string;
-	closeTime?: string;
-	decimals?: number;
-	isPrivate?: boolean;
-	rate?: string | number;
-	totalCountWallet?: number;
-	totalCountUserParticipated?: number;
-	totalFundParticipated?: number;
-	maxSingleParticipationAllocated?: number;
-	maxTotalParticipationAllocated?: string | number;
-	description?: string;
-	telegram?: string;
-	projectTokenAddress?: string;
-	logo?: string;
-	medium?: string;
-	name?: string;
-	projectTokenSymbol?: string;
-	totalSupply?: string | number;
-	twitter?: string;
-	website?: string;
-	yourAllocationVisible?: boolean;
-	projectTokenContract?: string;
-	symbol?: string;
-	disabled?: boolean;
-	start?: string;
-	end?: string;
-	allocation?: string;
-	fcfs?: string;
-	allDay?: boolean;
-	tokenAddress?: string;
-	state?: string;
-	sort?: number;
-	tags?: string[];
-	color?: string;
-	youtube_id?: string;
-	parallax_image?: string;
-	articles?: number[] | string[];
-	tokenmetrics?: number[] | string[];
-	images?: number[] | string[];
-	status?: string;
-	routeUrl?: string;
-	participants?: string | number;
-	totalFundsSwapped?: string;
-	progressPercent?: number | string;
-	progressCurent?: number | string;
-	progressValue?: number | string;
-	
-}
+
 
 export interface ScheduleType {
 	round: string;
@@ -114,7 +63,6 @@ export interface SolLaunchpadDetailTekenMetricsType {
 
 export interface IdoInfoType {
 	idoId: number,
-    rate: number,
     openTimestamp: number,
     cap: BN,
     participated: BN,
@@ -161,4 +109,56 @@ export interface UserStraitPda {
      owner: PublicKey,//32
 }
 
+
+export interface ProjectDetail extends IdoInfoType {
+	id: number | string;
+	contract: string | null;
+	contractVersion?: number;
+	openTime?: string;
+	closeTime?: string;
+	decimals?: number;
+	isPrivate?: boolean;
+	rate?: string | number;
+	totalCountWallet?: number;
+	totalCountUserParticipated?: number;
+	totalFundParticipated?: number;
+	maxSingleParticipationAllocated?: number;
+	maxTotalParticipationAllocated?: string | number;
+	description?: string;
+	telegram?: string;
+	projectTokenAddress?: string;
+	logo?: string;
+	medium?: string;
+	name?: string;
+	projectTokenSymbol?: string;
+	totalSupply?: string | number;
+	twitter?: string;
+	website?: string;
+	yourAllocationVisible?: boolean;
+	projectTokenContract?: string;
+	symbol?: string;
+	disabled?: boolean;
+	start?: string;
+	end?: string;
+	allocation?: string;
+	fcfs?: string;
+	allDay?: boolean;
+	tokenAddress?: string;
+	state?: string;
+	sort?: number;
+	tags?: string[];
+	color?: string;
+	youtube_id?: string;
+	parallax_image?: string;
+	articles?: number[] | string[];
+	tokenmetrics?: number[] | string[];
+	images?: number[] | string[];
+	status?: string;
+	routeUrl?: string;
+	participants?: string | number;
+	totalFundsSwapped?: string;
+	progressPercent?: number | string;
+	progressCurent?: number | string;
+	progressValue?: number | string;
+}
 

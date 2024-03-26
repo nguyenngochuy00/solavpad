@@ -19,36 +19,55 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 	const params = useParams();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
 	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
-	const [projectInfo, setProjectInfo] = useState<ProjectDetail | undefined>(undefined);
-	const [idoInfo, setIdoInfo] = useState<IdoInfoType | undefined>(undefined);
+	const [projectInfo, setProjectInfo] = useState<ProjectDetail | undefined>(
+		undefined
+	);
+	const [idoInfo, setIdoInfo] = useState<ProjectDetail | undefined>(undefined);
 
 	useEffect(() => {
 		if (String(params?.id).trim().length > 0) {
-			getIDODetail();
 			// TO-DO: fake get project info, call api later
-			getProjectInfo(params?.id);
+			const data = getProjectInfo(params?.id);
+			getIDODetail(data?.contract, data);
 		} else {
 			navigate(APP_ROUTES.HOMEPAGE.path, { replace: true });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [params?.id]);
 
-	const getProjectInfo = (projectId: string | number | undefined  ) => {
-		if(!projectId) {
+	const getProjectInfo = (projectId: string | number | undefined) => {
+		if (!projectId) {
 			return;
 		}
 		// eslint-disable-next-line eqeqeq
-		const data = find(projects?.data, item => item.id === projectId);
-		setProjectInfo(data);
+		const data = find(
+			projects?.data,
+			item => String(item.id) === String(projectId)
+		);
+		return data;
 	};
 
-	const getIDODetail = async () => {
+	const getIDODetail = async (
+		contractAddress: string | undefined,
+		defaultData: ProjectDetail
+	) => {
+		if (!contractAddress) return;
+
+		const data = await getProjectDetail(contractAddress);
+
+		const a = {
+			...defaultData,
+			...data
+		};
 		debugger
-		console.log("projectInfo", projectInfo);
-		
-		if(!projectInfo?.contract) return
-		const data = await getProjectDetail(projectInfo?.contract);
-		setIdoInfo(data);
+		setProjectInfo({
+			...defaultData,
+			...data
+		});
+		setIdoInfo({
+			...defaultData,
+			...data
+		});
 	};
 
 	const TABS: TabType[] = [
@@ -173,7 +192,9 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 						<></>
 					)}
 					{activeTab === TABS[2].key ? (
-						<SolLaunchpadDetailTekenMetricsContainer data={MOCKDATA.tokenMetrics} />
+						<SolLaunchpadDetailTekenMetricsContainer
+							data={MOCKDATA.tokenMetrics}
+						/>
 					) : (
 						<></>
 					)}

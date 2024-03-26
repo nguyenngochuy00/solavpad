@@ -1,7 +1,7 @@
 import { utils } from '@coral-xyz/anchor';
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { IdoInfoType, RoundClass, RoundItem, UserStraitPda } from '../../types';
+import { IdoInfoType, ProjectDetail, RoundClass, RoundItem, UserStraitPda } from '../../types';
 import { WalletInfo } from '../../types/ido.type';
 
 
@@ -68,7 +68,7 @@ export const getAllocationRemaining = (
 	return new BN(0);
 };
 
-export const getIdoInfo = (idoAccount: IdoInfoType, currentTimestamp: number) => {
+export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) => {
 	let totalAllocationsCount = 0;
 	let fcfsTS = fcfsTimestamp(idoAccount);
 	let closeTS = closeTimestamp(idoAccount);
