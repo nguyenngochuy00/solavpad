@@ -1,25 +1,25 @@
 import { utils } from '@coral-xyz/anchor';
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { IdoInfoType, ProjectDetail, RoundClass, RoundItem, UserStraitPda } from '../../types';
+import { IdoInfoType, ProjectDetail, RoundClass, RoundClassMap, RoundItem, UserStraitPda } from '../../types';
 import { WalletInfo } from '../../types/ido.type';
 
 
 
 export const fcfsTimestamp = (idoAccount: IdoInfoType): number => {
+	if(!idoAccount.openTimestamp.toString()) return 0
 	let ts = Number(idoAccount.openTimestamp.toString());
 	
 	const rounds = idoAccount.rounds;
 	for (let i = 0; i < rounds.length; i++) {
-		console.log(rounds[i].class);
+	
+		if (Object.keys(rounds[i].class) === Object.keys(RoundClassMap.allocation)) return ts;
 		
-		if (rounds[i].class == RoundClass.FcfsPrepare) return (ts);
-		if (rounds[i].class == RoundClass.Fcfs) return (ts);
+		if (Object.keys(rounds[i].class) === Object.keys(RoundClassMap.fcfs)) return ts;
+		
 		ts += rounds[i].durationSeconds;
 	}
-	console.log("fcfsTimestamp:",ts);
-	
-	return (ts);
+	return ts | 0;
 };
 
 export const closeTimestamp = (idoAccount: IdoInfoType): number => {
@@ -79,7 +79,7 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 	let fcfsTS = fcfsTimestamp(idoAccount);
 	let closeTS = closeTimestamp(idoAccount);
 	const openTS = Number(idoAccount.openTimestamp.toString());
-
+	debugger
 	let state = 'C';
 	if (!isClosed(currentTimestamp, idoAccount)) {
 		if (currentTimestamp < openTS) state = 'P';

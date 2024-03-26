@@ -95,9 +95,18 @@ export interface RoundItem{
      class: RoundClass,
      tierAllocations: Array<BN>,
 }
+const allocation = {allocation:{}}
+const fcfsPrepare = {fcfsPrepare:{}}
+const fcfs = {fcfs:{}}
+
+export const RoundClassMap = {
+	allocation,
+	fcfsPrepare,
+	fcfs,
+}
 export enum RoundClass {
-    Allocation,
-    FcfsPrepare,
+    Allocation ,
+    FcfsPrepare ,
     Fcfs,
 }
 
