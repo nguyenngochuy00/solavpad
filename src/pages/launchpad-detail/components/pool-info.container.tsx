@@ -5,7 +5,7 @@ import { IdoInfoType, ProjectDetail } from '../../../types';
 
 interface SolLaunchpadDetailPoolInfoContainerProps {
 	projectInfo: ProjectDetail | undefined;
-	idoInfo: IdoInfoType | undefined;
+	idoInfo: ProjectDetail | undefined;
 }
 
 const SolLaunchpadDetailPoolInfoContainer: React.FC<

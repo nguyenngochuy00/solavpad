@@ -11,7 +11,7 @@ import './index.scss';
 
 interface SolLaunchpadOpeningProps {
 	sectionTitle?: string;
-	projectData?: ProjectDetail;
+	projectData?: ProjectDetail | any;
 }
 
 const SolLaunchpadOpening = ({

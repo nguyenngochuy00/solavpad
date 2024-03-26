@@ -27,7 +27,7 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 	useEffect(() => {
 		if (String(params?.id).trim().length > 0) {
 			// TO-DO: fake get project info, call api later
-			const data = getProjectInfo(params?.id);
+			const data: any = getProjectInfo(params?.id);
 			getIDODetail(data?.contract, data);
 		} else {
 			navigate(APP_ROUTES.HOMEPAGE.path, { replace: true });
@@ -55,11 +55,6 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 
 		const data = await getProjectDetail(contractAddress);
 
-		const a = {
-			...defaultData,
-			...data
-		};
-		debugger
 		setProjectInfo({
 			...defaultData,
 			...data

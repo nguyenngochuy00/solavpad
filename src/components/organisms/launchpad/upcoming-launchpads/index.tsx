@@ -7,7 +7,7 @@ import './index.scss';
 
 interface SolLaunchpadUpcomingProps {
 	sectionTitle?: string;
-	projects: ProjectDetail[];
+	projects: ProjectDetail[] | any[];
 }
 
 const SolLaunchpadUpcoming = ({

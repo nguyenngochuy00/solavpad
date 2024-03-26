@@ -5,7 +5,7 @@ import SolPoolCard from '../../common/pool-card';
 import './index.scss';
 
 
-type SolLaunchpadCompletedProps = { sectionTitle?: string; projects: ProjectDetail[] };
+type SolLaunchpadCompletedProps = { sectionTitle?: string; projects: ProjectDetail[] | any[] };
 
 const SolLaunchpadCompleted = ({ sectionTitle = '', projects }: SolLaunchpadCompletedProps) => {
 	return (
