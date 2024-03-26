@@ -7,12 +7,13 @@ import SolLaunchpadDetailTekenMetricsContainer from './token-metrics.container';
 import SolLaunchpadDetailYourAllocationContainer from './your-allocation.container';
 import { useNavigate, useParams } from 'react-router-dom';
 import { find } from 'lodash';
-import projects from '../../../constants/project/project.json';
+// import projects from '../../../constants/project/project.json';
 import SolLaunchpadDetailTabs from '../../../components/organisms/launchpad-detail/tabs';
 import SolLaunchpadDetailTemplate from '../../../components/templates/launchpad-detail';
 import { APP_ROUTES } from '../../../constants';
 import { IdoInfoType, ProjectDetail, TabType } from '../../../types';
-import { getProjectDetail } from '../../../services/blockchain/solana.web3';
+import { solaUtils } from '../../../services/blockchain/solana.web3';
+import { getProjectDetailById } from '../../../redux/services/project';
 
 const SolLaunchpadDetailMainContainer: React.FC = () => {
 	const navigate = useNavigate();
@@ -27,7 +28,8 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 	useEffect(() => {
 		if (String(params?.id).trim().length > 0) {
 			// TO-DO: fake get project info, call api later
-			const data: any = getProjectInfo(params?.id);
+			//@ts-ignore
+			const data: any = getProjectInfo(params.id);
 			getIDODetail(data?.contract, data);
 		} else {
 			navigate(APP_ROUTES.HOMEPAGE.path, { replace: true });
@@ -35,16 +37,11 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [params?.id]);
 
-	const getProjectInfo = (projectId: string | number | undefined) => {
-		if (!projectId) {
-			return;
-		}
-		// eslint-disable-next-line eqeqeq
-		const data = find(
-			projects?.data,
-			item => String(item.id) === String(projectId)
-		);
-		return data;
+	const getProjectInfo = (projectId: string | number ) => {
+		getProjectDetailById(projectId).then((data) => {
+			return data;
+		})
+		
 	};
 
 	const getIDODetail = async (
@@ -53,7 +50,7 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 	) => {
 		if (!contractAddress) return;
 
-		const data = await getProjectDetail(contractAddress);
+		const data = await solaUtils.getProjectDetail(contractAddress);
 
 		setProjectInfo({
 			...defaultData,

@@ -6,7 +6,9 @@ import { IdoInfoType, UserStraitPda } from '../../types';
 
 export class IdoService {
 
-	
+	joinIdo(){
+
+    }
 }
 
 

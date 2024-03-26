@@ -1,0 +1,65 @@
+
+
+import axios from "axios";
+import projects from '../../constants/project/project.json'
+import { ProjectDetail } from "../../types";
+import { solaUtils } from "../../services/blockchain";
+type GetProjectType = {
+    openingProjects: ProjectDetail[],
+    closeProjects: ProjectDetail[],
+    comingProject: ProjectDetail[]
+
+}
+
+export const getIdoProjects = async(): Promise<any> => {
+    try {
+        const res = projects.data;
+        //@ts-ignore
+        const contractAddresses = res.filter( (project: ProjectDetail) => project.contract!== null && project.state !== "C").map((project: ProjectDetail) => project.contract);
+        //@ts-ignore
+        const info = await handleGetProjects(contractAddresses);
+
+        //@ts-ignore
+        const data = res.map((project: ProjectDetail): ProjectDetail => {
+           if(project.contract !== null && project.state !== "C"){
+               return {
+                   ...project,
+                   ...info[project.contract]
+               }
+           }
+            return project;
+        });
+        return data; 
+       
+    } catch (error) {
+       console.log(error);
+      return []
+       
+    }
+}
+export const getProjectDetailById = async (id: number | string): Promise<any | null> => {
+    try {
+        //@ts-ignore
+        const res = projects.data.find((project: ProjectDetail) => project.id === id);
+        // handleGetProjects()
+        return res;
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
+
+
+const  handleGetProjects  = async (contractAddresses: string[]): Promise<any> => {
+    if( contractAddresses.length === 0) return [];
+
+    let info = {}
+    for (const contract of contractAddresses) {
+        const idoInfo = await  solaUtils.getProjectDetail(contract); 
+        //@ts-ignore
+        info[contract] = idoInfo; 
+    }
+    return info;
+}
+
+  

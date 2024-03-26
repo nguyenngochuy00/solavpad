@@ -1,7 +1,5 @@
 import axios from "axios";
-import {
-  BASE_URL,
-} from "src/components/constants";
+import {BASE_URL,} from "src/components/constants";
 
 const instance = (headers) => {
   let returnValue = axios.create();

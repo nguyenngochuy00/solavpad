@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { PublicKey } from '@solana/web3.js';
 import { useSolBalance } from '../../../../hooks/useState';
 import { updateWalletInfo } from '../../../../redux/actions/applicationAction';
-import { getAddressInfo } from '../../../../services/blockchain/solana.web3';
+import { solaUtils } from '../../../../services/blockchain/solana.web3';
 import { SOLANA_EXPLORER_URL } from '../../../../constants';
 import SolBreadcrumb from '../../../molecules/breadcrumb';
 import SolButton from '../../../atoms/button';
@@ -69,7 +69,7 @@ const SolHeader = ({
 
 	const getWalletInfo = async (publicKey: PublicKey) => {
 		try {
-			const res = await getAddressInfo(String(publicKey));
+			const res = await solaUtils.getAddressInfo(String(publicKey));
 			const walletAddress = publicKey.toBase58();
 			dispatch(
 				updateWalletInfo({
