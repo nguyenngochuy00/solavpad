@@ -79,7 +79,7 @@
 			"fcfs": "02:45:00",
 			"allDay": true,
 			"tokenAddress": "0x55d398326f99059fF775485246999027B3197955",
-			"state": "C",
+			"state": "P",
 			"sort": 1,
 			"tags": ["blastfi", "defi", "launchpad"],
 			"color": "#FF8838",
