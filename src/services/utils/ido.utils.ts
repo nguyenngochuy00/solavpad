@@ -3,6 +3,7 @@ import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { IdoInfoType, ProjectDetail, RoundClass, RoundClassMap, RoundItem, UserStraitPda } from '../../types';
 import { WalletInfo } from '../../types/ido.type';
+import moment from 'moment';
 
 
 
@@ -28,21 +29,13 @@ export const closeTimestamp = (idoAccount: IdoInfoType): number => {
 	for (let i = 0; i < rounds.length; i++) {
 		ts += rounds[i].durationSeconds;
 	}
-	console.log("closeTimestamp:",ts);
 	return ts;
 };
 
-export const isClosed = (
-	currentTimestamp: number,
-	idoAccount: IdoInfoType
-): boolean => {
+export const isClosed = (currentTimestamp: number,idoAccount: IdoInfoType): boolean => {
 	const { participated, cap, closed } = idoAccount;
-	if (
-		closed ||
-		currentTimestamp >= closeTimestamp(idoAccount) ||
-		participated >= cap
-	)
-		return true;
+	const closeTs = closeTimestamp(idoAccount);
+	if (closed || currentTimestamp >= closeTs || participated >= cap)return true;
 
 	return false;
 };
@@ -79,7 +72,6 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 	let fcfsTS = fcfsTimestamp(idoAccount);
 	let closeTS = closeTimestamp(idoAccount);
 	const openTS = Number(idoAccount.openTimestamp.toString());
-	debugger
 	let state = 'C';
 	if (!isClosed(currentTimestamp, idoAccount)) {
 		if (currentTimestamp < openTS) state = 'P';

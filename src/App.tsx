@@ -6,13 +6,16 @@ import { WalletContext } from './components/wallet-context';
 import { store } from './redux/store';
 import AppRoutes from './routes';
 import './styles/base.scss';
+import AppUpdater from './hooks/updater';
 
 const App = () => {
 	return (
 		<>
 			<Provider store={store}>
 				<WalletContext>
+					
 					<>
+						<AppUpdater/>
 						<Router>
 							<AppRoutes />
 						</Router>

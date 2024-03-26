@@ -75,6 +75,13 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 		return getIdoInfo(idoPdData, currentTimestamp);
 	
 	}
+	async getBlock(): Promise<number>{
+		const blockNumber = await this.provider.connection.getSlot()
+		return blockNumber;
+	}
+	getProvider(){
+		return this.provider;
+	}
 }
 export const solaUtils = new Web3SolanaUtils(DEV_NET);
 

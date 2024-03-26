@@ -7,7 +7,8 @@ const initialState = {
     breadcrumbs: [{ text: 'Homepage', url: '/', active: true }],
     showConnectWallet: false,
     sidebarExpaned: true,
-    walletInfo: undefined
+    walletInfo: undefined,
+    blockNumber: 0
 };
 
 const applicationReducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ const applicationReducer = (state = initialState, action) => {
         case SET_LATEST_BLOCK_NUMBER:
             return {
                 ...state,
-                ...action.payload
+                blockNumber: action.payload
             };
         case TOGGLE_CONNECT_WALLET:
             return {

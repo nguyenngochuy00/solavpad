@@ -55,6 +55,8 @@ const  handleGetProjects  = async (contractAddresses: string[]): Promise<any> =>
 
     let info = {}
     for (const contract of contractAddresses) {
+        console.log("contract", contract);
+        
         const idoInfo = await  solaUtils.getProjectDetail(contract); 
         //@ts-ignore
         info[contract] = idoInfo; 
