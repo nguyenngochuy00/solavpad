@@ -13,15 +13,14 @@ interface SolLaunchpadMainContainerProps {
 const SolLaunchpadMainContainer = ({
 	projects
 }: SolLaunchpadMainContainerProps) => {
-	//get project from api
-	//split project to opening, upcoming, completed
+	
 
 	return (
 		<SolLaunchpadTemplate
 			banner={<SolLaunchpadBannerContainer />}
-			section1={<SolLaunchpadOpeningContainer />}
-			section2={<SolLaunchpadUpcomingContainer />}
-			section3={<SolLaunchpadCompletedContainer />}
+			section1={<SolLaunchpadOpeningContainer projects={projects?.filter(item => item.state == 'O' ||  item.state == 'F' )}/>}
+			section2={<SolLaunchpadUpcomingContainer  projects={projects?.filter(item => item.state == 'P')}/>}
+			section3={<SolLaunchpadCompletedContainer projects={projects?.filter(item => item.state == 'C')}/>}
 		/>
 	);
 };

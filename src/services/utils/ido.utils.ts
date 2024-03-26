@@ -7,22 +7,28 @@ import { WalletInfo } from '../../types/ido.type';
 
 
 export const fcfsTimestamp = (idoAccount: IdoInfoType): number => {
-	let ts = idoAccount.openTimestamp;
+	let ts = Number(idoAccount.openTimestamp.toString());
+	
 	const rounds = idoAccount.rounds;
 	for (let i = 0; i < rounds.length; i++) {
-		if (rounds[i].class == RoundClass.FcfsPrepare) return ts;
-		if (rounds[i].class == RoundClass.Fcfs) return ts;
+		console.log(rounds[i].class);
+		
+		if (rounds[i].class == RoundClass.FcfsPrepare) return (ts);
+		if (rounds[i].class == RoundClass.Fcfs) return (ts);
 		ts += rounds[i].durationSeconds;
 	}
-	return ts;
+	console.log("fcfsTimestamp:",ts);
+	
+	return (ts);
 };
 
 export const closeTimestamp = (idoAccount: IdoInfoType): number => {
-	let ts = idoAccount.openTimestamp;
+	let ts = Number(idoAccount.openTimestamp.toString());
 	const rounds = idoAccount.rounds;
 	for (let i = 0; i < rounds.length; i++) {
 		ts += rounds[i].durationSeconds;
 	}
+	console.log("closeTimestamp:",ts);
 	return ts;
 };
 
@@ -72,9 +78,11 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 	let totalAllocationsCount = 0;
 	let fcfsTS = fcfsTimestamp(idoAccount);
 	let closeTS = closeTimestamp(idoAccount);
+	const openTS = Number(idoAccount.openTimestamp.toString());
+
 	let state = 'C';
 	if (!isClosed(currentTimestamp, idoAccount)) {
-		if (currentTimestamp < idoAccount.openTimestamp) state = 'P';
+		if (currentTimestamp < openTS) state = 'P';
 		else {
 			if (
 				(fcfsTS == closeTS && currentTimestamp < closeTS) ||
@@ -98,14 +106,15 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 			totalAllocationsCount += tierAllocatedCount;
 		}
 	}
-
+	console.log("state", state);
+	
 	return {
 		raiseToken: idoAccount.raiseToken,
 		raiseTokenDecimals: idoAccount.raiseTokenDecimals,
 		rate: idoAccount.rate,
-		openTimestamp: idoAccount.openTimestamp,
-		fcfsTS: fcfsTS,
-		closeTS: closeTS,
+		openTimestamp: Number(idoAccount.openTimestamp.toString()),
+		fcfsTimestamp: fcfsTS,
+		closeTimestamp: closeTS,
 		allocationsCount: totalAllocationsCount,
 		state: state,
 		participatedCount: idoAccount.participatedCount,

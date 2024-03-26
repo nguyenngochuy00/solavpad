@@ -1,16 +1,18 @@
-import projects from '../../../constants/project/project.json';
 import SolLaunchpadOpening from '../../../components/organisms/launchpad/opening-launchpads';
 import { LAUNCHPAD_STATUS } from '../../../constants';
+import { ProjectDetail } from '../../../types';
 
-const SolLaunchpadOpeningContainer = () => {
+interface SolLaunchpadOpeningContainerProps {
+	projects: ProjectDetail[];
+}
+
+const SolLaunchpadOpeningContainer = ({projects }: SolLaunchpadOpeningContainerProps) => {
+	
 	return (
 		<SolLaunchpadOpening
 			sectionTitle="Opening Launchpads"
-			projectData={
-				projects?.data?.filter(
-					item => item?.state === LAUNCHPAD_STATUS.OPENING
-				)[0]
-			}
+			projectData={projects}
+			
 		/>
 	);
 };

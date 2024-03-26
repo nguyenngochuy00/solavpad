@@ -9,7 +9,7 @@ const SolLaunchpadPage = () => {
 
     useEffect(()=>{
         getIdoProjects().then((data) => {
-            setProjects({...data})
+            setProjects(data)
         }).catch((error) => {
             console.log(error);
         })

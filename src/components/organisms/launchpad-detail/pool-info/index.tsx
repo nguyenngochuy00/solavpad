@@ -43,7 +43,7 @@ const SolLaunchpadDetailPoolInfo = ({
 								<tr>
 									<td>Closes</td>
 									<td>
-										<b>{projectInfo?.closeTime}</b>
+										<b>{projectInfo?.closeTimestamp}</b>
 									</td>
 								</tr>
 								<tr>

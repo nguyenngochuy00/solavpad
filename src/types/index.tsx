@@ -63,7 +63,8 @@ export interface SolLaunchpadDetailTekenMetricsType {
 
 export interface IdoInfoType {
 	idoId: number,
-    openTimestamp: number,
+    openTimestamp: number ,
+	closeTimestamp: number ,
     cap: BN,
     participated: BN,
     participatedCount: number,
@@ -114,8 +115,6 @@ export interface ProjectDetail extends IdoInfoType {
 	id: number | string;
 	contract: string | null;
 	contractVersion?: number;
-	openTime?: string;
-	closeTime?: string;
 	decimals?: number;
 	isPrivate?: boolean;
 	rate?: string | number;
