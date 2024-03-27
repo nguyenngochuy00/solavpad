@@ -79,8 +79,8 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 		const blockNumber = await this.provider.connection.getSlot()
 		return blockNumber;
 	}
-	getProvider(){
-		return this.provider;
+	getConnectionProvider(){
+		return this.provider.connection;
 	}
 }
 export const solaUtils = new Web3SolanaUtils(DEV_NET);

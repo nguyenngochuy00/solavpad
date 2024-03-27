@@ -8,33 +8,64 @@ import useDebounce from "./useDebounce";
 const delayTime = 15; //seconds
 
 export default function AppUpdater() {
+    const setTimeOut = (time: number)=>{
+        return new Promise((resolve, reject) =>{
+            setTimeout(()=>{
+                resolve(true);
+            }, time);
+        });
+
+   }
 
     const dispatch = useDispatch();
-    const provider = solaUtils.getProvider()
+    const provider = solaUtils.getConnectionProvider()
 
     
     const [state, setState] = useState({ blockNumber: 0})
 
+
     const blockNumberCallback = useCallback((blockNumber: number) => {
-        setState({ blockNumber })
-    },[ setState])
+
+        
+      
+            console.log("BlockNumber:", blockNumber);
+            setState((s) => {
+            
+                if(typeof s.blockNumber !== 'number') return {  blockNumber: Math.max(blockNumber, s.blockNumber) }
+                return s
+            })
+    
+       
+    },[setState])
 
     useEffect(() => {
+       
         if (!provider) return undefined
-
-        setState({ blockNumber: 0 })
-        provider.connection.getSlot().then(blockNumberCallback).catch((error) => console.error('Failed to get block number', error))
-        provider.connection.onSlotUpdate((data)=>{
+        // setState({ blockNumber: 0 })
+       
+        provider.getSlot().then(blockNumberCallback).catch((error) => console.error('Failed to get block number', error))
+        const subId = provider.onSlotUpdate((data)=>{    
+         if(data.type !== "completed") return;
             blockNumberCallback(data.slot)
         })
-    }, [dispatch, blockNumberCallback])
 
-    const debouncedState = useDebounce(state, delayTime*1000)
+        return () => {
+            console.log("Unsubscribing from block number update", subId);
+            
+            provider.removeSlotUpdateListener(subId)
+        } 
+      
+       
+    }, [dispatch, blockNumberCallback, state.blockNumber, provider])
+
+    const debouncedState = useDebounce(state, 1000)
+
 
     useEffect(() => {
-        if (!debouncedState.blockNumber) return
+        if (debouncedState.blockNumber === 0) return;
         console.log("BlockNumber latest:", debouncedState.blockNumber);
         dispatch({ type: SET_LATEST_BLOCK_NUMBER, data:debouncedState.blockNumber })
+        
         // dispatch(setLastBlockNumber(debouncedState.blockNumber))
     }, [provider, dispatch, debouncedState.blockNumber])
 
