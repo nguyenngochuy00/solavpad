@@ -8,7 +8,8 @@ import SolCard from '../../../molecules/card';
 import './index.scss';
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from 'react';
-import { solaUtils } from '../../../../services/blockchain';
+import { idoService, solaUtils } from '../../../../services/blockchain';
+import { WalletInfo } from '../../../../types/ido.type';
 
 
 interface SolLaunchpadDetailPoolInfoProps {
@@ -21,16 +22,15 @@ const SolLaunchpadDetailPoolInfo = ({
 	idoInfo
 }: SolLaunchpadDetailPoolInfoProps) => {
 
-	const wallet = useConnection();
+	const connection = useConnection();
 	const { publicKey } = useWallet();
-	const [walletInfo, setWalletInfo] = useState<any>();
+	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
 	useEffect(() => {
-		if (!wallet || !publicKey || !idoInfo)  return;
+		if (!connection || !publicKey || !idoInfo)  return;
 		console.log('idoInfo', idoInfo);
 		
-
 		
-	  }, [wallet, publicKey, idoInfo?.contract]);
+	  }, [connection, publicKey, idoInfo?.contract]);
 
 	  useEffect(() => {
 		const fetchData = async () => {

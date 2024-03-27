@@ -27,7 +27,7 @@ import { IdoFindPda } from '../helpers';
 import { UserStraitPda, WalletInfo } from '../../types/ido.type';
 
 
-const programID = new PublicKey(crowdFundingIDL.metadata.address)
+const programIdoID = new PublicKey(crowdFundingIDL.metadata.address)
 const opts = {
 	preflightCommitment: "processed",
 	commitment: "processed",
@@ -77,7 +77,7 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 	async getWalletInfo(contractAddress: string, walletAddress: PublicKey): Promise<WalletInfo | undefined>{
 	
-		const walletPDA = IdoFindPda.getPdaUser(programID, new PublicKey(contractAddress), new PublicKey(walletAddress));
+		const walletPDA = IdoFindPda.getPdaUser(programIdoID, new PublicKey(contractAddress), new PublicKey(walletAddress));
 		try {
 			const userPdaData = await this.getPdaUserData(walletPDA);
 	
@@ -124,11 +124,9 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 				owner: walletPDA
 			};
 		}
-
 	}
 	async getPdaIdoAccount(contractAddress: PublicKey): Promise<IdoInfoType | undefined>{
 		try {
-			//@ts-ignore
 			const program = this.getProgramIdo();
 			const idoAccount = await program.account.idoAccount.fetch(contractAddress);
 			return idoAccount as IdoInfoType;
@@ -136,11 +134,10 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 			console.log("error", error);
 			return undefined;
 		}
-
 	}
-	getProgramIdo(){
+	private getProgramIdo(){
 		//@ts-ignore
-		return new Program(crowdFundingIDL, programID, this.provider);
+		return new Program(crowdFundingIDL, programIdoID, this.provider);
 	
 	}
 }

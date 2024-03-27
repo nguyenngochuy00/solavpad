@@ -14,12 +14,17 @@ export interface UserStraitPda {
     owner: PublicKey,//32
 }
 
-// const allocation = {allocation:{}}
-// const fcfsPrepare = {fcfsPrepare:{}}
-// const fcfs = {fcfs:{}}
+
 
 export const RoundClassMap = {
 	allocation :"allocation",
 	fcfsPrepare : "fcfsPrepare",
 	fcfs: "fcfs",
+}
+
+export type JoinIdoParams = {
+    contractAddress: PublicKey,
+    amount: BN,
+    raise_token_mint: PublicKey,
+    wallet: PublicKey,
 }

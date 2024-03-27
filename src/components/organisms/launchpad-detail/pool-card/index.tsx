@@ -39,7 +39,7 @@ const SolLaunchpadDetailPoolCard = ({
 	progressPercent,
 	participants,
 	onJoinPool,
-	onApprove,
+	// onApprove,
 	onConnectWallet
 }: SolLaunchpadDetailPoolCardProps) => {
 	return (
@@ -103,11 +103,11 @@ const SolLaunchpadDetailPoolCard = ({
 											caption="Join Pool"
 											onClick={onJoinPool}
 										/>
-										<SolButton
+										{/* <SolButton
 											size="lg"
 											caption="Approve"
 											onClick={onApprove}
-										/>
+										/> */}
 									</>
 								) : (
 									<SolButton
