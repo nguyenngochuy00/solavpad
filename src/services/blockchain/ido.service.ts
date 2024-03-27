@@ -22,10 +22,10 @@ import {
   } from "@solana/spl-token"
 
 const programIdoID = new PublicKey(crowdFundingIDL.metadata.address)
-export class IdoService {
+export class IdoWeb3Service {
 
 
-	joinIdo(connection: ConnectionContextState, param: JoinIdoParams) {
+	async joinIdo(connection: ConnectionContextState, param: JoinIdoParams) {
         const {amount, contractAddress, raise_token_mint, wallet} = param;
         const userPDA = IdoFindPda.getPdaUser(programIdoID, contractAddress, raise_token_mint);
         const sourceAccount = getAssociatedTokenAddressSync(raise_token_mint, wallet, true);
@@ -33,7 +33,7 @@ export class IdoService {
 
 
         const program = this.getIdoProgram(connection);
-        const tx =   program.methods.participate(amount).accounts({
+        const tx =  await program.methods.participate(amount).accounts({
           idoAccount: contractAddress,
           userPdaAccount: userPDA,
           user: wallet,
@@ -45,12 +45,15 @@ export class IdoService {
         console.log("joinIDO success at tx: ", tx);
 
     }
+    async claim() {
 
-     getIdoProgram(connection: ConnectionContextState) {
-            //@ts-ignore
+    }
+
+     private getIdoProgram(connection: ConnectionContextState) {
+        //@ts-ignore
         return new Program(crowdFundingIDL, programIdoID, connection);
     }
 }
-export const idoService = new IdoService();
+export const idoService = new IdoWeb3Service();
 
 

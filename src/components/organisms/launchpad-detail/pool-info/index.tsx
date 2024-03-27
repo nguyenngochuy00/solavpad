@@ -25,6 +25,8 @@ const SolLaunchpadDetailPoolInfo = ({
 	const connection = useConnection();
 	const { publicKey } = useWallet();
 	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
+
+	//DOING
 	useEffect(() => {
 		if (!connection || !publicKey || !idoInfo)  return;
 		console.log('idoInfo', idoInfo);
