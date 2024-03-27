@@ -1,8 +1,8 @@
 import { utils } from '@coral-xyz/anchor';
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { IdoInfoType, ProjectDetail, RoundClass, RoundClassMap, RoundItem, UserStraitPda } from '../../types';
-import { WalletInfo } from '../../types/ido.type';
+import { IdoInfoType, ProjectDetail, RoundClass, RoundItem, UserStraitPda } from '../../types';
+import { RoundClassMap, WalletInfo } from '../../types/ido.type';
 import moment from 'moment';
 
 
@@ -14,9 +14,9 @@ export const fcfsTimestamp = (idoAccount: IdoInfoType): number => {
 	const rounds = idoAccount.rounds;
 	for (let i = 0; i < rounds.length; i++) {
 	
-		if (Object.keys(rounds[i].class) === Object.keys(RoundClassMap.allocation)) return ts;
+		if (Object.keys(rounds[i].class).find(e=>e == RoundClassMap.allocation)) return ts;
 		
-		if (Object.keys(rounds[i].class) === Object.keys(RoundClassMap.fcfs)) return ts;
+		if (Object.keys(rounds[i].class).find(e=>e == RoundClassMap.fcfs)) return ts;
 		
 		ts += rounds[i].durationSeconds;
 	}
