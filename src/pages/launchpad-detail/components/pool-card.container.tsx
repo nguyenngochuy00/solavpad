@@ -63,7 +63,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				yourBalance={`${formatNumberDownRound(solBal)} SOL`}
 				// yourBalanceConvert="3.0000 ETH"
 				yourApprovedAmount="999.9999 BUSD"
-				yourTier="Lottery Winners"
+				yourTier=""
 				swappedValue="11,780.0000 BUSD"
 				swappedValueConvert="123,3.0000 CPO"
 				remainingAllocation="99,999.9999 BUSD"

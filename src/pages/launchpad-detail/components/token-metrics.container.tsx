@@ -3,13 +3,11 @@
 import SolLaunchpadDetailTokenMetrics from '../../../components/organisms/launchpad-detail/token-metrics';
 import { TokenMetricsType } from '../../../types';
 
-interface SolLaunchpadDetailTekenMetricsContainerProps {
-	data: TokenMetricsType;
+interface SolLaunchpadDetailTokenMetricsContainerProps {
+	data: TokenMetricsType ;
 }
 
-const SolLaunchpadDetailTekenMetricsContainer: React.FC<
-	SolLaunchpadDetailTekenMetricsContainerProps
-> = (props: SolLaunchpadDetailTekenMetricsContainerProps) => {
+const SolLaunchpadDetailTokenMetricsContainer: React.FC<SolLaunchpadDetailTokenMetricsContainerProps> = (props: SolLaunchpadDetailTokenMetricsContainerProps) => {
 	const OPTIONS = {
 		plugins: {
 			legend: {
@@ -24,4 +22,4 @@ const SolLaunchpadDetailTekenMetricsContainer: React.FC<
 		<SolLaunchpadDetailTokenMetrics data={props.data} chartOptions={OPTIONS} />
 	);
 };
-export default SolLaunchpadDetailTekenMetricsContainer;
+export default SolLaunchpadDetailTokenMetricsContainer;

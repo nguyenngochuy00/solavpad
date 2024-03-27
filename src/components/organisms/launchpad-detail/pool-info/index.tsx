@@ -14,13 +14,9 @@ import { WalletInfo } from '../../../../types/ido.type';
 
 interface SolLaunchpadDetailPoolInfoProps {
 	projectInfo: ProjectDetail | undefined;
-	idoInfo: ProjectDetail | undefined;
 }
 
-const SolLaunchpadDetailPoolInfo = ({
-	projectInfo,
-	idoInfo
-}: SolLaunchpadDetailPoolInfoProps) => {
+const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoProps) => {
 
 	return (
 		<div className="sol-launchpad-detail-pool-info">
@@ -35,7 +31,7 @@ const SolLaunchpadDetailPoolInfo = ({
 										<b>
 											{moment(
 												new Date(
-													(idoInfo?.openTimestamp || 0) * 1000
+													(projectInfo?.openTimestamp || 0) * 1000
 												).toLocaleString()
 											)
 												.utc()
@@ -86,9 +82,9 @@ const SolLaunchpadDetailPoolInfo = ({
 										<b>
 											{formatNumberDownRound(
 												Number(
-													new BigNumber(idoInfo?.cap)
+													new BigNumber(projectInfo?.cap)
 														.dividedBy(
-															10 ** get(idoInfo, 'raiseTokenDecimals', 9)
+															10 ** get(projectInfo, 'raiseTokenDecimals', 9)
 														)
 														.toString()
 												),
@@ -103,9 +99,9 @@ const SolLaunchpadDetailPoolInfo = ({
 										<b>
 											{formatNumberDownRound(
 												Number(
-													new BigNumber(idoInfo?.participated)
+													new BigNumber(projectInfo?.participated)
 														.dividedBy(
-															10 ** get(idoInfo, 'raiseTokenDecimals', 9)
+															10 ** get(projectInfo, 'raiseTokenDecimals', 9)
 														)
 														.toString()
 												),
@@ -153,8 +149,8 @@ const SolLaunchpadDetailPoolInfo = ({
 					<SolCard title="Schedule">
 						<table>
 							<tbody>
-								{idoInfo?.rounds &&
-									idoInfo?.rounds.map((item: RoundItem, index: number) => (
+								{projectInfo?.rounds &&
+									projectInfo?.rounds.map((item: RoundItem, index: number) => (
 										<tr key={index}>
 											<td>
 												<b>{item.name}</b>

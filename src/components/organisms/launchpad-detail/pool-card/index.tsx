@@ -15,7 +15,7 @@ interface SolLaunchpadDetailPoolCardProps {
 	yourBalance?: string | number;
 	yourBalanceConvert?: string | number;
 	yourApprovedAmount?: string | number;
-	yourTier?: string | number;
+	yourTier?: string ;
 	swappedValue?: string | number;
 	swappedValueConvert?: string | number;
 	remainingAllocation?: string | number;

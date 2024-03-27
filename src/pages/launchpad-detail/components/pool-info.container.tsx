@@ -2,17 +2,16 @@
 
 import SolLaunchpadDetailPoolInfo from '../../../components/organisms/launchpad-detail/pool-info';
 import { IdoInfoType, ProjectDetail } from '../../../types';
+import { WalletInfo } from '../../../types/ido.type';
 
 interface SolLaunchpadDetailPoolInfoContainerProps {
 	projectInfo: ProjectDetail | undefined;
-	idoInfo: ProjectDetail | undefined;
 }
 
 const SolLaunchpadDetailPoolInfoContainer: React.FC<
-	SolLaunchpadDetailPoolInfoContainerProps
-> = ({ projectInfo, idoInfo }: SolLaunchpadDetailPoolInfoContainerProps) => {
+	SolLaunchpadDetailPoolInfoContainerProps> = ({ projectInfo }: SolLaunchpadDetailPoolInfoContainerProps) => {
 	return (
-		<SolLaunchpadDetailPoolInfo projectInfo={projectInfo} idoInfo={idoInfo} />
+		<SolLaunchpadDetailPoolInfo projectInfo={projectInfo}  />
 	);
 };
 export default SolLaunchpadDetailPoolInfoContainer;

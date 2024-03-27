@@ -41,8 +41,14 @@ export const getProjectDetailById = async (id: number | string): Promise<any | n
     try {
         //@ts-ignore
         const res = projects.data.find((project: ProjectDetail) => String(project.id) === String(id));
-        // handleGetProjects()
-        return res;
+        if(res === undefined) return null;
+        const contract = res.contract;
+        if(contract === null) return res;
+        const info = await solaUtils.getProjectDetail(contract);
+        return {
+            ...res,
+            ...info
+        }
     } catch (error) {
         console.log(error);
         return null;
@@ -57,7 +63,7 @@ const  handleGetProjects  = async (contractAddresses: string[]): Promise<any> =>
     for (const contract of contractAddresses) {
         console.log("contract", contract);
         
-        const idoInfo = await  solaUtils.getProjectDetail(contract); 
+        const idoInfo = await solaUtils.getProjectDetail(contract); 
         //@ts-ignore
         info[contract] = idoInfo; 
     }

@@ -3,7 +3,7 @@ import SolLaunchpadDetailDescriptionContainer from './description.container';
 import SolLaunchpadDetailPoolCardContainer from './pool-card.container';
 import SolLaunchpadDetailPoolInfoContainer from './pool-info.container';
 import SolLaunchpadDetailSummaryContainer from './summary.container';
-import SolLaunchpadDetailTekenMetricsContainer from './token-metrics.container';
+import SolLaunchpadDetailTokenMetricsContainer from './token-metrics.container';
 import SolLaunchpadDetailYourAllocationContainer from './your-allocation.container';
 import { useNavigate, useParams } from 'react-router-dom';
 import { find } from 'lodash';
@@ -17,73 +17,45 @@ import { getProjectDetailById } from '../../../redux/services/project';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { WalletInfo } from '../../../types/ido.type';
 
-const SolLaunchpadDetailMainContainer: React.FC = () => {
-	const navigate = useNavigate();
-	const params = useParams();
+
+interface SolLaunchpadDetailMainContainerProps {
+	projectSelected: ProjectDetail | undefined
+}
+const SolLaunchpadDetailMainContainer: React.FC<SolLaunchpadDetailMainContainerProps> = ({projectSelected}: SolLaunchpadDetailMainContainerProps) => {
+
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
 	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
-	const [projectInfo, setProjectInfo] = useState<ProjectDetail | undefined>(undefined);
-	const [idoInfo, setIdoInfo] = useState<ProjectDetail | undefined>(undefined);
 
 	const connection = useConnection();
 	const { publicKey } = useWallet();
 	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
+	const [allocations, setAllocations] = useState<any[]>([]);
 
 	//DOING
 	useEffect(() => {
-		if (!connection || !publicKey || !idoInfo)  return;
-		console.log('idoInfo', idoInfo);
+		if (!connection || !publicKey || !projectSelected)  return;
+	
 		
 		
-	  }, [connection, publicKey, idoInfo?.contract]);
+	  }, [connection, publicKey, projectSelected?.contract]);
 
 	  useEffect(() => {
 		const fetchData = async () => {
-			if (!idoInfo?.contract || !publicKey ) return;
-			const result = await solaUtils.getWalletInfo(idoInfo.contract, publicKey);
+			if (!projectSelected?.contract || !publicKey ) return;
+			const result = await solaUtils.getWalletInfo(projectSelected.contract, publicKey);
 
 			console.log('result', result);
 			
 			setWalletInfo(result);
 		};
 		fetchData();
-	  }, [idoInfo?.contract]);
+	  }, [projectSelected?.contract]);
 
-	useEffect(() => {
-		if (String(params?.id).trim().length > 0) {
-			// TO-DO: fake get project info, call api later
-			//@ts-ignore
-			getProjectInfo(params.id);
-		} else {
-			navigate(APP_ROUTES.HOMEPAGE.path, { replace: true });
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [params?.id]);
 
-	const getProjectInfo = async (projectId: string | number ) => {
-		getProjectDetailById(projectId).then((data) => {
-			getIDODetail(data?.contract, data)
-		})
-		
-	};
 
-	const getIDODetail = async (
-		contractAddress: string | undefined,
-		defaultData: ProjectDetail
-	) => {
-		if (!contractAddress) return;
-		
-		const data = await solaUtils.getProjectDetail(contractAddress);
-		
-		setProjectInfo({
-			...defaultData,
-			...data
-		});
-		setIdoInfo({
-			...defaultData,
-			...data
-		});
-	};
+
+
+
 
 	const TABS: TabType[] = [
 		{ key: 'Description', text: 'Description' },
@@ -92,89 +64,7 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 		{ key: 'YourAllocation', text: 'Your Allocation' }
 	];
 	const [activeTab, setActiveTab] = useState<string>(TABS[1].key);
-	const MOCKDATA = {
-		poolInfo: {
-			name: 'Cryptopolis (Blue Diamond Private)',
-			symbol: 'CPO',
-			opens: '01-31 09:01 UTC',
-			fcfsOpens: '01-31 13:46 UTC',
-			closes: '01-31 15:01 UTC',
-			swapRate: '1 BUSD = 125.0000 CPO',
-			cap: '100,000 BUSD',
-			totalUsersParticipated: 243,
-			totalFundsSwapped: '100,095.8583 BUSD',
-			accessType: 'Private',
-			schedule: [
-				{
-					round: 'Allocation',
-					opens: '2021-10-18 08:00:00 UTC',
-					closes: '2021-10-18 08:00:00 UTC'
-				},
-				{
-					round: 'FCFS - Prepare',
-					opens: '2021-10-18 08:00:00 UTC',
-					closes: '2021-10-18 08:00:00 UTC'
-				},
-				{
-					round: 'FCFS - Prepare',
-					opens: '2021-10-18 08:00:00 UTC',
-					closes: '2021-10-18 08:00:00 UTC'
-				}
-			]
-		},
-		tokenMetrics: {
-			labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-			datasets: [
-				{
-					label: '# of Votes',
-					data: [12, 19, 3, 5, 2, 3],
-					backgroundColor: [
-						'#e250e5',
-						'#8350e6',
-						'#4b50e6',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					borderColor: [
-						'rgba(255, 255, 255, 0.1)',
-						'rgba(255, 255, 255, 0.1)',
-						'rgba(255, 255, 255, 0.1)',
-						'rgba(255, 255, 255, 0.1)',
-						'rgba(255, 255, 255, 0.1)',
-						'rgba(255, 255, 255, 0.1)'
-					],
-					borderWidth: 1
-				}
-			]
-		},
-		allocations: [
-			{
-				value: '9.9999 BUSD',
-				percent: '1.00%',
-				claimed: '0.9999 BUSD',
-				time: '21-10-25 15:00 to 22-08-25 15:00'
-			},
-			{
-				value: '9.9999 BUSD',
-				percent: '1.00%',
-				claimed: '0.9999 BUSD',
-				time: '21-10-25 15:00 to 22-08-25 15:00'
-			},
-			{
-				value: '9.9999 BUSD',
-				percent: '1.00%',
-				claimed: '0.9999 BUSD',
-				time: '21-10-25 15:00 to 22-08-25 15:00'
-			},
-			{
-				value: '9.9999 BUSD',
-				percent: '1.00%',
-				claimed: '0.9999 BUSD',
-				time: '21-10-25 15:00 to 22-08-25 15:00'
-			}
-		]
-	};
+
 
 	const handleTabChange = (tabKey: string) => {
 		setActiveTab(tabKey);
@@ -182,8 +72,8 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 
 	return (
 		<SolLaunchpadDetailTemplate
-			summary={<SolLaunchpadDetailSummaryContainer data={projectInfo} />}
-			poolCard={<SolLaunchpadDetailPoolCardContainer data={projectInfo}/>}
+			summary={<SolLaunchpadDetailSummaryContainer data={projectSelected} />}
+			poolCard={<SolLaunchpadDetailPoolCardContainer data={projectSelected}/>}
 			tabs={
 				<SolLaunchpadDetailTabs
 					tabs={TABS}
@@ -193,34 +83,19 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 			}
 			details={
 				<>
-					{activeTab === TABS[0].key ? (
+					{ activeTab === TABS[0].key && 
 						<SolLaunchpadDetailDescriptionContainer />
-					) : (
-						<></>
-					)}
-					{activeTab === TABS[1].key ? (
-						<SolLaunchpadDetailPoolInfoContainer
-							idoInfo={idoInfo}
-							projectInfo={projectInfo}
-						/>
-					) : (
-						<></>
-					)}
-					{activeTab === TABS[2].key ? (
-						<SolLaunchpadDetailTekenMetricsContainer
-							data={MOCKDATA.tokenMetrics}
-						/>
-					) : (
-						<></>
-					)}
-					{activeTab === TABS[3].key ? (
-						<SolLaunchpadDetailYourAllocationContainer
-							data={MOCKDATA.allocations}
-							claimable={false}
-						/>
-					) : (
-						<></>
-					)}
+					}
+					{ activeTab === TABS[1].key && 
+						<SolLaunchpadDetailPoolInfoContainer projectInfo={projectSelected} / >
+					}
+					{/* { activeTab === TABS[2].key && 
+						<SolLaunchpadDetailTokenMetricsContainer data={projectSelected?.tokenmetrics}/>
+					} */}
+					{ activeTab === TABS[3].key && 
+						<SolLaunchpadDetailYourAllocationContainer data={allocations} claimable={false}/>
+					}
+					
 				</>
 			}
 		/>
