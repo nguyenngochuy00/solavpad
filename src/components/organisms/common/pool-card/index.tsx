@@ -19,6 +19,8 @@ import SolAvailableOn from '../../../molecules/available-on';
 import SolInfo from '../../../molecules/info-block';
 import SolPoolImage from '../../../molecules/pool-image';
 import SolProgressBar from '../../../molecules/progress-bar';
+import { get } from 'lodash';
+import BigNumber from 'bignumber.js';
 
 // {
 // 	"id": 99,
@@ -81,7 +83,7 @@ const SolPoolCard = ({
 
 	useEffect(() => {
 		if (projectData && status === LAUNCHPAD_STATUS.UPCOMING) {
-			const startTime = projectData?.start || 0;
+			const startTime = projectData?.openTimestamp * 1000 || 0;
 			if (moment().isBefore(new Date(startTime))) {
 				setShowCountDown(true);
 			} else {
@@ -151,19 +153,49 @@ const SolPoolCard = ({
 			</div>
 
 			{/* Launchpad statistics */}
-			<div className="sol-pool-card-stats">
-				<SolInfo
-					size="value"
-					label="Swap rate"
-					value={`1 ◎ = ${formatNumberDownRound(Number(projectData?.rate || 0), 0)} ${
-						projectData?.symbol
-					}`}
-				/>
-				<SolInfo
-					size="value"
-					label="Total Supply"
-					value={formatNumberDownRound(Number(projectData?.totalSupply || 0), 0)}
-				/>
+			<div className="sol-pool-card-stats row">
+				<div className="col-7">
+					<SolInfo
+						size="value"
+						label="Swap rate"
+						value={`1 ${projectData?.symbol} = ${formatNumberDownRound(
+							Number(projectData?.rate || 0),
+							0
+						)} ${projectData?.projectTokenSymbol}`}
+					/>
+				</div>
+				<div className="col-5">
+					<SolInfo
+						size="value"
+						label="Cap"
+						value={formatNumberDownRound(
+							Number(
+								new BigNumber(projectData?.cap)
+									.dividedBy(10 ** get(projectData, 'raiseTokenDecimals', 9))
+									.toString()
+							),
+							0
+						)}
+					/>
+				</div>
+
+				<div className="col-7">
+					<SolInfo
+						size="value"
+						label="Total Supply"
+						value={formatNumberDownRound(
+							Number(projectData?.totalSupply || 0),
+							0
+						)}
+					/>
+				</div>
+				<div className="col-5">
+					<SolInfo
+						size="value"
+						label="Access"
+						value={`${projectData.isPrivate ? 'Private' : 'Public'}`}
+					/>
+				</div>
 			</div>
 
 			{/* Launchpad progress */}
@@ -199,7 +231,7 @@ const SolPoolCard = ({
 							<span>
 								Open in <span></span>
 								<Countdown
-									date={new Date(String(projectData?.start || 0))}
+									date={new Date(projectData?.openTimestamp * 1000 || 0)}
 									intervalDelay={1}
 									precision={3}
 									renderer={renderCountDownOpen}
@@ -236,7 +268,7 @@ const SolPoolCard = ({
 };
 export default SolPoolCard;
 
-const renderCountDownOpen = ({
+export const renderCountDownOpen = ({
 	days,
 	hours,
 	minutes,

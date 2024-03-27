@@ -3,6 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { LAUNCHPAD_STATUS } from '../../../../constants';
 import { ProjectDetail } from '../../../../types';
 import SolPoolCard from '../../common/pool-card';
+import SolLaunchpadOpening from '../opening-launchpads';
 import './index.scss';
 
 interface SolLaunchpadUpcomingProps {
@@ -14,7 +15,7 @@ const SolLaunchpadUpcoming = ({
 	sectionTitle = '',
 	projects
 }: SolLaunchpadUpcomingProps) => {
-	return (
+	return projects.length > 1 ? (
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
 			<div className="sol-launchpad-upcoming">
@@ -39,6 +40,8 @@ const SolLaunchpadUpcoming = ({
 				)}
 			</div>
 		</>
+	) : (
+		<SolLaunchpadOpening sectionTitle="Upcoming Launchpads" projectData={projects} />
 	);
 };
 export default SolLaunchpadUpcoming;

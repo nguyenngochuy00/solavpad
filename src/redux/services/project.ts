@@ -40,7 +40,7 @@ export const getIdoProjects = async(): Promise<any> => {
 export const getProjectDetailById = async (id: number | string): Promise<any | null> => {
     try {
         //@ts-ignore
-        const res = projects.data.find((project: ProjectDetail) => project.id === id);
+        const res = projects.data.find((project: ProjectDetail) => String(project.id) === String(id));
         // handleGetProjects()
         return res;
     } catch (error) {

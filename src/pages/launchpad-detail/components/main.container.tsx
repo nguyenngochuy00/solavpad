@@ -29,17 +29,16 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 		if (String(params?.id).trim().length > 0) {
 			// TO-DO: fake get project info, call api later
 			//@ts-ignore
-			const data: any = getProjectInfo(params.id);
-			getIDODetail(data?.contract, data);
+			getProjectInfo(params.id);
 		} else {
 			navigate(APP_ROUTES.HOMEPAGE.path, { replace: true });
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [params?.id]);
 
-	const getProjectInfo = (projectId: string | number ) => {
+	const getProjectInfo = async (projectId: string | number ) => {
 		getProjectDetailById(projectId).then((data) => {
-			return data;
+			getIDODetail(data?.contract, data)
 		})
 		
 	};
@@ -49,9 +48,9 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 		defaultData: ProjectDetail
 	) => {
 		if (!contractAddress) return;
-
+		
 		const data = await solaUtils.getProjectDetail(contractAddress);
-
+		
 		setProjectInfo({
 			...defaultData,
 			...data

@@ -49,14 +49,8 @@
 		}
 	}
 	&-stats {
-		display: flex;
-		align-items: center;
-		gap: 40px;
-		align-self: stretch;
-		padding: 10px 0;
+		margin: 10px 0 20px !important;
 		border-top: 1px dashed $border_color;
-		flex-wrap: wrap;
-		row-gap: 20px;
 	}
 	&-progress {
 		padding: 10px 0;

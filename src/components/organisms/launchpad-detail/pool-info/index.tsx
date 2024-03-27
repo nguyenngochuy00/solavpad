@@ -1,5 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import { get } from 'lodash';
+import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 import { formatNumberDownRound } from '../../../../services/helpers/helpers';
 import { IdoInfoType, ProjectDetail, RoundItem } from '../../../../types';
@@ -17,6 +18,7 @@ const SolLaunchpadDetailPoolInfo = ({
 }: SolLaunchpadDetailPoolInfoProps) => {
 	console.log('projectInfo', projectInfo);
 	console.log('idoInfo', idoInfo);
+
 	return (
 		<div className="sol-launchpad-detail-pool-info">
 			<Row>
@@ -28,31 +30,51 @@ const SolLaunchpadDetailPoolInfo = ({
 									<td>Opens</td>
 									<td>
 										<b>
-											{new Date(
-												(idoInfo?.openTimestamp || 0) * 1000
-											).toLocaleString()}
+											{moment(
+												new Date(
+													(idoInfo?.openTimestamp || 0) * 1000
+												).toLocaleString()
+											)
+												.utc()
+												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>FCFS Opens</td>
 									<td>
-										<b>{projectInfo?.fcfs}</b>
+										<b>
+											{moment(
+												new Date(
+													(Number(projectInfo?.fcfsTimestamp) || 0) * 1000
+												).toLocaleString()
+											)
+												.utc()
+												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Closes</td>
 									<td>
-										<b>{projectInfo?.closeTimestamp}</b>
+										<b>
+											{moment(
+												new Date(
+													(projectInfo?.closeTimestamp || 0) * 1000
+												).toLocaleString()
+											)
+												.utc()
+												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Swap Rate</td>
 									<td>
-										<b>{`1 ◎ = ${formatNumberDownRound(
-											Number(idoInfo?.rate),
+										<b>{`1 ${projectInfo?.symbol} = ${formatNumberDownRound(
+											Number(projectInfo?.rate || 0),
 											0
-										)} ${projectInfo?.symbol}`}</b>
+										)} ${projectInfo?.projectTokenSymbol}`}</b>
 									</td>
 								</tr>
 								<tr>
@@ -129,25 +151,23 @@ const SolLaunchpadDetailPoolInfo = ({
 						<table>
 							<tbody>
 								{idoInfo?.rounds &&
-									idoInfo?.rounds.map(
-										(item: RoundItem, index: number) => (
-											<tr key={index}>
-												<td>
-													<b>{item.name}</b>
-												</td>
-												<td>
-													<div>
-														<span>Opens:</span>
-														<b>{item.durationSeconds}</b>
-													</div>
-													<div>
-														<span>Closes:</span>
-														<b>{'item.closes'}</b>
-													</div>
-												</td>
-											</tr>
-										)
-									)}
+									idoInfo?.rounds.map((item: RoundItem, index: number) => (
+										<tr key={index}>
+											<td>
+												<b>{item.name}</b>
+											</td>
+											<td>
+												<div>
+													<span>Opens:</span>
+													<b>{item.durationSeconds}</b>
+												</div>
+												<div>
+													<span>Closes:</span>
+													<b>{'item.closes'}</b>
+												</div>
+											</td>
+										</tr>
+									))}
 							</tbody>
 						</table>
 					</SolCard>

@@ -150,6 +150,7 @@ export interface ProjectDetail extends IdoInfoType {
 	end?: string;
 	allocation?: string;
 	fcfs?: string;
+	fcfsTimestamp?: string;
 	allDay?: boolean;
 	tokenAddress?: string;
 	state?: string;

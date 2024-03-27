@@ -2,13 +2,19 @@ import { Col, Row } from 'react-bootstrap';
 import { LAUNCHPAD_STATUS } from '../../../../constants';
 import { ProjectDetail } from '../../../../types';
 import SolPoolCard from '../../common/pool-card';
+import SolLaunchpadOpening from '../opening-launchpads';
 import './index.scss';
 
+type SolLaunchpadCompletedProps = {
+	sectionTitle?: string;
+	projects: ProjectDetail[] | any[];
+};
 
-type SolLaunchpadCompletedProps = { sectionTitle?: string; projects: ProjectDetail[] | any[] };
-
-const SolLaunchpadCompleted = ({ sectionTitle = '', projects }: SolLaunchpadCompletedProps) => {
-	return (
+const SolLaunchpadCompleted = ({
+	sectionTitle = '',
+	projects
+}: SolLaunchpadCompletedProps) => {
+	return projects.length > 1 ? (
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
 			<div className="sol-launchpad-completed">
@@ -30,6 +36,11 @@ const SolLaunchpadCompleted = ({ sectionTitle = '', projects }: SolLaunchpadComp
 				)}
 			</div>
 		</>
+	) : (
+		<SolLaunchpadOpening
+			sectionTitle="Completed Launchpads"
+			projectData={projects}
+		/>
 	);
 };
 export default SolLaunchpadCompleted;
