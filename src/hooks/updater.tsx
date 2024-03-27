@@ -8,34 +8,20 @@ import useDebounce from "./useDebounce";
 const delayTime = 15; //seconds
 
 export default function AppUpdater() {
-    const setTimeOut = (time: number)=>{
-        return new Promise((resolve, reject) =>{
-            setTimeout(()=>{
-                resolve(true);
-            }, time);
-        });
-
-   }
-
+    
     const dispatch = useDispatch();
     const provider = solaUtils.getConnectionProvider()
 
-    
     const [state, setState] = useState({ blockNumber: 0})
-
 
     const blockNumberCallback = useCallback((blockNumber: number) => {
 
+        // console.log("BlockNumber:", blockNumber);
+        setState((s) => {
+            if(typeof s.blockNumber !== 'number') return {  blockNumber: Math.max(blockNumber, s.blockNumber) }
+            return s
+        })
         
-      
-            // console.log("BlockNumber:", blockNumber);
-            setState((s) => {
-            
-                if(typeof s.blockNumber !== 'number') return {  blockNumber: Math.max(blockNumber, s.blockNumber) }
-                return s
-            })
-    
-       
     },[setState])
 
     useEffect(() => {
@@ -47,14 +33,9 @@ export default function AppUpdater() {
         const subId = provider.onSlotUpdate((data)=>{    
          if(data.type !== "completed") return;
             blockNumberCallback(data.slot)
-        })
-
-        return () => {
-            // debugger
-            console.log("Unsubscribing from block number update", subId);
-            
-            provider.removeSlotUpdateListener(subId)
-        } 
+        })            
+        provider.removeSlotUpdateListener(subId)
+        
       
        
     }, [dispatch, blockNumberCallback, state.blockNumber, provider])
