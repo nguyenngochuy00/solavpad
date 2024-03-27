@@ -1,5 +1,5 @@
 import { get } from 'lodash';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SolLaunchpadDetailApproveDialog from '../../../components/organisms/launchpad-detail/approve-dialog';
 import SolLaunchpadDetailJoinPoolDialog from '../../../components/organisms/launchpad-detail/join-pool-dialog';
@@ -7,19 +7,44 @@ import SolLaunchpadDetailPoolCard from '../../../components/organisms/launchpad-
 import { useSolBalance } from '../../../hooks/useState';
 import { toggleConnectWallet } from '../../../redux/actions/applicationAction';
 import { formatNumberDownRound } from '../../../services/helpers/helpers';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { WalletInfo } from '../../../types/ido.type';
+import { ProjectDetail } from '../../../types';
+import { solaUtils } from '../../../services/blockchain';
 
-const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
+
+interface SolLaunchpadDetailPoolCardContainerProps {
+	data: ProjectDetail | undefined;
+}
+
+const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardContainerProps> = ({data}: SolLaunchpadDetailPoolCardContainerProps ) => {
 	const dispatch = useDispatch();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
 	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
-	const solBal = useSolBalance();
-	const walletInfo = useSelector(state =>
-		get(state, 'system.walletInfo', false)
-	);
+	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
 
+	const solBal = useSolBalance();
+
+
+	const connection = useConnection();
+	const { publicKey } = useWallet();
 	const handleJoinPool: VoidFunction = () => {
-		setShowJoinModal(false);
+		//
+		
+
+
 	};
+	useEffect(() => {
+		const fetchData = async () => {
+			if (!data?.contract || !publicKey ) return;
+			const result = await solaUtils.getWalletInfo(data?.contract, publicKey);
+
+			console.log('result', result);
+			
+			setWalletInfo(result);
+		};
+		fetchData();
+	  }, [data]);
 
 	const handleApprove: VoidFunction = () => {
 		setShowApproveModal(false);

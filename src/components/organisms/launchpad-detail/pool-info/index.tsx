@@ -22,32 +22,6 @@ const SolLaunchpadDetailPoolInfo = ({
 	idoInfo
 }: SolLaunchpadDetailPoolInfoProps) => {
 
-	const connection = useConnection();
-	const { publicKey } = useWallet();
-	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
-
-	//DOING
-	useEffect(() => {
-		if (!connection || !publicKey || !idoInfo)  return;
-		console.log('idoInfo', idoInfo);
-		
-		
-	  }, [connection, publicKey, idoInfo?.contract]);
-
-	  useEffect(() => {
-		const fetchData = async () => {
-			if (!idoInfo?.contract || !publicKey ) return;
-			const result = await solaUtils.getWalletInfo(idoInfo.contract, publicKey);
-
-			console.log('result', result);
-			
-			setWalletInfo(result);
-		};
-		fetchData();
-	  }, [idoInfo?.contract]);
-
-
-
 	return (
 		<div className="sol-launchpad-detail-pool-info">
 			<Row>

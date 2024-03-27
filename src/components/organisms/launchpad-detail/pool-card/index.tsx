@@ -6,10 +6,11 @@ import SolProgressBar from '../../../molecules/progress-bar';
 // import SolInfo from 'src/components/molecules/info-block';
 // import SolProgressBar from 'src/components/molecules/progress-bar';
 import './index.scss';
+import { WalletInfo } from '../../../../types/ido.type';
 
 interface SolLaunchpadDetailPoolCardProps {
 	opening?: boolean;
-	walletInfo?: boolean;
+	walletInfo?: WalletInfo;
 	countDownTime?: number | string;
 	yourBalance?: string | number;
 	yourBalanceConvert?: string | number;

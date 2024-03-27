@@ -14,16 +14,40 @@ import { APP_ROUTES } from '../../../constants';
 import { IdoInfoType, ProjectDetail, TabType } from '../../../types';
 import { solaUtils } from '../../../services/blockchain/solana.web3';
 import { getProjectDetailById } from '../../../redux/services/project';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { WalletInfo } from '../../../types/ido.type';
 
 const SolLaunchpadDetailMainContainer: React.FC = () => {
 	const navigate = useNavigate();
 	const params = useParams();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
 	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
-	const [projectInfo, setProjectInfo] = useState<ProjectDetail | undefined>(
-		undefined
-	);
+	const [projectInfo, setProjectInfo] = useState<ProjectDetail | undefined>(undefined);
 	const [idoInfo, setIdoInfo] = useState<ProjectDetail | undefined>(undefined);
+
+	const connection = useConnection();
+	const { publicKey } = useWallet();
+	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
+
+	//DOING
+	useEffect(() => {
+		if (!connection || !publicKey || !idoInfo)  return;
+		console.log('idoInfo', idoInfo);
+		
+		
+	  }, [connection, publicKey, idoInfo?.contract]);
+
+	  useEffect(() => {
+		const fetchData = async () => {
+			if (!idoInfo?.contract || !publicKey ) return;
+			const result = await solaUtils.getWalletInfo(idoInfo.contract, publicKey);
+
+			console.log('result', result);
+			
+			setWalletInfo(result);
+		};
+		fetchData();
+	  }, [idoInfo?.contract]);
 
 	useEffect(() => {
 		if (String(params?.id).trim().length > 0) {
@@ -159,7 +183,7 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 	return (
 		<SolLaunchpadDetailTemplate
 			summary={<SolLaunchpadDetailSummaryContainer data={projectInfo} />}
-			poolCard={<SolLaunchpadDetailPoolCardContainer />}
+			poolCard={<SolLaunchpadDetailPoolCardContainer data={projectInfo}/>}
 			tabs={
 				<SolLaunchpadDetailTabs
 					tabs={TABS}
