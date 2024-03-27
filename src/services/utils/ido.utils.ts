@@ -1,8 +1,8 @@
 import { utils } from '@coral-xyz/anchor';
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { IdoInfoType, ProjectDetail, RoundClass, RoundItem, UserStraitPda } from '../../types';
-import { RoundClassMap, WalletInfo } from '../../types/ido.type';
+import { IdoInfoType, ProjectDetail, RoundClass, RoundItem } from '../../types';
+import { RoundClassMap, UserStraitPda, WalletInfo } from '../../types/ido.type';
 import moment from 'moment';
 
 
@@ -40,12 +40,7 @@ export const isClosed = (currentTimestamp: number,idoAccount: IdoInfoType): bool
 	return false;
 };
 
-export const getAllocationRemaining = (
-	round: number,
-	tier: number,
-	idoAccount: IdoInfoType,
-	userPda: UserStraitPda
-): BN => {
+export const getAllocationRemaining = (round: number,tier: number,idoAccount: IdoInfoType,userPda: UserStraitPda): BN => {
 	if (tier == 0 || round == 0) {
 		return new BN(0);
 	}
@@ -128,7 +123,7 @@ export const infoWallet = (
 	let tier = userPda.tierIndex;
 	let tierName = tier == 0 ? '-' : idoAccount.tiers[tier - 1].name;
 	if (!isClosed(currentTimestamp, idoAccount)) {
-		let ts = idoAccount.openTimestamp;
+		let ts = Number(idoAccount.openTimestamp.toString());
 		if (currentTimestamp < ts) {
 			roundState = 0;
 			roundStateText = 'Allocation Round <u>opens</u> in:';
@@ -140,19 +135,19 @@ export const infoWallet = (
 				r = idoAccount.rounds[i];
 				ts += r.durationSeconds;
 				if (currentTimestamp < ts) {
-					if (r.class == RoundClass.Allocation) {
+					if (Object.keys(r.class).find(e=> e === RoundClassMap.allocation )) {
 						roundState = 1;
 						roundStateText = 'Allocation Round <u>closes</u> in:';
 						roundTimestamp = ts;
 					}
 				}
-				if (r.class == RoundClass.FcfsPrepare) {
+				if (Object.keys(r.class).find(e=> e === RoundClassMap.fcfsPrepare )) {
 					roundState = 2;
 					roundStateText = 'FCFS Round <u>opens</u> in:';
 					roundTimestamp = ts;
 				}
 
-				if (r.class == RoundClass.Fcfs) {
+				if (Object.keys(r.class).find(e=> e === RoundClassMap.fcfs )) {
 					roundState = 3;
 					roundStateText = 'FCFS Round <u>closes</u> in:';
 					roundTimestamp = ts;

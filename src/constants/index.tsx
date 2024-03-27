@@ -153,5 +153,6 @@ export const NETWORKS: NetworkType[] = [
 export const LAUNCHPAD_STATUS = {
 	OPENING: 'O',
 	UPCOMING: 'P',
-	COMPLETED: 'C'
+	COMPLETED: 'C',
+	FSFC: 'F'
 };

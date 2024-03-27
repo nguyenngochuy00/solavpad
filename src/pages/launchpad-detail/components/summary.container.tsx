@@ -13,11 +13,11 @@ interface SolLaunchpadDetailSummaryContainerProps {
 const SolLaunchpadDetailSummaryContainer: React.FC<SolLaunchpadDetailSummaryContainerProps> = ({ data }) => {
 	return (
 		<SolLaunchpadDetailSummary
-			imgURL="../images/images/FOTA_2.png"
+			imgURL={get(data, 'logo', '')} //sửa thành images [] cho tự chạy
 			networkIcon="../images/images/Solana_logo_1.png"
 			networkName="SOLANA"
 			title={get(data, 'name', '')}
-			status={getProjectStatusTag(data?.state || data?.status || '')}
+			status={getProjectStatusTag(data?.state || '')}
 			description={data?.description}
 			telegram={data?.telegram}
 			twitter={data?.twitter}

@@ -22,7 +22,9 @@ import {
 
 import crowdFundingIDL from '../idl/crowdfunding.json';
 import { IdoInfoType } from '../../types';
-import { getIdoInfo } from '../utils';
+import { getIdoInfo, infoWallet } from '../utils';
+import { IdoFindPda } from '../helpers';
+import { UserStraitPda, WalletInfo } from '../../types/ido.type';
 
 
 const programID = new PublicKey(crowdFundingIDL.metadata.address)
@@ -61,26 +63,85 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 	};
 	getProjectDetail = async (contractAddress: string) : Promise<IdoInfoType | undefined>=>{
 	
-		//@ts-ignore	
-		const program = new Program(crowdFundingIDL, programID, this.provider);
-		if(!contractAddress) {
-			return undefined;
-		}
-		
-		const idoPdData = await program.account.idoAccount.fetch(contractAddress);
-	
+		const idoPdData = await this.getPdaIdoAccount(new PublicKey(contractAddress));
 		const currentTimestamp = Math.floor(Date.now() / 1000);
 		if(!idoPdData) return undefined
 		//@ts-ignore
 		return getIdoInfo(idoPdData, currentTimestamp);
 	
 	}
-	async getBlock(): Promise<number>{
-		const blockNumber = await this.provider.connection.getSlot()
-		return blockNumber;
+	async getBlockNumber(): Promise<number>{
+		return await this.provider.connection.getSlot()
 	}
+
+
+	async getWalletInfo(contractAddress: string, walletAddress: PublicKey): Promise<WalletInfo | undefined>{
+	
+		const walletPDA = IdoFindPda.getPdaUser(programID, new PublicKey(contractAddress), new PublicKey(walletAddress));
+		try {
+			const userPdaData = await this.getPdaUserData(walletPDA);
+	
+			const idoPdData = await this.getPdaIdoAccount(new PublicKey(contractAddress));
+			if(!idoPdData) return undefined
+			const currentTimestamp = Math.floor(Date.now() / 1000);
+
+			const walletInfo = infoWallet(idoPdData , userPdaData , currentTimestamp);
+			
+			return walletInfo;
+
+		} catch (error) {
+			console.log("error", error);
+			return {
+				tier: 0,
+				tierName: "",
+				round: 0,
+				roundState: 0,
+				roundStateText: "",
+				roundTimestamp: 0
+			};
+			
+		}
+		
+		
+	}
+
 	getConnectionProvider(){
 		return this.provider.connection;
+	}
+
+	async getPdaUserData(walletPDA: PublicKey): Promise<UserStraitPda>{
+		try {
+			const program = this.getProgramIdo();
+			const userPdaData = await program.account.pdaUserStats.fetch(walletPDA);
+			return userPdaData as UserStraitPda;
+		} catch (error) {
+			return {
+				address: walletPDA,
+				tierIndex: 0,
+				allocated: false,
+				participateAmount: new BN(0),
+				claimAmount: new BN(0),
+				owner: walletPDA
+			};
+		}
+
+	}
+	async getPdaIdoAccount(contractAddress: PublicKey): Promise<IdoInfoType | undefined>{
+		try {
+			//@ts-ignore
+			const program = this.getProgramIdo();
+			const idoAccount = await program.account.idoAccount.fetch(contractAddress);
+			return idoAccount as IdoInfoType;
+		} catch (error) {
+			console.log("error", error);
+			return undefined;
+		}
+
+	}
+	getProgramIdo(){
+		//@ts-ignore
+		return new Program(crowdFundingIDL, programID, this.provider);
+	
 	}
 }
 export const solaUtils = new Web3SolanaUtils(DEV_NET);

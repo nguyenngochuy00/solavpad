@@ -95,15 +95,8 @@ export interface RoundItem{
      class: RoundClass,
      tierAllocations: Array<BN>,
 }
-const allocation = {allocation:{}}
-const fcfsPrepare = {fcfsPrepare:{}}
-const fcfs = {fcfs:{}}
 
-export const RoundClassMap = {
-	allocation,
-	fcfsPrepare,
-	fcfs,
-}
+
 export enum RoundClass {
     Allocation ,
     FcfsPrepare ,
@@ -146,15 +139,12 @@ export interface ProjectDetail extends IdoInfoType {
 	projectTokenContract?: string;
 	symbol?: string;
 	disabled?: boolean;
-	start?: string;
-	end?: string;
+	openTime?: string|number;
+	closeTime?: string|number;
+	fcfsOpenTime?: string|number;
 	allocation?: string;
-	fcfs?: string;
-	fcfsTimestamp?: string;
-	allDay?: boolean;
 	tokenAddress?: string;
 	state?: string;
-	sort?: number;
 	tags?: string[];
 	color?: string;
 	youtube_id?: string;
@@ -162,7 +152,6 @@ export interface ProjectDetail extends IdoInfoType {
 	articles?: number[] | string[];
 	tokenmetrics?: number[] | string[];
 	images?: number[] | string[];
-	status?: string;
 	routeUrl?: string;
 	participants?: string | number;
 	totalFundsSwapped?: string;

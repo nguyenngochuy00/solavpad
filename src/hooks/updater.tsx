@@ -28,7 +28,7 @@ export default function AppUpdater() {
 
         
       
-            console.log("BlockNumber:", blockNumber);
+            // console.log("BlockNumber:", blockNumber);
             setState((s) => {
             
                 if(typeof s.blockNumber !== 'number') return {  blockNumber: Math.max(blockNumber, s.blockNumber) }
@@ -41,15 +41,16 @@ export default function AppUpdater() {
     useEffect(() => {
        
         if (!provider) return undefined
-        // setState({ blockNumber: 0 })
        
         provider.getSlot().then(blockNumberCallback).catch((error) => console.error('Failed to get block number', error))
+       
         const subId = provider.onSlotUpdate((data)=>{    
          if(data.type !== "completed") return;
             blockNumberCallback(data.slot)
         })
 
         return () => {
+            // debugger
             console.log("Unsubscribing from block number update", subId);
             
             provider.removeSlotUpdateListener(subId)

@@ -6,6 +6,10 @@ import { formatNumberDownRound } from '../../../../services/helpers/helpers';
 import { IdoInfoType, ProjectDetail, RoundItem } from '../../../../types';
 import SolCard from '../../../molecules/card';
 import './index.scss';
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useEffect, useState } from 'react';
+import { solaUtils } from '../../../../services/blockchain';
+
 
 interface SolLaunchpadDetailPoolInfoProps {
 	projectInfo: ProjectDetail | undefined;
@@ -16,8 +20,31 @@ const SolLaunchpadDetailPoolInfo = ({
 	projectInfo,
 	idoInfo
 }: SolLaunchpadDetailPoolInfoProps) => {
-	console.log('projectInfo', projectInfo);
-	console.log('idoInfo', idoInfo);
+
+	const wallet = useConnection();
+	const { publicKey } = useWallet();
+	const [walletInfo, setWalletInfo] = useState<any>();
+	useEffect(() => {
+		if (!wallet || !publicKey || !idoInfo)  return;
+		console.log('idoInfo', idoInfo);
+		
+
+		
+	  }, [wallet, publicKey, idoInfo?.contract]);
+
+	  useEffect(() => {
+		const fetchData = async () => {
+			if (!idoInfo?.contract || !publicKey ) return;
+			const result = await solaUtils.getWalletInfo(idoInfo.contract, publicKey);
+
+			console.log('result', result);
+			
+			setWalletInfo(result);
+		};
+		fetchData();
+	  }, [idoInfo?.contract]);
+
+
 
 	return (
 		<div className="sol-launchpad-detail-pool-info">
@@ -46,7 +73,7 @@ const SolLaunchpadDetailPoolInfo = ({
 										<b>
 											{moment(
 												new Date(
-													(Number(projectInfo?.fcfsTimestamp) || 0) * 1000
+													(Number(projectInfo?.fcfsOpenTime) || 0) * 1000
 												).toLocaleString()
 											)
 												.utc()
