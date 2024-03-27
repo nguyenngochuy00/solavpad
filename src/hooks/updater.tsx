@@ -5,7 +5,7 @@ import { SET_LATEST_BLOCK_NUMBER } from "../redux/types/application";
 import useDebounce from "./useDebounce";
 
 
-
+const delayTime = 15; //seconds
 
 export default function AppUpdater() {
 
@@ -24,17 +24,19 @@ export default function AppUpdater() {
 
         setState({ blockNumber: 0 })
         provider.connection.getSlot().then(blockNumberCallback).catch((error) => console.error('Failed to get block number', error))
-       
+        provider.connection.onSlotUpdate((data)=>{
+            blockNumberCallback(data.slot)
+        })
     }, [dispatch, blockNumberCallback])
 
-    const debouncedState = useDebounce(state, 10*1000)
+    const debouncedState = useDebounce(state, delayTime*1000)
 
     useEffect(() => {
         if (!debouncedState.blockNumber) return
         console.log("BlockNumber latest:", debouncedState.blockNumber);
         dispatch({ type: SET_LATEST_BLOCK_NUMBER, data:debouncedState.blockNumber })
         // dispatch(setLastBlockNumber(debouncedState.blockNumber))
-    }, [provider, dispatch, debouncedState.blockNumber, state.blockNumber])
+    }, [provider, dispatch, debouncedState.blockNumber])
 
 
 
