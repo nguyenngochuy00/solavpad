@@ -16,13 +16,15 @@ export default function AppUpdater() {
 
     const blockNumberCallback = useCallback((blockNumber: number) => {
 
-        // console.log("BlockNumber:", blockNumber);
         setState((s) => {
-            if(typeof s.blockNumber !== 'number') return {  blockNumber: Math.max(blockNumber, s.blockNumber) }
-            return s
+            console.log("BlockNumber:", Math.max(blockNumber, s.blockNumber));
+             return {  blockNumber: Math.max(blockNumber, s.blockNumber) }
         })
-        
+
     },[setState])
+
+
+    const debouncedState = useDebounce(state, delayTime*1000)
 
     useEffect(() => {
        
@@ -30,17 +32,15 @@ export default function AppUpdater() {
        
         provider.getSlot().then(blockNumberCallback).catch((error) => console.error('Failed to get block number', error))
        
-        const subId = provider.onSlotUpdate((data)=>{    
-         if(data.type !== "completed") return;
-            blockNumberCallback(data.slot)
-        })            
-        provider.removeSlotUpdateListener(subId)
-        
-      
+        // const subId = provider.onSlotUpdate((data)=>{    
+        //  if(data.type !== "completed") return;
+        //     blockNumberCallback(data.slot)
+        // })  
+        // provider.removeSlotUpdateListener(subId)
        
-    }, [dispatch, blockNumberCallback, state.blockNumber, provider])
+    }, [dispatch, blockNumberCallback, provider, debouncedState])
 
-    const debouncedState = useDebounce(state, 1000)
+  
 
 
     useEffect(() => {
