@@ -2,7 +2,7 @@
 
 import SolLaunchpadDetailPoolInfo from '../../../components/organisms/launchpad-detail/pool-info';
 import { IdoInfoType, ProjectDetail } from '../../../types';
-import { WalletInfo } from '../../../types/ido.type';
+
 
 interface SolLaunchpadDetailPoolInfoContainerProps {
 	projectInfo: ProjectDetail | undefined;

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { solaUtils } from '../services/blockchain';
 import { SET_LATEST_BLOCK_NUMBER } from '../redux/types/application';
 import useDebounce from './useDebounce';
-import { setLastBlockNumber } from '../redux/actions/applicationAction';
 
 const delayTime = 15; //seconds
 
@@ -41,25 +40,14 @@ export default function AppUpdater() {
 	}, [dispatch, blockNumberCallback, provider, debouncedState]);
 
 	useEffect(() => {
-		if (debouncedState.blockNumber === 0) return;
+		if (debouncedState.blockNumber == 0) return;
 		console.log('BlockNumber latest:', debouncedState.blockNumber);
-		// dispatch({
-		// 	type: SET_LATEST_BLOCK_NUMBER,
-		// 	data: debouncedState.blockNumber
-		// });
-		dispatch(setLastBlockNumber(debouncedState.blockNumber));
-
-		// dispatch(setLastBlockNumber(debouncedState.blockNumber))
+		dispatch({
+			type: SET_LATEST_BLOCK_NUMBER,
+			payload: debouncedState.blockNumber
+		});
 	}, [provider, dispatch, debouncedState.blockNumber]);
 
-
-    useEffect(() => {
-        if (debouncedState.blockNumber === 0) return;
-        console.log("BlockNumber latest:", debouncedState.blockNumber);
-        // dispatch({ type: SET_LATEST_BLOCK_NUMBER, data:debouncedState.blockNumber })
-        
-        dispatch(setLastBlockNumber(debouncedState.blockNumber))
-    }, [provider, dispatch, debouncedState.blockNumber])
 
 
 

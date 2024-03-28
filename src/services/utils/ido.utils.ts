@@ -40,19 +40,18 @@ export const isClosed = (currentTimestamp: number,idoAccount: IdoInfoType): bool
 	return false;
 };
 
-export const getAllocationRemaining = (round: number,tier: number,idoAccount: IdoInfoType,userPda: UserStraitPda): BN => {
+export const getAllocationRemaining = (round: number,tier: number, idoAccount: IdoInfoType, userPda: UserStraitPda): BN => {
+
 	if (tier == 0 || round == 0) {
 		return new BN(0);
 	}
 	const roundIndex = round - 1;
-	const tierIndex = tier - 1;
-	if (
-		roundIndex > idoAccount.tiers.length ||
+	const tierIndex = tier ;	
+	if (roundIndex > idoAccount.tiers.length ||
 		tierIndex > idoAccount.tiers.length ||
-		tierIndex != userPda.tierIndex
-	) {
-		return new BN(0);
-	}
+		tierIndex != userPda.tierIndex) return new BN(0);
+
+	
 	if (userPda.allocated) {
 		const participated = userPda.participateAmount;
 		const allocated = idoAccount.rounds[roundIndex].tierAllocations[tierIndex];
@@ -111,11 +110,7 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 };
 
 
-export const infoWallet = (
-	idoAccount: IdoInfoType,
-	userPda: UserStraitPda,
-	currentTimestamp: number
-): WalletInfo => {
+export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,currentTimestamp: number): WalletInfo => {
 	let round = 0;
 	let roundState = 4;
 	let roundStateText = '';
@@ -156,7 +151,9 @@ export const infoWallet = (
 			}
 		}
 	}
-	return { tier, tierName, round, roundState, roundStateText, roundTimestamp };
+	const remainingAllocation = getAllocationRemaining(round, tier, idoAccount, userPda).toString();
+
+	return { tier, tierName, round, roundState, roundStateText, roundTimestamp, userParticipation: userPda.participateAmount.toString(), remainingAllocation };
 };
 
 export const infoAllocations = (idoAccount: IdoInfoType) => {

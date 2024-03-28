@@ -81,7 +81,7 @@ export interface IdoInfoType {
 }
 
 export interface TierItem {
-    name: String,
+    name: string,
     allocatedCount: number
 }
 export interface ReleaseItem {
@@ -90,7 +90,7 @@ export interface ReleaseItem {
     percent: number,
 } 
 export interface RoundItem{
-     name: String,
+     name: string,
      durationSeconds: number,
      class: RoundClass,
      tierAllocations: Array<BN>,
@@ -103,23 +103,15 @@ export enum RoundClass {
     Fcfs,
 }
 
-export interface UserStraitPda {
-     address: PublicKey, //16
-     tierIndex: number, //1
-     allocated: boolean, //1
-     participateAmount: BN, //16
-     claimAmount: BN, //16
-     owner: PublicKey,//32
-}
 
 
 export interface ProjectDetail extends IdoInfoType {
 	id: number | string;
 	contract: string | null;
 	contractVersion?: number;
-	decimals?: number;
-	isPrivate?: boolean;
-	rate?: string | number;
+	decimals: number;
+	isPrivate: boolean;
+	rate: string | number;
 	totalCountWallet?: number;
 	totalCountUserParticipated?: number;
 	totalFundParticipated?: number;
@@ -128,16 +120,16 @@ export interface ProjectDetail extends IdoInfoType {
 	description?: string;
 	telegram?: string;
 	projectTokenAddress?: string;
-	logo?: string;
+	logo: string;
 	medium?: string;
-	name?: string;
+	name: string;
 	projectTokenSymbol?: string;
 	totalSupply?: string | number;
 	twitter?: string;
 	website?: string;
 	yourAllocationVisible?: boolean;
 	projectTokenContract?: string;
-	symbol?: string;
+	symbol: string;
 	disabled?: boolean;
 	openTime?: string|number;
 	closeTime?: string|number;

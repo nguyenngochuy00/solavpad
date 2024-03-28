@@ -2,7 +2,15 @@
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 export interface WalletInfo {
-    tier: number, tierName: String, round :number, roundState :number, roundStateText: string, roundTimestamp: number
+    tier: number, 
+    tierName: string, 
+    round: number, 
+    roundState: number, 
+    roundStateText: string, 
+    roundTimestamp: number,
+    userParticipation: number | string,
+    remainingAllocation: number | string,
+    tokenBalance?: number | string,
 }
 
 export interface UserStraitPda {
@@ -17,9 +25,9 @@ export interface UserStraitPda {
 
 
 export const RoundClassMap = {
-	allocation :"allocation",
-	fcfsPrepare : "fcfsPrepare",
-	fcfs: "fcfs",
+    allocation: "allocation",
+    fcfsPrepare: "fcfsPrepare",
+    fcfs: "fcfs",
 }
 
 export type JoinIdoParams = {

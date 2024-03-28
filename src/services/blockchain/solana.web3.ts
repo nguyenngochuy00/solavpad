@@ -25,7 +25,9 @@ import { IdoInfoType } from '../../types';
 import { getIdoInfo, infoWallet } from '../utils';
 import { IdoFindPda } from '../helpers';
 import { UserStraitPda, WalletInfo } from '../../types/ido.type';
-
+import {
+    getAssociatedTokenAddressSync,
+  } from "@solana/spl-token"
 
 const programIdoID = new PublicKey(crowdFundingIDL.metadata.address)
 const opts = {
@@ -87,8 +89,14 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 			const walletInfo = infoWallet(idoPdData , userPdaData , currentTimestamp);
 			
-			return walletInfo;
+			const tokenBalance = await this.getBalanceOfToken(idoPdData.raiseToken, walletAddress);
 
+			return {
+				...walletInfo,
+				tokenBalance: tokenBalance
+			};
+			
+			
 		} catch (error) {
 			console.log("error", error);
 			return {
@@ -97,13 +105,38 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 				round: 0,
 				roundState: 0,
 				roundStateText: "",
-				roundTimestamp: 0
+				roundTimestamp: 0,
+				userParticipation: "0",
+				remainingAllocation: "0",
+				tokenBalance: "0"
 			};
 			
 		}
 		
 		
 	}
+
+	async getAllocationRemaining (round: number,tier: number,idoAccount: IdoInfoType,userPda: UserStraitPda): BN {
+		if (tier == 0 || round == 0) {
+			return new BN(0);
+		}
+		const roundIndex = round - 1;
+		const tierIndex = tier - 1;
+		if (
+			roundIndex > idoAccount.tiers.length ||
+			tierIndex > idoAccount.tiers.length ||
+			tierIndex != userPda.tierIndex
+		) {
+			return new BN(0);
+		}
+		if (userPda.allocated) {
+			const participated = userPda.participateAmount;
+			const allocated = idoAccount.rounds[roundIndex].tierAllocations[tierIndex];
+			if (participated < allocated) return allocated.sub(participated);
+		}
+	
+		return new BN(0);
+	};
 
 	getConnectionProvider(){
 		return this.provider.connection;
@@ -133,6 +166,17 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 		} catch (error) {
 			console.log("error", error);
 			return undefined;
+		}
+	}
+
+	async getBalanceOfToken(raise_token_mint: PublicKey, walletAddress: PublicKey): Promise<string>{
+		try {
+			const tokenAccount = getAssociatedTokenAddressSync(raise_token_mint, walletAddress, true);
+			const data = await this.provider.connection.getTokenAccountBalance(tokenAccount);
+			return data.value.amount;
+		} catch (error) {
+			console.log("error", error);
+			return "0"; 
 		}
 	}
 	private getProgramIdo(){

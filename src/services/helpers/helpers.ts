@@ -8,7 +8,7 @@ export const minimizeAddress = (address: string, start: number = 8, end: number 
 	return `${address.slice(0, start)}...${address.slice(-end)}`;
 };
 
-export const formatNumberDownRound = (numberParam: number, decimal: number = 9) => {
+export const formatNumberDownRound = (numberParam: number | string | undefined, decimal: number = 9) => {
 	if (!numberParam) {
 		return 0;
 	}

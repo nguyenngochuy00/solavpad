@@ -10,10 +10,11 @@ import { WalletInfo } from '../../../../types/ido.type';
 
 interface SolLaunchpadDetailPoolCardProps {
 	opening?: boolean;
+	
 	walletInfo?: WalletInfo;
 	countDownTime?: number | string;
-	yourBalance?: string | number;
-	yourBalanceConvert?: string | number;
+	yourTokenBalance?: string | number;
+	yourNativeCoinBalance?: string | number;
 	yourApprovedAmount?: string | number;
 	yourTier?: string ;
 	swappedValue?: string | number;
@@ -28,10 +29,11 @@ interface SolLaunchpadDetailPoolCardProps {
 
 const SolLaunchpadDetailPoolCard = ({
 	opening,
+	// roundInfo,
 	walletInfo,
 	countDownTime,
-	yourBalance,
-	yourBalanceConvert,
+	yourTokenBalance,
+	yourNativeCoinBalance,
 	yourApprovedAmount,
 	yourTier,
 	swappedValue,
@@ -52,8 +54,8 @@ const SolLaunchpadDetailPoolCard = ({
 					<div className="sol-launchpad-detail-pool-card-left">
 						<SolInfo
 							label="Your balance"
-							value={yourBalance}
-							value2={yourBalanceConvert}
+							value={yourTokenBalance}
+							value2={yourNativeCoinBalance}
 							size="lg"
 						/>
 						<SolInfo label="Your tier" value={yourTier} size="lg" />
@@ -62,9 +64,7 @@ const SolLaunchpadDetailPoolCard = ({
 				<Col lg="8">
 					<div className="sol-launchpad-detail-pool-card-right">
 						<SolInfo
-							label={
-								opening ? 'Allocation Round Closed in:' : 'Allocation Round'
-							}
+							label={walletInfo?.roundStateText || 'Time remaining'}
 							value={opening ? countDownTime : 'Closed'}
 							size="lg"
 						/>
@@ -104,11 +104,6 @@ const SolLaunchpadDetailPoolCard = ({
 											caption="Join Pool"
 											onClick={onJoinPool}
 										/>
-										{/* <SolButton
-											size="lg"
-											caption="Approve"
-											onClick={onApprove}
-										/> */}
 									</>
 								) : (
 									<SolButton

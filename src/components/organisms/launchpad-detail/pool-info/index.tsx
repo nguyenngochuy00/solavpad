@@ -9,7 +9,6 @@ import './index.scss';
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useEffect, useState } from 'react';
 import { idoService, solaUtils } from '../../../../services/blockchain';
-import { WalletInfo } from '../../../../types/ido.type';
 
 
 interface SolLaunchpadDetailPoolInfoProps {
@@ -113,7 +112,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 								<tr>
 									<td>Total Funds Swapped</td>
 									<td>
-										<b>{projectInfo?.totalFundsSwapped}</b>
+										<b>{projectInfo?.totalFundParticipated}</b>
 									</td>
 								</tr>
 								<tr>

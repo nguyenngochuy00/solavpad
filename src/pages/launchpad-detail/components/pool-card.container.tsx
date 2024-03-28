@@ -14,10 +14,10 @@ import { solaUtils } from '../../../services/blockchain';
 
 
 interface SolLaunchpadDetailPoolCardContainerProps {
-	data: ProjectDetail | undefined;
+	projectSelected: ProjectDetail | undefined;
 }
 
-const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardContainerProps> = ({data}: SolLaunchpadDetailPoolCardContainerProps ) => {
+const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardContainerProps> = ({projectSelected}: SolLaunchpadDetailPoolCardContainerProps ) => {
 	const dispatch = useDispatch();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
 	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
@@ -36,15 +36,15 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 	};
 	useEffect(() => {
 		const fetchData = async () => {
-			if (!data?.contract || !publicKey ) return;
-			const result = await solaUtils.getWalletInfo(data?.contract, publicKey);
+			if (!projectSelected?.contract || !publicKey ) return;
+			const result = await solaUtils.getWalletInfo(projectSelected?.contract, publicKey);
 
 			console.log('result', result);
 			
 			setWalletInfo(result);
 		};
 		fetchData();
-	  }, [data]);
+	  }, [projectSelected]);
 
 	const handleApprove: VoidFunction = () => {
 		setShowApproveModal(false);
@@ -60,31 +60,30 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				opening
 				walletInfo={walletInfo}
 				countDownTime="0d 4h 42m 32s"
-				yourBalance={`${formatNumberDownRound(solBal)} SOL`}
-				// yourBalanceConvert="3.0000 ETH"
-				yourApprovedAmount="999.9999 BUSD"
-				yourTier=""
-				swappedValue="11,780.0000 BUSD"
-				swappedValueConvert="123,3.0000 CPO"
-				remainingAllocation="99,999.9999 BUSD"
-				progressPercent="80"
-				participants="10"
+				yourTokenBalance={`${formatNumberDownRound(walletInfo?.tokenBalance, 9)} ${projectSelected?.symbol}`}
+				yourNativeCoinBalance={`${formatNumberDownRound(solBal,9)} SOL`}
+				yourTier= {walletInfo?.tierName}
+				swappedValue={`${walletInfo?.userParticipation} ${projectSelected?.symbol}`}
+				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))}     ${projectSelected?.projectTokenSymbol}`}
+				remainingAllocation={`${formatNumberDownRound(walletInfo?.remainingAllocation)} ${projectSelected?.symbol}`}
+				progressPercent={projectSelected?.participated /projectSelected?.cap}
+				participants={projectSelected?.participatedCount || 0}
 				onJoinPool={() => setShowJoinModal(true)}
 				onApprove={() => setShowApproveModal(true)}
 				onConnectWallet={() => handleShowConnectWallet()}
 			/>
 			<SolLaunchpadDetailJoinPoolDialog
 				show={showJoinModal}
-				projectName="Cryptopolis (Blue Diamond Private)"
-				amountSymbol="BBB"
+				projectName={projectSelected?.name || ""}
+				amountSymbol={projectSelected?.symbol}
 				balance={1}
 				onClose={() => setShowJoinModal(false)}
 				onJoin={handleJoinPool}
 			/>
 			<SolLaunchpadDetailApproveDialog
 				show={showApproveModal}
-				projectName="Cryptopolis (Blue Diamond Private)"
-				amountSymbol="BBB"
+				projectName={projectSelected?.name || ""}
+				amountSymbol={projectSelected?.symbol || "USDT"}
 				balance={1}
 				onClose={() => setShowApproveModal(false)}
 				onApprove={handleApprove}

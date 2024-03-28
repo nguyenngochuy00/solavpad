@@ -51,7 +51,7 @@
 			"openTime": "2024-01-31T02:45:41.000Z",
 			"closeTime": "2024-01-31T02:45:44.000Z",
 			"decimals": 9,
-			"isPrivate": false,
+			"isPrivate": true,
 			"rate": "1000",
 			"totalCountWallet": 0,
 			"totalCountUserParticipated": 0,
