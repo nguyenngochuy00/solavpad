@@ -5,10 +5,23 @@
 	flex-direction: column;
 	row-gap: 8px;
 	&-label {
+		u {
+			text-decoration: none;
+			font-weight: 600;
+			color: #fff;
+		}
 		@media (max-width: 767px) {
 			line-height: 1;
 		}
 	}
+
+	span {
+		color: $white_color;
+		font-size: 20px;
+		font-weight: 900;
+		white-space: nowrap;
+	}
+
 	&-value {
 		color: $white_color;
 		font-size: 15px;

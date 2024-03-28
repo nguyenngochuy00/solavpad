@@ -1,3 +1,5 @@
+import Countdown from 'react-countdown';
+import { renderCountDownOpen } from '../../organisms/common/pool-card';
 import './index.scss';
 
 type SolInfoProps = {
@@ -5,21 +7,40 @@ type SolInfoProps = {
 	value: string | number | undefined;
 	value2?: string | number;
 	size?: any;
+	isCountDown?: boolean;
 };
 
 const SolInfo: React.FC<SolInfoProps> = ({
 	label = '',
 	value = '',
 	value2 = '',
-	size = 'md'
+	size = 'md',
+	isCountDown=false
 }: SolInfoProps) => {
+
+	const onComplete = () => {
+		debugger
+	}
 	return (
 		<div className={`sol-info ${size}`}>
-			<div className={`sol-info-label`}>{label}</div>
-			<div className="sol-info-value">
-				{value}
-				{value2 ? <div>{value2}</div> : <></>}
-			</div>
+			<div
+				className={`sol-info-label`}
+				dangerouslySetInnerHTML={{ __html: label }}
+			/>
+			{isCountDown ? (
+				<Countdown
+					date={new Date(Number(value) * 1000 || 0)}
+					intervalDelay={1}
+					precision={3}
+					renderer={renderCountDownOpen}
+					onComplete={onComplete}
+				/>
+			) : (
+				<div className="sol-info-value">
+					{value}
+					{value2 ? <div>{value2}</div> : <></>}
+				</div>
+			)}
 		</div>
 	);
 };

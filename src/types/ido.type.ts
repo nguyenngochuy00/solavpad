@@ -8,8 +8,8 @@ export interface WalletInfo {
     roundState: number, 
     roundStateText: string, 
     roundTimestamp: number,
-    userParticipation: number | string,
-    remainingAllocation: number | string,
+    userParticipation?: number | string,
+    remainingAllocation?: number | string,
     tokenBalance?: number | string,
 }
 

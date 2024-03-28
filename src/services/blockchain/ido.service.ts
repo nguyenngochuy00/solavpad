@@ -59,6 +59,7 @@ export class IdoWeb3Service {
 
         //   let tx = await  window.solana.signAndSendTransaction(transaction)
             console.log("joinIDO success at transaction: ", transaction);
+            return transaction;
         } catch (error) {
             console.log("joinIDO error: ", error);
         }
