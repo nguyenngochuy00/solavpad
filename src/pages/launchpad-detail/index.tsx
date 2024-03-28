@@ -11,7 +11,6 @@ const SolLaunchpadDetailPage: React.FC = () => {
     const navigate = useNavigate();
     const [projectSelected, setProjectSelected] = useState<ProjectDetail | undefined>(undefined);
     const blockNumber = useBlockLatest();
-    console.log('block - Number', blockNumber);
     
 
     useEffect(() => {

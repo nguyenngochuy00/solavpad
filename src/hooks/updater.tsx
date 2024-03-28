@@ -52,5 +52,17 @@ export default function AppUpdater() {
 		// dispatch(setLastBlockNumber(debouncedState.blockNumber))
 	}, [provider, dispatch, debouncedState.blockNumber]);
 
-	return null;
+
+    useEffect(() => {
+        if (debouncedState.blockNumber === 0) return;
+        console.log("BlockNumber latest:", debouncedState.blockNumber);
+        // dispatch({ type: SET_LATEST_BLOCK_NUMBER, data:debouncedState.blockNumber })
+        
+        dispatch(setLastBlockNumber(debouncedState.blockNumber))
+    }, [provider, dispatch, debouncedState.blockNumber])
+
+
+
+
+    return null
 }
