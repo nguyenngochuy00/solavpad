@@ -70,7 +70,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				yourNativeCoinBalance={`${formatNumberDownRound(solBal,9)} SOL`}
 				yourTier= {walletInfo?.tierName}
 				swappedValue={`${formatNumberDownRound(walletInfo?.userParticipation, projectSelected?.decimals)} ${projectSelected?.symbol}`}
-				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))}     ${projectSelected?.projectTokenSymbol}`}
+				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))} ${projectSelected?.projectTokenSymbol}`}
 				remainingAllocation={`${formatNumberDownRound(walletInfo?.remainingAllocation)} ${projectSelected?.symbol}`}
 				progressPercent={Number(projectSelected?.participated.toString()) /Number(projectSelected?.cap.toString()) * 100 || 0}
 				participants={projectSelected?.participatedCount || 0}
@@ -82,7 +82,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				show={showJoinModal}
 				projectName={projectSelected?.name || ""}
 				amountSymbol={projectSelected?.symbol}
-				balance={1}
+				balance={formatNumberDownRound(walletInfo?.tokenBalance, projectSelected?.decimals)}
 				onClose={() => setShowJoinModal(false)}
 				onJoin={handleJoinPool}
 			/>

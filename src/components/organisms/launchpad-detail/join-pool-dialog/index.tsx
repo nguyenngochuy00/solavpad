@@ -9,7 +9,7 @@ interface SolLaunchpadDetailJoinPoolDialogProps {
 	show?: boolean;
 	projectName?: string;
 	amountSymbol?: string;
-	balance?: number;
+	balance?: number | undefined | string;
 	onClose?: () => void;
 	onJoin?: () => void;
 }
@@ -62,7 +62,7 @@ const SolLaunchpadDetailJoinPoolDialog = ({
 				caption="Join"
 				size="lg"
 				variant="primary"
-				disabled={amount <= 0 || amount > balance}
+				disabled={amount <= 0 || amount > Number(balance)}
 				onClick={onJoin}
 			/>
 		</SolModal>

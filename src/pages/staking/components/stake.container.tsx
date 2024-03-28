@@ -17,10 +17,10 @@ const SolStakingStakeContainer = () => {
 		get(state, 'system.walletInfo', false)
 	);
 	const currentBalance = 1;
-	const stakingSymbol = 'BSCPAD';
+	const stakingSymbol = 'SLPAD';
 	const paymentBalance = 1;
-	const paymentSymbol = 'BNB';
-	const paymentNetwork = 'Binance Smart Chain';
+	const paymentSymbol = 'Sol';
+	const paymentNetwork = 'Solana';
 	const stakeable = true;
 	const [confirmedStake, setConfirmedStake] = useState(false);
 	const stakeLoadingPercent = 100;

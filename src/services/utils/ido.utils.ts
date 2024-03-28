@@ -35,7 +35,7 @@ export const closeTimestamp = (idoAccount: IdoInfoType): number => {
 export const isClosed = (currentTimestamp: number,idoAccount: IdoInfoType): boolean => {
 	const { participated, cap, closed } = idoAccount;
 	const closeTs = closeTimestamp(idoAccount);
-	if (closed || currentTimestamp >= closeTs || participated >= cap)return true;
+	if (closed || currentTimestamp >= closeTs || participated.gte(cap))return true;
 
 	return false;
 };
@@ -51,7 +51,6 @@ export const getAllocationRemaining = (round: number,tier: number, idoAccount: I
 		tierIndex > idoAccount.tiers.length ||
 		tierIndex != userPda.tierIndex) return new BN(0);
 
-	
 	if (userPda.allocated) {
 		const participated = userPda.participateAmount;
 		const allocated = idoAccount.rounds[roundIndex].tierAllocations[tierIndex];
@@ -117,8 +116,10 @@ export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,curren
 	let roundTimestamp = 0;
 	let tier = userPda.tierIndex;
 	let tierName = tier == 0 ? '-' : idoAccount.tiers[tier - 1].name;
+	debugger
 	if (!isClosed(currentTimestamp, idoAccount)) {
 		let ts = Number(idoAccount.openTimestamp.toString());
+		debugger
 		if (currentTimestamp < ts) {
 			roundState = 0;
 			roundStateText = 'Allocation Round <u>opens</u> in:';
@@ -126,6 +127,7 @@ export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,curren
 		} else {
 			let r: RoundItem;
 			for (let i = 0; i < idoAccount.rounds.length; i++) {
+				debugger;
 				round += 1;
 				r = idoAccount.rounds[i];
 				ts += r.durationSeconds;
@@ -136,6 +138,7 @@ export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,curren
 						roundTimestamp = ts;
 					}
 				}
+			
 				if (Object.keys(r.class).find(e=> e === RoundClassMap.fcfsPrepare )) {
 					roundState = 2;
 					roundStateText = 'FCFS Round <u>opens</u> in:';
