@@ -4,11 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getProjectDetailById } from "../../redux/services/project";
 import { ProjectDetail } from "../../types";
 import { APP_ROUTES } from "../../constants";
+import { useBlockLatest } from "../../hooks/useState";
 
 const SolLaunchpadDetailPage: React.FC = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [projectSelected, setProjectSelected] = useState<ProjectDetail | undefined>(undefined);
+    const blockNumber = useBlockLatest();
+    console.log('block - Number', blockNumber);
+    
 
     useEffect(() => {
         if(!params) return navigate(APP_ROUTES.HOMEPAGE.path, { replace: true });;
@@ -20,7 +24,7 @@ const SolLaunchpadDetailPage: React.FC = () => {
         }).catch((error) => {
             console.log(error);
         })
-    }, [params])
+    }, [params, blockNumber])
    
 
 
