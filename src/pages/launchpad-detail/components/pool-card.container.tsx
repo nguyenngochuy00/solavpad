@@ -69,7 +69,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				yourTokenBalance={`${formatNumberDownRound(walletInfo?.tokenBalance, 9)} ${projectSelected?.symbol}`}
 				yourNativeCoinBalance={`${formatNumberDownRound(solBal,9)} SOL`}
 				yourTier= {walletInfo?.tierName}
-				swappedValue={`${walletInfo?.userParticipation || 0} ${projectSelected?.symbol}`}
+				swappedValue={`${formatNumberDownRound(walletInfo?.userParticipation, projectSelected?.decimals)} ${projectSelected?.symbol}`}
 				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))}     ${projectSelected?.projectTokenSymbol}`}
 				remainingAllocation={`${formatNumberDownRound(walletInfo?.remainingAllocation)} ${projectSelected?.symbol}`}
 				progressPercent={Number(projectSelected?.participated.toString()) /Number(projectSelected?.cap.toString()) * 100 || 0}
