@@ -72,7 +72,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				swappedValue={`${walletInfo?.userParticipation || 0} ${projectSelected?.symbol}`}
 				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))}     ${projectSelected?.projectTokenSymbol}`}
 				remainingAllocation={`${formatNumberDownRound(walletInfo?.remainingAllocation)} ${projectSelected?.symbol}`}
-				progressPercent={projectSelected?.participated /projectSelected?.cap}
+				progressPercent={Number(projectSelected?.participated.toString()) /Number(projectSelected?.cap.toString()) * 100 || 0}
 				participants={projectSelected?.participatedCount || 0}
 				onJoinPool={() => setShowJoinModal(true)}
 				onApprove={() => setShowApproveModal(true)}

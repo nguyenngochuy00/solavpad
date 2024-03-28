@@ -79,16 +79,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Cap</td>
 									<td>
 										<b>
-											{formatNumberDownRound(
-												Number(
-													new BigNumber(projectInfo?.cap)
-														.dividedBy(
-															10 ** get(projectInfo, 'raiseTokenDecimals', 9)
-														)
-														.toString()
-												),
-												0
-											)}
+											{formatNumberDownRound(projectInfo?.cap, projectInfo?.raiseTokenDecimals)}
 										</b>
 									</td>
 								</tr>
@@ -96,16 +87,9 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Total Users Participated</td>
 									<td>
 										<b>
-											{formatNumberDownRound(
-												Number(
-													new BigNumber(projectInfo?.participated)
-														.dividedBy(
-															10 ** get(projectInfo, 'raiseTokenDecimals', 9)
-														)
-														.toString()
-												),
-												0
-											)}
+											{formatNumberDownRound(projectInfo?.participated, projectInfo?.raiseTokenDecimals)}
+												
+										
 										</b>
 									</td>
 								</tr>

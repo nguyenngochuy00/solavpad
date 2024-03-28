@@ -95,7 +95,7 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 	console.log("state", state);
 	
 	return {
-		raiseToken: idoAccount.raiseToken,
+		raiseToken: idoAccount.raiseToken.toString(),
 		raiseTokenDecimals: idoAccount.raiseTokenDecimals,
 		rate: idoAccount.rate,
 		openTimestamp: Number(idoAccount.openTimestamp.toString()),
@@ -104,8 +104,8 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 		allocationsCount: totalAllocationsCount,
 		state: state,
 		participatedCount: idoAccount.participatedCount,
-		participated: idoAccount.participated,
-		cap: idoAccount.cap
+		participated: idoAccount.participated.toString(),
+		cap: idoAccount.cap.toString()
 	};
 };
 
@@ -164,12 +164,8 @@ export const infoAllocations = (idoAccount: IdoInfoType) => {
 	let allocStatusList: Array<BN>[];
 
 	const { releases, releaseToken } = idoAccount;
-	if (
-		releaseToken != new PublicKey('11111111111111111111111111111111') &&
-		releases.length > 0
-	) {
+	if (releaseToken != '11111111111111111111111111111111' &&releases.length > 0) {
 		let rows = releases.length * 2;
-
 		for (let i = 0; i < releases.length; i++) {}
 	}
 };

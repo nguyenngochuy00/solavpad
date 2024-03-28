@@ -117,7 +117,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -164,7 +164,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -209,7 +209,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -246,7 +246,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -281,7 +281,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -354,47 +354,6 @@
       ]
     },
     {
-      "name": "modifyTierAllocatedMulti",
-      "accounts": [
-        {
-          "name": "idoAccount",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "adminWallet",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "authority",
-          "isMut": true,
-          "isSigner": true
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "index",
-          "type": "u8"
-        },
-        {
-          "name": "addresses",
-          "type": {
-            "vec": "publicKey"
-          }
-        },
-        {
-          "name": "remove",
-          "type": "bool"
-        }
-      ]
-    },
-    {
       "name": "setupReleaseToken",
       "accounts": [
         {
@@ -454,7 +413,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -499,7 +458,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -530,7 +489,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -561,7 +520,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -592,7 +551,7 @@
       "accounts": [
         {
           "name": "idoAccount",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -723,12 +682,12 @@
           "isSigner": false
         },
         {
-          "name": "depositTokenAccount",
+          "name": "userTokenAccount",
           "isMut": true,
           "isSigner": false
         },
         {
-          "name": "receiveTokenAccount",
+          "name": "idoTokenAccount",
           "isMut": true,
           "isSigner": false
         },
@@ -965,6 +924,26 @@
   ],
   "types": [
     {
+      "name": "ReleaseItem",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "percent",
+            "type": "u16"
+          },
+          {
+            "name": "fromTimestamp",
+            "type": "u32"
+          },
+          {
+            "name": "toTimestamp",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
       "name": "RoundItem",
       "type": {
         "kind": "struct",
@@ -988,26 +967,6 @@
             "type": {
               "vec": "u64"
             }
-          }
-        ]
-      }
-    },
-    {
-      "name": "ReleaseItem",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "percent",
-            "type": "u16"
-          },
-          {
-            "name": "fromTimestamp",
-            "type": "u32"
-          },
-          {
-            "name": "toTimestamp",
-            "type": "u32"
           }
         ]
       }
@@ -1146,21 +1105,26 @@
     },
     {
       "code": 6012,
-      "name": "DepositTokenAccountNotMatch",
+      "name": "IDoTokenAccountNotMatch",
       "msg": "IDO token account not match"
     },
     {
       "code": 6013,
+      "name": "UserTokenAccountNotMatch",
+      "msg": "User token account not match"
+    },
+    {
+      "code": 6014,
       "name": "WithdrawTokenAccountNotMatch",
       "msg": "Admin token account not match"
     },
     {
-      "code": 6014,
+      "code": 6015,
       "name": "ReleaseTokenAccountNotMatch",
       "msg": "Release token account of user not match"
     },
     {
-      "code": 6015,
+      "code": 6016,
       "name": "CannotParseData",
       "msg": "Cannot parse data to account"
     }

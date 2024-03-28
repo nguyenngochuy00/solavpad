@@ -89,7 +89,7 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 			const walletInfo = infoWallet(idoPdData , userPdaData , currentTimestamp);
 			
-			const tokenBalance = await this.getBalanceOfToken(idoPdData.raiseToken, walletAddress);
+			const tokenBalance = await this.getBalanceOfToken(new PublicKey(idoPdData.raiseToken), walletAddress);
 
 			return {
 				...walletInfo,

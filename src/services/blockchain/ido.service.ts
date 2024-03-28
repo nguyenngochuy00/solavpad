@@ -37,24 +37,28 @@ export class IdoWeb3Service {
             const contractPubkey = new PublicKey(contractAddress);
             const mint = new PublicKey(raiseTokenMint);
             const userPDA = IdoFindPda.getPdaUser(programIdoID, contractPubkey, new PublicKey(wallet));
-            const sourceAccount = getAssociatedTokenAddressSync(mint, new PublicKey(wallet), true);
-            const desAccount = getAssociatedTokenAddressSync(mint, contractPubkey, true);
+            const userTokenAccount = getAssociatedTokenAddressSync(mint, new PublicKey(wallet), true);
+            const idoTokenAccount = getAssociatedTokenAddressSync(mint, contractPubkey, true);
             const amountBN = new BN(amount).mul(new BN(10 ** 9));
+
+
+            console.log("idoTokenAccount: ", idoTokenAccount.toString());
+            
     
             const program = this.getIdoProgram(provider);
-            const transaction =  program.methods.participate(amountBN).accounts({
+            const transaction = await program.methods.participate(amountBN).accounts({
               idoAccount: contractAddress,
               userPdaAccount: userPDA,
               user: wallet,
-              depositTokenAccount: sourceAccount,
-              receiveTokenAccount: desAccount,
+              userTokenAccount: userTokenAccount,
+              idoTokenAccount: idoTokenAccount,
               tokenProgram: TOKEN_PROGRAM_ID,
               systemProgram: SystemProgram.programId
             }).rpc();
             // connection.connection.sendTransaction(transaction, [window.solana]).then((res) => { console.log(res) });
 
         //   let tx = await  window.solana.signAndSendTransaction(transaction)
-            // console.log("joinIDO success at tx: ", tx);
+            console.log("joinIDO success at transaction: ", transaction);
         } catch (error) {
             console.log("joinIDO error: ", error);
         }
@@ -70,10 +74,7 @@ export class IdoWeb3Service {
         return new Program(crowdFundingIDL, programIdoID, connection);
     }
      getProvider = (connection: any) =>{
-        debugger
-        const provider = new AnchorProvider(connection, window.solana, opts);
-        
-        return provider
+        return new AnchorProvider(connection, window.solana, opts);
       }
 }
 export const idoService = new IdoWeb3Service();
