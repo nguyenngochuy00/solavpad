@@ -112,11 +112,6 @@ export interface ProjectDetail extends IdoInfoType {
 	decimals: number;
 	isPrivate: boolean;
 	rate: string | number;
-	totalCountWallet?: number;
-	totalCountUserParticipated?: number;
-	totalFundParticipated?: number;
-	maxSingleParticipationAllocated?: number;
-	maxTotalParticipationAllocated?: string | number;
 	description?: string;
 	telegram?: string;
 	projectTokenAddress?: string;
@@ -131,9 +126,7 @@ export interface ProjectDetail extends IdoInfoType {
 	projectTokenContract?: string;
 	symbol: string;
 	disabled?: boolean;
-	openTime?: string|number;
-	closeTime?: string|number;
-	fcfsOpenTime?: string|number;
+	fcfsTimestamp?: string|number;
 	allocation?: string;
 	tokenAddress?: string;
 	state?: string;

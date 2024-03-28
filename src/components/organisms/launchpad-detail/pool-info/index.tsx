@@ -44,7 +44,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 										<b>
 											{moment(
 												new Date(
-													(Number(projectInfo?.fcfsOpenTime) || 0) * 1000
+													(Number(projectInfo?.fcfsTimestamp ) || 0) * 1000
 												).toLocaleString()
 											)
 												.utc()
@@ -69,17 +69,14 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 								<tr>
 									<td>Swap Rate</td>
 									<td>
-										<b>{`1 ${projectInfo?.symbol} = ${formatNumberDownRound(
-											Number(projectInfo?.rate || 0),
-											0
-										)} ${projectInfo?.projectTokenSymbol}`}</b>
+										<b>{`1 ${projectInfo?.symbol} = ${formatNumberDownRound(Number(projectInfo?.rate || 0))} ${projectInfo?.projectTokenSymbol}`}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Cap</td>
 									<td>
 										<b>
-											{formatNumberDownRound(projectInfo?.cap, projectInfo?.raiseTokenDecimals)}
+											{formatNumberDownRound(projectInfo?.cap, projectInfo?.raiseTokenDecimals)} {projectInfo?.symbol}
 										</b>
 									</td>
 								</tr>
@@ -87,16 +84,14 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Total Users Participated</td>
 									<td>
 										<b>
-											{formatNumberDownRound(projectInfo?.participated, projectInfo?.raiseTokenDecimals)}
-												
-										
+											{projectInfo?.participatedCount} 
 										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Total Funds Swapped</td>
 									<td>
-										<b>{projectInfo?.totalFundParticipated}</b>
+										<b>	{formatNumberDownRound(projectInfo?.participated, projectInfo?.raiseTokenDecimals)} {projectInfo?.symbol}</b>
 									</td>
 								</tr>
 								<tr>

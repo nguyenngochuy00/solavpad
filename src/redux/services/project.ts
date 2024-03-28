@@ -45,6 +45,8 @@ export const getProjectDetailById = async (id: number | string): Promise<any | n
         const contract = res.contract;
         if(contract === null) return res;
         const info = await solaUtils.getProjectDetail(contract);
+        console.log("info", info);
+        
         return {
             ...res,
             ...info

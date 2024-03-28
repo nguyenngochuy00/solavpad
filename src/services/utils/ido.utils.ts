@@ -3,7 +3,6 @@ import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { IdoInfoType, ProjectDetail, RoundClass, RoundItem } from '../../types';
 import { RoundClassMap, UserStraitPda, WalletInfo } from '../../types/ido.type';
-import moment from 'moment';
 
 
 
@@ -14,7 +13,7 @@ export const fcfsTimestamp = (idoAccount: IdoInfoType): number => {
 	const rounds = idoAccount.rounds;
 	for (let i = 0; i < rounds.length; i++) {
 	
-		if (Object.keys(rounds[i].class).find(e=>e == RoundClassMap.allocation)) return ts;
+		if (Object.keys(rounds[i].class).find(e=>e == RoundClassMap.fcfsPrepare)) return ts;
 		
 		if (Object.keys(rounds[i].class).find(e=>e == RoundClassMap.fcfs)) return ts;
 		
@@ -116,10 +115,8 @@ export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,curren
 	let roundTimestamp = 0;
 	let tier = userPda.tierIndex;
 	let tierName = tier == 0 ? '-' : idoAccount.tiers[tier - 1].name;
-	debugger
 	if (!isClosed(currentTimestamp, idoAccount)) {
 		let ts = Number(idoAccount.openTimestamp.toString());
-		debugger
 		if (currentTimestamp < ts) {
 			roundState = 0;
 			roundStateText = 'Allocation Round <u>opens</u> in:';
@@ -127,7 +124,6 @@ export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,curren
 		} else {
 			let r: RoundItem;
 			for (let i = 0; i < idoAccount.rounds.length; i++) {
-				debugger;
 				round += 1;
 				r = idoAccount.rounds[i];
 				ts += r.durationSeconds;
