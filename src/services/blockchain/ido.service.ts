@@ -1,6 +1,7 @@
-import { PublicKey, SystemProgram } from '@solana/web3.js';
+import { Connection, Signer, PublicKey, Transaction, TransactionSignature, ConfirmOptions, Commitment, SendOptions, SystemProgram } from "@solana/web3.js";
 import { ConnectionContextState } from '@solana/wallet-adapter-react';
 import crowdFundingIDL from '../idl/crowdfunding.json';
+
 import {
 	AnchorProvider,
 	web3,
@@ -22,27 +23,42 @@ import {
   } from "@solana/spl-token"
 
 const programIdoID = new PublicKey(crowdFundingIDL.metadata.address)
+const opts = {
+    preflightCommitment: "processed",
+    commitment: "processed",
+  } as ConfirmOptions
 export class IdoWeb3Service {
 
 
 	async joinIdo(connection: ConnectionContextState, param: JoinIdoParams) {
-        const {amount, contractAddress, raise_token_mint, wallet} = param;
-        const userPDA = IdoFindPda.getPdaUser(programIdoID, contractAddress, raise_token_mint);
-        const sourceAccount = getAssociatedTokenAddressSync(raise_token_mint, wallet, true);
-        const desAccount = getAssociatedTokenAddressSync(raise_token_mint, contractAddress, true);
+        try {
+            const provider = this.getProvider(connection.connection);
+            const {amount, contractAddress, raiseTokenMint, wallet} = param;
+            const contractPubkey = new PublicKey(contractAddress);
+            const mint = new PublicKey(raiseTokenMint);
+            const userPDA = IdoFindPda.getPdaUser(programIdoID, contractPubkey, new PublicKey(wallet));
+            const sourceAccount = getAssociatedTokenAddressSync(mint, new PublicKey(wallet), true);
+            const desAccount = getAssociatedTokenAddressSync(mint, contractPubkey, true);
+            const amountBN = new BN(amount).mul(new BN(10 ** 9));
+    
+            const program = this.getIdoProgram(provider);
+            const transaction =  program.methods.participate(amountBN).accounts({
+              idoAccount: contractAddress,
+              userPdaAccount: userPDA,
+              user: wallet,
+              depositTokenAccount: sourceAccount,
+              receiveTokenAccount: desAccount,
+              tokenProgram: TOKEN_PROGRAM_ID,
+              systemProgram: SystemProgram.programId
+            }).rpc();
+            // connection.connection.sendTransaction(transaction, [window.solana]).then((res) => { console.log(res) });
 
-
-        const program = this.getIdoProgram(connection);
-        const tx =  await program.methods.participate(amount).accounts({
-          idoAccount: contractAddress,
-          userPdaAccount: userPDA,
-          user: wallet,
-          depositTokenAccount: sourceAccount,
-          receiveTokenAccount: desAccount,
-          tokenProgram: TOKEN_PROGRAM_ID,
-          systemProgram: SystemProgram.programId
-        }).rpc();
-        console.log("joinIDO success at tx: ", tx);
+        //   let tx = await  window.solana.signAndSendTransaction(transaction)
+            // console.log("joinIDO success at tx: ", tx);
+        } catch (error) {
+            console.log("joinIDO error: ", error);
+        }
+       
 
     }
     async claim() {
@@ -53,6 +69,12 @@ export class IdoWeb3Service {
         //@ts-ignore
         return new Program(crowdFundingIDL, programIdoID, connection);
     }
+     getProvider = (connection: any) =>{
+        debugger
+        const provider = new AnchorProvider(connection, window.solana, opts);
+        
+        return provider
+      }
 }
 export const idoService = new IdoWeb3Service();
 

@@ -171,11 +171,17 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 	async getBalanceOfToken(raise_token_mint: PublicKey, walletAddress: PublicKey): Promise<string>{
 		try {
+			if(!raise_token_mint || !walletAddress) return "0";
+
+			console.log("raise_token_mint", raise_token_mint.toString());
+			
+			
 			const tokenAccount = getAssociatedTokenAddressSync(raise_token_mint, walletAddress, true);
+			console.log("tokenAccount", tokenAccount.toString());
 			const data = await this.provider.connection.getTokenAccountBalance(tokenAccount);
 			return data.value.amount;
 		} catch (error) {
-			console.log("error", error);
+			// console.log("error", error);
 			return "0"; 
 		}
 	}

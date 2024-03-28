@@ -138,7 +138,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 								<tr>
 									<td>Token Symbol</td>
 									<td>
-										<b>{projectInfo?.symbol}</b>
+										<b>{projectInfo?.projectTokenSymbol}</b>
 									</td>
 								</tr>
 							</tbody>

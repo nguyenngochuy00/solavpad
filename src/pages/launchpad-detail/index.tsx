@@ -19,6 +19,8 @@ const SolLaunchpadDetailPage: React.FC = () => {
         if(!id) return;
         //get project detail from api and pass it to the main container component
         getProjectDetailById(id).then((data) => {
+            console.log(data);
+            
             setProjectSelected(data)
         }).catch((error) => {
             console.log(error);

@@ -4,7 +4,7 @@ import { solaUtils } from '../services/blockchain';
 import { SET_LATEST_BLOCK_NUMBER } from '../redux/types/application';
 import useDebounce from './useDebounce';
 
-const delayTime = 15; //seconds
+const delayTime = 30; //seconds
 
 export default function AppUpdater() {
 	const dispatch = useDispatch();

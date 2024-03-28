@@ -8,9 +8,10 @@ import { useSolBalance } from '../../../hooks/useState';
 import { toggleConnectWallet } from '../../../redux/actions/applicationAction';
 import { formatNumberDownRound } from '../../../services/helpers/helpers';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { WalletInfo } from '../../../types/ido.type';
+import { JoinIdoParams, WalletInfo } from '../../../types/ido.type';
 import { ProjectDetail } from '../../../types';
-import { solaUtils } from '../../../services/blockchain';
+import { idoService, solaUtils } from '../../../services/blockchain';
+import { Anchor } from 'react-bootstrap';
 
 
 interface SolLaunchpadDetailPoolCardContainerProps {
@@ -29,9 +30,13 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 	const connection = useConnection();
 	const { publicKey } = useWallet();
 	const handleJoinPool: VoidFunction = () => {
-		//
-		
-
+		if(!publicKey || !connection || !projectSelected?.contract) return;
+		idoService.joinIdo( connection, {
+			amount: 1,
+			contractAddress: projectSelected.contract?.toString(),
+			raiseTokenMint: projectSelected.raiseToken.toString(),
+			wallet: publicKey.toString()
+		} as JoinIdoParams)
 
 	};
 	useEffect(() => {
@@ -39,6 +44,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 			if (!projectSelected?.contract || !publicKey ) return;
 			const result = await solaUtils.getWalletInfo(projectSelected?.contract, publicKey);
 
+			if(!result) return;
 			console.log('result', result);
 			
 			setWalletInfo(result);
@@ -63,7 +69,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<SolLaunchpadDetailPoolCardCo
 				yourTokenBalance={`${formatNumberDownRound(walletInfo?.tokenBalance, 9)} ${projectSelected?.symbol}`}
 				yourNativeCoinBalance={`${formatNumberDownRound(solBal,9)} SOL`}
 				yourTier= {walletInfo?.tierName}
-				swappedValue={`${walletInfo?.userParticipation} ${projectSelected?.symbol}`}
+				swappedValue={`${walletInfo?.userParticipation || 0} ${projectSelected?.symbol}`}
 				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))}     ${projectSelected?.projectTokenSymbol}`}
 				remainingAllocation={`${formatNumberDownRound(walletInfo?.remainingAllocation)} ${projectSelected?.symbol}`}
 				progressPercent={projectSelected?.participated /projectSelected?.cap}

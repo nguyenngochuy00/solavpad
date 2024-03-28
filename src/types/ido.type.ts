@@ -31,8 +31,8 @@ export const RoundClassMap = {
 }
 
 export type JoinIdoParams = {
-    contractAddress: PublicKey,
-    amount: BN,
-    raise_token_mint: PublicKey,
-    wallet: PublicKey,
+    contractAddress: string,
+    amount: string | number,
+    raiseTokenMint: string,
+    wallet: string,
 }
