@@ -72,8 +72,8 @@ const SolLaunchpadDetailPoolCard = ({
 							<Col md="6">
 								<SolInfo
 									label="Swapped"
-									value={swappedValue}
-									value2={swappedValueConvert}
+									value={swappedValue || 0}
+									value2={swappedValueConvert || 0}
 									size="lg"
 								/>
 							</Col>
