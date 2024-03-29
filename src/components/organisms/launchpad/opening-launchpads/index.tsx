@@ -86,7 +86,7 @@ const SolLaunchpadOpening = ({
 								<SolInfo
 									size="lg"
 									label="Swap rate"
-									value={`1 ${projectData[0]?.symbol} = ${projectData[0]?.rate} ${projectData[0]?.projectTokenSymbol}`}
+									value={`1 ${projectData[0]?.symbol} = ${formatNumberDownRound(Number(projectData[0]?.rate  || 0),6)} ${projectData[0]?.projectTokenSymbol}`}
 								/>
 								<SolInfo
 									size="lg"

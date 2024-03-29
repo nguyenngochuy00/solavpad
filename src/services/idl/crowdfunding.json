@@ -53,7 +53,7 @@
         },
         {
           "name": "rate",
-          "type": "u16"
+          "type": "u32"
         },
         {
           "name": "openTimestamp",
@@ -399,12 +399,8 @@
       ],
       "args": [
         {
-          "name": "token",
-          "type": "string"
-        },
-        {
-          "name": "pair",
-          "type": "string"
+          "name": "releaseToken",
+          "type": "publicKey"
         }
       ]
     },
@@ -436,13 +432,13 @@
         {
           "name": "fromTimestamps",
           "type": {
-            "vec": "u32"
+            "vec": "i64"
           }
         },
         {
           "name": "toTimestamps",
           "type": {
-            "vec": "u32"
+            "vec": "i64"
           }
         },
         {
@@ -542,7 +538,7 @@
       "args": [
         {
           "name": "rate",
-          "type": "u16"
+          "type": "u32"
         }
       ]
     },
@@ -820,7 +816,7 @@
           },
           {
             "name": "rate",
-            "type": "u16"
+            "type": "u32"
           },
           {
             "name": "idoId",
@@ -934,11 +930,11 @@
           },
           {
             "name": "fromTimestamp",
-            "type": "u32"
+            "type": "i64"
           },
           {
             "name": "toTimestamp",
-            "type": "u32"
+            "type": "i64"
           }
         ]
       }

@@ -69,8 +69,8 @@
 			"images": [1, 2]
 		},
 		{
-			"id": 3,
-			"contract": "3P36PSuwSQoggGhfLxjCCZNay7WHgcyEsJRFcnG8dWxQ",
+			"id": 6,
+			"contract": "9nn3ubhDqkHFiUUyrvaenx6NJHhEK1wqAQwB4LuncAWj",
 			"contractVersion": 0,
 			"decimals": 9,
 			"isPrivate": true,
@@ -80,7 +80,7 @@
 			"projectTokenAddress": "0xbe96188F78242B595E94E03e0810EEfA76BD5309",
 			"logo": "https://i.ibb.co/NmKPt6s/GQ.jpg",
 			"medium": "https://medium.com/test",
-			"name": "Project ID 3",
+			"name": "Project Main test",
 			"projectTokenSymbol": "BLASTFI",
 			"totalSupply": "1000000",
 			"twitter": "https://twitter.com/Blast_Fi",

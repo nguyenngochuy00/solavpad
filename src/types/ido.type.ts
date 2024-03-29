@@ -1,12 +1,13 @@
 
 import { BN } from '@project-serum/anchor';
-import { PublicKey } from '@solana/web3.js';
+import { PublicKey, TokenAmount } from '@solana/web3.js';
+import { IdoInfoType } from '.';
 export interface WalletInfo {
-    tier: number, 
-    tierName: string, 
-    round: number, 
-    roundState: number, 
-    roundStateText: string, 
+    tier: number,
+    tierName: string,
+    round: number,
+    roundState: number,
+    roundStateText: string,
     roundTimestamp: number,
     userParticipation?: number | string,
     remainingAllocation?: number | string,
@@ -35,4 +36,52 @@ export type JoinIdoParams = {
     amount: string | number,
     raiseTokenMint: string,
     wallet: string,
+}
+export type GetInfoAllocationParams = {
+    idoAccount: IdoInfoType,
+    userPda: UserStraitPda,
+    index: number,
+    now_ts: number,
+    releaseTokenAccount: TokenAmount,
+}
+
+
+export type AllocationWallet = {
+    fromTimestamp: number;
+    toTimestamp: number;
+    percent: number
+    claimable: number
+    total: number
+    claimed: number
+    remaining: number
+    status: number
+}
+
+
+export type InfoAllocationResult = {
+    allocNumberList: Array<number>;
+    allocAmountList: Array<number>;
+    allocClaimedList: Array<number>;
+    allocReleasedList: Array<BN>;
+    allocStatusList: Array<BN>;
+}
+
+export type CalculateAllowInfoResult = {
+    layout: number,
+    infoAllocation: Array<AllocationItem>,
+}
+export enum claimStatus {
+    "Not Claimed",
+    "Claimed",
+    "Released",
+
+}
+
+export type AllocationItem = {
+    no: number | string,
+    allocationAmount: number | string,
+    timestamp: number,
+    claimedAmount: number | string,
+    status: string,
+    percentage?: number,
 }

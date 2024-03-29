@@ -51,7 +51,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 								<tr>
 									<td>Swap Rate</td>
 									<td>
-										<b>{`1 ${projectInfo?.symbol} = ${(Number(projectInfo?.rate))} ${projectInfo?.projectTokenSymbol}`}</b>
+										<b>{`1 ${projectInfo?.symbol} = ${formatNumberDownRound(Number(projectInfo?.rate  || 0),6)} ${projectInfo?.projectTokenSymbol}`}</b>
 									</td>
 								</tr>
 								<tr>

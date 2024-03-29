@@ -78,6 +78,8 @@ export interface IdoInfoType {
     tiers: Array<TierItem>,
     rounds: Array<RoundItem>,
     releases: Array<ReleaseItem>,
+	state: string,
+	rate: string | number;
 }
 
 export interface TierItem {
@@ -117,7 +119,7 @@ export interface ProjectDetail extends IdoInfoType {
 	contractVersion?: number;
 	decimals: number;
 	isPrivate: boolean;
-	rate: string | number;
+
 	description?: string;
 	telegram?: string;
 	projectTokenAddress?: string;
@@ -135,7 +137,6 @@ export interface ProjectDetail extends IdoInfoType {
 	fcfsTimestamp?: string|number;
 	allocation?: string;
 	tokenAddress?: string;
-	state?: string;
 	tags?: string[];
 	color?: string;
 	youtube_id?: string;

@@ -111,8 +111,8 @@ const SolPoolCard = ({
 						size="value"
 						label="Swap rate"
 						value={`1 ${projectData?.symbol} = ${formatNumberDownRound(
-							Number(projectData?.rate || 0),
-							0
+							Number(projectData?.rate  || 0),
+							6
 						)} ${projectData?.projectTokenSymbol}`}
 					/>
 				</div>
