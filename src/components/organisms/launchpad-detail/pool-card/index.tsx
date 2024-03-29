@@ -1,13 +1,10 @@
+import { useWallet } from '@solana/wallet-adapter-react';
 import { Col, Row } from 'react-bootstrap';
+import { WalletInfo } from '../../../../types/ido.type';
 import SolButton from '../../../atoms/button';
 import SolInfo from '../../../molecules/info-block';
 import SolProgressBar from '../../../molecules/progress-bar';
-// import SolButton from 'src/components/atoms/button';
-// import SolInfo from 'src/components/molecules/info-block';
-// import SolProgressBar from 'src/components/molecules/progress-bar';
-import { useWallet } from '@solana/wallet-adapter-react';
 import './index.scss';
-import { WalletInfo } from '../../../../types/ido.type';
 
 interface SolLaunchpadDetailPoolCardProps {
 	opening?: boolean;
