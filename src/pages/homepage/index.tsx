@@ -17,25 +17,9 @@ const SolHomepage = () => {
 			<SolHomepageMainContainer />
 			<Container className="d-none">
 				{/* Join pool modal */}
-				<SolLaunchpadDetailJoinPoolDialog
-					show={showJoinPoolModal}
-					projectName="BlastFi"
-					amountSymbol="USDB"
-					balance={3000}
-					onClose={() => setShowJoinPoolModal(false)}
-					onJoin={() => setShowJoinPoolModal(false)}
-				/>
+				
 
-				{/* Approve modal */}
-				<SolLaunchpadDetailApproveDialog
-					show={showApproveModal}
-					projectName="BlastFi"
-					amountSymbol="USDB"
-					balance={3000}
-					onClose={() => setShowApproveModal(false)}
-					onApprove={() => setShowApproveModal(false)}
-				/>
-
+				
 				{/* default connect button */}
 				<WalletMultiButton />
 				{/* custom connect button */}

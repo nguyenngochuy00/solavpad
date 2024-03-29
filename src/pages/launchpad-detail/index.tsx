@@ -5,14 +5,12 @@ import { getProjectDetailById } from "../../redux/services/project";
 import { ProjectDetail } from "../../types";
 import { APP_ROUTES } from "../../constants";
 import { useBlockLatest } from "../../hooks/useState";
-import { useConnection } from "@solana/wallet-adapter-react";
 
 const SolLaunchpadDetailPage: React.FC = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [projectSelected, setProjectSelected] = useState<ProjectDetail | undefined>(undefined);
     const blockNumber = useBlockLatest();
-    const {}= useConnection();
     
 
     useEffect(() => {

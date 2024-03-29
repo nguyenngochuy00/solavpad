@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 import { formatNumberDownRound } from '../../../../services/helpers/helpers';
-import { IdoInfoType, ProjectDetail, RoundItem } from '../../../../types';
+import { IdoInfoType, ProjectDetail, RoundInfo, RoundItem } from '../../../../types';
 import SolCard from '../../../molecules/card';
 import './index.scss';
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
@@ -28,13 +28,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Opens</td>
 									<td>
 										<b>
-											{moment(
-												new Date(
-													(projectInfo?.openTimestamp || 0) * 1000
-												).toLocaleString()
-											)
-												.utc()
-												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
+										{ moment.unix(Number(projectInfo?.openTimestamp)).utc().format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
@@ -42,13 +36,7 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>FCFS Opens</td>
 									<td>
 										<b>
-											{moment(
-												new Date(
-													(Number(projectInfo?.fcfsTimestamp ) || 0) * 1000
-												).toLocaleString()
-											)
-												.utc()
-												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
+											{ moment.unix(Number(projectInfo?.fcfsTimestamp)).utc().format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
@@ -56,20 +44,14 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Closes</td>
 									<td>
 										<b>
-											{moment(
-												new Date(
-													(projectInfo?.closeTimestamp || 0) * 1000
-												).toLocaleString()
-											)
-												.utc()
-												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
+											{ moment.unix(Number(projectInfo?.closeTimestamp)).utc().format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Swap Rate</td>
 									<td>
-										<b>{`1 ${projectInfo?.symbol} = ${formatNumberDownRound(Number(projectInfo?.rate || 0))} ${projectInfo?.projectTokenSymbol}`}</b>
+										<b>{`1 ${projectInfo?.symbol} = ${(Number(projectInfo?.rate))} ${projectInfo?.projectTokenSymbol}`}</b>
 									</td>
 								</tr>
 								<tr>
@@ -127,20 +109,20 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 					<SolCard title="Schedule">
 						<table>
 							<tbody>
-								{projectInfo?.rounds &&
-									projectInfo?.rounds.map((item: RoundItem, index: number) => (
+								{projectInfo?.infoRounds?.length &&
+									projectInfo?.infoRounds.map((item: RoundInfo, index: number) => (
 										<tr key={index}>
 											<td>
-												<b>{item.name}</b>
+												<b>{item.round}</b>
 											</td>
 											<td>
 												<div>
 													<span>Opens:</span>
-													<b>{item.durationSeconds}</b>
+													<b>{item.opens}</b>
 												</div>
 												<div>
 													<span>Closes:</span>
-													<b>{'item.closes'}</b>
+													<b>{item.closes}</b>
 												</div>
 											</td>
 										</tr>

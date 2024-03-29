@@ -1,8 +1,9 @@
 import { utils } from '@coral-xyz/anchor';
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { IdoInfoType, ProjectDetail, RoundClass, RoundItem } from '../../types';
+import { IdoInfoType, ProjectDetail, RoundClass, RoundInfo, RoundItem } from '../../types';
 import { RoundClassMap, UserStraitPda, WalletInfo } from '../../types/ido.type';
+import moment from 'moment';
 
 
 
@@ -90,7 +91,7 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 			totalAllocationsCount += tierAllocatedCount;
 		}
 	}
-	console.log("state", state);
+	console.log("state=>", state);
 	
 	return {
 		raiseToken: idoAccount.raiseToken.toString(),
@@ -103,9 +104,33 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 		state: state,
 		participatedCount: idoAccount.participatedCount,
 		participated: idoAccount.participated.toString(),
-		cap: idoAccount.cap.toString()
+		cap: idoAccount.cap.toString(),
+		infoRounds: infoRounds(idoAccount, currentTimestamp),
 	};
 };
+
+export const infoRounds = (idoAccount: IdoInfoType, currentTimestamp: number) : Array<RoundInfo>=> {
+	const rounds = idoAccount.rounds;
+	const nameList = [];
+	const openTimestampList = [];
+	const closeTimestampList = [];
+	let ts = Number(idoAccount.openTimestamp.toString());
+
+	let roundInfo: RoundInfo[] = [];
+	for (let i = 0; i < rounds.length; i++) {
+ 		nameList.push(rounds[i].name);
+		openTimestampList.push(ts);
+		ts = ts + Number(rounds[i].durationSeconds);
+		closeTimestampList.push(ts);
+		roundInfo.push({
+			round: rounds[i].name,
+			opens:  moment.unix(openTimestampList[i]).utc().format('YYYY-MM-DD HH:mm:ss [UTC]'),
+			closes: moment.unix(closeTimestampList[i]).utc().format('YYYY-MM-DD HH:mm:ss [UTC]'), 
+		})
+	}
+	return roundInfo;
+
+}
 
 
 export const infoWallet = (idoAccount: IdoInfoType,userPda: UserStraitPda,currentTimestamp: number): WalletInfo => {

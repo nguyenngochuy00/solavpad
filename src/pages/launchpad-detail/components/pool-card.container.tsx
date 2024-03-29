@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SolLaunchpadDetailApproveDialog from '../../../components/organisms/launchpad-detail/approve-dialog';
 import SolLaunchpadDetailJoinPoolDialog from '../../../components/organisms/launchpad-detail/join-pool-dialog';
 import SolLaunchpadDetailPoolCard from '../../../components/organisms/launchpad-detail/pool-card';
-import { useSolBalance } from '../../../hooks/useState';
+import { useBlockLatest, useSolBalance } from '../../../hooks/useState';
 import { toggleConnectWallet } from '../../../redux/actions/applicationAction';
 import { formatNumberDownRound } from '../../../services/helpers/helpers';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
@@ -22,8 +22,10 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 > = ({ projectSelected }: SolLaunchpadDetailPoolCardContainerProps) => {
 	const dispatch = useDispatch();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
-	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
+	const blockNumber = useBlockLatest();
+
 	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
+	const [enableJoinBtn, setEnableJoinBtn] = useState<boolean>(false);
 
 	const solBal = useSolBalance();
 
@@ -42,6 +44,26 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 		}
 	};
 	useEffect(() => {
+		if(!projectSelected?.contract || !walletInfo) return;
+
+		setEnableJoinBtn(true);
+
+		if(projectSelected?.state === 'P' || projectSelected?.state === 'C' || projectSelected.contract === 'TBA'){
+			setEnableJoinBtn(false);
+			return;
+		}
+		if(!walletInfo?.remainingAllocation || walletInfo?.remainingAllocation === '0'){
+			setEnableJoinBtn(false);
+			return;
+		}
+
+
+		
+
+
+	},[projectSelected, walletInfo])
+
+	useEffect(() => {
 		const fetchData = async () => {
 			if (!projectSelected?.contract || !publicKey) return;
 			const result = await solaUtils.getWalletInfo(
@@ -54,11 +76,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			setWalletInfo(result);
 		};
 		fetchData();
-	}, [projectSelected, connected]);
-
-	const handleApprove: VoidFunction = () => {
-		setShowApproveModal(false);
-	};
+	}, [projectSelected, connected, blockNumber]);
 
 	const handleShowConnectWallet: VoidFunction = () => {
 		dispatch(toggleConnectWallet(true));
@@ -67,33 +85,20 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 	return (
 		<>
 			<SolLaunchpadDetailPoolCard
+				enableJoin={enableJoinBtn}
 				opening
 				walletInfo={walletInfo}
 				countDownTime={projectSelected?.openTimestamp}
-				yourTokenBalance={`${formatNumberDownRound(
-					Number(walletInfo?.tokenBalance),
-					9
-				)} ${projectSelected?.symbol}`}
+				yourTokenBalance={`${formatNumberDownRound(Number(walletInfo?.tokenBalance),9)} ${projectSelected?.symbol}`}
 				yourNativeCoinBalance={`${formatNumberDownRound(solBal, 9)} SOL`}
 				yourTier={walletInfo?.tierName}
-				swappedValue={`${formatNumberDownRound(
-					Number(walletInfo?.userParticipation),
-					projectSelected?.decimals
-				)} ${projectSelected?.symbol}`}
-				swappedValueConvert={`${formatNumberDownRound(
-					Number(projectSelected?.rate) * Number(walletInfo?.userParticipation)
-				)} ${projectSelected?.projectTokenSymbol}`}
-				remainingAllocation={`${formatNumberDownRound(
-					Number(walletInfo?.remainingAllocation)
-				)} ${projectSelected?.symbol}`}
-				progressPercent={
-					(Number(projectSelected?.participated.toString()) /
-						Number(projectSelected?.cap.toString())) *
-						100 || 0
-				}
+				swappedValue={`${formatNumberDownRound(Number(walletInfo?.userParticipation),projectSelected?.decimals)} ${projectSelected?.symbol}`}
+				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))} ${projectSelected?.projectTokenSymbol}`}
+				remainingAllocation={`${formatNumberDownRound(Number(walletInfo?.remainingAllocation))} ${projectSelected?.symbol}`}
+				progressPercent={(Number(projectSelected?.participated.toString()) /Number(projectSelected?.cap.toString())) *100 || 0 }
 				participants={projectSelected?.participatedCount || 0}
 				onJoinPool={() => setShowJoinModal(true)}
-				onApprove={() => setShowApproveModal(true)}
+				// onApprove={() => setShowApproveModal(true)}
 				onConnectWallet={() => handleShowConnectWallet()}
 			/>
 			<SolLaunchpadDetailJoinPoolDialog
@@ -110,14 +115,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 				onClose={() => setShowJoinModal(false)}
 				onJoin={handleJoinPool}
 			/>
-			<SolLaunchpadDetailApproveDialog
-				show={showApproveModal}
-				projectName={projectSelected?.name || ''}
-				amountSymbol={projectSelected?.symbol || 'USDT'}
-				balance={1}
-				onClose={() => setShowApproveModal(false)}
-				onApprove={handleApprove}
-			/>
+			
 		</>
 	);
 };

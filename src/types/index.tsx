@@ -103,6 +103,12 @@ export enum RoundClass {
     Fcfs,
 }
 
+export interface RoundInfo {
+	round: string;
+	opens: string;
+	closes: string;
+}
+
 
 
 export interface ProjectDetail extends IdoInfoType {
@@ -143,5 +149,6 @@ export interface ProjectDetail extends IdoInfoType {
 	progressPercent?: number | string;
 	progressCurent?: number | string;
 	progressValue?: number | string;
+	infoRounds?: RoundInfo [];
 }
 

@@ -9,6 +9,7 @@ export const minimizeAddress = (address: string, start: number = 8, end: number 
 };
 
 export const formatNumberDownRound = (numberParam: number | string | undefined, decimal: number = 9) => {
+	
 	if (!numberParam) {
 		return 0;
 	}

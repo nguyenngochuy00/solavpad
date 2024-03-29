@@ -86,10 +86,7 @@ const SolLaunchpadOpening = ({
 								<SolInfo
 									size="lg"
 									label="Swap rate"
-									value={`1 ${projectData[0]?.symbol} = ${formatNumberDownRound(
-										Number(projectData[0]?.rate || 0),
-										0
-									)} ${projectData[0]?.projectTokenSymbol}`}
+									value={`1 ${projectData[0]?.symbol} = ${projectData[0]?.rate} ${projectData[0]?.projectTokenSymbol}`}
 								/>
 								<SolInfo
 									size="lg"
@@ -114,7 +111,7 @@ const SolLaunchpadOpening = ({
 								<div className="sol-launchpad-opening-progress-info">
 									<span>Allocation round</span>
 									<span>
-										<b>{projectData[0]?.participants || 0}</b> participants
+										<b>{projectData[0]?.participatedCount || 0}</b> participants
 									</span>
 								</div>
 							</div>

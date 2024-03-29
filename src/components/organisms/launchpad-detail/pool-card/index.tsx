@@ -11,12 +11,11 @@ import { WalletInfo } from '../../../../types/ido.type';
 
 interface SolLaunchpadDetailPoolCardProps {
 	opening?: boolean;
-
+	enableJoin: boolean;
 	walletInfo?: WalletInfo;
 	countDownTime?: number | string;
 	yourTokenBalance?: string | number;
 	yourNativeCoinBalance?: string | number;
-	yourApprovedAmount?: string | number;
 	yourTier?: string;
 	swappedValue?: string | number;
 	swappedValueConvert?: string | number;
@@ -24,18 +23,17 @@ interface SolLaunchpadDetailPoolCardProps {
 	progressPercent?: number | string;
 	participants?: number | string;
 	onJoinPool?: () => void;
-	onApprove?: () => void;
+	// onApprove?: () => void;
 	onConnectWallet?: () => void;
 }
 
 const SolLaunchpadDetailPoolCard = ({
 	opening,
-	// roundInfo,
+	enableJoin,
 	walletInfo,
 	countDownTime,
 	yourTokenBalance,
 	yourNativeCoinBalance,
-	yourApprovedAmount,
 	yourTier,
 	swappedValue,
 	swappedValueConvert,
@@ -105,6 +103,7 @@ const SolLaunchpadDetailPoolCard = ({
 								{walletInfo ? (
 									<>
 										<SolButton
+											disabled={!enableJoin}
 											variant="primary"
 											size="lg"
 											caption="Join Pool"
