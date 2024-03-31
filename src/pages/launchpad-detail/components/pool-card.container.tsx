@@ -25,6 +25,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 
 	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
 	const [enableJoinBtn, setEnableJoinBtn] = useState<boolean>(false);
+	const [recallWalletInfor, setRecallWalletInfor] = useState<boolean>(false)
 
 	const solBal = useSolBalance();
 
@@ -87,9 +88,10 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			if (!result) return;
 			// console.log('result', result);
 			setWalletInfo(result);
+			setRecallWalletInfor(false);
 		};
 		fetchData();
-	}, [projectSelected, connected]);
+	}, [projectSelected, connected, recallWalletInfor]);
 
 	const handleShowConnectWallet: VoidFunction = () => {
 		dispatch(toggleConnectWallet(true));
@@ -101,7 +103,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 				enableJoin={enableJoinBtn}
 				opening
 				walletInfo={walletInfo}
-				countDownTime={projectSelected?.openTimestamp}
+				countDownTime={walletInfo?.roundTimestamp}
 				yourTokenBalance={`${formatNumberDownRound(Number(walletInfo?.tokenBalance),9)} ${projectSelected?.symbol}`}
 				yourNativeCoinBalance={`${formatNumberDownRound(solBal, 9)} SOL`}
 				yourTier={walletInfo?.tierName}
@@ -113,6 +115,8 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 				onJoinPool={() => setShowJoinModal(true)}
 				// onApprove={() => setShowApproveModal(true)}
 				onConnectWallet={() => handleShowConnectWallet()}
+				onRecallWalletInfo={() => setRecallWalletInfor(true)}
+				
 			/>
 			<SolLaunchpadDetailJoinPoolDialog
 				show={showJoinModal}

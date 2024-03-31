@@ -22,6 +22,7 @@ interface SolLaunchpadDetailPoolCardProps {
 	onJoinPool?: () => void;
 	// onApprove?: () => void;
 	onConnectWallet?: () => void;
+	onRecallWalletInfo?: () => void
 }
 
 const SolLaunchpadDetailPoolCard = ({
@@ -39,9 +40,14 @@ const SolLaunchpadDetailPoolCard = ({
 	participants,
 	onJoinPool,
 	// onApprove,
-	onConnectWallet
+	onConnectWallet,
+	onRecallWalletInfo
 }: SolLaunchpadDetailPoolCardProps) => {
 	const { connected } = useWallet();
+
+	const reCallWalletInfor = () => {
+		if(onRecallWalletInfo) onRecallWalletInfo()
+	}
 	return (
 		<div
 			className={`sol-launchpad-detail-pool-card ${opening ? 'active' : ''}`}
@@ -63,12 +69,22 @@ const SolLaunchpadDetailPoolCard = ({
 
 				<Col lg={`${connected ? '8' : '12'}`}>
 					<div className="sol-launchpad-detail-pool-card-right">
-						<SolInfo
-							label={walletInfo?.roundStateText || ''}
-							value={opening ? countDownTime : 'Closed'}
-							size="lg"
-							isCountDown={opening}
-						/>
+						{walletInfo?.roundState !== 4 ? (
+							<SolInfo
+								label={walletInfo?.roundStateText || ''}
+								value={opening ? countDownTime : 'Closed'}
+								size="lg"
+								isCountDown={opening}
+								onCompleteFc={reCallWalletInfor}
+							/>
+						) : (
+							<SolInfo
+								label={'ROUND CLOSE'}
+								value={''}
+								size="lg"
+							/>
+						)}
+
 						<Row>
 							<Col md="6">
 								<SolInfo

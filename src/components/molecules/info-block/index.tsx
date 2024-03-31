@@ -9,6 +9,7 @@ type SolInfoProps = {
 	value2?: string | number;
 	size?: any;
 	isCountDown?: boolean;
+	onCompleteFc?: VoidFunction
 };
 
 const SolInfo: React.FC<SolInfoProps> = ({
@@ -16,10 +17,13 @@ const SolInfo: React.FC<SolInfoProps> = ({
 	value = '',
 	value2 = '',
 	size = 'md',
-	isCountDown = false
+	isCountDown = false,
+	onCompleteFc
 }: SolInfoProps) => {
 	const onComplete = () => {
-		debugger;
+		if(onCompleteFc && isCountDown) {
+			onCompleteFc();
+		}
 	};
 	return (
 		<div className={`sol-info ${size}`}>
@@ -28,7 +32,7 @@ const SolInfo: React.FC<SolInfoProps> = ({
 				dangerouslySetInnerHTML={{ __html: label }}
 			/>
 			{isCountDown ? (
-				value && (
+				value && value != 0 && (
 					<Countdown
 						date={new Date(Number(value) * 1000 || 0)}
 						intervalDelay={1}
