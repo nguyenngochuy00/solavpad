@@ -11,7 +11,7 @@ interface SolLaunchpadDetailJoinPoolDialogProps {
 	amountSymbol?: string;
 	balance?: number | undefined | string;
 	onClose?: () => void;
-	onJoin?: () => void;
+	onJoin?: (amount: number) => void;
 }
 
 const SolLaunchpadDetailJoinPoolDialog = ({
@@ -23,6 +23,10 @@ const SolLaunchpadDetailJoinPoolDialog = ({
 	onJoin
 }: SolLaunchpadDetailJoinPoolDialogProps) => {
 	const [amount, setAmount] = useState(0);
+
+	const handleJoinPool = () => {
+		if(onJoin) onJoin(amount)
+	}
 
 	const handleMaxAmount = () => {
 		setAmount(Number(balance));
@@ -63,7 +67,7 @@ const SolLaunchpadDetailJoinPoolDialog = ({
 				size="lg"
 				variant="primary"
 				disabled={amount <= 0 || amount > Number(balance)}
-				onClick={onJoin}
+				onClick={handleJoinPool}
 			/>
 		</SolModal>
 	);

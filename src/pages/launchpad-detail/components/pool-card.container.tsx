@@ -32,13 +32,13 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 	const { publicKey, connected } = useWallet();
 
 
-	const handleJoinPool: VoidFunction = async () => {
+	const handleJoinPool = async (amount: number) => {
 		if (!publicKey || !connection || !projectSelected?.contract){
 			//show message
 			return;
 		} 
 		const result = await idoService.joinIdo(connection, {
-			amount: 1, //doing sua lai amount cho dung
+			amount: amount, //doing sua lai amount cho dung
 			contractAddress: projectSelected.contract?.toString(),
 			raiseTokenMint: projectSelected.raiseToken.toString(),
 			wallet: publicKey
