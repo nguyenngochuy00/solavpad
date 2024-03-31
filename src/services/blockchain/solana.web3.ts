@@ -67,7 +67,6 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 	getProjectDetail = async (contractAddress: string) : Promise<IdoInfoType | undefined>=>{
 	
 		const idoPdData = await this.getPdaIdoAccount(new PublicKey(contractAddress));
-		debugger
 		const currentTimestamp = Math.floor(Date.now() / 1000);
 		if(!idoPdData) return undefined
 		//@ts-ignore

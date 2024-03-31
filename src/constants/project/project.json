@@ -1,8 +1,8 @@
 {
 	"data": [
 		{
-			"id": 1,
-			"contract": "8DzDNkTr8tCunVxzyBGX3KgEAKUF9gqx9pxRWwLsJFGB",
+			"id": 7,
+			"contract": "E1SX4B6pgbbBzgtqEEZSmD3amof2sRM61KmmqhxmEnZc",
 			"contractVersion": 0,
 			"decimals": 9,
 			"isPrivate": false,
@@ -36,8 +36,8 @@
 			"images": [1, 2]
 		},
 		{
-			"id": 2,
-			"contract": "8SFZPkix8ar4vaEJjo2odUj7DVoUkMY3JLGDQGFnuczt",
+			"id": 8,
+			"contract": "Wudoaare6B7my65D3d9AjMzsCcqpHS49KSyWyXHbyJw",
 			"contractVersion": 0,
 			"decimals": 9,
 			"isPrivate": true,

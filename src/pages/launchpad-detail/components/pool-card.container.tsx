@@ -57,10 +57,6 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			return;
 		}
 
-
-		
-
-
 	},[projectSelected, walletInfo])
 
 	useEffect(() => {
@@ -93,7 +89,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 				yourNativeCoinBalance={`${formatNumberDownRound(solBal, 9)} SOL`}
 				yourTier={walletInfo?.tierName}
 				swappedValue={`${formatNumberDownRound(Number(walletInfo?.userParticipation),projectSelected?.decimals)} ${projectSelected?.symbol}`}
-				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation))} ${projectSelected?.projectTokenSymbol}`}
+				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation)/1000000)} ${projectSelected?.projectTokenSymbol}`}
 				remainingAllocation={`${formatNumberDownRound(Number(walletInfo?.remainingAllocation))} ${projectSelected?.symbol}`}
 				progressPercent={(Number(projectSelected?.participated?.toString()) /Number(projectSelected?.cap?.toString())) *100 || 0 }
 				participants={projectSelected?.participatedCount || 0}

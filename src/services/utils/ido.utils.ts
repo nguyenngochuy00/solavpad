@@ -152,10 +152,11 @@ export const infoWallet = (idoAccount: IdoInfoType, userPda: UserStraitPda, curr
 				round = i + 1;
 				const r = idoAccount.rounds[i];
 				ts += r.durationSeconds;
-				console.log("round",r);
+				console.log("ts",ts);
+				
 				
 				if (currentTimestamp < ts) {
-				
+					console.log("round",r);
 					if (Object.keys(r.class).find(e => e === RoundClassMap.allocation)) {
 						roundState = 1;
 						roundStateText = 'Allocation Round <u>closes</u> in:';
@@ -174,8 +175,9 @@ export const infoWallet = (idoAccount: IdoInfoType, userPda: UserStraitPda, curr
 						roundStateText = 'FCFS Round <u>closes</u> in:';
 						roundTimestamp = ts;
 					}
+					break;
 				}
-				break;
+				
 			}
 		}
 	}
