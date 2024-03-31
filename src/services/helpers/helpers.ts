@@ -69,19 +69,19 @@ export const formatTokenAllocation = (number: number | string, decimals: number)
 export const formatTimeStampAllocation = (timeStamp: number | string) : string => {
     if (typeof timeStamp == "number")
         return (
-            moment.unix(timeStamp).utc().format("YY-MM-DD HH:mm")
+            moment.unix(timeStamp).utc().format("YYYY-MM-DD HH:mm:ss UTC")
         );
     if (typeof timeStamp == "string") {
         if (timeStamp.includes("-")) {
             const tempArr = timeStamp.split("-");
             if (tempArr.length >= 2) {
-                const item1 = moment.unix(Number(tempArr[0])) .utc().format("YY-MM-DD HH:mm");
-                const item2 =moment.unix(Number(tempArr[1])).utc().format("YY-MM-DD HH:mm");
+                const item1 = moment.unix(Number(tempArr[0])) .utc().format("YYYY-MM-DD HH:mm:ss UTC");
+                const item2 =moment.unix(Number(tempArr[1])).utc().format("YYYY-MM-DD HH:mm:ss UTC");
                 return `${item1} <span class='mx-1 text-secondary'>to</span> ${item2}`;
             }
         } else {
             return (
-                moment.unix(Number(timeStamp)).utc().format("YY-MM-DD HH:mm")
+                moment.unix(Number(timeStamp)).utc().format("YYYYYY-MM-DD HH:mm:ss UTC")
             );
         }
     }

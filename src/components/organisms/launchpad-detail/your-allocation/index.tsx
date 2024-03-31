@@ -30,7 +30,7 @@ const SolLaunchpadDetailAllocation = ({ allocations, tokenDecimals, layout, onCl
 									value={formatNumberDownRound(allocation.allocationAmount, tokenDecimals)}
 									percent={Number(allocation.percentage) / 100}
 									claimed={formatNumberDownRound(allocation.claimedAmount, tokenDecimals)}
-									time={Number(allocation.timestamp) !== 0  ? moment.unix(Number(allocation.timestamp)).utc().format('YYYY-MM-DD HH:mm:ss UTC') : "DEX Listing" }
+									time={Number(allocation.timestamp)}
 									onClaim={() => onClaim(Number(allocation.no))}
 									status={allocation.status}
 									layout={layout}
