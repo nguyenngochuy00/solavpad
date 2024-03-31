@@ -64,7 +64,7 @@ const SolLaunchpadDetailPoolCard = ({
 				<Col lg={`${connected ? '8' : '12'}`}>
 					<div className="sol-launchpad-detail-pool-card-right">
 						<SolInfo
-							label={walletInfo?.roundStateText || 'Time remaining'}
+							label={walletInfo?.roundStateText || ''}
 							value={opening ? countDownTime : 'Closed'}
 							size="lg"
 							isCountDown={opening}

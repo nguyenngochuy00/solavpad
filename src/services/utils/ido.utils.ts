@@ -1,7 +1,7 @@
-import { utils } from '@coral-xyz/anchor';
+
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { IdoInfoType, ProjectDetail, RoundClass, RoundInfo, RoundItem } from '../../types';
+import { IdoInfoType, ProjectDetail, RoundInfo } from '../../types';
 import { AllocationWallet, GetInfoAllocationParams, RoundClassMap, UserStraitPda, WalletInfo } from '../../types/ido.type';
 import moment from 'moment';
 
@@ -14,9 +14,9 @@ export const fcfsTimestamp = (idoAccount: IdoInfoType): number => {
 	const rounds = idoAccount.rounds;
 	for (let i = 0; i < rounds.length; i++) {
 
-		if (Object.keys(rounds[i].class).find(e => e == RoundClassMap.fcfsPrepare)) return ts;
+		if (Object.keys(rounds[i].class).find(e => e === RoundClassMap.fcfsPrepare)) return ts;
 
-		if (Object.keys(rounds[i].class).find(e => e == RoundClassMap.fcfs)) return ts;
+		if (Object.keys(rounds[i].class).find(e => e === RoundClassMap.fcfs)) return ts;
 
 		ts += rounds[i].durationSeconds;
 	}
@@ -91,7 +91,7 @@ export const getIdoInfo = (idoAccount: ProjectDetail, currentTimestamp: number) 
 			totalAllocationsCount += tierAllocatedCount;
 		}
 	}
-	console.log("state=>", state);
+	// console.log("state=>", state);
 
 	return {
 		raiseToken: idoAccount.raiseToken.toString(),
@@ -191,18 +191,27 @@ export const infoWallet = (idoAccount: IdoInfoType, userPda: UserStraitPda, curr
 export const _getAllocation = (params: GetInfoAllocationParams): AllocationWallet | undefined => {
 	const { idoAccount, userPda, index, now_ts, releaseTokenAccount } = params;
 
+	
+	
+	
 
 	const { releases, raiseTokenDecimals, releaseTokenDecimals, participated, rate, releaseToken } = idoAccount;
 
 	if (index > releases.length) return undefined
 
 	let status = 0;
-	let remaining = 0;
+	let remaining = new BN(0);
 
 	const release = releases[index];
 	const fromTimestamp = release.fromTimestamp;
 	const toTimestamp = release.toTimestamp;
 	const percent = release.percent;
+	
+	if(!releaseTokenDecimals || !raiseTokenDecimals || !rate){
+		return undefined;
+	}
+
+
 	let total = participated.mul(new BN(rate)).div(new BN(1000000)).mul(new BN(percent)).div(new BN(10000));
 
 	let claimable = total;
@@ -228,7 +237,7 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		if (fromTimestamp === 0 || now_ts > fromTimestamp) {
 			status = 1;
 		}
-		if (Number(releaseTokenAccount.amount) == 0) {
+		if (Number(releaseTokenAccount.amount) === 0) {
 			status = 2;
 		}
 		if (remaining === 0) {
@@ -241,10 +250,10 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		fromTimestamp,
 		toTimestamp,
 		percent,
-		claimable,
-		total,
-		claimed,
-		remaining,
+		claimable: claimable.toNumber(),
+		total: total.toNumber(),
+		claimed: claimed.toNumber(),
+		remaining: remaining.toNumber(),
 		status,
 	};
 };

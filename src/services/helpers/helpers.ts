@@ -44,7 +44,7 @@ export const getProjectStatusTag = (status : string) => {
 	}
 };
 
-export const formatTokenAllocation = (number: number | string, decimals: number) => {
+export const formatTokenAllocation = (number: number | string, decimals: number) : string  => {
     if (typeof number === "number") {
         return `${formatNumberDownRound(number, decimals )}`;
     }
@@ -64,13 +64,12 @@ export const formatTokenAllocation = (number: number | string, decimals: number)
             return `${formatNumberDownRound(number, decimals )}`;
         }
     }
+	return ''
 };
 
 export const formatTimeStampAllocation = (timeStamp: number | string) : string => {
     if (typeof timeStamp == "number")
-        return (
-            moment.unix(timeStamp).utc().format("YYYY-MM-DD HH:mm:ss UTC")
-        );
+        return  moment.unix(timeStamp).utc().format("YYYY-MM-DD HH:mm:ss UTC");
     if (typeof timeStamp == "string") {
         if (timeStamp.includes("-")) {
             const tempArr = timeStamp.split("-");

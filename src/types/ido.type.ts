@@ -35,8 +35,15 @@ export type JoinIdoParams = {
     contractAddress: string,
     amount: string | number,
     raiseTokenMint: string,
-    wallet: string,
+    wallet: PublicKey,
 }
+
+export type ClaimTokenIdoParams = {
+    contractAddress: string,
+    index: number,
+    wallet: PublicKey,
+}
+
 export type GetInfoAllocationParams = {
     idoAccount: IdoInfoType,
     userPda: UserStraitPda,
@@ -58,13 +65,15 @@ export type AllocationWallet = {
 }
 
 
-export type InfoAllocationResult = {
-    allocNumberList: Array<number|string>;
-    allocAmountList: Array<number|string>;
-    allocClaimedList: Array<number|string>;
-    allocReleasedList: Array<number|string>;
-    allocStatusList: Array<number|string>;
-}
+export type InfoAllocationResult = [ 
+    Array<number|string>,
+    Array<number|string>,
+    Array<number|string>,
+    Array<number|string>,
+    Array<number|string>,
+]
+    
+
 
 export type CalculateAllowInfoResult = {
     layout: number,
@@ -83,5 +92,5 @@ export type AllocationItem = {
     timestamp: number | string,
     claimedAmount: number | string,
     status: string | number,
-    percentage?: string |number | undefined,
+    percentage?: string | number ,
 }

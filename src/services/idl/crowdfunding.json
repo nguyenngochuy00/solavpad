@@ -734,11 +734,6 @@
           "isSigner": false
         },
         {
-          "name": "releaseTokenPoolAccount",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "user",
           "isMut": true,
           "isSigner": true

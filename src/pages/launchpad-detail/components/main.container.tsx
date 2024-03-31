@@ -27,7 +27,7 @@ const SolLaunchpadDetailMainContainer: React.FC<SolLaunchpadDetailMainContainerP
 	const [allocations, setAllocations] = useState<CalculateAllowInfoResult>({layout:1, infoAllocation:[]});
 
 	const [decimals, setDecimals] = useState<number>(9);
-	const connection = useConnection();
+	
 	const { publicKey, connected } = useWallet();
 	
 
@@ -82,7 +82,7 @@ const SolLaunchpadDetailMainContainer: React.FC<SolLaunchpadDetailMainContainerP
 						<SolLaunchpadDetailTokenMetricsContainer data={projectSelected?.tokenmetrics}/>
 					} */}
 					{ activeTab === TABS[3].key && 
-						<SolLaunchpadDetailYourAllocationContainer data={allocations} decimals={decimals}/>
+						<SolLaunchpadDetailYourAllocationContainer data={allocations} decimals={decimals} contract={projectSelected?.contract || null}/>
 					}
 					
 				</>

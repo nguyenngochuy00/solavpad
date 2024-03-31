@@ -33,16 +33,25 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 
 
 	const handleJoinPool: VoidFunction = async () => {
-		if (!publicKey || !connection || !projectSelected?.contract) return;
-		const transaction = await idoService.joinIdo(connection, {
+		if (!publicKey || !connection || !projectSelected?.contract){
+			//show message
+			return;
+		} 
+		const result = await idoService.joinIdo(connection, {
 			amount: 1, //doing sua lai amount cho dung
 			contractAddress: projectSelected.contract?.toString(),
 			raiseTokenMint: projectSelected.raiseToken.toString(),
-			wallet: publicKey.toString()
+			wallet: publicKey
 		} as JoinIdoParams);
-		if (transaction) {
-			setShowJoinModal(false);
+		
+		setShowJoinModal(false);
+		if(result.status) {
+			//show message that thanh cong
+		} else {
+			//show message that bai
 		}
+		
+		
 	};
 
 
@@ -76,7 +85,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			);
 
 			if (!result) return;
-			console.log('result', result);
+			// console.log('result', result);
 			setWalletInfo(result);
 		};
 		fetchData();

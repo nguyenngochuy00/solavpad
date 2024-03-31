@@ -1,5 +1,5 @@
 import { PublicKey } from "@solana/web3.js";
-import { Program, AnchorProvider, web3, utils, BN } from '@project-serum/anchor';
+import { utils, } from '@project-serum/anchor';
 import * as anchor from "@coral-xyz/anchor";
 
 const AUTHORITY_IDO = "ido_pad";

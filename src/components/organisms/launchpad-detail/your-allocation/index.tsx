@@ -3,7 +3,7 @@ import './index.scss';
 import SolAllocationCard from '../../common/allocation-card';
 import { Key } from 'react';
 import { AllocationItem } from '../../../../types/ido.type';
-import { formatNumberDownRound } from '../../../../services/helpers';
+import { formatNumberDownRound, formatTokenAllocation } from '../../../../services/helpers';
 import moment from 'moment';
 
 interface SolLaunchpadDetailAllocationProps {
@@ -51,7 +51,7 @@ const SolLaunchpadDetailAllocation = ({ allocations, tokenDecimals, layout, onCl
 							<Col lg="6" key={index}>
 								<SolAllocationCard
 									index={allocation.no}
-									value={formatNumberDownRound(allocation.allocationAmount, tokenDecimals)}
+									value={formatTokenAllocation(allocation.allocationAmount, tokenDecimals)}
 									percent={Number(allocation.percentage) / 100}
 									claimed={formatNumberDownRound(allocation.claimedAmount, tokenDecimals)}
 									time={allocation.timestamp}
