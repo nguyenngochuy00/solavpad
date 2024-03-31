@@ -22,7 +22,6 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 > = ({ projectSelected }: SolLaunchpadDetailPoolCardContainerProps) => {
 	const dispatch = useDispatch();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
-	const blockNumber = useBlockLatest();
 
 	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
 	const [enableJoinBtn, setEnableJoinBtn] = useState<boolean>(false);
@@ -31,10 +30,12 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 
 	const connection = useConnection();
 	const { publicKey, connected } = useWallet();
+
+
 	const handleJoinPool: VoidFunction = async () => {
 		if (!publicKey || !connection || !projectSelected?.contract) return;
 		const transaction = await idoService.joinIdo(connection, {
-			amount: 1,
+			amount: 1, //doing sua lai amount cho dung
 			contractAddress: projectSelected.contract?.toString(),
 			raiseTokenMint: projectSelected.raiseToken.toString(),
 			wallet: publicKey.toString()
@@ -43,6 +44,8 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			setShowJoinModal(false);
 		}
 	};
+
+
 	useEffect(() => {
 		if(!projectSelected?.contract || !walletInfo) return;
 
@@ -52,10 +55,15 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			setEnableJoinBtn(false);
 			return;
 		}
+
 		if(!walletInfo?.remainingAllocation || walletInfo?.remainingAllocation === '0'){
 			setEnableJoinBtn(false);
 			return;
 		}
+		if (!(walletInfo.roundState === 1 || walletInfo.roundState === 3)) {
+            setEnableJoinBtn(false);
+            return;
+          }
 
 	},[projectSelected, walletInfo])
 

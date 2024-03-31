@@ -1,5 +1,6 @@
 import { BigNumber } from 'bignumber.js';
 import { LAUNCHPAD_STATUS } from '../../constants';
+import moment from 'moment';
 // import { LAUNCHPAD_STATUS } from 'src/constants';
 
 export const minimizeAddress = (address: string, start: number = 8, end: number = 8) => {
@@ -41,4 +42,48 @@ export const getProjectStatusTag = (status : string) => {
 		default:
 			return 'opening';
 	}
+};
+
+export const formatTokenAllocation = (number: number | string, decimals: number) => {
+    if (typeof number === "number") {
+        return `${formatNumberDownRound(number, decimals )}`;
+    }
+    if (typeof number === "string") {
+        if (number.includes("-")) {
+            const tempArr = number.split("-");
+            if (tempArr.length >= 2) {
+                const item1 = formatNumberDownRound( tempArr[0],decimals 
+                );
+                const item2 = formatNumberDownRound(
+                    tempArr[1],
+                    decimals
+                );
+                return `${item1} / ${item2}`;
+            }
+        } else {
+            return `${formatNumberDownRound(number, decimals )}`;
+        }
+    }
+};
+
+export const formatTimeStampAllocation = (timeStamp: number | string) : string => {
+    if (typeof timeStamp == "number")
+        return (
+            moment.unix(timeStamp).utc().format("YY-MM-DD HH:mm")
+        );
+    if (typeof timeStamp == "string") {
+        if (timeStamp.includes("-")) {
+            const tempArr = timeStamp.split("-");
+            if (tempArr.length >= 2) {
+                const item1 = moment.unix(Number(tempArr[0])) .utc().format("YY-MM-DD HH:mm");
+                const item2 =moment.unix(Number(tempArr[1])).utc().format("YY-MM-DD HH:mm");
+                return `${item1} <span class='mx-1 text-secondary'>to</span> ${item2}`;
+            }
+        } else {
+            return (
+                moment.unix(Number(timeStamp)).utc().format("YY-MM-DD HH:mm")
+            );
+        }
+    }
+	return ''
 };

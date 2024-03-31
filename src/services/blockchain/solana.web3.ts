@@ -184,9 +184,10 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 			status: 0
 		};
 	}
-	async getAllocationsInfo(contractAddress: PublicKey, walletAddress: PublicKey): Promise<CalculateAllowInfoResult | undefined>{
+	async getAllocationsInfo(contractAddress: string, walletAddress: PublicKey): Promise<CalculateAllowInfoResult | undefined>{
 		try {
-			const data = await this._getAllocations(walletAddress, contractAddress);
+			const contractPub = new PublicKey(contractAddress);
+			const data = await this._getAllocations(walletAddress, contractPub);
 			if(!data) return undefined;
 			const allowInfo = this._calculateAllowInfo(data);
 			return allowInfo;
@@ -227,11 +228,11 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 	}
 
 	private async _getAllocations(wallet: PublicKey, contractAddress:  PublicKey,): Promise<InfoAllocationResult | undefined>{
-		let allocNumberList: Array<number>;
-		let allocAmountList: Array<BN>;
-		let allocClaimedList: Array<BN>;
-		let allocReleasedList: Array<BN>;
-		let allocStatusList: Array<number>;
+		let allocNumberList: Array<number|string> ;
+		let allocAmountList: Array<number|string>;
+		let allocClaimedList: Array<number|string>;
+		let allocReleasedList: Array<number|string>;
+		let allocStatusList: Array<number|string>;
 	
 		const idoAccount = await this.getPdaIdoAccount(contractAddress);
 		if(!idoAccount) return undefined;
@@ -249,9 +250,9 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 		if (releaseToken !=  PublicKey.default.toString()  &&releases.length > 0) {
 			let rows = releases.length * 2;
 			 allocNumberList = new Array<number>(rows);
-			 allocAmountList = new  Array<BN>(rows);
-			 allocClaimedList = new Array<BN>(rows);
-			 allocReleasedList = new Array<BN>(rows);
+			 allocAmountList = new  Array<number>(rows);
+			 allocClaimedList = new Array<number>(rows);
+			 allocReleasedList = new Array<number>(rows);
 			 allocStatusList = new Array<number>(rows);
 
 
@@ -295,17 +296,20 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 	}
 	private _calculateAllowInfo (data: InfoAllocationResult): CalculateAllowInfoResult | undefined{
 		if(!data) return;
+		const test =  JSON.parse('{"0":["1","1","2","2","3","3","4","4","5","5","6","6","7","7","8","8","9","9"],"1":["251671997483280000000","251671997483280000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000"],"2":["1709823600","1709823600","1715094000","1715094000","1717772400","1717772400","1720364400","1720364400","1723042800","1723042800","1725721200","1725721200","1728313200","1728313200","1730991600","1730991600","1733583600","1733583600"],"3":["251671997483280000000","2000","0","1000","0","1000","0","1000","0","1000","0","1000","0","1000","0","1000","0","1000"],"4":["2","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]}');
 		let infoAllocation = [];
 		const claimStatus = {
 			0: "PENDING",
 			1: "OPEN",
 			2: "CLOSED",
 		};
-		const row1 = data.allocNumberList
-		const row2 = data.allocAmountList
-		const row3 = data.allocClaimedList
-		const row4 = data.allocReleasedList
-		const row5 = data.allocStatusList
+		
+		debugger;
+		const row1 = test[0]//data.allocNumberList
+		const row2 = test[1] //data.allocAmountList
+		const row3 = test[2] // data.allocClaimedList
+		const row4 = test[3]//data.allocReleasedList
+		const row5 = test[4] //data.allocStatusList
 
 		if (row1.length >= 2) {
 			//@ts-ignore
@@ -319,18 +323,18 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 					if (item === nextItem) {
 	
 						// console.log("next status==>", row5[i+1]);
-						const allocationAmount = (row2[i] === row2[i + 1]) ? row2[i] : `${Number(row2[i])}-${Number(row2[i+1])}`
-						const timestamp = (row3[i] === row3[i + 1]) ? row3[i] : `${Number(row3[i])}-${Number(row3[i+1])}`;
+						const allocationAmount = (row2[i] === row2[i + 1]) ? row2[i] : `${(row2[i])}-${(row2[i+1])}`
+						const timestamp = (row3[i] === row3[i + 1]) ? row3[i] : `${(row3[i])}-${(row3[i+1])}`;
 						const percentage = row4[i + 1]
 	
 						infoAllocation.push({
 							no: item,
-							allocationAmount: Number(allocationAmount),
-							timestamp: Number(timestamp),
-							claimedAmount: Number(row4[i]),
+							allocationAmount: (allocationAmount),
+							timestamp: (timestamp),
+							claimedAmount: (row4[i]),
 							//@ts-ignore
 							status: claimStatus[Number(row5[i])],
-							percentage: Number(percentage)
+							percentage: (percentage)
 						})
 					}
 				}

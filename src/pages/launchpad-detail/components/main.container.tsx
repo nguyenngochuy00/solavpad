@@ -5,13 +5,14 @@ import SolLaunchpadDetailPoolInfoContainer from './pool-info.container';
 import SolLaunchpadDetailSummaryContainer from './summary.container';
 import SolLaunchpadDetailTokenMetricsContainer from './token-metrics.container';
 import SolLaunchpadDetailYourAllocationContainer from './your-allocation.container';
-import { useNavigate, useParams } from 'react-router-dom';
-import { find } from 'lodash';
-// import projects from '../../../constants/project/project.json';
+
 import SolLaunchpadDetailTabs from '../../../components/organisms/launchpad-detail/tabs';
 import SolLaunchpadDetailTemplate from '../../../components/templates/launchpad-detail';
 import { APP_ROUTES } from '../../../constants';
 import { IdoInfoType, ProjectDetail, TabType } from '../../../types';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { solaUtils } from '../../../services/blockchain';
+import { CalculateAllowInfoResult } from '../../../types/ido.type';
 
 
 
@@ -23,11 +24,26 @@ const SolLaunchpadDetailMainContainer: React.FC<SolLaunchpadDetailMainContainerP
 
 
 
-	const [allocations, setAllocations] = useState<any[]>([]);
+	const [allocations, setAllocations] = useState<CalculateAllowInfoResult>({layout:1, infoAllocation:[]});
 
+	const [decimals, setDecimals] = useState<number>(9);
+	const connection = useConnection();
+	const { publicKey, connected } = useWallet();
+	
 
+	useEffect(() => {
+		if(!projectSelected?.contract || !publicKey || !connected) return;
+		solaUtils.getAllocationsInfo(  projectSelected.contract, publicKey,).then((result) => {
+			if(!result) return;
+			setAllocations(result);
+			setDecimals(projectSelected.decimals)
+		});	
 
+	}, [projectSelected, publicKey]);
 
+	
+	
+	
 	const TABS: TabType[] = [
 		{ key: 'Description', text: 'Description' },
 		{ key: 'PoolInfo', text: 'Pool Info' },
@@ -40,6 +56,8 @@ const SolLaunchpadDetailMainContainer: React.FC<SolLaunchpadDetailMainContainerP
 	const handleTabChange = (tabKey: string) => {
 		setActiveTab(tabKey);
 	};
+
+
 
 	return (
 		<SolLaunchpadDetailTemplate
@@ -64,7 +82,7 @@ const SolLaunchpadDetailMainContainer: React.FC<SolLaunchpadDetailMainContainerP
 						<SolLaunchpadDetailTokenMetricsContainer data={projectSelected?.tokenmetrics}/>
 					} */}
 					{ activeTab === TABS[3].key && 
-						<SolLaunchpadDetailYourAllocationContainer data={allocations} claimable={false}/>
+						<SolLaunchpadDetailYourAllocationContainer data={allocations} decimals={decimals}/>
 					}
 					
 				</>

@@ -1,23 +1,27 @@
 // import SolLaunchpadDetailAllocation from "src/components/organisms/launchpad-detail/your-allocation";
 
 import SolLaunchpadDetailAllocation from '../../../components/organisms/launchpad-detail/your-allocation';
+import { AllocationItem, CalculateAllowInfoResult } from '../../../types/ido.type';
 
 interface SolLaunchpadDetailYourAllocationContainerProps {
-	data: any;
-	claimable: boolean;
+	data: CalculateAllowInfoResult
+	decimals: number
 }
 
 const SolLaunchpadDetailYourAllocationContainer: React.FC<
 	SolLaunchpadDetailYourAllocationContainerProps
-> = ({ data, claimable }: SolLaunchpadDetailYourAllocationContainerProps) => {
-	const handleClaimToken = (allocation: any, index: number) => {
-		console.log(allocation, index);
+> = ({ data , decimals}: SolLaunchpadDetailYourAllocationContainerProps) => {
+
+	const handleClaimToken = ( index: number) => {
+		debugger
 	};
 
 	return (
 		<SolLaunchpadDetailAllocation
-			allocations={data}
-			onClaim={claimable ? handleClaimToken : null}
+			tokenDecimals={decimals}
+			allocations={data.infoAllocation}
+			layout={data.layout}
+			onClaim={ handleClaimToken }
 		/>
 	);
 };

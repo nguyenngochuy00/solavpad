@@ -59,11 +59,11 @@ export type AllocationWallet = {
 
 
 export type InfoAllocationResult = {
-    allocNumberList: Array<number>;
-    allocAmountList: Array<number>;
-    allocClaimedList: Array<number>;
-    allocReleasedList: Array<BN>;
-    allocStatusList: Array<BN>;
+    allocNumberList: Array<number|string>;
+    allocAmountList: Array<number|string>;
+    allocClaimedList: Array<number|string>;
+    allocReleasedList: Array<number|string>;
+    allocStatusList: Array<number|string>;
 }
 
 export type CalculateAllowInfoResult = {
@@ -80,8 +80,8 @@ export enum claimStatus {
 export type AllocationItem = {
     no: number | string,
     allocationAmount: number | string,
-    timestamp: number,
+    timestamp: number | string,
     claimedAmount: number | string,
-    status: string,
-    percentage?: number,
+    status: string | number,
+    percentage?: string |number | undefined,
 }
