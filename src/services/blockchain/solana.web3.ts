@@ -90,6 +90,7 @@ class Web3SolanaUtils {
 			const currentTimestamp = Math.floor(Date.now() / 1000);
 
 			const walletInfo = infoWallet(idoPdData, userPdaData, currentTimestamp);
+			console.log("walletInfo", walletInfo);
 
 			const tokenBalance = await this.getBalanceOfToken(new PublicKey(idoPdData.raiseToken), walletAddress);
 
