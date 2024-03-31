@@ -311,13 +311,9 @@ class Web3SolanaUtils {
 
 					const nextItem = row1[i + 1]?.toString()
 					if (item === nextItem) {
-
-						// console.log("next status==>", row5[i+1]);
 						const allocationAmount = (row2[i] === row2[i + 1]) ? row2[i] : `${(row2[i])}-${(row2[i + 1])}`
 						const timestamp = (row3[i] === row3[i + 1]) ? row3[i] : `${(row3[i])}-${(row3[i + 1])}`;
-						const percentage = row4[i + 1]
-
-					
+						const percentage = row4[i + 1]					
 						infoAllocation.push({
 							no: item,
 							allocationAmount: allocationAmount,

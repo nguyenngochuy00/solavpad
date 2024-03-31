@@ -4,6 +4,7 @@ import SolButton from '../../../atoms/button';
 import SolInfo from '../../../molecules/info-block';
 import './index.scss';
 import { formatTimeStampAllocation } from '../../../../services/helpers';
+import { useEffect, useState } from 'react';
 // import SolButton from 'src/components/atoms/button';
 
 type SolAllocationCardProps = {
@@ -27,7 +28,10 @@ const SolAllocationCard = ({
 	layout,
 	onClaim
 }: SolAllocationCardProps) => {
+
+
 	return (
+		
 		<div className="sol-allocation-card">
 			<div className="sol-allocation-card-info">
 				<SolInfo label="Allocation" value={`${value} (${percent}%)`} />
