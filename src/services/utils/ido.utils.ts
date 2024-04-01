@@ -191,7 +191,8 @@ export const infoWallet = (idoAccount: IdoInfoType, userPda: UserStraitPda, curr
 export const _getAllocation = (params: GetInfoAllocationParams): AllocationWallet | undefined => {
 	const { idoAccount, userPda, index, now_ts, releaseTokenAccount } = params;
 
-	const { releases, raiseTokenDecimals, releaseTokenDecimals, participated, rate, releaseToken } = idoAccount;
+	const { releases, raiseTokenDecimals, releaseTokenDecimals, rate, releaseToken } = idoAccount;
+	const participated = userPda.participateAmount
 
 	if (index > releases.length) return undefined
 
@@ -206,6 +207,7 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 	if(!releaseTokenDecimals || !raiseTokenDecimals || !rate){
 		return undefined;
 	}
+
 
 
 	let total = participated.mul(new BN(rate)).div(new BN(1000000)).mul(new BN(percent)).div(new BN(10000));

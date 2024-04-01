@@ -36,16 +36,6 @@ const opts = {
 } as solanaWeb3.ConfirmOptions
 
 
-
-// const provider = getProvider();
-
-
-
-
-
-// export const getStakingInfo = async (contractAddress: string) => {
-
-// }
 const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 
@@ -241,9 +231,7 @@ class Web3SolanaUtils {
 		const now_ts = await this.getConnectionProvider().getBlockTime(slot);
 		const { raiseToken, releaseToken, releases } = idoAccount;
 
-
 		const tokenAmount = await this.getTokenAmountOfAddress(new PublicKey(raiseToken), contractAddress);
-
 
 		if (releaseToken != PublicKey.default.toString() && releases.length > 0) {
 			let rows = releases.length * 2;
@@ -282,6 +270,7 @@ class Web3SolanaUtils {
 				allocStatusList[row] = status;
 				allocStatusList[row + 1] = 0;
 			}
+
 			return [allocNumberList, allocAmountList, allocReleasedList, allocClaimedList, allocStatusList] as InfoAllocationResult;
 	
 		}
