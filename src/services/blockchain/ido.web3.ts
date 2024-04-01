@@ -259,6 +259,7 @@ class Web3SolanaUtils {
 
 				allocNumberList[row] = i + 1;
 				allocNumberList[row + 1] = i + 1;
+				
 				allocAmountList[row] = claimable;
 				allocAmountList[row + 1] = total;
 
