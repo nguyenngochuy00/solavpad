@@ -107,7 +107,11 @@ const SolLaunchpadOpening = ({
 									Progress
 								</div>
 								{/* TO-DO: get percent coverage */}
-								<SolProgressBar percent={50} size="lg" />
+								<SolProgressBar percent={Number(
+								(Number(projectData[0]?.participated?.toString()) /
+									Number(projectData[0]?.cap?.toString())) *
+									100 || 0
+							)} size="lg" />
 								<div className="sol-launchpad-opening-progress-info">
 									<span>Allocation round</span>
 									<span>

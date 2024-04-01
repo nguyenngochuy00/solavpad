@@ -69,7 +69,7 @@ const SolLaunchpadDetailPoolCard = ({
 
 						{projectInfor?.state === 'P' && (
 							<SolInfo
-								label={'Open ins'}
+								label={'<u>Open in:<u>'}
 								value={projectInfor?.openTimestamp}
 								isCountDown
 								onCompleteFc={reCallWalletInfor}
