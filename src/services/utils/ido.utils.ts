@@ -191,10 +191,6 @@ export const infoWallet = (idoAccount: IdoInfoType, userPda: UserStraitPda, curr
 export const _getAllocation = (params: GetInfoAllocationParams): AllocationWallet | undefined => {
 	const { idoAccount, userPda, index, now_ts, releaseTokenAccount } = params;
 
-	
-	
-	
-
 	const { releases, raiseTokenDecimals, releaseTokenDecimals, participated, rate, releaseToken } = idoAccount;
 
 	if (index > releases.length) return undefined
@@ -206,7 +202,7 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 	const fromTimestamp = release.fromTimestamp;
 	const toTimestamp = release.toTimestamp;
 	const percent = release.percent;
-	
+
 	if(!releaseTokenDecimals || !raiseTokenDecimals || !rate){
 		return undefined;
 	}

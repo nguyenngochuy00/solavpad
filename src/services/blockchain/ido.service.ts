@@ -14,7 +14,7 @@ import {
     ASSOCIATED_TOKEN_PROGRAM_ID,
     getAssociatedTokenAddressSync,
   } from "@solana/spl-token"
-import { solaUtils } from "./solana.web3";
+import { solaUtils } from "./ido.web3";
 
 const programIdoID = new PublicKey(crowdFundingIDL.metadata.address)
 const opts = {
@@ -26,7 +26,7 @@ export class IdoWeb3Service {
 
 	async joinIdo(connection: ConnectionContextState, param: JoinIdoParams) {
         try {
-            const provider = this.getProvider(connection.connection);
+            const provider = this._getProvider(connection.connection);
             const {amount, contractAddress, raiseTokenMint, wallet} = param;
             const contractPubkey = new PublicKey(contractAddress);
             const mint = new PublicKey(raiseTokenMint);
@@ -69,13 +69,12 @@ export class IdoWeb3Service {
                 message: error.message,
             }
         }
-       
-
     }
+
     async claim(connection: ConnectionContextState, param: ClaimTokenIdoParams) {
 
         try {
-            const provider = this.getProvider(connection.connection);
+            const provider = this._getProvider(connection.connection);
             const { contractAddress,  wallet, index} = param;
             const contractPubkey = new PublicKey(contractAddress);
             const idoPdaData = await solaUtils.getPdaIdoAccount(contractPubkey);
@@ -122,13 +121,14 @@ export class IdoWeb3Service {
         
     }
 
-     private getIdoProgram(connection: ConnectionContextState) {
+    private getIdoProgram(connection: ConnectionContextState) {
         //@ts-ignore
         return new Program(crowdFundingIDL, programIdoID, connection);
     }
-     getProvider = (connection: any) =>{
+    private _getProvider = (connection: any) =>{
         return new AnchorProvider(connection, window.solana, opts);
-      }
+    }
+
 }
 export const idoService = new IdoWeb3Service();
 

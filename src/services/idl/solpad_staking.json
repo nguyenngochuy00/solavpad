@@ -1,0 +1,833 @@
+{
+  "version": "0.1.0",
+  "name": "solpad_staking",
+  "instructions": [
+    {
+      "name": "initializeStakingContract",
+      "accounts": [
+        {
+          "name": "stakingContract",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pauseAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initializeRewardsContract",
+      "accounts": [
+        {
+          "name": "stakingContract",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContract",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardDistributorAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initializeSetupStaking",
+      "accounts": [
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "token",
+          "type": "publicKey"
+        },
+        {
+          "name": "maxStakingAmount",
+          "type": "u64"
+        },
+        {
+          "name": "unstakingPeriod",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "setTokenAddress",
+      "accounts": [
+        {
+          "name": "ownerAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "tokenMint",
+          "type": "publicKey"
+        }
+      ]
+    },
+    {
+      "name": "pause",
+      "accounts": [
+        {
+          "name": "pauseRoleAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "unpause",
+      "accounts": [
+        {
+          "name": "pauseRoleAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "stakerDeposit",
+      "accounts": [
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userStakingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "initiateWithdrawal",
+      "accounts": [
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userStakingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "executeWithdrawal",
+      "accounts": [
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userStakingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdrawReward",
+      "accounts": [
+        {
+          "name": "stakingContractAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userStakingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "distributeRewards",
+      "accounts": [
+        {
+          "name": "distributorRoleAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "stakingContractAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AuthorityRole",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bumb",
+            "type": "u8"
+          },
+          {
+            "name": "role",
+            "type": {
+              "defined": "ROLE"
+            }
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapStakingContract",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bumb",
+            "type": "u8"
+          },
+          {
+            "name": "pause",
+            "type": "bool"
+          },
+          {
+            "name": "decimal",
+            "type": "u8"
+          },
+          {
+            "name": "version",
+            "type": "string"
+          },
+          {
+            "name": "countStaker",
+            "type": "u32"
+          },
+          {
+            "name": "unstakingPeriod",
+            "type": "u32"
+          },
+          {
+            "name": "maxStakingAmount",
+            "type": "u64"
+          },
+          {
+            "name": "currentTotalStake",
+            "type": "u64"
+          },
+          {
+            "name": "token",
+            "type": "publicKey"
+          },
+          {
+            "name": "ownerRole",
+            "type": "publicKey"
+          },
+          {
+            "name": "pauseRole",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RewardStakingContract",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bumb",
+            "type": "u8"
+          },
+          {
+            "name": "decimal",
+            "type": "u8"
+          },
+          {
+            "name": "totalRewardsDistributed",
+            "type": "u64"
+          },
+          {
+            "name": "rewardsDistributed",
+            "type": "u64"
+          },
+          {
+            "name": "rewardsWithdrawn",
+            "type": "u64"
+          },
+          {
+            "name": "totalRewardPoints",
+            "type": "u64"
+          },
+          {
+            "name": "stakingContractAddress",
+            "type": "publicKey"
+          },
+          {
+            "name": "rewardDistributorRole",
+            "type": "publicKey"
+          },
+          {
+            "name": "token",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserStakingDepositAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "exits",
+            "type": "bool"
+          },
+          {
+            "name": "startDate",
+            "type": "i64"
+          },
+          {
+            "name": "endDate",
+            "type": "i64"
+          },
+          {
+            "name": "initiateDate",
+            "type": "i64"
+          },
+          {
+            "name": "amountDeposit",
+            "type": "u64"
+          },
+          {
+            "name": "entryRewardPoints",
+            "type": "u64"
+          },
+          {
+            "name": "exitRewardPoints",
+            "type": "u64"
+          },
+          {
+            "name": "amountWithdrawn",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ROLE",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "DefaultAdmin"
+          },
+          {
+            "name": "Pause"
+          },
+          {
+            "name": "Owner"
+          },
+          {
+            "name": "RewardDistributor"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "WithdrawalState",
+      "fields": [
+        {
+          "name": "endDate",
+          "type": "i64",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "StakeDeposited",
+      "fields": [
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "address",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "RewardsDistributed",
+      "fields": [
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "RewardsWithdrawn",
+      "fields": [
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "address",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    },
+    {
+      "name": "WithdrawExecuted",
+      "fields": [
+        {
+          "name": "initiateDate",
+          "type": "i64",
+          "index": false
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "index": false
+        },
+        {
+          "name": "address",
+          "type": "publicKey",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "PdaNotMatched",
+      "msg": "PDA account not matched"
+    },
+    {
+      "code": 6001,
+      "name": "NotAuthorized",
+      "msg": "Only authority is allowed to call this function"
+    },
+    {
+      "code": 6002,
+      "name": "ZeroAddress",
+      "msg": "[Validation] Address is the zero address"
+    },
+    {
+      "code": 6003,
+      "name": "ExceedStakingLimit",
+      "msg": " [Deposit] Your deposit would exceed the current staking limit"
+    },
+    {
+      "code": 6004,
+      "name": "AlreadyInitiatedWithdrawal",
+      "msg": "[Deposit] You have already initiated the withdrawal"
+    },
+    {
+      "code": 6005,
+      "name": "ZeroDeposit",
+      "msg": "[Validation] The stake deposit has to be larger than 0"
+    },
+    {
+      "code": 6006,
+      "name": "NotInitializedWithdrawAmount",
+      "msg": "[Withdraw] Withdraw amount is not initialized"
+    },
+    {
+      "code": 6007,
+      "name": "NoStakeDeposit",
+      "msg": "[Withdraw] There is no stake deposit for this account"
+    },
+    {
+      "code": 6008,
+      "name": "UnstakingPeriodDidntPass",
+      "msg": "[Withdraw] The unstaking period did not pass"
+    },
+    {
+      "code": 6009,
+      "name": "InvalidWithdrawalAmount",
+      "msg": "[Initiate Withdrawal] Invalid withdrawal amount"
+    },
+    {
+      "code": 6010,
+      "name": "InsufficientFundsForWithdraw",
+      "msg": "[withdraw] Remaining stakedeposit amount must be higher than withdraw amount"
+    },
+    {
+      "code": 6011,
+      "name": "AlreadyInitiatedFullWithdrawal",
+      "msg": "[Rewards Withdrawal] You already initiated the full withdrawal"
+    },
+    {
+      "code": 6012,
+      "name": "ZeroReward",
+      "msg": "[Rewards Withdrawal] The reward amount has to be larger than 0"
+    },
+    {
+      "code": 6013,
+      "name": "TokenNoMatch",
+      "msg": "[Token No match"
+    },
+    {
+      "code": 6014,
+      "name": "NotEnoughTotalStake",
+      "msg": "[Validation] not enough total stake accumulated"
+    },
+    {
+      "code": 6015,
+      "name": "NotEnoughRewards",
+      "msg": "[Validation] not enough rewards accumulated"
+    }
+  ],
+  "metadata": {
+    "address": "AJkHEuFHDzTawt5RkMrx48NMH6p9Vxu1MJmAwP5zgZrm"
+  }
+}

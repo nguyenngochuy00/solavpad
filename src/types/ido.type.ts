@@ -70,8 +70,7 @@ export type InfoAllocationResult = [
     Array<number|string>,
     Array<number|string>,
     Array<number|string>,
-    Array<number|string>,
-]
+    Array<number|string>,]
     
 
 

@@ -15,18 +15,16 @@ export interface TabType {
 
 
 
-export interface ScheduleType {
+ interface ScheduleType {
 	round: string;
 	opens: string;
 	closes: string;
 }
 
-export interface PoolInfoType {
+ interface PoolInfoType {
 	name?: string;
 	symbol?: string;
-	opens?: string;
 	fcfsOpens?: string;
-	closes?: string;
 	swapRate?: string;
 	cap?: string | number;
 	totalUsersParticipated?: number;
