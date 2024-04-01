@@ -27,7 +27,6 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 	const [enableJoinBtn, setEnableJoinBtn] = useState<boolean>(false);
 	const [recallWalletInfor, setRecallWalletInfor] = useState<boolean>(false)
 
-	const solBal = useSolBalance();
 
 	const connection = useConnection();
 	const { publicKey, connected } = useWallet();
@@ -57,6 +56,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 
 
 	useEffect(() => {
+		debugger
 		if(!projectSelected?.contract || !walletInfo) return;
 
 		setEnableJoinBtn(true);
@@ -102,16 +102,8 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			<SolLaunchpadDetailPoolCard
 				enableJoin={enableJoinBtn}
 				opening
+				projectInfor={projectSelected}
 				walletInfo={walletInfo}
-				countDownTime={walletInfo?.roundTimestamp}
-				yourTokenBalance={`${formatNumberDownRound(Number(walletInfo?.tokenBalance),9)} ${projectSelected?.symbol}`}
-				yourNativeCoinBalance={`${formatNumberDownRound(solBal, 9)} SOL`}
-				yourTier={walletInfo?.tierName}
-				swappedValue={`${formatNumberDownRound(Number(walletInfo?.userParticipation),projectSelected?.decimals)} ${projectSelected?.symbol}`}
-				swappedValueConvert={`${formatNumberDownRound(Number(projectSelected?.rate) * Number(walletInfo?.userParticipation)/1000000)} ${projectSelected?.projectTokenSymbol}`}
-				remainingAllocation={`${formatNumberDownRound(Number(walletInfo?.remainingAllocation))} ${projectSelected?.symbol}`}
-				progressPercent={(Number(projectSelected?.participated?.toString()) /Number(projectSelected?.cap?.toString())) *100 || 0 }
-				participants={projectSelected?.participatedCount || 0}
 				onJoinPool={() => setShowJoinModal(true)}
 				// onApprove={() => setShowApproveModal(true)}
 				onConnectWallet={() => handleShowConnectWallet()}

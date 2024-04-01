@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import Countdown from 'react-countdown';
 import { renderCountDownOpen } from '../../organisms/common/pool-card';
 import './index.scss';
@@ -25,24 +25,31 @@ const SolInfo: React.FC<SolInfoProps> = ({
 			onCompleteFc();
 		}
 	};
+
+	const countDownTime = useMemo(() => {
+		if(!value || value === 0) {
+			onComplete();
+			return;
+		};
+		return value !== 0 && (
+			<Countdown
+				date={new Date(Number(value) * 1000 || 0)}
+				intervalDelay={1}
+				precision={3}
+				renderer={renderCountDownOpen}
+				onComplete={onComplete}
+				autoStart
+			/>
+		)
+	}, [value])
+
 	return (
 		<div className={`sol-info ${size}`}>
 			<div
 				className={`sol-info-label`}
 				dangerouslySetInnerHTML={{ __html: label }}
 			/>
-			{isCountDown ? (
-				value && value != 0 && (
-					<Countdown
-						date={new Date(Number(value) * 1000 || 0)}
-						intervalDelay={1}
-						precision={3}
-						renderer={renderCountDownOpen}
-						onComplete={onComplete}
-						autoStart
-					/>
-				)
-			) : (
+			{isCountDown ? countDownTime : (
 				<div className="sol-info-value">
 					{value}
 					{value2 ? <div>{value2}</div> : <></>}

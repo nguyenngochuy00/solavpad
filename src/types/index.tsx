@@ -59,6 +59,8 @@ export interface SolLaunchpadDetailTekenMetricsType {
 	allocations: AllocationType;
 }
 
+export type LaunchpadStatus = 'O' | 'P' |'C' | 'F';
+
 export interface IdoInfoType {
 	idoId: number,
     openTimestamp: number ,
@@ -76,7 +78,7 @@ export interface IdoInfoType {
     tiers: Array<TierItem>,
     rounds: Array<RoundItem>,
     releases: Array<ReleaseItem>,
-	state: string,
+	state: LaunchpadStatus,
 	rate: string | number;
 }
 
