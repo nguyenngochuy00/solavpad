@@ -6,9 +6,10 @@ export type StakingInfo = {
     pause: boolean,
     decimal?: number,
     count_staker: number,
-    unstaking_period: number,
-    max_staking_amount: BN,
-    current_total_stake: BN,
+    unStakingPeriod: number,
+    maxStakingAmount: BN,
+    currentTotalStake: BN,
+    totalRewardsDistributed: BN,
     token: PublicKey,
 }
 
