@@ -233,7 +233,6 @@ class Web3SolanaUtils {
 
 		const tokenAmount = await this.getTokenAmountOfAddress(new PublicKey(raiseToken), contractAddress);
 
-		debugger
 		if (releaseToken != PublicKey.default.toString() && releases.length > 0) {
 			let rows = releases.length * 2;
 			allocNumberList = new Array<number>(rows);
@@ -272,7 +271,6 @@ class Web3SolanaUtils {
 				allocStatusList[row] = status;
 				allocStatusList[row + 1] = 0;
 			}
-			debugger
 
 		
 			return [allocNumberList, allocAmountList, allocReleasedList, allocClaimedList, allocStatusList] as InfoAllocationResult;
