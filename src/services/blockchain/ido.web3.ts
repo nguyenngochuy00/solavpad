@@ -41,8 +41,8 @@ const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 class Web3SolanaUtils {
 	private provider: Provider;
-	constructor(provider: string) {
-		const connection = new Connection(DEV_NET, "processed");
+	constructor(network: string) {
+		const connection = new Connection(network, "processed");
 
 		this.provider = new AnchorProvider(connection, window.solana, opts);;
 	}
@@ -259,7 +259,7 @@ class Web3SolanaUtils {
 
 				allocNumberList[row] = i + 1;
 				allocNumberList[row + 1] = i + 1;
-				
+
 				allocAmountList[row] = claimable;
 				allocAmountList[row + 1] = total;
 

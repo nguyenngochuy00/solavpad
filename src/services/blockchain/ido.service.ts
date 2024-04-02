@@ -46,6 +46,7 @@ export class IdoWeb3Service {
            
     
             const program = this.getIdoProgram(provider);
+            
             const transaction = await program.methods.participate(amountBN).accounts({
               idoAccount: contractAddress,
               userPdaAccount: IdoFindPda.getPdaUser(programIdoID, contractPubkey, new PublicKey(wallet)),

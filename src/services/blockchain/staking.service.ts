@@ -11,7 +11,7 @@ import {
 	BN,
 	Program
 } from '@project-serum/anchor';
-import { DepositStakingParams } from "../../types/staking.type";
+import { DepositStakingParams, StakingInfo } from "../../types/staking.type";
 import { stakingFindPda } from "../helpers";
 
 const programStakingID = new PublicKey(stakingIdl.metadata.address)
@@ -25,24 +25,30 @@ export class StackingService {
     async stakerDeposit(connection: ConnectionContextState, param: DepositStakingParams){
 
         const provider = this._getProvider(connection.connection);
-        const {amount, tokenMint, wallet} = param;
+        const {amount, wallet} = param;
 
         const amountBN = new BN(amount).mul(new BN(10 ** 9));
 
+        const program = this.getStakingProgram(provider);
+
         const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
+
+        const pdaStakingInfo  = await program.account.stakingAccount.fetch(stakingContractPda) as StakingInfo;
+
+        const tokenMint =  pdaStakingInfo.token as PublicKey;
+
+
         const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, wallet);
         const rewardPda = stakingFindPda.getPdaReward(programStakingID);
-        
-        const mint = new PublicKey(tokenMint);
-        const program = this.getStakingProgram(provider);
+              
         const transaction = await program.methods.stakerDeposit(amountBN).accounts({
             tokenMint: tokenMint,
             userStakingAccount: userStakingPda,
             stakingContractAccount: stakingContractPda,
-            userTokenAccount: getAssociatedTokenAddressSync(mint, new PublicKey(wallet), true),
-            stakingTokenAccount: getAssociatedTokenAddressSync(mint, stakingContractPda, true),
+            userTokenAccount: getAssociatedTokenAddressSync(tokenMint, new PublicKey(wallet), true),
+            stakingTokenAccount: getAssociatedTokenAddressSync(tokenMint, stakingContractPda, true),
             rewardContractAccount: rewardPda,
-            rewardTokenAccount: getAssociatedTokenAddressSync(mint, rewardPda, true),
+            rewardTokenAccount: getAssociatedTokenAddressSync(tokenMint, rewardPda, true),
             authority: provider.wallet.publicKey,
             systemProgram: SystemProgram.programId,
             tokenProgram: TOKEN_PROGRAM_ID,
@@ -50,6 +56,12 @@ export class StackingService {
 
         console.log("Your transaction signature", transaction);
     }
+
+
+    async stakerWithdraw(connection: ConnectionContextState, param: DepositStakingParams){
+
+    }
+
 
     private getStakingProgram(connection: ConnectionContextState) {
         //@ts-ignore
