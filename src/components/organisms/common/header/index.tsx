@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 // import { useSolBalance } from 'src/hooks/useState';
 import { PublicKey } from '@solana/web3.js';
 import { useSolBalance } from '../../../../hooks/useState';
-import { updateWalletInfo } from '../../../../redux/actions/applicationAction';
+import { updateWalletInfo } from '../../../../redux/application/actions';
 import { solaUtils } from '../../../../services/blockchain/ido.web3';
 import { SOLANA_EXPLORER_URL } from '../../../../constants';
 import SolBreadcrumb from '../../../molecules/breadcrumb';

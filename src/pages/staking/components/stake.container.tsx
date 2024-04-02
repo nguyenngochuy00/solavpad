@@ -2,6 +2,7 @@ import { get } from 'lodash';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SolStakingStake from '../../../components/organisms/staking/staking-panel/stake';
+import { AppState } from '../../../redux/rootReducer';
 
 const SolStakingStakeContainer = () => {
 	const STEPS = [
@@ -13,8 +14,8 @@ const SolStakingStakeContainer = () => {
 	];
 	const [currentStep, setCurrentStep] = useState<number>(1);
 	const [stakeAmount, setStakeAmount] = useState<number>(1);
-	const walletInfo = useSelector(state =>
-		get(state, 'system.walletInfo', false)
+	const walletInfo = useSelector(
+		(state: AppState) => state.application.walletInfo
 	);
 	const currentBalance = 1;
 	const stakingSymbol = 'SLPAD';

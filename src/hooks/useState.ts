@@ -1,10 +1,11 @@
 import { get } from 'lodash';
 import { useSelector } from 'react-redux';
+import { AppState } from '../redux/rootReducer';
 
 export const useSolBalance = () => {
-	return useSelector(state => get(state, 'system.walletInfo.solBalance', 0));
+	return useSelector((state: AppState) => state.application.walletInfo?.solBalance);
 };
 
 export const useBlockLatest = () => {
-	return useSelector(state => get(state, 'system.blockNumber', 0));
+	return useSelector((state: AppState) => state.application.blockNumber);
 }

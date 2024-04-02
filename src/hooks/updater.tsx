@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { solaUtils } from '../services/blockchain';
-import { SET_LATEST_BLOCK_NUMBER } from '../redux/types/application';
+import { SET_LATEST_BLOCK_NUMBER } from '../redux/application/types';
 import useDebounce from './useDebounce';
 
 const delayTime = 30; //seconds

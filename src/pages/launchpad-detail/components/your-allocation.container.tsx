@@ -1,35 +1,57 @@
 // import SolLaunchpadDetailAllocation from "src/components/organisms/launchpad-detail/your-allocation";
 
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SolLaunchpadDetailAllocation from '../../../components/organisms/launchpad-detail/your-allocation';
-import { idoService } from '../../../services/blockchain';
-import { AllocationItem, CalculateAllowInfoResult, ClaimTokenIdoParams } from '../../../types/ido.type';
+import { AppState } from '../../../redux/rootReducer';
+import { idoService, solaUtils } from '../../../services/blockchain';
+import {
+	CalculateAllowInfoResult,
+	ClaimTokenIdoParams
+} from '../../../types/ido.type';
+import { getLaunchpadDetail } from '../redux/actions';
 
-interface SolLaunchpadDetailYourAllocationContainerProps {
-	data: CalculateAllowInfoResult
-	decimals: number,
-	contract: string |null,
-}
-
-const SolLaunchpadDetailYourAllocationContainer: React.FC<
-	SolLaunchpadDetailYourAllocationContainerProps
-> = ({ data , decimals, contract}: SolLaunchpadDetailYourAllocationContainerProps) => {
-
+const SolLaunchpadDetailYourAllocationContainer: React.FC = () => {
 	const connection = useConnection();
-	const { publicKey } = useWallet();
-	const handleClaimToken = async ( index: number) => {
-		if(!publicKey || !contract || !connection) {
+	const { publicKey, connected } = useWallet();
+	const dispatch = useDispatch();
+	const projectSelected = useSelector(
+		(state: AppState) => state.launchpadDetail.launchpad
+	);
+
+	const [allocations, setAllocations] = useState<CalculateAllowInfoResult>({
+		layout: 1,
+		infoAllocation: []
+	});
+
+	const [decimals, setDecimals] = useState<number>(9);
+
+	useEffect(() => {
+		if (!projectSelected?.contract || !publicKey || !connected) return;
+		solaUtils
+			.getAllocationsInfo(projectSelected.contract, publicKey)
+			.then(result => {
+				if (!result) return;
+				setAllocations(result);
+				setDecimals(projectSelected.decimals);
+			});
+	}, [projectSelected, publicKey]);
+
+	const handleClaimToken = async (index: number) => {
+		if (!publicKey || !projectSelected?.contract || !connection) {
 			//show message that bai
 			return;
-		};
+		}
 
-		const result  = await idoService.claim(connection, {
-			contractAddress: contract,
+		const result = await idoService.claim(connection, {
+			contractAddress: projectSelected?.contract,
 			index: index,
 			wallet: publicKey
-		} as ClaimTokenIdoParams );
-		
-		if(result.status) {
+		} as ClaimTokenIdoParams);
+
+		if (result.status) {
+			dispatch(getLaunchpadDetail(String(projectSelected.id)));
 			//show message that thanh cong
 		} else {
 			//show message that bai
@@ -39,9 +61,9 @@ const SolLaunchpadDetailYourAllocationContainer: React.FC<
 	return (
 		<SolLaunchpadDetailAllocation
 			tokenDecimals={decimals}
-			allocations={data.infoAllocation}
-			layout={data.layout}
-			onClaim={ handleClaimToken }
+			allocations={allocations.infoAllocation}
+			layout={allocations.layout}
+			onClaim={handleClaimToken}
 		/>
 	);
 };

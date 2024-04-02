@@ -1,27 +1,24 @@
 import { get } from 'lodash';
-// import SolLaunchpadDetailSummary from 'src/components/organisms/launchpad-detail/summary';
-// import { getProjectStatusTag } from 'src/services/helpers';
+import { useSelector } from 'react-redux';
 import SolLaunchpadDetailSummary from '../../../components/organisms/launchpad-detail/summary';
+import { AppState } from '../../../redux/rootReducer';
 import { getProjectStatusTag } from '../../../services/helpers/helpers';
-import { ProjectDetail } from '../../../types';
 
-
-interface SolLaunchpadDetailSummaryContainerProps {
-	data: ProjectDetail | undefined
-}
-
-const SolLaunchpadDetailSummaryContainer: React.FC<SolLaunchpadDetailSummaryContainerProps> = ({ data }) => {
+const SolLaunchpadDetailSummaryContainer = () => {
+	const projectSelected = useSelector(
+		(state: AppState) => state.launchpadDetail.launchpad
+	);
 	return (
 		<SolLaunchpadDetailSummary
-			imgURL={get(data, 'logo', '')} //sửa thành images [] cho tự chạy
+			imgURL={get(projectSelected, 'logo', '')} //sửa thành images [] cho tự chạy
 			networkIcon="../images/images/Solana_logo_1.png"
 			networkName="SOLANA"
-			title={get(data, 'name', '')}
-			status={getProjectStatusTag(data?.state || '')}
-			description={data?.description}
-			telegram={data?.telegram}
-			twitter={data?.twitter}
-			webURL={data?.website}
+			title={get(projectSelected, 'name', '')}
+			status={getProjectStatusTag(projectSelected?.state || '')}
+			description={projectSelected?.description}
+			telegram={projectSelected?.telegram}
+			twitter={projectSelected?.twitter}
+			webURL={projectSelected?.website}
 		/>
 	);
 };

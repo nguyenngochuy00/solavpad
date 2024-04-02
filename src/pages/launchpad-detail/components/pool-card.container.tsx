@@ -1,97 +1,91 @@
-import { get } from 'lodash';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SolLaunchpadDetailApproveDialog from '../../../components/organisms/launchpad-detail/approve-dialog';
+import { useParams } from 'react-router-dom';
 import SolLaunchpadDetailJoinPoolDialog from '../../../components/organisms/launchpad-detail/join-pool-dialog';
 import SolLaunchpadDetailPoolCard from '../../../components/organisms/launchpad-detail/pool-card';
-import { useBlockLatest, useSolBalance } from '../../../hooks/useState';
-import { toggleConnectWallet } from '../../../redux/actions/applicationAction';
+import { toggleConnectWallet } from '../../../redux/application/actions';
+import { AppState } from '../../../redux/rootReducer';
+import { idoService } from '../../../services/blockchain';
 import { formatNumberDownRound } from '../../../services/helpers/helpers';
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { JoinIdoParams, WalletInfo } from '../../../types/ido.type';
-import { ProjectDetail } from '../../../types';
-import { idoService, solaUtils } from '../../../services/blockchain';
-import { Anchor } from 'react-bootstrap';
+import { JoinIdoParams } from '../../../types/ido.type';
+import { getLaunchpadDetail, getWalletInfor } from '../redux/actions';
 
-interface SolLaunchpadDetailPoolCardContainerProps {
-	projectSelected: ProjectDetail | undefined;
-}
-
-const SolLaunchpadDetailPoolCardContainer: React.FC<
-	SolLaunchpadDetailPoolCardContainerProps
-> = ({ projectSelected }: SolLaunchpadDetailPoolCardContainerProps) => {
+const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
 	const dispatch = useDispatch();
+	const params = useParams();
 	const [showJoinModal, setShowJoinModal] = useState<boolean>(false);
 
-	const [walletInfo, setWalletInfo] = useState<WalletInfo>();
+	const walletInfo = useSelector(
+		(state: AppState) => state.launchpadDetail.walletInfor
+	);
+
+	const projectSelected = useSelector(
+		(state: AppState) => state.launchpadDetail.launchpad
+	);
+
 	const [enableJoinBtn, setEnableJoinBtn] = useState<boolean>(false);
-	const [recallWalletInfor, setRecallWalletInfor] = useState<boolean>(false)
-
-
 	const connection = useConnection();
 	const { publicKey, connected } = useWallet();
 
-
 	const handleJoinPool = async (amount: number) => {
-		if (!publicKey || !connection || !projectSelected?.contract){
+		if (!publicKey || !connection || !projectSelected?.contract) {
 			//show message
 			return;
-		} 
+		}
 		const result = await idoService.joinIdo(connection, {
 			amount: amount, //doing sua lai amount cho dung
 			contractAddress: projectSelected.contract?.toString(),
 			raiseTokenMint: projectSelected.raiseToken.toString(),
 			wallet: publicKey
 		} as JoinIdoParams);
-		
+
 		setShowJoinModal(false);
-		if(result.status) {
+		if (result.status && params.id) {
+			dispatch(getLaunchpadDetail(params.id));
 			//show message that thanh cong
 		} else {
 			//show message that bai
 		}
-		
-		
 	};
 
-
 	useEffect(() => {
-		debugger
-		if(!projectSelected?.contract || !walletInfo) return;
+		if (!projectSelected?.contract || !walletInfo) return;
 
 		setEnableJoinBtn(true);
 
-		if(projectSelected?.state === 'P' || projectSelected?.state === 'C' || projectSelected.contract === 'TBA'){
+		if (
+			projectSelected?.state === 'P' ||
+			projectSelected?.state === 'C' ||
+			projectSelected.contract === 'TBA'
+		) {
 			setEnableJoinBtn(false);
 			return;
 		}
 
-		if(!walletInfo?.remainingAllocation || walletInfo?.remainingAllocation === '0'){
+		if (
+			!walletInfo?.remainingAllocation ||
+			walletInfo?.remainingAllocation === '0'
+		) {
 			setEnableJoinBtn(false);
 			return;
 		}
 		if (!(walletInfo.roundState === 1 || walletInfo.roundState === 3)) {
-            setEnableJoinBtn(false);
-            return;
-          }
-
-	},[projectSelected, walletInfo])
+			setEnableJoinBtn(false);
+			return;
+		}
+	}, [projectSelected, walletInfo]);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			if (!projectSelected?.contract || !publicKey) return;
-			const result = await solaUtils.getWalletInfo(
-				projectSelected?.contract,
-				publicKey
+		if (connected) {
+			dispatch(
+				getWalletInfor({
+					projectContract: projectSelected?.contract,
+					publicKey: publicKey
+				})
 			);
-
-			if (!result) return;
-			// console.log('result', result);
-			setWalletInfo(result);
-			setRecallWalletInfor(false);
-		};
-		fetchData();
-	}, [projectSelected, connected, recallWalletInfor]);
+		}
+	}, [projectSelected, connected]);
 
 	const handleShowConnectWallet: VoidFunction = () => {
 		dispatch(toggleConnectWallet(true));
@@ -102,13 +96,9 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 			<SolLaunchpadDetailPoolCard
 				enableJoin={enableJoinBtn}
 				opening
-				projectInfor={projectSelected}
-				walletInfo={walletInfo}
 				onJoinPool={() => setShowJoinModal(true)}
 				// onApprove={() => setShowApproveModal(true)}
 				onConnectWallet={() => handleShowConnectWallet()}
-				onRecallWalletInfo={() => setRecallWalletInfor(true)}
-				
 			/>
 			<SolLaunchpadDetailJoinPoolDialog
 				show={showJoinModal}
@@ -124,7 +114,6 @@ const SolLaunchpadDetailPoolCardContainer: React.FC<
 				onClose={() => setShowJoinModal(false)}
 				onJoin={handleJoinPool}
 			/>
-			
 		</>
 	);
 };

@@ -1,13 +1,13 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SolBridgeProcessDialogContainer from './bridge-process.container';
-import { get } from 'lodash';
+import SolBridgeForm from '../../../components/organisms/bridge/bridge-form';
 import SolBridgeSelectAssetDialog from '../../../components/organisms/bridge/select-asset-dialog';
 import SolBridgeSelectNetworkDialog from '../../../components/organisms/bridge/select-network-dialog';
 import { ASSETS, NETWORKS } from '../../../constants';
-import { toggleConnectWallet } from '../../../redux/actions/applicationAction';
-import SolBridgeForm from '../../../components/organisms/bridge/bridge-form';
+import { toggleConnectWallet } from '../../../redux/application/actions';
+import { AppState } from '../../../redux/rootReducer';
 import { NetworkType } from '../../../types';
+import SolBridgeProcessDialogContainer from './bridge-process.container';
 
 type SelectedNetworkType = {
 	type: string;
@@ -16,8 +16,8 @@ type SelectedNetworkType = {
 
 const SolBridgeFormContainer = () => {
 	const dispatch = useDispatch();
-	const walletInfo = useSelector(state =>
-		get(state, 'system.walletInfo', false)
+	const walletInfo = useSelector(
+		(state: AppState) => state.application.walletInfo
 	);
 	const [asset, setAsset] = useState<NetworkType | undefined>(undefined);
 	const [networkFrom, setNetworkFrom] = useState<NetworkType | undefined>(

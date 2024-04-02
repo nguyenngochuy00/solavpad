@@ -115,7 +115,7 @@ export interface RoundInfo {
 
 export interface ProjectDetail extends IdoInfoType {
 	id: number | string;
-	contract: string | null;
+	contract: string;
 	contractVersion?: number;
 	decimals: number;
 	isPrivate: boolean;

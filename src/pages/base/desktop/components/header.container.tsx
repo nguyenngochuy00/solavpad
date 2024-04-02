@@ -1,27 +1,34 @@
-import { get } from 'lodash';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import SolHeader from '../../../../components/organisms/common/header';
 import SolYourWalletDialog from '../../../../components/organisms/common/your-wallet-dialog';
-import { toggleConnectWallet, toggleSidebar, updateBreadcrumbs, updateWalletInfo } from '../../../../redux/actions/applicationAction';
+import {
+	toggleConnectWallet,
+	toggleSidebar,
+	updateBreadcrumbs,
+	updateWalletInfo
+} from '../../../../redux/application/actions';
+import { AppState } from '../../../../redux/rootReducer';
 import { getBreadcrumbs } from '../../../../services/utils/route.utils';
-
 
 const SolDesktopHeaderContainer = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const params = useParams();
 
-	const breadcrumbs = useSelector(state =>
-		get(state, 'system.breadcrumbs', false)
+	const breadcrumbs = useSelector(
+		(state: AppState) => state.application.breadcrumbs
 	);
-	const sidebarExpaned = useSelector(state =>
-		get(state, 'system.sidebarExpaned', false)
+
+	const sidebarExpaned = useSelector(
+		(state: AppState) => state.application.sidebarExpaned
 	);
-	const walletInfo: any = useSelector(state =>
-		get(state, 'system.walletInfo', false)
+
+	const walletInfo = useSelector(
+		(state: AppState) => state.application.walletInfo
 	);
+
 	const [showYourWalletModal, setShowYourWalletModal] = useState(false);
 
 	useEffect(() => {
@@ -50,7 +57,7 @@ const SolDesktopHeaderContainer = () => {
 			{/* Header organisms */}
 			<SolHeader
 				walletInfo={walletInfo}
-				breadcrumbs={breadcrumbs}
+				breadcrumbs={breadcrumbs || []}
 				onClickWallet={handleShowYourWallet}
 				onClickConnectWallet={handleShowConnectWallet}
 				onToggleSidebar={handleToggleSidebar}

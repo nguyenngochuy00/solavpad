@@ -6,15 +6,14 @@ import { CONNECT_WALLET_EXTEMSIONS } from '../../../../constants';
 import {
 	toggleConnectWallet,
 	updateWalletInfo
-} from '../../../../redux/actions/applicationAction';
+} from '../../../../redux/application/actions';
+import { AppState } from '../../../../redux/rootReducer';
 
 const SolConnectWalletContainer = () => {
 	const dispatch = useDispatch();
 	const { wallets } = useWallet();
 
-	const showConnectWallet = useSelector(state =>
-		get(state, 'system.showConnectWallet', false)
-	);
+	const showConnectWallet = useSelector((state: AppState) => state.application.showConnectWallet);
 
 	const handleSelectConnect = () => {
 		dispatch(

@@ -3,20 +3,24 @@ import { get } from 'lodash';
 import moment from 'moment';
 import { Col, Row } from 'react-bootstrap';
 import { formatNumberDownRound } from '../../../../services/helpers/helpers';
-import { IdoInfoType, ProjectDetail, RoundInfo, RoundItem } from '../../../../types';
+import {
+	IdoInfoType,
+	ProjectDetail,
+	RoundInfo,
+	RoundItem
+} from '../../../../types';
 import SolCard from '../../../molecules/card';
 import './index.scss';
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { idoService, solaUtils } from '../../../../services/blockchain';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../redux/rootReducer';
 
-
-interface SolLaunchpadDetailPoolInfoProps {
-	projectInfo: ProjectDetail | undefined;
-}
-
-const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoProps) => {
-
+const SolLaunchpadDetailPoolInfo = () => {
+	const projectSelected = useSelector(
+		(state: AppState) => state.launchpadDetail.launchpad
+	);
 	return (
 		<div className="sol-launchpad-detail-pool-info">
 			<Row>
@@ -28,7 +32,10 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Opens</td>
 									<td>
 										<b>
-										{ moment.unix(Number(projectInfo?.openTimestamp)).utc().format('YYYY-MM-DD HH:mm:ss [UTC]')}
+											{moment
+												.unix(Number(projectSelected?.openTimestamp))
+												.utc()
+												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
@@ -36,7 +43,10 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>FCFS Opens</td>
 									<td>
 										<b>
-											{ moment.unix(Number(projectInfo?.fcfsTimestamp)).utc().format('YYYY-MM-DD HH:mm:ss [UTC]')}
+											{moment
+												.unix(Number(projectSelected?.fcfsTimestamp))
+												.utc()
+												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
@@ -44,42 +54,57 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 									<td>Closes</td>
 									<td>
 										<b>
-											{ moment.unix(Number(projectInfo?.closeTimestamp)).utc().format('YYYY-MM-DD HH:mm:ss [UTC]')}
+											{moment
+												.unix(Number(projectSelected?.closeTimestamp))
+												.utc()
+												.format('YYYY-MM-DD HH:mm:ss [UTC]')}
 										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Swap Rate</td>
 									<td>
-										<b>{`1 ${projectInfo?.symbol} = ${formatNumberDownRound(Number(projectInfo?.rate  || 0),6)} ${projectInfo?.projectTokenSymbol}`}</b>
+										<b>{`1 ${projectSelected?.symbol} = ${formatNumberDownRound(
+											Number(projectSelected?.rate || 0),
+											6
+										)} ${projectSelected?.projectTokenSymbol}`}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Cap</td>
 									<td>
 										<b>
-											{formatNumberDownRound(projectInfo?.cap, projectInfo?.raiseTokenDecimals)} {projectInfo?.symbol}
+											{formatNumberDownRound(
+												projectSelected?.cap,
+												projectSelected?.raiseTokenDecimals
+											)}{' '}
+											{projectSelected?.symbol}
 										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Total Users Participated</td>
 									<td>
-										<b>
-											{projectInfo?.participatedCount} 
-										</b>
+										<b>{projectSelected?.participatedCount}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Total Funds Swapped</td>
 									<td>
-										<b>	{formatNumberDownRound(projectInfo?.participated, projectInfo?.raiseTokenDecimals)} {projectInfo?.symbol}</b>
+										<b>
+											{' '}
+											{formatNumberDownRound(
+												projectSelected?.participated,
+												projectSelected?.raiseTokenDecimals
+											)}{' '}
+											{projectSelected?.symbol}
+										</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Access Type</td>
 									<td>
-										<b>{projectInfo?.isPrivate ? 'Private' : 'Public'}</b>
+										<b>{projectSelected?.isPrivate ? 'Private' : 'Public'}</b>
 									</td>
 								</tr>
 							</tbody>
@@ -93,13 +118,13 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 								<tr>
 									<td>Name</td>
 									<td>
-										<b>{projectInfo?.name}</b>
+										<b>{projectSelected?.name}</b>
 									</td>
 								</tr>
 								<tr>
 									<td>Token Symbol</td>
 									<td>
-										<b>{projectInfo?.projectTokenSymbol}</b>
+										<b>{projectSelected?.projectTokenSymbol}</b>
 									</td>
 								</tr>
 							</tbody>
@@ -109,24 +134,26 @@ const SolLaunchpadDetailPoolInfo = ({projectInfo}: SolLaunchpadDetailPoolInfoPro
 					<SolCard title="Schedule">
 						<table>
 							<tbody>
-								{projectInfo?.infoRounds?.length &&
-									projectInfo?.infoRounds.map((item: RoundInfo, index: number) => (
-										<tr key={index}>
-											<td>
-												<b>{item.round}</b>
-											</td>
-											<td>
-												<div>
-													<span>Opens:</span>
-													<b>{item.opens}</b>
-												</div>
-												<div>
-													<span>Closes:</span>
-													<b>{item.closes}</b>
-												</div>
-											</td>
-										</tr>
-									))}
+								{projectSelected?.infoRounds?.length &&
+									projectSelected?.infoRounds.map(
+										(item: RoundInfo, index: number) => (
+											<tr key={index}>
+												<td>
+													<b>{item.round}</b>
+												</td>
+												<td>
+													<div>
+														<span>Opens:</span>
+														<b>{item.opens}</b>
+													</div>
+													<div>
+														<span>Closes:</span>
+														<b>{item.closes}</b>
+													</div>
+												</td>
+											</tr>
+										)
+									)}
 							</tbody>
 						</table>
 					</SolCard>

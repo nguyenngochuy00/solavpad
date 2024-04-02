@@ -8,7 +8,8 @@ import useIsMobile from '../../../../hooks/useIsMobile';
 import {
 	toggleDarkMode,
 	toggleSidebar
-} from '../../../../redux/actions/applicationAction';
+} from '../../../../redux/application/actions';
+import { AppState } from '../../../../redux/rootReducer';
 import { getActiveRoute } from '../../../../services/utils/route.utils';
 
 const SolDesktopSidebarContainer = () => {
@@ -16,10 +17,10 @@ const SolDesktopSidebarContainer = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isMobile = useIsMobile();
-	const sidebarExpaned = useSelector(state =>
-		get(state, 'system.sidebarExpaned')
-	);
-	const darkMode = useSelector(state => get(state, 'system.darkMode', false));
+	const sidebarExpaned = useSelector((state: AppState) => state.application.sidebarExpaned);
+	const darkMode = useSelector((state: AppState) => state.application.darkMode);
+
+	
 	const activeMenu = useMemo(() => {
 		const activeRoute = getActiveRoute(location);
 		return activeRoute?.url;

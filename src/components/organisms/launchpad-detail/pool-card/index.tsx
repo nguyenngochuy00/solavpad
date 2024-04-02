@@ -1,9 +1,11 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSolBalance } from '../../../../hooks/useState';
+import { getWalletInfor } from '../../../../pages/launchpad-detail/redux/actions';
+import { AppState } from '../../../../redux/rootReducer';
 import { formatNumberDownRound } from '../../../../services/helpers';
-import { LaunchpadStatus, ProjectDetail } from '../../../../types';
-import { WalletInfo } from '../../../../types/ido.type';
 import SolButton from '../../../atoms/button';
 import SolInfo from '../../../molecules/info-block';
 import SolProgressBar from '../../../molecules/progress-bar';
@@ -12,27 +14,35 @@ import './index.scss';
 interface SolLaunchpadDetailPoolCardProps {
 	opening?: boolean;
 	enableJoin: boolean;
-	walletInfo?: WalletInfo;
 	onJoinPool?: () => void;
 	onConnectWallet?: () => void;
-	onRecallWalletInfo?: () => void;
-	projectInfor?: ProjectDetail;
 }
 
 const SolLaunchpadDetailPoolCard = ({
 	opening,
 	enableJoin,
-	walletInfo,
-	projectInfor,
 	onJoinPool,
 	onConnectWallet,
-	onRecallWalletInfo
 }: SolLaunchpadDetailPoolCardProps) => {
-	const { connected } = useWallet();
+	const dispatch = useDispatch();
 	const solBal = useSolBalance();
+	const { publicKey, connected } = useWallet();
+
+	const walletInfo = useSelector(
+		(state: AppState) => state.launchpadDetail.walletInfor
+	);
+
+	const projectSelected = useSelector(
+		(state: AppState) => state.launchpadDetail.launchpad
+	);
 
 	const reCallWalletInfor = () => {
-		if (onRecallWalletInfo) onRecallWalletInfo();
+		dispatch(
+			getWalletInfor({
+				projectContract: projectSelected?.contract,
+				publicKey: publicKey
+			})
+		)
 	};
 	return (
 		<div
@@ -47,7 +57,7 @@ const SolLaunchpadDetailPoolCard = ({
 								value={`${formatNumberDownRound(
 									Number(walletInfo?.tokenBalance),
 									9
-								)} ${projectInfor?.symbol}`}
+								)} ${projectSelected?.symbol}`}
 								value2={`${formatNumberDownRound(solBal, 9)} SOL`}
 								size="lg"
 							/>
@@ -63,21 +73,21 @@ const SolLaunchpadDetailPoolCard = ({
 
 				<Col lg={`${connected ? '8' : '12'}`}>
 					<div className="sol-launchpad-detail-pool-card-right">
-						{projectInfor?.state === 'C' && (
+						{projectSelected?.state === 'C' && (
 							<SolInfo label={'<u>CLOSED<u>'} value="" size="lg" />
 						)}
 
-						{projectInfor?.state === 'P' && (
+						{projectSelected?.state === 'P' && (
 							<SolInfo
 								label={'<u>Open in:<u>'}
-								value={projectInfor?.openTimestamp}
+								value={projectSelected?.openTimestamp}
 								isCountDown
 								onCompleteFc={reCallWalletInfor}
 								size="lg"
 							/>
 						)}
 
-						{projectInfor?.state === 'O' &&
+						{projectSelected?.state === 'O' &&
 							(connected ? (
 								walletInfo?.roundState !== 4 ? (
 									<SolInfo
@@ -93,13 +103,13 @@ const SolLaunchpadDetailPoolCard = ({
 							) : (
 								<SolInfo
 									label="First Come First Serve <u>opens</u> in:"
-									value={projectInfor?.fcfsTimestamp}
+									value={projectSelected?.fcfsTimestamp}
 									size="lg"
 									isCountDown
 								/>
 							))}
 
-						{projectInfor?.state === 'F' &&
+						{projectSelected?.state === 'F' &&
 							(connected ? (
 								walletInfo?.roundState !== 4 ? (
 									<SolInfo
@@ -115,7 +125,7 @@ const SolLaunchpadDetailPoolCard = ({
 							) : (
 								<SolInfo
 									label="Closing in:"
-									value={projectInfor?.closeTimestamp}
+									value={projectSelected?.closeTimestamp}
 									size="lg"
 									isCountDown
 								/>
@@ -148,13 +158,13 @@ const SolLaunchpadDetailPoolCard = ({
 									label="Swapped"
 									value={`${formatNumberDownRound(
 										Number(walletInfo?.userParticipation),
-										projectInfor?.decimals
-									)} ${projectInfor?.symbol}`}
+										projectSelected?.decimals
+									)} ${projectSelected?.symbol}`}
 									value2={`${formatNumberDownRound(
-										(Number(projectInfor?.rate) *
+										(Number(projectSelected?.rate) *
 											Number(walletInfo?.userParticipation)) /
 											1000000
-									)} ${projectInfor?.projectTokenSymbol}`}
+									)} ${projectSelected?.projectTokenSymbol}`}
 									size="lg"
 								/>
 							</Col>
@@ -163,7 +173,7 @@ const SolLaunchpadDetailPoolCard = ({
 									label="Remaining Allocation"
 									value={`${formatNumberDownRound(
 										Number(walletInfo?.remainingAllocation)
-									)} ${projectInfor?.symbol}`}
+									)} ${projectSelected?.symbol}`}
 									size="lg"
 								/>
 							</Col>
@@ -171,8 +181,8 @@ const SolLaunchpadDetailPoolCard = ({
 
 						<SolProgressBar
 							percent={Number(
-								(Number(projectInfor?.participated?.toString()) /
-									Number(projectInfor?.cap?.toString())) *
+								(Number(projectSelected?.participated?.toString()) /
+									Number(projectSelected?.cap?.toString())) *
 									100 || 0
 							)}
 							size="lg"
@@ -182,13 +192,13 @@ const SolLaunchpadDetailPoolCard = ({
 								{opening
 									? 'Allocation round'
 									: `${
-											(Number(projectInfor?.participated?.toString()) /
-												Number(projectInfor?.cap?.toString())) *
+											(Number(projectSelected?.participated?.toString()) /
+												Number(projectSelected?.cap?.toString())) *
 												100 || 0
 									  }%`}
 							</span>
 							<span>
-								<b>{projectInfor?.participatedCount || 0}</b> participants
+								<b>{projectSelected?.participatedCount || 0}</b> participants
 							</span>
 						</div>
 						{opening ? (

@@ -10,9 +10,6 @@ const SolStakingWithdrawContainer: React.FC = () => {
 		{ step: 3, text: 'Confirmation' }
 	];
 	const [currentStep, setCurrentStep] = useState<number>(1);
-	const walletInfo = useSelector(state =>
-		get(state, 'system.walletInfo', false)
-	);
 	const withdrawSymbol = 'BSCPAD';
 	const yourStakedAmount = 1;
 	const yourStakedRewards = 1;

@@ -1,9 +1,8 @@
 
 
-import axios from "axios";
-import projects from '../../constants/project/project.json'
-import { ProjectDetail } from "../../types";
+import projects from '../../constants/project/project.json';
 import { solaUtils } from "../../services/blockchain";
+import { ProjectDetail } from "../../types";
 type GetProjectType = {
     openingProjects: ProjectDetail[],
     closeProjects: ProjectDetail[],
