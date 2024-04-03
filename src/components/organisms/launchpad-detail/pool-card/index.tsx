@@ -1,4 +1,5 @@
 import { useWallet } from '@solana/wallet-adapter-react';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { Col, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -218,12 +219,7 @@ const SolLaunchpadDetailPoolCard = ({
 										/>
 									</>
 								) : (
-									<SolButton
-										variant="primary"
-										size="lg"
-										caption="Connect wallet"
-										onClick={onConnectWallet}
-									/>
+									<WalletMultiButton className='sol-btn sol-btn-primary'/>
 								)}
 							</div>
 						) : (

@@ -17,9 +17,6 @@ const SolHomepage = () => {
 			<SolHomepageMainContainer />
 			<Container className="d-none">
 				{/* Join pool modal */}
-				
-
-				
 				{/* default connect button */}
 				<WalletMultiButton />
 				{/* custom connect button */}

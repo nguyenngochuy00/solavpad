@@ -1,6 +1,7 @@
 // import SolButton from 'src/components/atoms/button';
 // import SolFormGroup from 'src/components/molecules/form-group';
 // import SolInputAmount from 'src/components/molecules/input-amount';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import SolButton from '../../../atoms/button';
 import SolFormGroup from '../../../molecules/form-group';
 import SolInputAmount from '../../../molecules/input-amount';
@@ -123,13 +124,7 @@ const SolBridgeForm = ({
 						onClick={onSwap}
 					/>
 				) : (
-					<SolButton
-						size="lg"
-						variant="primary"
-						className="w-100"
-						caption="Connect wallet"
-						onClick={onConnectWallet}
-					/>
+					<WalletMultiButton className='sol-btn sol-btn-primary'/>
 				)}
 			</div>
 		</div>

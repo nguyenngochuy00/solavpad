@@ -85,7 +85,7 @@ const SolHeader = ({
 			<SolBreadcrumb items={breadcrumbs} />
 			<div className="sol-header-right">
 				{!(publicKey && connected) ? (
-					<WalletMultiButton />
+					<WalletMultiButton className='sol-btn sol-btn-primary'/>
 				) : (
 					<>
 						<SolButton

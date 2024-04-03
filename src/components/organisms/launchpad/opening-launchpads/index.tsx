@@ -40,23 +40,21 @@ const SolLaunchpadOpening = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [projectData]);
 
-	useEffect(() => {
-		if(sectionTitle === "Opening Launchpads" && projectData.length) {
-			debugger
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [sectionTitle, projectData]);
-
 	return (
 		<>
 			{sectionTitle ? <h3>{sectionTitle}</h3> : <></>}
-			{sectionTitle === "Opening Launchpads" && projectData?.filter(
-				(item: ProjectDetail) => item?.state === LAUNCHPAD_STATUS.OPENING || item?.state === LAUNCHPAD_STATUS.FSFC
+			{sectionTitle === 'Opening Launchpads' &&
+			projectData?.filter(
+				(item: ProjectDetail) =>
+					item?.state === LAUNCHPAD_STATUS.OPENING ||
+					item?.state === LAUNCHPAD_STATUS.FSFC
 			).length > 1 ? (
 				<Row>
 					{projectData
 						.filter(
-							(item: ProjectDetail) => item?.state === LAUNCHPAD_STATUS.OPENING || item?.state === LAUNCHPAD_STATUS.FSFC
+							(item: ProjectDetail) =>
+								item?.state === LAUNCHPAD_STATUS.OPENING ||
+								item?.state === LAUNCHPAD_STATUS.FSFC
 						)
 						.map((project: ProjectDetail, index: Key | null | undefined) => (
 							<Col key={index} xxl="4" lg="6">
@@ -74,7 +72,8 @@ const SolLaunchpadOpening = ({
 							<Col xl="4">
 								<Link
 									to={
-										projectData[0].state === 'O'
+										projectData[0].state === LAUNCHPAD_STATUS.OPENING ||
+										projectData[0].state === LAUNCHPAD_STATUS.FSFC
 											? projectData[0]?.routeUrl || ''
 											: `/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(
 													':id',
@@ -94,7 +93,8 @@ const SolLaunchpadOpening = ({
 							<Col xl="8">
 								<Link
 									to={
-										projectData[0].state === 'O'
+										projectData[0].state === LAUNCHPAD_STATUS.OPENING ||
+										projectData[0].state === LAUNCHPAD_STATUS.FSFC
 											? projectData[0]?.routeUrl || ''
 											: `/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(
 													':id',
@@ -181,7 +181,8 @@ const SolLaunchpadOpening = ({
 											)}`}
 											className="sol-btn sol-btn-lg sol-btn-primary"
 										>
-											{projectData[0].state === 'O'
+											{projectData[0].state === LAUNCHPAD_STATUS.OPENING ||
+											projectData[0].state === LAUNCHPAD_STATUS.FSFC
 												? 'Join Now'
 												: 'View Detail'}
 										</Link>
