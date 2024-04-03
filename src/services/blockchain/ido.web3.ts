@@ -343,5 +343,7 @@ class Web3SolanaUtils {
 		}
 	}
 }
-export const solaUtils = new Web3SolanaUtils(config.MODE);
+console.log("config.SOLANA_RPC", config.SOLANA_RPC);
+
+export const solaUtils = new Web3SolanaUtils(config.SOLANA_RPC);
 

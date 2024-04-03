@@ -96,5 +96,5 @@ class StakingWeb3Utils {
 	
 
 }
-export const stakingWeb3Utils = new StakingWeb3Utils(config.MODE);
+export const stakingWeb3Utils = new StakingWeb3Utils(config.SOLANA_RPC);
 
