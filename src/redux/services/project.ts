@@ -7,7 +7,6 @@ type GetProjectType = {
     openingProjects: ProjectDetail[],
     closeProjects: ProjectDetail[],
     comingProject: ProjectDetail[]
-
 }
 
 export const getIdoProjects = async(): Promise<any> => {

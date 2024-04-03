@@ -7,7 +7,7 @@ import SolLaunchpadDetailJoinPoolDialog from '../../components/organisms/launchp
 import SolHomepageMainContainer from './components/main.container';
 
 const SolHomepage = () => {
-	const { select, wallets, publicKey, disconnect } = useWallet();
+	const { select, wallets, connected, publicKey, disconnect } = useWallet();
 
 	const [showJoinPoolModal, setShowJoinPoolModal] = useState<boolean>(false);
 	const [showApproveModal, setShowApproveModal] = useState<boolean>(false);
@@ -23,7 +23,7 @@ const SolHomepage = () => {
 				{/* default connect button */}
 				<WalletMultiButton />
 				{/* custom connect button */}
-				{!publicKey ? (
+				{!(publicKey && connected)? (
 					wallets.filter(wallet => wallet.readyState === 'Installed').length >
 					0 ? (
 						wallets

@@ -7,11 +7,6 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import { updateWalletInfo } from 'src/redux/actions/applicationAction';
-// import { SOLANA_EXPLORER_URL } from 'src/constants';
-// import { formatNumberDownRound, minimizeAddress } from 'src/services/helpers';
-// import { getAddressInfo } from 'src/services/blockchain/solana.web3';
-// import { useSolBalance } from 'src/hooks/useState';
 import { PublicKey } from '@solana/web3.js';
 import { useSolBalance } from '../../../../hooks/useState';
 import { updateWalletInfo } from '../../../../redux/application/actions';
@@ -47,12 +42,12 @@ const SolHeader = ({
 	onDisconnectWallet
 }: Props) => {
 	const dispatch = useDispatch();
-	const { publicKey, disconnect } = useWallet();
+	const { publicKey, connected , disconnect } = useWallet();
 
 	const solBal = useSolBalance();
 
 	useEffect(() => {
-		if (publicKey) {
+		if (publicKey && connected) {
 			getWalletInfo(publicKey);
 		} else {
 			dispatch(
@@ -65,7 +60,7 @@ const SolHeader = ({
 			);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [publicKey]);
+	}, [publicKey, connected]);
 
 	const getWalletInfo = async (publicKey: PublicKey) => {
 		try {
@@ -89,7 +84,7 @@ const SolHeader = ({
 			</Link>
 			<SolBreadcrumb items={breadcrumbs} />
 			<div className="sol-header-right">
-				{!publicKey ? (
+				{!(publicKey && connected) ? (
 					<WalletMultiButton />
 				) : (
 					<>
