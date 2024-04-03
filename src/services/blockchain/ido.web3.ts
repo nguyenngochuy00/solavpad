@@ -142,7 +142,7 @@ class Web3SolanaUtils {
 				tierIndex: 0,
 				allocated: false,
 				participateAmount: new BN(0),
-				claimAmount: new BN(0),
+				claims: [],
 				owner: walletPDA
 			};
 		}
@@ -159,18 +159,7 @@ class Web3SolanaUtils {
 		}
 	}
 
-	async getAllocationWallet(): Promise<AllocationWallet | undefined> {
-		return {
-			fromTimestamp: 0,
-			toTimestamp: 0,
-			percent: 0,
-			claimable: 0,
-			total: 0,
-			claimed: 0,
-			remaining: 0,
-			status: 0
-		};
-	}
+
 
 	async getAllocationsInfo(contractAddress: string, walletAddress: PublicKey): Promise<CalculateAllowInfoResult | undefined> {
 		try {
@@ -227,6 +216,10 @@ class Web3SolanaUtils {
 
 		const walletPDA = IdoFindPda.getPdaUser(programIdoID, contractAddress, wallet);
 		const userPda = await this.getPdaUserData(walletPDA);
+		if(!userPda.allocated || userPda.participateAmount === new BN(0))	return undefined;
+		
+		
+
 		const slot = await this.getConnectionProvider().getSlot();
 		const now_ts = await this.getConnectionProvider().getBlockTime(slot);
 		const { raiseToken, releaseToken, releases } = idoAccount;
@@ -253,8 +246,12 @@ class Web3SolanaUtils {
 					now_ts: now_ts,
 					releaseTokenAccount: tokenAmount,
 				} as GetInfoAllocationParams);
+
+				
 				if (!allocation) return;
 				const { claimable, total, claimed, percent, fromTimestamp, toTimestamp, status } = allocation;
+				console.log("allocation", allocation);
+		
 
 				allocNumberList[row] = i + 1;
 				allocNumberList[row + 1] = i + 1;
@@ -263,6 +260,7 @@ class Web3SolanaUtils {
 				allocAmountList[row + 1] = total;
 
 				allocClaimedList[row] = claimed;
+
 				allocClaimedList[row + 1] = percent;
 
 				allocReleasedList[row] = fromTimestamp;
@@ -280,7 +278,6 @@ class Web3SolanaUtils {
 	}
 	private _calculateAllowInfo(data: InfoAllocationResult): CalculateAllowInfoResult | undefined {
 		if (!data) return;
-		const test =  JSON.parse('{"0":["1","1","2","2","3","3","4","4","5","5","6","6","7","7","8","8","9","9"],"1":["251671997483280000000","251671997483280000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000","125835998741640000000"],"2":["1709823600","1709823600","1715094000","1715094000","1717772400","1717772400","1720364400","1720364400","1723042800","1723042800","1725721200","1725721200","1728313200","1728313200","1730991600","1730991600","1733583600","1733583600"],"3":["251671997483280000000","2000","0","1000","0","1000","0","1000","0","1000","0","1000","0","1000","0","1000","0","1000"],"4":["2","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]}');
 		let infoAllocation = [];
 		const claimStatus = {
 			0: "PENDING",
@@ -305,7 +302,8 @@ class Web3SolanaUtils {
 					if (item === nextItem) {
 						const allocationAmount = (row2[i] === row2[i + 1]) ? row2[i] : `${(row2[i])}-${(row2[i + 1])}`
 						const timestamp = (row3[i] === row3[i + 1]) ? row3[i] : `${(row3[i])}-${(row3[i + 1])}`;
-						const percentage = row4[i + 1]					
+						const percentage = row4[i + 1]		
+
 						infoAllocation.push({
 							no: item,
 							allocationAmount: allocationAmount,

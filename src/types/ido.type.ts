@@ -19,8 +19,12 @@ export interface UserStraitPda {
     tierIndex: number, //1
     allocated: boolean, //1
     participateAmount: BN, //16
-    claimAmount: BN, //16
+    claims: Array<ClaimItem>, //16
     owner: PublicKey,//32
+}
+interface ClaimItem {
+    index: number,
+    amount: BN
 }
 
 

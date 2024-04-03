@@ -204,6 +204,7 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 	const toTimestamp = release.toTimestamp;
 	const percent = release.percent;
 
+
 	if(!releaseTokenDecimals || !raiseTokenDecimals || !rate){
 		return undefined;
 	}
@@ -220,6 +221,7 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		total = total.mul(new BN(10).pow(new BN(releaseTokenDecimals - raiseTokenDecimals)));
 	}
 	if (toTimestamp > fromTimestamp && now_ts < toTimestamp) {
+	
 		let elapsed = 0;
 		if (now_ts > fromTimestamp) {
 			elapsed = now_ts - fromTimestamp;
@@ -227,10 +229,16 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		let duration = toTimestamp - fromTimestamp;
 		claimable = total.mul(new BN(elapsed)).div(new BN(duration));
 	}
-	let claimed = userPda.claimAmount;
-	if (claimed.lt(claimable)) {
+
+	//get claimed of user
+	let claimed = userPda.claims[index]?.amount || new BN(0);
+
+	if (claimed.lt(claimable)) 
 		remaining = claimable.sub(claimed);
-	}
+	
+	
+	
+
 	if (releaseToken.toString() != PublicKey.default.toString()) {
 		if (fromTimestamp === 0 || now_ts > fromTimestamp) {
 			status = 1;
