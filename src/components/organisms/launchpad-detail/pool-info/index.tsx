@@ -112,7 +112,7 @@ const SolLaunchpadDetailPoolInfo = () => {
 					</SolCard>
 				</Col>
 				<Col lg="6">
-					<SolCard title="Token Information" action="+ Add to Metamask">
+					<SolCard title="Token Information">
 						<table>
 							<tbody>
 								<tr>

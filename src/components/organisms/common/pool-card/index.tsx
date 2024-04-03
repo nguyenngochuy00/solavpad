@@ -55,7 +55,7 @@ const SolPoolCard = ({
 	return (
 		<div className="sol-pool-card ">
 			{/* Launchpad logo */}
-			{projectData.state === LAUNCHPAD_STATUS.UPCOMING ? (
+			{(projectData.contract === null || projectData.contract === 'TBA') ? (
 				<div className="sol-pool-card-img">
 					<SolPoolImage
 						src={projectData.logo}
@@ -80,7 +80,7 @@ const SolPoolCard = ({
 			)}
 
 			{/* Launchpad name */}
-			{projectData.state === LAUNCHPAD_STATUS.UPCOMING ? (
+			{(projectData.contract === null || projectData.contract === 'TBA') ? (
 				<div className="sol-pool-card-title">{projectData.name}</div>
 			) : (
 				<Link

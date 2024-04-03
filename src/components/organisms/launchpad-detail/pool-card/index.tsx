@@ -22,7 +22,7 @@ const SolLaunchpadDetailPoolCard = ({
 	opening,
 	enableJoin,
 	onJoinPool,
-	onConnectWallet,
+	onConnectWallet
 }: SolLaunchpadDetailPoolCardProps) => {
 	const dispatch = useDispatch();
 	const solBal = useSolBalance();
@@ -42,7 +42,7 @@ const SolLaunchpadDetailPoolCard = ({
 				projectContract: projectSelected?.contract,
 				publicKey: publicKey
 			})
-		)
+		);
 	};
 	return (
 		<div
@@ -152,32 +152,36 @@ const SolLaunchpadDetailPoolCard = ({
 							/>
 						)} */}
 
-						<Row>
-							<Col md="6">
-								<SolInfo
-									label="Swapped"
-									value={`${formatNumberDownRound(
-										Number(walletInfo?.userParticipation),
-										projectSelected?.decimals
-									)} ${projectSelected?.symbol}`}
-									value2={`${formatNumberDownRound(
-										(Number(projectSelected?.rate) *
-											Number(walletInfo?.userParticipation)) /
-											1000000
-									)} ${projectSelected?.projectTokenSymbol}`}
-									size="lg"
-								/>
-							</Col>
-							<Col md="6">
-								<SolInfo
-									label="Remaining Allocation"
-									value={`${formatNumberDownRound(
-										Number(walletInfo?.remainingAllocation)
-									)} ${projectSelected?.symbol}`}
-									size="lg"
-								/>
-							</Col>
-						</Row>
+						{connected ? (
+							<Row>
+								<Col md="6">
+									<SolInfo
+										label="Swapped"
+										value={`${formatNumberDownRound(
+											Number(walletInfo?.userParticipation),
+											projectSelected?.decimals
+										)} ${projectSelected?.symbol}`}
+										value2={`${formatNumberDownRound(
+											(Number(projectSelected?.rate) *
+												Number(walletInfo?.userParticipation)) /
+												1000000
+										)} ${projectSelected?.projectTokenSymbol}`}
+										size="lg"
+									/>
+								</Col>
+								<Col md="6">
+									<SolInfo
+										label="Remaining Allocation"
+										value={`${formatNumberDownRound(
+											Number(walletInfo?.remainingAllocation)
+										)} ${projectSelected?.symbol}`}
+										size="lg"
+									/>
+								</Col>
+							</Row>
+						) : (
+							<></>
+						)}
 
 						<SolProgressBar
 							percent={Number(
