@@ -22,7 +22,6 @@ import SolProgressBar from '../../../molecules/progress-bar';
 import { get } from 'lodash';
 import BigNumber from 'bignumber.js';
 
-
 type Props = {
 	projectData: ProjectDetail;
 	status?: string;
@@ -55,7 +54,7 @@ const SolPoolCard = ({
 	return (
 		<div className="sol-pool-card ">
 			{/* Launchpad logo */}
-			{(projectData.contract === null || projectData.contract === 'TBA') ? (
+			{projectData.contract === null || projectData.contract === 'TBA' ? (
 				<div className="sol-pool-card-img">
 					<SolPoolImage
 						src={projectData.logo}
@@ -80,11 +79,14 @@ const SolPoolCard = ({
 			)}
 
 			{/* Launchpad name */}
-			{(projectData.contract === null || projectData.contract === 'TBA') ? (
+			{projectData.contract === null || projectData.contract === 'TBA' ? (
 				<div className="sol-pool-card-title">{projectData.name}</div>
 			) : (
 				<Link
-					to={`/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(':id',String(projectData?.id || ''))}`}
+					to={`/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(
+						':id',
+						String(projectData?.id || '')
+					)}`}
 					className="sol-pool-card-title"
 				>
 					{projectData.name}
@@ -111,7 +113,7 @@ const SolPoolCard = ({
 						size="value"
 						label="Swap rate"
 						value={`1 ${projectData?.symbol} = ${formatNumberDownRound(
-							Number(projectData?.rate  || 0),
+							Number(projectData?.rate || 0),
 							6
 						)} ${projectData?.projectTokenSymbol}`}
 					/>
@@ -210,6 +212,20 @@ const SolPoolCard = ({
 						className="sol-btn"
 					>
 						View details
+					</Link>
+				) : (
+					<></>
+				)}
+
+				{status === LAUNCHPAD_STATUS.OPENING ? (
+					<Link
+						to={`/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(
+							':id',
+							String(projectData?.id || '')
+						)}`}
+						className="sol-btn"
+					>
+						Join now
 					</Link>
 				) : (
 					<></>
