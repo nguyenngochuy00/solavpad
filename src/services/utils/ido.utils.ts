@@ -246,7 +246,7 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		if (Number(releaseTokenAccount.amount) === 0) {
 			status = 2;
 		}
-		if (remaining === 0) {
+		if (remaining.toNumber() === 0) {
 			status = 2;
 		}
 	}
