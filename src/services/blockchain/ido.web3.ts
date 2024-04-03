@@ -28,6 +28,7 @@ import { AllocationWallet, CalculateAllowInfoResult, GetInfoAllocationParams, In
 import {
 	getAssociatedTokenAddressSync,
 } from "@solana/spl-token"
+import { config } from '../../_config';
 
 const programIdoID = new PublicKey(crowdFundingIDL.metadata.address)
 const opts = {
@@ -36,7 +37,7 @@ const opts = {
 } as solanaWeb3.ConfirmOptions
 
 
-const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
+// const DEV_NET = solanaWeb3.clusterApiUrl('devnet');
 
 
 class Web3SolanaUtils {
@@ -342,5 +343,5 @@ class Web3SolanaUtils {
 		}
 	}
 }
-export const solaUtils = new Web3SolanaUtils(DEV_NET);
+export const solaUtils = new Web3SolanaUtils(config.MODE);
 

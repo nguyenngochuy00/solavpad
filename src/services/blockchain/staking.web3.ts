@@ -28,6 +28,7 @@ import {
 } from "@solana/spl-token"
 import { stakingFindPda } from '../helpers';
 import { StakingInfo } from '../../types/staking.type';
+import { config } from '../../_config';
 
 const programStakingID = new PublicKey(stakingIdl.metadata.address)
 const opts = {
@@ -95,5 +96,5 @@ class StakingWeb3Utils {
 	
 
 }
-export const stakingWeb3Utils = new StakingWeb3Utils(DEV_NET);
+export const stakingWeb3Utils = new StakingWeb3Utils(config.MODE);
 

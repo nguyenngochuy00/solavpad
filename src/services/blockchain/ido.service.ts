@@ -63,6 +63,7 @@ export class IdoWeb3Service {
             return {
                 status: true,
                 message: "success",
+                data: transaction
             }
 
         } catch (error: any) {
@@ -112,6 +113,7 @@ export class IdoWeb3Service {
             return {
                 status: true,
                 message: "success",
+                data: transaction
             }  
         } catch (error: any) {
            console.log("claim error: ", error);
