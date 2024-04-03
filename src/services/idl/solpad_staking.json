@@ -489,7 +489,7 @@
         "kind": "struct",
         "fields": [
           {
-            "name": "bumb",
+            "name": "bump",
             "type": "u8"
           },
           {
@@ -506,64 +506,12 @@
       }
     },
     {
-      "name": "SwapStakingContract",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "bumb",
-            "type": "u8"
-          },
-          {
-            "name": "pause",
-            "type": "bool"
-          },
-          {
-            "name": "decimal",
-            "type": "u8"
-          },
-          {
-            "name": "version",
-            "type": "string"
-          },
-          {
-            "name": "countStaker",
-            "type": "u32"
-          },
-          {
-            "name": "unstakingPeriod",
-            "type": "u32"
-          },
-          {
-            "name": "maxStakingAmount",
-            "type": "u64"
-          },
-          {
-            "name": "currentTotalStake",
-            "type": "u64"
-          },
-          {
-            "name": "token",
-            "type": "publicKey"
-          },
-          {
-            "name": "ownerRole",
-            "type": "publicKey"
-          },
-          {
-            "name": "pauseRole",
-            "type": "publicKey"
-          }
-        ]
-      }
-    },
-    {
       "name": "RewardStakingContract",
       "type": {
         "kind": "struct",
         "fields": [
           {
-            "name": "bumb",
+            "name": "bump",
             "type": "u8"
           },
           {
@@ -587,11 +535,11 @@
             "type": "u64"
           },
           {
-            "name": "stakingContractAddress",
+            "name": "rewardDistributorRole",
             "type": "publicKey"
           },
           {
-            "name": "rewardDistributorRole",
+            "name": "stakingContractAddress",
             "type": "publicKey"
           },
           {
@@ -641,6 +589,58 @@
           {
             "name": "amountWithdrawn",
             "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwapStakingContract",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "pause",
+            "type": "bool"
+          },
+          {
+            "name": "decimal",
+            "type": "u8"
+          },
+          {
+            "name": "version",
+            "type": "string"
+          },
+          {
+            "name": "countStaker",
+            "type": "u32"
+          },
+          {
+            "name": "unstakingPeriod",
+            "type": "u32"
+          },
+          {
+            "name": "maxStakingAmount",
+            "type": "u64"
+          },
+          {
+            "name": "currentTotalStake",
+            "type": "u64"
+          },
+          {
+            "name": "token",
+            "type": "publicKey"
+          },
+          {
+            "name": "ownerRole",
+            "type": "publicKey"
+          },
+          {
+            "name": "pauseRole",
+            "type": "publicKey"
           }
         ]
       }

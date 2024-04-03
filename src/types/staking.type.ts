@@ -2,18 +2,27 @@ import { PublicKey } from "@solana/web3.js"
 import { BN } from '@project-serum/anchor';
 
 
-export type StakingInfo = {
+export type StakingAccountInfo = {
     pause: boolean,
     decimal?: number,
-    count_staker: number,
+    countStaker: number,
     unStakingPeriod: number,
     maxStakingAmount: BN,
     currentTotalStake: BN,
-    totalRewardsDistributed: BN,
     token: PublicKey,
 }
 
-export type UserStakingDepositAccount = {
+export type RewardAccountInfo = {
+    totalRewardsDistributed: number,
+    rewardsDistributed: number,
+    rewardsWithdrawn: number,
+    totalRewardPoints: BN,
+    currentTotalStake: BN,
+    token: PublicKey,
+}
+
+
+export type StakerAccountInfo = {
     startDate: BN,
     endDate: BN,
     initiateDate:BN,
@@ -23,8 +32,11 @@ export type UserStakingDepositAccount = {
     amountWithdrawn: BN,
 }
 
-export type DepositStakingParams = {
-    amount: number,
-    wallet: PublicKey,
+export type  StakerDetail = {
+    startDate: string | number,
+    endDate: string | number,
+    reward: string | number,
+
 }
+
 
