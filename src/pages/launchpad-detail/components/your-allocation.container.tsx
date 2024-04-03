@@ -1,6 +1,6 @@
 // import SolLaunchpadDetailAllocation from "src/components/organisms/launchpad-detail/your-allocation";
 
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SolLaunchpadDetailAllocation from '../../../components/organisms/launchpad-detail/your-allocation';
@@ -19,6 +19,9 @@ const SolLaunchpadDetailYourAllocationContainer: React.FC = () => {
 	const projectSelected = useSelector(
 		(state: AppState) => state.launchpadDetail.launchpad
 	);
+	const provider = useAnchorWallet();
+
+
 
 	const [allocations, setAllocations] = useState<CalculateAllowInfoResult>({
 		layout: 1,
@@ -39,12 +42,12 @@ const SolLaunchpadDetailYourAllocationContainer: React.FC = () => {
 	}, [projectSelected, publicKey]);
 
 	const handleClaimToken = async (index: number) => {
-		if (!publicKey || !projectSelected?.contract || !connection) {
+		if (!publicKey || !projectSelected?.contract || !provider) {
 			//show message that bai
 			return;
 		}
 
-		const result = await idoService.claim(connection, {
+		const result = await idoService.claim(connection, provider, {
 			contractAddress: projectSelected?.contract,
 			index: index,
 			wallet: publicKey

@@ -209,8 +209,6 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		return undefined;
 	}
 
-
-
 	let total = participated.mul(new BN(rate)).div(new BN(1000000)).mul(new BN(percent)).div(new BN(10000));
 
 	let claimable = total;
@@ -236,9 +234,6 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 	if (claimed.lt(claimable)) 
 		remaining = claimable.sub(claimed);
 	
-	
-	
-
 	if (releaseToken.toString() != PublicKey.default.toString()) {
 		if (fromTimestamp === 0 || now_ts > fromTimestamp) {
 			status = 1;
@@ -250,7 +245,6 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 			status = 2;
 		}
 	}
-
 
 	return {
 		fromTimestamp,

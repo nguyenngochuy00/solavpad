@@ -1,5 +1,5 @@
 import {  PublicKey, ConfirmOptions, SystemProgram } from "@solana/web3.js";
-import { ConnectionContextState } from '@solana/wallet-adapter-react';
+import { AnchorWallet, ConnectionContextState } from '@solana/wallet-adapter-react';
 import crowdFundingIDL from '../idl/crowdfunding.json';
 
 import {
@@ -24,13 +24,16 @@ const opts = {
 export class IdoWeb3Service {
 
 
-	async joinIdo(connection: ConnectionContextState, param: JoinIdoParams) {
+	async joinIdo(connection : ConnectionContextState, anchorWallet: AnchorWallet, param: JoinIdoParams) {
         try {
-            const provider = this._getProvider(connection.connection);
+            
+        
+            const provider = this._getProvider(connection, anchorWallet);
+            
             const {amount, contractAddress, raiseTokenMint, wallet} = param;
             const contractPubkey = new PublicKey(contractAddress);
             const mint = new PublicKey(raiseTokenMint);
-
+          
 
             const idoPdaData = await solaUtils.getPdaIdoAccount(contractPubkey);
             if(!idoPdaData)
@@ -44,6 +47,7 @@ export class IdoWeb3Service {
             const amountBN = new BN(amount).mul(new BN(10 ** decimals));
 
            
+        
     
             const program = this.getIdoProgram(provider);
             
@@ -72,10 +76,10 @@ export class IdoWeb3Service {
         }
     }
 
-    async claim(connection: ConnectionContextState, param: ClaimTokenIdoParams) {
+    async claim(connection : ConnectionContextState, anchorWallet: AnchorWallet, param: ClaimTokenIdoParams) {
 
         try {
-            const provider = this._getProvider(connection.connection);
+            const provider = this._getProvider(connection, anchorWallet);
             const { contractAddress,  wallet, index} = param;
             const contractPubkey = new PublicKey(contractAddress);
             const idoPdaData = await solaUtils.getPdaIdoAccount(contractPubkey);
@@ -122,12 +126,14 @@ export class IdoWeb3Service {
         
     }
 
-    private getIdoProgram(connection: ConnectionContextState) {
+    private getIdoProgram(provider: AnchorProvider) {
+   
         //@ts-ignore
-        return new Program(crowdFundingIDL, programIdoID, connection);
+        return new Program(crowdFundingIDL, programIdoID, provider);
     }
-    private _getProvider = (connection: any) =>{
-        return new AnchorProvider(connection, window.solana, opts);
+    private _getProvider = (connection: ConnectionContextState, anchorWallet : AnchorWallet) =>{
+
+        return new AnchorProvider(connection.connection, anchorWallet, opts);
     }
 
 }

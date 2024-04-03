@@ -1,4 +1,4 @@
-import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -27,13 +27,16 @@ const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
 	const [enableJoinBtn, setEnableJoinBtn] = useState<boolean>(false);
 	const connection = useConnection();
 	const { publicKey, connected } = useWallet();
+	const anchorWallet = useAnchorWallet();
+
 
 	const handleJoinPool = async (amount: number) => {
-		if (!publicKey || !connection || !projectSelected?.contract) {
+		if (!publicKey || !anchorWallet || !projectSelected?.contract) {
 			//show message
 			return;
 		}
-		const result = await idoService.joinIdo(connection, {
+
+		const result = await idoService.joinIdo(connection, anchorWallet, {
 			amount: amount, //doing sua lai amount cho dung
 			contractAddress: projectSelected.contract?.toString(),
 			raiseTokenMint: projectSelected.raiseToken.toString(),
