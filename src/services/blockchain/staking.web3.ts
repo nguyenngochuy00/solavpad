@@ -44,24 +44,24 @@ class StakingWeb3Utils {
 	private provider: Provider;
 
 	constructor(network: string) {
-        
+
 		const connection = new Connection(network, "processed");
 
 		this.provider = new AnchorProvider(connection, window.solana, opts);;
 	}
 
-    async getStakingInfo(){
-    
+	async getStakingInfo() {
 
-    }
 
-    async getStakingAccountData(): Promise<StakingAccountInfo>{
-        const program = this.getStakingProgram();
-        const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
-        const pdaStakingInfo  = await program.account.stakingAccount.fetch(stakingContractPda) as StakingAccountInfo;
-        return pdaStakingInfo;
-    }
-	async getStakerAccountData(stakingContractPda :PublicKey, wallet: PublicKey): Promise<StakerAccountInfo>{
+	}
+
+	async getStakingAccountData(): Promise<StakingAccountInfo> {
+		const program = this.getStakingProgram();
+		const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
+		const pdaStakingInfo = await program.account.stakingAccount.fetch(stakingContractPda) as StakingAccountInfo;
+		return pdaStakingInfo;
+	}
+	async getStakerAccountData(stakingContractPda: PublicKey, wallet: PublicKey): Promise<StakerAccountInfo> {
 
 		const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, wallet);
 		const program = this.getStakingProgram();
@@ -69,7 +69,7 @@ class StakingWeb3Utils {
 		return userStakingData;
 	}
 
-	async getRewardAccountData(): Promise<RewardAccountInfo>{
+	async getRewardAccountData(): Promise<RewardAccountInfo> {
 
 		const rewardPda = stakingFindPda.getPdaReward(programStakingID);
 		const program = this.getStakingProgram();
@@ -77,24 +77,24 @@ class StakingWeb3Utils {
 		return userStakingData;
 	}
 
-	private async _computed_Reward(stakingInfo: StakingAccountInfo, rewardInfo: RewardAccountInfo,  stakerDeposit: StakerAccountInfo): BN {
+	private async _computed_Reward(stakingInfo: StakingAccountInfo, rewardInfo: RewardAccountInfo, stakerDeposit: StakerAccountInfo): BN {
 		const totalRewardPoints = rewardInfo.totalRewardPoints;
 		let rewardsPoints = new BN(0);
-		if(stakerDeposit.endDate.toNumber() === 0){
+		if (stakerDeposit.endDate.toNumber() === 0) {
 			rewardsPoints = totalRewardPoints.sub(stakerDeposit.entryRewardPoints);
-		}else{
+		} else {
 			rewardsPoints = stakerDeposit.exitRewardPoints.sub(stakerDeposit.exitRewardPoints);
 		}
 		return stakerDeposit.amountDeposit.mul(rewardsPoints).div(10 ** token_staking_decimals);
 	}
 
-	async getStakeDetails(stakingContractPda : PublicKey, wallet: PublicKey): Promise<StakerDetail>{
+	async getStakeDetails(stakingContractPda: PublicKey, wallet: PublicKey): Promise<StakerDetail> {
 		try {
 			const stakingInfo = await this.getStakingAccountData();
-		const rewardInfo = await this.getRewardAccountData();
-		const stakerDeposit = await this.getStakerAccountData(stakingContractPda, wallet);
-		
-		const reward = await this._computed_Reward(stakingInfo, rewardInfo, stakerDeposit);
+			const rewardInfo = await this.getRewardAccountData();
+			const stakerDeposit = await this.getStakerAccountData(stakingContractPda, wallet);
+
+			const reward = await this._computed_Reward(stakingInfo, rewardInfo, stakerDeposit);
 
 			return {
 				startDate: stakerDeposit.startDate.toNumber(),
@@ -108,27 +108,27 @@ class StakingWeb3Utils {
 				endDate: 0,
 				reward: 0
 			} as StakerDetail;
-				
+
 		}
-		
+
 	}
 
 
 
 
-	
-
-
-	
-
-	
 
 
 
 
 
 
-	
+
+
+
+
+
+
+
 
 
 
@@ -142,7 +142,7 @@ class StakingWeb3Utils {
 
 	}
 
-	
+
 
 }
 export const stakingWeb3Utils = new StakingWeb3Utils(config.SOLANA_RPC);
