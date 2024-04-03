@@ -36,8 +36,8 @@
 			"images": [1, 2]
 		},
 		{
-			"id": 8,
-			"contract": "Wudoaare6B7my65D3d9AjMzsCcqpHS49KSyWyXHbyJw",
+			"id": 10,
+			"contract": "CrWkPHkK1LPEftC9Gdb6FkMisBQctJw1tXzAJvsjZZmK",
 			"contractVersion": 0,
 			"decimals": 9,
 			"isPrivate": true,
@@ -69,12 +69,12 @@
 			"images": [1, 2]
 		},
 		{
-			"id": 6,
-			"contract": "9nn3ubhDqkHFiUUyrvaenx6NJHhEK1wqAQwB4LuncAWj",
+			"id": 11,
+			"contract": "HZdpzhJ7qNYyS3Y9mcna94SHe2AfvqxhmHMbcy7ikyD4",
 			"contractVersion": 0,
 			"decimals": 9,
 			"isPrivate": true,
-			"rate": "1000",
+			"rate": "10000000",
 			"description": "At BlastFi, for visionary developers and investors to collaborate and propel the blast chain forward.",
 			"telegram": "https://t.me/Blast_Fi",
 			"projectTokenAddress": "0xbe96188F78242B595E94E03e0810EEfA76BD5309",
