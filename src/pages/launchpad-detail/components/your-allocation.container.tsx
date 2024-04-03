@@ -19,7 +19,7 @@ const SolLaunchpadDetailYourAllocationContainer: React.FC = () => {
 	const projectSelected = useSelector(
 		(state: AppState) => state.launchpadDetail.launchpad
 	);
-	const provider = useAnchorWallet();
+	const anchorWallet = useAnchorWallet();
 
 
 
@@ -31,7 +31,7 @@ const SolLaunchpadDetailYourAllocationContainer: React.FC = () => {
 	const [decimals, setDecimals] = useState<number>(9);
 
 	useEffect(() => {
-		if (!projectSelected?.contract || !publicKey || !connected) return;
+		if (!projectSelected?.contract || !publicKey || !connected  ) return;
 		solaUtils
 			.getAllocationsInfo(projectSelected.contract, publicKey)
 			.then(result => {
@@ -42,12 +42,12 @@ const SolLaunchpadDetailYourAllocationContainer: React.FC = () => {
 	}, [projectSelected, publicKey]);
 
 	const handleClaimToken = async (index: number) => {
-		if (!publicKey || !projectSelected?.contract || !provider) {
+		if (!publicKey || !projectSelected?.contract || !anchorWallet || !connection) {
 			//show message that bai
 			return;
 		}
 
-		const result = await idoService.claim(connection, provider, {
+		const result = await idoService.claim(connection, anchorWallet, {
 			contractAddress: projectSelected?.contract,
 			index: index,
 			wallet: publicKey

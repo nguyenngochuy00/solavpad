@@ -31,7 +31,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
 
 
 	const handleJoinPool = async (amount: number) => {
-		if (!publicKey || !anchorWallet || !projectSelected?.contract) {
+		if (!publicKey || !anchorWallet || !projectSelected?.contract || !connection) {
 			//show message
 			return;
 		}

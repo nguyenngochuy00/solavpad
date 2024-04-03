@@ -43,11 +43,9 @@ export class IdoWeb3Service {
                 };
            
             const decimals = idoPdaData?.raiseTokenDecimals || 9;
+            const amountMul = Number(amount) * 10 ** decimals;
 
-            const amountBN = new BN(amount).mul(new BN(10 ** decimals));
-
-           
-        
+            const amountBN = new BN(amountMul);        
     
             const program = this.getIdoProgram(provider);
             
