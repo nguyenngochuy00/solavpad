@@ -32,7 +32,6 @@ const SolPoolCard = ({
 	status = LAUNCHPAD_STATUS.OPENING
 }: Props) => {
 	const navigate = useNavigate();
-
 	const [showCountDown, setShowCountDown] = useState(true);
 
 	useEffect(() => {
@@ -157,17 +156,26 @@ const SolPoolCard = ({
 				<div className="sol-pool-card-progress">
 					<div className="sol-pool-card-progress-label">
 						<span className="progress-label">Progress</span>
-						<span className="progress-label">
-							<b>{projectData.participants}</b> participants
-						</span>
 					</div>
-					<SolProgressBar percent={projectData.progressPercent} />
+					<SolProgressBar
+						percent={Number(
+							(Number(projectData?.participated?.toString()) /
+								Number(projectData?.cap?.toString())) *
+								100 || 0
+						)}
+					/>
 					<div className="sol-pool-card-progress-info">
-						<b>{projectData.progressPercent}%</b>
+						<span className="progress-info-parti">
+							<b>Allocation round</b>
+						</span>
+						<span className="progress-info-parti">
+							<b>{projectData.participatedCount}</b> participants
+						</span>
+						{/* <b>{projectData.progressPercent}%</b>
 						<span className="progress-info-parti">
 							<b>{projectData.progressCurent}</b>/
 							<b>{projectData.progressValue}</b>
-						</span>
+						</span> */}
 					</div>
 				</div>
 			) : (
