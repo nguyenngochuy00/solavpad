@@ -97,3 +97,11 @@ export type AllocationItem = {
     status: string | number,
     percentage?: string | number ,
 }
+
+
+export type IdoProgramInfo = {
+    upcoming: number,
+    opening: number,
+    completed: number,
+    fundRaised: number | string,
+}

@@ -2,8 +2,9 @@
 import { BN } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { IdoInfoType, ProjectDetail, RoundInfo } from '../../types';
-import { AllocationWallet, GetInfoAllocationParams, RoundClassMap, UserStraitPda, WalletInfo } from '../../types/ido.type';
+import { AllocationWallet, GetInfoAllocationParams, IdoProgramInfo, RoundClassMap, UserStraitPda, WalletInfo } from '../../types/ido.type';
 import moment from 'moment';
+import { formatNumberDownRound } from '../helpers';
 
 
 
@@ -257,5 +258,23 @@ export const _getAllocation = (params: GetInfoAllocationParams): AllocationWalle
 		status,
 	};
 };
+
+
+export const getInfoProgram = (projects: Array<ProjectDetail>): IdoProgramInfo=>{
+	const closeIdo = projects.filter(e => e.state === 'C')?.length || 0;
+	const openIdo = projects.filter(e => e.state === 'O' || e.state === 'F')?.length || 0; 
+	const progressIdo = projects.filter(e => e.state === 'P')?.length || 0;
+
+	let totalRaised = new BN(0);
+	projects.filter(e => e.state === 'C').map(e => {
+		totalRaised =  totalRaised.add(new BN(e.participated));
+	})
+	return {
+		upcoming: progressIdo,
+		opening: openIdo,
+		completed: closeIdo,
+		fundRaised: Number(formatNumberDownRound(totalRaised.toString())),
+	}
+}
 
 

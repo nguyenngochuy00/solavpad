@@ -5,7 +5,8 @@ import {
 	TOGGLE_DARK_MODE,
 	TOGGLE_SIDEBAR,
 	UPDATE_BREADCRUMBS,
-	UPDATE_WALLET_INFO
+	UPDATE_WALLET_INFO,
+	UPDATE_IDO_PROGRAM_INFO
 } from './types';
 
 export const setLastBlockNumber = createAction<number>(SET_LATEST_BLOCK_NUMBER);
@@ -23,3 +24,6 @@ export const updateBreadcrumbs = createAction<{
 }[]>(UPDATE_BREADCRUMBS);
 
 export const updateWalletInfo = createAction<any>(UPDATE_WALLET_INFO);
+
+export const updateIdoProgramInfo = createAction<any>(UPDATE_IDO_PROGRAM_INFO);
+

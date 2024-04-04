@@ -5,6 +5,7 @@ import {
 	toggleDarkMode,
 	toggleSidebar,
 	updateBreadcrumbs,
+	updateIdoProgramInfo,
 	updateWalletInfo
 } from './actions';
 import { ApplicationState } from './types';
@@ -17,7 +18,8 @@ const initialState: ApplicationState = {
 	showConnectWallet: false,
 	sidebarExpaned: true,
 	walletInfo: undefined,
-	blockNumber: 0
+	blockNumber: 0,
+	totalIdoProgram: undefined,
 };
 
 const applicationReducer = createReducer(initialState, builder => {
@@ -42,6 +44,9 @@ const applicationReducer = createReducer(initialState, builder => {
 
 		.addCase(updateWalletInfo, (state, action) => {
 			state.walletInfo = action.payload;
+		})
+		.addCase(updateIdoProgramInfo, (state, action) => {
+			state.totalIdoProgram = action.payload;
 		});
 });
 export default applicationReducer;

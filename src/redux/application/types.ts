@@ -9,6 +9,8 @@ export const UPDATE_BREADCRUMBS = 'UPDATE_BREADCRUMBS';
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 export const UPDATE_WALLET_INFO = 'UPDATE_WALLET_INFO';
 
+export const UPDATE_IDO_PROGRAM_INFO = 'UPDATE_IDO_PROGRAM_INFO';
+
 
 export interface ApplicationState {
 	total: number;
@@ -19,4 +21,5 @@ export interface ApplicationState {
 	sidebarExpaned: boolean;
 	walletInfo: any;
 	blockNumber: number;
+	totalIdoProgram: any;
 }
