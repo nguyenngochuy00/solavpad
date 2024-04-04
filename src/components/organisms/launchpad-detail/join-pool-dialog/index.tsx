@@ -1,4 +1,17 @@
-import { useState } from 'react';
+import {
+	useAnchorWallet,
+	useConnection,
+	useWallet
+} from '@solana/wallet-adapter-react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import {
+	joinPool,
+	joinPoolFail
+} from '../../../../pages/launchpad-detail/redux/actions';
+import { AppState } from '../../../../redux/rootReducer';
+import { hideWalletAddress } from '../../../../services/helpers';
 import SolButton from '../../../atoms/button';
 import SolModal from '../../../atoms/modal';
 // import SolButton from 'src/components/atoms/button';
@@ -23,10 +36,73 @@ const SolLaunchpadDetailJoinPoolDialog = ({
 	onJoin
 }: SolLaunchpadDetailJoinPoolDialogProps) => {
 	const [amount, setAmount] = useState(0);
+	const dispatch = useDispatch();
+	const connection = useConnection();
+	const { publicKey, connected } = useWallet();
+	const anchorWallet = useAnchorWallet();
+	const projectSelected = useSelector(
+		(state: AppState) => state.launchpadDetail.launchpad
+	);
+
+	const isJoinPoolSuccess = useSelector(
+		(state: AppState) => state.launchpadDetail.isJoinPoolSuccess
+	);
+
+	const transactionValue = useSelector(
+		(state: AppState) => state.launchpadDetail.transaction
+	);
 
 	const handleJoinPool = () => {
-		if(onJoin) onJoin(amount)
-	}
+		if (
+			!publicKey ||
+			!anchorWallet ||
+			!projectSelected?.contract ||
+			!connection
+		) {
+			//show message
+			return;
+		}
+		
+		dispatch(
+			joinPool({
+				amount: amount,
+				anchorWallet: anchorWallet,
+				connection: connection,
+				contractAddress: projectSelected.contract?.toString(),
+				raiseTokenMint: projectSelected.raiseToken.toString(),
+				wallet: publicKey
+			})
+		);
+	};
+
+	useEffect(() => {
+		if (isJoinPoolSuccess && amount !== 0 && transactionValue.length) {
+			const transactionLink = (transaction: string) =>
+				`https://explorer.solana.com/tx/${transaction}?cluster=devnet`;
+			const notifySuccessfull = () => toast.success('Successfully!');
+			const ToastContent = () => {
+				return (
+					<a
+						className="transaction-link"
+						href={transactionLink(transactionValue)}
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Transaction: [<span>{hideWalletAddress(transactionValue)}</span>]
+						confirmed!
+					</a>
+				);
+			};
+			const notifyTransaction = () => toast.success(<ToastContent />);
+
+			setAmount(0);
+			if (onClose) onClose();
+			//Toast
+			notifySuccessfull();
+			notifyTransaction();
+			dispatch(joinPoolFail());
+		}
+	}, [isJoinPoolSuccess, transactionValue]);
 
 	const handleMaxAmount = () => {
 		setAmount(Number(balance));

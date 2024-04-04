@@ -11,3 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.transaction-link {
+  text-decoration: none;
+  color: #757575;
+}
+
+.transaction-link span {
+  color: #5ac8fa;
+}
+

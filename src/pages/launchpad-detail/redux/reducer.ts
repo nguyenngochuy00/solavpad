@@ -1,18 +1,27 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-	getLaunchpadDetail,
-	getLaunchpadDetailFail,
-	getLaunchpadDetailSuccess,
-	getWalletInfor,
-	getWalletInforFail,
-	getWalletInforSuccess
+    claimToken,
+    claimTokenFail,
+    claimTokenSuccess,
+    getLaunchpadDetail,
+    getLaunchpadDetailFail,
+    getLaunchpadDetailSuccess,
+    getWalletInfor,
+    getWalletInforFail,
+    getWalletInforSuccess,
+    joinPool,
+    joinPoolFail,
+    joinPoolSuccess
 } from './actions';
 import { LauchpadDetailState } from './types';
 
 const initialState: LauchpadDetailState = {
 	launchpad: undefined,
 	walletInfor: undefined,
-	isLoading: false
+	isLoading: false,
+	isJoinPoolSuccess: false,
+	isClaimTokenSuccess: false,
+	transaction: ''
 };
 
 const launchpadDetailReducer = createReducer(initialState, builder => {
@@ -40,6 +49,35 @@ const launchpadDetailReducer = createReducer(initialState, builder => {
 		})
 		.addCase(getWalletInforFail, (state: LauchpadDetailState, action) => {
 			state.isLoading = true;
+		})
+
+		.addCase(joinPool, (state, action) => {
+			state.isLoading = true;
+		})
+		.addCase(joinPoolSuccess, (state: LauchpadDetailState, action) => {
+            debugger
+			state.isLoading = false;
+			state.isJoinPoolSuccess = true;
+			state.transaction = action.payload;
+		})
+		.addCase(joinPoolFail, (state: LauchpadDetailState, action) => {
+			state.isLoading = false;
+			state.isJoinPoolSuccess = false;
+			state.transaction = '';
+		})
+
+		.addCase(claimToken, (state, action) => {
+			state.isLoading = true;
+		})
+		.addCase(claimTokenSuccess, (state: LauchpadDetailState, action) => {
+			state.isLoading = false;
+			state.isClaimTokenSuccess = true;
+			state.transaction = action.payload;
+		})
+		.addCase(claimTokenFail, (state: LauchpadDetailState, action) => {
+			state.isLoading = false;
+			state.isClaimTokenSuccess = false;
+			state.transaction = '';
 		});
 });
 

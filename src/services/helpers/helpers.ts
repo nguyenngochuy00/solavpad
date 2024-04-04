@@ -44,6 +44,12 @@ export const getProjectStatusTag = (status : string) => {
 	}
 };
 
+export const hideWalletAddress = (s: string) => {
+    if (typeof s !== "string") return "";
+    if (s.length < 20) return s;
+    return s.substring(0, 5) + "..." + s.substring(s.length - 8, s.length);
+  };
+
 export const formatTokenAllocation = (number: number | string, decimals: number) : string  => {
     if (typeof number === "number") {
         return `${formatNumberDownRound(number, decimals )}`;

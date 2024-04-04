@@ -208,7 +208,7 @@ const SolLaunchpadDetailPoolCard = ({
 						</div>
 						{opening ? (
 							<div className="sol-launchpad-detail-pool-card-action">
-								{walletInfo ? (
+								{connected ? (
 									<>
 										<SolButton
 											disabled={!enableJoin}
