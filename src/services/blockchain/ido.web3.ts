@@ -41,9 +41,11 @@ const opts = {
 
 
 class Web3SolanaUtils {
+
 	private provider: Provider;
-	constructor(network: string) {
-		const connection = new Connection(network, "processed");
+
+	constructor(node_rpc: string) {
+		const connection = new Connection(node_rpc, "processed");
 
 		this.provider = new AnchorProvider(connection, window.solana, opts);;
 	}
