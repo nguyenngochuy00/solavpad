@@ -8,17 +8,18 @@ import { solaUtils } from '../../../../../../../services/blockchain';
 import { formatNumberDownRound } from '../../../../../../../services/helpers';
 import { WalletInfo } from '../../../../../../../types/ido.type';
 import { config } from '../../../../../../../_config';
+import SolInputAmount from '../../../../../../molecules/input-amount';
 import SolStakingStep from '../../../../../common/staking-step';
 import './index.scss';
 
 interface SolStakingStakeStep2Props {
-	stakeAmount?: number;
+	stakeAmount?: number | string;
 	stakingSymbol?: string;
 	onStakeAmountChange?: (amount: number) => void;
 }
 
 const SolStakingStakeStep2 = ({
-	stakeAmount = 0,
+	stakeAmount = '0',
 	stakingSymbol,
 	onStakeAmountChange
 }: SolStakingStakeStep2Props) => {
@@ -29,15 +30,18 @@ const SolStakingStakeStep2 = ({
 			solaUtils
 				.getBalanceOfToken(new PublicKey(config.SOLVPAD_TOKEN_MINT), publicKey)
 				.then((value: string) => {
-					setBalanceToken(formatNumberDownRound(value));
+					setBalanceToken(value);
 				});
 		}
 	}, []);
 
-	const handleStakeAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const amount = parseFloat(e.target.value);
+	const handleStakeAmountChange = (value: string) => {
+		if(!value.length) return onStakeAmountChange?.(0);
+		const amount = parseFloat(value);
 		onStakeAmountChange?.(
-			amount <= Number(balanceToken) ? amount : Number(balanceToken)
+			amount <= Number(formatNumberDownRound(balanceToken).replace(/,/g, ''))
+				? amount
+				: Number(formatNumberDownRound(balanceToken).replace(/,/g, ''))
 		);
 	};
 
@@ -47,7 +51,27 @@ const SolStakingStakeStep2 = ({
 			description={`Please enter the amount of ${stakingSymbol} you want to stake`}
 			className="sol-staking-stake-step2"
 		>
-			<input
+			<SolInputAmount
+				label="Amount"
+				isReverse
+				subLabel={
+					<>
+						Your balance:{' '}
+						{
+							<b>
+								{formatNumberDownRound(balanceToken)} {stakingSymbol}
+							</b>
+						}
+					</>
+				}
+				value={String(stakeAmount)}
+				maxValue={balanceToken}
+				onClickMax={() => {
+					handleStakeAmountChange(String(balanceToken));
+				}}
+				onChange={handleStakeAmountChange}
+			/>
+			{/* <input
 				autoFocus
 				type="number"
 				className="sol-staking-stake-input"
@@ -59,9 +83,9 @@ const SolStakingStakeStep2 = ({
 			<div className="sol-staking-stake-balance">
 				Your balance:{' '}
 				<b>
-					{balanceToken} {stakingSymbol}
+					{formatNumberDownRound(balanceToken)} {stakingSymbol}
 				</b>
-			</div>
+			</div> */}
 		</SolStakingStep>
 	);
 };

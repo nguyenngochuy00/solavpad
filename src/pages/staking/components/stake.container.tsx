@@ -1,11 +1,20 @@
-import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import {
+	useAnchorWallet,
+	useConnection,
+	useWallet
+} from '@solana/wallet-adapter-react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SolStakingStake from '../../../components/organisms/staking/staking-panel/stake';
 import { AppState } from '../../../redux/rootReducer';
 import { stakeService } from '../../../services/blockchain';
-import { getStakeDetail, stakeDeposite, stakeDepositeFail, stakeDepositeSuccess } from '../redux/actions';
+import {
+	getCurrentBalanceValue,
+	getStakeDetail,
+	stakeDeposite,
+	stakeDepositeFail,
+	stakeDepositeSuccess
+} from '../redux/actions';
 
 const SolStakingStakeContainer = () => {
 	const STEPS = [
@@ -24,14 +33,16 @@ const SolStakingStakeContainer = () => {
 	const dispatch = useDispatch();
 	const connection = useConnection();
 	const anchorWallet = useAnchorWallet();
-	const currentBalance = 1;
 	const stakingSymbol = 'SLPAD';
-	const paymentBalance = 1;
 	const paymentSymbol = 'Sol';
 	const paymentNetwork = 'Solana';
 	const stakeable = true;
 	const [confirmedStake, setConfirmedStake] = useState(false);
 	const stakeLoadingPercent = 100;
+
+	useEffect(() => {
+		if (publicKey) dispatch(getCurrentBalanceValue(publicKey));
+	}, [publicKey]);
 
 	const handleConfirmStake = (confirm: boolean) => {
 		setConfirmedStake(confirm);
@@ -56,9 +67,8 @@ const SolStakingStakeContainer = () => {
 				.then(result => {
 					if (result.status && result.data && publicKey) {
 						dispatch(stakeDepositeSuccess(result.data));
-						dispatch(getStakeDetail(publicKey))
+						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
-						dispatch(stakeDepositeFail());
 					}
 				});
 		} else {
@@ -67,6 +77,7 @@ const SolStakingStakeContainer = () => {
 	};
 
 	const handleDone: VoidFunction = () => {
+		dispatch(stakeDepositeFail());
 		setCurrentStep(1);
 		console.log('Done');
 	};
@@ -78,8 +89,6 @@ const SolStakingStakeContainer = () => {
 				currentStep={currentStep}
 				walletInfo={walletInfo}
 				stakingSymbol={stakingSymbol}
-				currentBalance={currentBalance}
-				paymentBalance={paymentBalance}
 				paymentSymbol={paymentSymbol}
 				paymentNetwork={paymentNetwork}
 				stakeable={stakeable}
@@ -90,8 +99,7 @@ const SolStakingStakeContainer = () => {
 					(currentStep === 1 &&
 						confirmedStake &&
 						walletInfo &&
-						currentBalance &&
-						paymentBalance &&
+						// currentBalance &&
 						stakeable) ||
 					(currentStep === 2 && stakeAmount) ||
 					(currentStep === 3 && stakeLoadingPercent === 100) ||

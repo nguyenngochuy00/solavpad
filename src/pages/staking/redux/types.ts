@@ -8,6 +8,12 @@ export const GET_STAKE_DETAIL_ACTION_SUCCESS =
 	'GET_STAKE_DETAIL_ACTION_SUCCESS';
 export const GET_STAKE_DETAIL_ACTION_FAIL = 'GET_STAKE_DETAIL_ACTION_FAIL';
 
+export const GET_BALANCE_VALUE_ACTION_REQUEST =
+	'GET_BALANCE_VALUE_ACTION_REQUEST';
+export const GET_BALANCE_VALUE_ACTION_SUCCESS =
+	'GET_BALANCE_VALUE_ACTION_SUCCESS';
+export const GET_BALANCE_VALUE_ACTION_FAIL = 'GET_BALANCE_VALUE_ACTION_FAIL';
+
 export interface StakingState {
 	isLoading: boolean;
 	transaction: string;
@@ -17,4 +23,5 @@ export interface StakingState {
 		unstaked: number;
 		reward: number;
 	};
+    currentBalanceValue: string | number;
 }

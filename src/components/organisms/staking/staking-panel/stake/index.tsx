@@ -10,6 +10,13 @@ import './index.scss';
 import SolStepperVertical from '../../../common/stepper-vertical';
 import SolButton from '../../../../atoms/button';
 import { WalletInfo } from '../../../../../types/ido.type';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useEffect, useState } from 'react';
+import { config } from '../../../../../_config';
+import { PublicKey } from '@solana/web3.js';
+import { solaUtils } from '../../../../../services/blockchain';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../../redux/rootReducer';
 
 interface SolStakingStakeProps {
 	steps?: {
@@ -19,7 +26,6 @@ interface SolStakingStakeProps {
 	currentStep?: number;
 	walletInfo?: WalletInfo;
 	stakingSymbol?: string;
-	currentBalance?: number;
 	paymentBalance?: number;
 	paymentSymbol?: string;
 	paymentNetwork?: string;
@@ -40,7 +46,6 @@ const SolStakingStake = ({
 	currentStep,
 	walletInfo,
 	stakingSymbol,
-	currentBalance,
 	paymentBalance,
 	paymentSymbol,
 	paymentNetwork,
@@ -55,6 +60,7 @@ const SolStakingStake = ({
 	onNext,
 	onDone
 }: SolStakingStakeProps) => {
+
 	return (
 		<div className="sol-staking-stake">
 			<Row>
@@ -68,8 +74,6 @@ const SolStakingStake = ({
 								<SolStakingStakeStep1
 									walletInfo={walletInfo}
 									stakingSymbol={stakingSymbol}
-									currentBalance={currentBalance}
-									paymentBalance={paymentBalance}
 									paymentSymbol={paymentSymbol}
 									paymentNetwork={paymentNetwork}
 									stakeable={stakeable}

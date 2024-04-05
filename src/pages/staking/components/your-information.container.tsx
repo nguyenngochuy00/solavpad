@@ -8,19 +8,18 @@ import { useDispatch } from 'react-redux';
 import SolStakingYourInformation from '../../../components/organisms/staking/your-information';
 import { AppState } from '../../../redux/rootReducer';
 import { stakingWeb3Utils } from '../../../services/blockchain';
+import { formatNumberDownRound } from '../../../services/helpers';
 import { StakerDetail } from '../../../types/staking.type';
 import { getStakeDetail } from '../redux/actions';
 
 const SolStakingYourInformationContainer: React.FC = () => {
 	const { publicKey } = useWallet();
 	const dispatch = useDispatch();
-	const [stakedValue, setStakedValue] = useState<string>('');
-	const [unstakedValue, setUnstakedValue] = useState<string>('');
-	const [rewardsValue, setRewardsValue] = useState<string>('');
 
 	const stakeDetail = useSelector(
 		(state: AppState) => state.staking.stakeDetail
 	);
+
 	useEffect(() => {
 		if (publicKey) dispatch(getStakeDetail(publicKey));
 	}, [publicKey]);
@@ -31,9 +30,9 @@ const SolStakingYourInformationContainer: React.FC = () => {
 
 	return (
 		<SolStakingYourInformation
-			staked={String(stakeDetail.staked)}
-			unstaked={String(stakeDetail.unstaked)}
-			rewards={String(stakeDetail.reward)}
+			staked={String(formatNumberDownRound(stakeDetail.staked))}
+			unstaked={String(formatNumberDownRound(stakeDetail.unstaked))}
+			rewards={String(formatNumberDownRound(stakeDetail.reward))}
 			symbol="USDB"
 			onStake={handleStake}
 			onWithdraw={handleWithdraw}

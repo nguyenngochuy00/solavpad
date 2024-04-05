@@ -10,6 +10,7 @@ type SolInputAmountProps = {
 	maxValue?: any;
 	onChange: (value: string) => void;
 	onClickMax?: () => void;
+	isReverse?: boolean;
 };
 
 const SolInputAmount: React.FC<SolInputAmountProps> = ({
@@ -21,13 +22,14 @@ const SolInputAmount: React.FC<SolInputAmountProps> = ({
 	note,
 	maxValue,
 	onChange,
-	onClickMax
+	onClickMax,
+	isReverse=false
 }: SolInputAmountProps) => {
 	return (
-		<div className="sol-input-amount">
+		<div className={`sol-input-amount ${isReverse ? 'sol-input-amount-reverse' : ''}`}>
 			{label ? (
 				<div className="sol-input-amount-label">
-					{label}
+					{!isReverse &&  label}
 					{subLabel ? (
 						<span className="sol-input-amount-sublabel">{subLabel}</span>
 					) : (

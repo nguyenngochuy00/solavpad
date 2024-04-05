@@ -12,9 +12,9 @@ export const minimizeAddress = (address: string, start: number = 8, end: number 
 export const formatNumberDownRound = (numberParam: number | string | undefined, decimal: number = 9) => {
 	
 	if (!numberParam) {
-		return 0;
+		return '0';
 	}
-	if (numberParam === null || numberParam === undefined) return 0;
+	if (numberParam === null || numberParam === undefined) return '0';
 
 	// const decimalFormat = `0,0.${'0'.repeat(decimal)}`;
 	const bigValue = new BigNumber(numberParam).dividedBy(10 ** decimal);

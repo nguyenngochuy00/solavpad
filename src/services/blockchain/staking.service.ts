@@ -79,7 +79,6 @@ export class StackingService {
             const rewardPda = stakingFindPda.getPdaReward(program);
     
             const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
-            debugger
     
             let amountDecimal = amount * 10 ** token_staking_decimals ;
     

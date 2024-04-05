@@ -14,19 +14,6 @@ const SolStakingMainContainer: React.FC = () => {
 	const isLoading = useSelector(
 		(state: AppState) => state.staking.isLoadingTransaction
 	);
-	const {publicKey} = useWallet()
-	useEffect(() => {
-		if(!publicKey) return;
-		stakingWeb3Utils.getStakingWalletInfo(publicKey).then((data : any) => {
-			console.log("StakingWalletInfo", data);
-		})
-		stakingWeb3Utils.getStakingInfo().then((data : any) => {
-			console.log("getStakingInfo", data);
-			
-		})
-	},[
-		publicKey
-	])
 
 	return (
 		<>

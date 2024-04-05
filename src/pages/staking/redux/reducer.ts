@@ -1,5 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+    getCurrentBalanceValue,
+    getCurrentBalanceValueFail,
+    getCurrentBalanceValueSuccess,
     getStakeDetail,
 	getStakeDetailFail,
 	getStakeDetailSuccess,
@@ -13,6 +16,7 @@ const initialState: StakingState = {
 	isLoading: false,
     isLoadingTransaction: false,
 	transaction: '',
+    currentBalanceValue: '',
     stakeDetail: {
         reward: 0,
         staked: 0,
@@ -54,6 +58,20 @@ const stakingReducer = createReducer(initialState, builder => {
                 unstaked: 0,
             };
 		}) 
+
+
+        .addCase(getCurrentBalanceValue, (state, action) => {
+			state.isLoading = true;
+		})
+		.addCase(getCurrentBalanceValueSuccess, (state: StakingState, action) => {
+			state.isLoading = false;
+			state.currentBalanceValue = action.payload
+		})
+
+		.addCase(getCurrentBalanceValueFail, (state: StakingState, action) => {
+			state.isLoading = false;
+			state.currentBalanceValue = ''
+		})
 
 
 });

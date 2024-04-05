@@ -22,3 +22,7 @@ code {
   color: #5ac8fa;
 }
 
+.transaction-link.c-white {
+  color: #fff !important;
+}
+

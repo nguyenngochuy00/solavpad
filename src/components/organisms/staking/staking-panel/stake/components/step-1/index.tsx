@@ -1,5 +1,10 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../../../../../constants';
+import { useSolBalance } from '../../../../../../../hooks/useState';
+import { AppState } from '../../../../../../../redux/rootReducer';
+import { formatNumberDownRound } from '../../../../../../../services/helpers';
 import { WalletInfo } from '../../../../../../../types/ido.type';
 import SolCheckpoints from '../../../../../common/checkpoints';
 import SolStakingStep from '../../../../../common/staking-step';
@@ -10,8 +15,6 @@ import SolStakingStep from '../../../../../common/staking-step';
 interface SolStakingStakeStep1Props {
 	walletInfo?: WalletInfo;
 	stakingSymbol?: string;
-	currentBalance?: number;
-	paymentBalance?: number;
 	paymentSymbol?: string;
 	paymentNetwork?: string;
 	stakeable?: boolean;
@@ -22,14 +25,15 @@ interface SolStakingStakeStep1Props {
 const SolStakingStakeStep1 = ({
 	walletInfo,
 	stakingSymbol,
-	currentBalance = 0,
-	paymentBalance = 0,
 	paymentSymbol,
 	paymentNetwork,
 	stakeable = false,
 	confirmedStake = false,
 	onConfirmStake
 }: SolStakingStakeStep1Props) => {
+	const solBal = useSolBalance();
+	const balanceToken = useSelector((state: AppState) => state.staking.currentBalanceValue)
+
 	return (
 		<SolStakingStep
 			title="Checkpoints"
@@ -58,14 +62,14 @@ const SolStakingStakeStep1 = ({
 							'If not connected, click the "Connect Wallet" button in the top right corner'
 					},
 					{
-						checked: currentBalance,
+						checked: balanceToken,
 						title: `${stakingSymbol} available to deposit`,
-						description: `Current Balance: ${currentBalance}`
+						description: `Current Balance: ${formatNumberDownRound(balanceToken)}`
 					},
 					{
-						checked: paymentBalance,
+						checked: solBal,
 						title: `${paymentSymbol} available in wallet`,
-						description: `${paymentSymbol} is required to pay transaction fees on the ${paymentNetwork} network. ${paymentSymbol} Balance: ${paymentBalance}`
+						description: `${paymentSymbol} is required to pay transaction fees on the ${paymentNetwork} network. ${paymentSymbol} Balance: ${formatNumberDownRound(solBal)}`
 					},
 					{
 						checked: stakeable,

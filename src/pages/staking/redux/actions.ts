@@ -1,6 +1,9 @@
 import { createAction } from '@reduxjs/toolkit';
 import { PublicKey } from '@solana/web3.js';
 import {
+    GET_BALANCE_VALUE_ACTION_FAIL,
+    GET_BALANCE_VALUE_ACTION_REQUEST,
+	GET_BALANCE_VALUE_ACTION_SUCCESS,
 	GET_STAKE_DETAIL_ACTION_FAIL,
 	GET_STAKE_DETAIL_ACTION_REQUEST,
 	GET_STAKE_DETAIL_ACTION_SUCCESS,
@@ -24,3 +27,11 @@ export const getStakeDetailSuccess = createAction<{
 	reward: number;
 }>(GET_STAKE_DETAIL_ACTION_SUCCESS);
 export const getStakeDetailFail = createAction(GET_STAKE_DETAIL_ACTION_FAIL);
+
+
+
+export const getCurrentBalanceValue = createAction<PublicKey>(
+	GET_BALANCE_VALUE_ACTION_REQUEST
+);
+export const getCurrentBalanceValueSuccess = createAction<number | string>(GET_BALANCE_VALUE_ACTION_SUCCESS);
+export const getCurrentBalanceValueFail = createAction(GET_BALANCE_VALUE_ACTION_FAIL);

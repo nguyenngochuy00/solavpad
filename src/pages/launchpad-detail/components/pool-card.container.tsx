@@ -73,6 +73,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
 			setEnableJoinBtn(false);
 			return;
 		}
+
 		if (!(walletInfo.roundState === 1 || walletInfo.roundState === 3)) {
 			setEnableJoinBtn(false);
 			return;
@@ -80,7 +81,6 @@ const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
 	}, [projectSelected, walletInfo]);
 
 	useEffect(() => {
-		debugger
 		if (connected) {
 			dispatch(
 				getWalletInfor({
