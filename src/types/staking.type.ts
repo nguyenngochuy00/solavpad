@@ -42,3 +42,15 @@ export type  StakerDetail = {
 }
 
 
+export type StakingInfo = {
+    token: PublicKey,
+    symbol: string,
+    decimals: number,
+    countStaker : number,
+    maxStakingAmount: number,
+    currentTotalStake: number,
+    unstakingPeriod: number , 
+    pause: boolean,
+    totalRewardsDistributed: number | string,
+    apy: number | string,
+}

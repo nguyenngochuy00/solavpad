@@ -27,7 +27,7 @@ import {
 	getAssociatedTokenAddressSync,
 } from "@solana/spl-token"
 import { stakingFindPda } from '../helpers';
-import { StakingAccountInfo, StakerAccountInfo, RewardAccountInfo, StakerDetail } from '../../types/staking.type';
+import { StakingAccountInfo, StakerAccountInfo, RewardAccountInfo, StakerDetail, StakingInfo } from '../../types/staking.type';
 import { config } from '../../_config';
 
 const programStakingID = new PublicKey(stakingIdl.metadata.address)
@@ -50,8 +50,23 @@ class StakingWeb3Utils {
 		this.provider = new AnchorProvider(connection, window.solana, opts);;
 	}
 
-	async getStakingInfo() {
-		const getStakingData = await this.getStakingAccountData();
+	async getStakingInfo(): Promise<StakingInfo> {
+		const stakingData = await this.getStakingAccountData();
+		const rewardPda = await this.getRewardAccountData();
+		
+		return {
+			token: stakingData.token,
+			symbol: "SOLPAD",
+			decimals: stakingData.decimal,
+			countStaker: stakingData.countStaker,
+			maxStakingAmount: stakingData.maxStakingAmount.toNumber(),
+			currentTotalStake: stakingData.currentTotalStake.toNumber(),
+			unstakingPeriod: stakingData.unstakingPeriod,
+			pause: stakingData.pause,
+			totalRewardsDistributed: rewardPda.totalRewardsDistributed,
+			apy: 1500, //4 decimals
+		} as StakingInfo;
+		
 		
 
 	}
