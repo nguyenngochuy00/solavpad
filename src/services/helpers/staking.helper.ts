@@ -1,8 +1,8 @@
 import { PublicKey } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
 
-const STAKING_SEEDS = "SLVA1_STAKING";
-const REWARD_SEED = "SLVA1_REWARD";
+const STAKING_SEEDS = "BLUE_STAKING";
+const REWARD_SEED = "BLUE_REWARD";
 const USER_STAKING_SEED = "USER_STAKING";
 
 
