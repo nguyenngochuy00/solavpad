@@ -1,22 +1,26 @@
-import { get } from 'lodash';
+import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SolStakingStake from '../../../components/organisms/staking/staking-panel/stake';
 import { AppState } from '../../../redux/rootReducer';
+import { stakeService } from '../../../services/blockchain';
 
 const SolStakingStakeContainer = () => {
 	const STEPS = [
 		{ step: 1, text: 'Checkpoints' },
 		{ step: 2, text: 'Amount to Stake' },
-		{ step: 3, text: 'Pre-authorization' },
-		{ step: 4, text: 'Confirm' },
-		{ step: 5, text: 'Confirmation' }
+		// { step: 3, text: 'Pre-authorization' },
+		{ step: 3, text: 'Confirm' },
+		{ step: 4, text: 'Confirmation' }
 	];
 	const [currentStep, setCurrentStep] = useState<number>(1);
 	const [stakeAmount, setStakeAmount] = useState<number>(1);
 	const walletInfo = useSelector(
 		(state: AppState) => state.application.walletInfo
 	);
+
+	const connection = useConnection();
+	const anchorWallet = useAnchorWallet();
 	const currentBalance = 1;
 	const stakingSymbol = 'SLPAD';
 	const paymentBalance = 1;
@@ -41,7 +45,17 @@ const SolStakingStakeContainer = () => {
 
 	const handleNext: VoidFunction = () => {
 		if (currentStep === STEPS.length) return;
-		setCurrentStep(currentStep + 1);
+
+		if (currentStep === STEPS.length - 1 && anchorWallet) {
+			stakeService
+				.stakerDeposit(connection, anchorWallet, stakeAmount)
+				.then(result => {
+					debugger;
+					setCurrentStep(currentStep + 1);
+				});
+		} else {
+			setCurrentStep(currentStep + 1);
+		}
 	};
 
 	const handleDone: VoidFunction = () => {

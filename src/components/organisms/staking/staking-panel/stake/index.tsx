@@ -9,11 +9,15 @@ import './index.scss';
 // import SolButton from 'src/components/atoms/button';
 import SolStepperVertical from '../../../common/stepper-vertical';
 import SolButton from '../../../../atoms/button';
+import { WalletInfo } from '../../../../../types/ido.type';
 
 interface SolStakingStakeProps {
-	steps?: any;
+	steps?: {
+		step: number;
+		text: string;
+	}[];
 	currentStep?: number;
-	walletInfo?: string;
+	walletInfo?: WalletInfo;
 	stakingSymbol?: string;
 	currentBalance?: number;
 	paymentBalance?: number;
@@ -25,7 +29,7 @@ interface SolStakingStakeProps {
 	stakeLoadingPercent?: number;
 	isValid?: boolean;
 	onConfirmStake?: any;
-	onStakeAmountChange?: () => void;
+	onStakeAmountChange?: (value: number) => void;
 	onPrev?: () => void;
 	onNext?: () => void;
 	onDone?: () => void;
@@ -50,7 +54,7 @@ const SolStakingStake = ({
 	onPrev,
 	onNext,
 	onDone
-}: any) => {
+}: SolStakingStakeProps) => {
 	return (
 		<div className="sol-staking-stake">
 			<Row>
@@ -84,7 +88,7 @@ const SolStakingStake = ({
 							) : (
 								<></>
 							)}
-							{currentStep === 3 ? (
+							{/* {currentStep === 3 ? (
 								<SolStakingStakeStep3
 									stakeAmount={stakeAmount}
 									stakingSymbol={stakingSymbol}
@@ -92,13 +96,13 @@ const SolStakingStake = ({
 								/>
 							) : (
 								<></>
-							)}
-							{currentStep === 4 ? (
+							)} */}
+							{currentStep === 3 ? (
 								<SolStakingStakeStep4 stakingSymbol={stakingSymbol} />
 							) : (
 								<></>
 							)}
-							{currentStep === 5 ? (
+							{currentStep === 4? (
 								<SolStakingStakeStep5 stakingSymbol={stakingSymbol} />
 							) : (
 								<></>

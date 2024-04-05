@@ -58,6 +58,7 @@ class StakingWeb3Utils {
 	async getStakingAccountData(): Promise<StakingAccountInfo> {
 		const program = this.getStakingProgram();
 		const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
+		debugger
 		const pdaStakingInfo = await program.account.stakingAccount.fetch(stakingContractPda) as StakingAccountInfo;
 		return pdaStakingInfo;
 	}
@@ -137,6 +138,7 @@ class StakingWeb3Utils {
 
 
 	private getStakingProgram() {
+		debugger
 		//@ts-ignore
 		return new Program(stakingIdl, programStakingID, this.provider);
 

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../../../../../constants';
+import { WalletInfo } from '../../../../../../../types/ido.type';
 import SolCheckpoints from '../../../../../common/checkpoints';
 import SolStakingStep from '../../../../../common/staking-step';
 // import SolCheckpoints from 'src/components/organisms/common/checkpoints';
@@ -7,7 +8,7 @@ import SolStakingStep from '../../../../../common/staking-step';
 // import { APP_ROUTES } from 'src/constants';
 
 interface SolStakingStakeStep1Props {
-	walletInfo?: string;
+	walletInfo?: WalletInfo;
 	stakingSymbol?: string;
 	currentBalance?: number;
 	paymentBalance?: number;
