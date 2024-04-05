@@ -97,10 +97,14 @@ class StakingWeb3Utils {
 
 			const reward = await this._computed_Reward(stakingInfo, rewardInfo, stakerDeposit);
 			
+			const unstakingPeriod = stakingInfo.unStakingPeriod;
 			return {
 				startDate: stakerDeposit.startDate.toNumber(),
 				endDate: stakerDeposit.endDate.toNumber(),
-				reward: reward.toNumber()
+				reward: reward.toNumber(),
+				staked: stakerDeposit.amountDeposit.toNumber(),
+				unstaked: stakerDeposit.amountWithdrawn.toNumber(),
+				withdrawTimestamp: stakerDeposit.endDate.toNumber() + unstakingPeriod
 			} as StakerDetail;
 		} catch (error) {
 			// console.log("getStakeDetails error", error);

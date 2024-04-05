@@ -33,10 +33,12 @@ export type StakerAccountInfo = {
 }
 
 export type  StakerDetail = {
+    staked: number | string,
+    unstaked: number | string,
     startDate: string | number,
     endDate: string | number,
     reward: string | number,
-
+    withdrawTimestamp: string | number,
 }
 
 
