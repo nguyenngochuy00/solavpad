@@ -51,7 +51,8 @@ class StakingWeb3Utils {
 	}
 
 	async getStakingInfo() {
-
+		const getStakingData = await this.getStakingAccountData();
+		
 
 	}
 
@@ -126,6 +127,7 @@ class StakingWeb3Utils {
 		const stakingContractPda = stakingFindPda.getPdaStaking(program);
 		return await this.getStakeDetails(stakingContractPda, wallet);
 	}
+
 
 
 
