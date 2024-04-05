@@ -6,7 +6,7 @@ export type StakingAccountInfo = {
     pause: boolean,
     decimal?: number,
     countStaker: number,
-    unStakingPeriod: number,
+    unstakingPeriod: number,
     maxStakingAmount: BN,
     currentTotalStake: BN,
     token: PublicKey,

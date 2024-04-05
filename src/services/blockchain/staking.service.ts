@@ -36,6 +36,9 @@ export class StackingService {
     
             const tokenMint =  new PublicKey(config.SOLVPAD_TOKEN_MINT);
             const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
+
+            console.log("userStakingPda", userStakingPda.toBase58());
+            
             const rewardPda = stakingFindPda.getPdaReward(program);
                   
             const transaction = await program.methods.stakerDeposit(new BN(amountDecimal.toString())).accounts({
@@ -76,6 +79,7 @@ export class StackingService {
             const rewardPda = stakingFindPda.getPdaReward(program);
     
             const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
+            debugger
     
             let amountDecimal = amount * 10 ** token_staking_decimals ;
     

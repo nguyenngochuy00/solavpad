@@ -64,9 +64,7 @@ class StakingWeb3Utils {
 	async getStakerAccountData(stakingContractPda: PublicKey, wallet: PublicKey): Promise<StakerAccountInfo> {
 		const program = this.getStakingProgram();
 		const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, wallet);
-		
-		const userStakingData = await program.account.userStakingDepositAccount.fetch(userStakingPda) as StakerAccountInfo;
-		return userStakingData;
+		return await program.account.userStakingDepositAccount.fetch(userStakingPda) as StakerAccountInfo;
 	}
 
 	async getRewardAccountData(): Promise<RewardAccountInfo> {
@@ -78,7 +76,8 @@ class StakingWeb3Utils {
 		return userStakingData;
 	}
 
-	private async _computed_Reward(stakingInfo: StakingAccountInfo, rewardInfo: RewardAccountInfo, stakerDeposit: StakerAccountInfo): BN {
+	private async _computed_reward(rewardInfo: RewardAccountInfo, stakerDeposit: StakerAccountInfo): BN {
+		
 		const totalRewardPoints = rewardInfo.totalRewardPoints;
 		let rewardsPoints = new BN(0);
 		if (stakerDeposit.endDate.toNumber() === 0) {
@@ -86,28 +85,30 @@ class StakingWeb3Utils {
 		} else {
 			rewardsPoints = stakerDeposit.exitRewardPoints.sub(stakerDeposit.exitRewardPoints);
 		}
-		return stakerDeposit.amountDeposit.mul(rewardsPoints).div(10 ** token_staking_decimals);
+		return stakerDeposit.amountDeposit.mul(rewardsPoints);
 	}
 
 	async getStakeDetails(stakingContractPda: PublicKey, wallet: PublicKey): Promise<StakerDetail> {
 		try {
+			console.log("getStakerAccountData :userStakingPda", wallet);
 			const stakingInfo = await this.getStakingAccountData();
 			const rewardInfo = await this.getRewardAccountData();
 			const stakerDeposit = await this.getStakerAccountData(stakingContractPda, wallet);
 
-			const reward = await this._computed_Reward(stakingInfo, rewardInfo, stakerDeposit);
+			const reward = await this._computed_reward( rewardInfo, stakerDeposit);
 			
-			const unstakingPeriod = stakingInfo.unStakingPeriod;
+			const unstakingPeriod = stakingInfo.unstakingPeriod;
+			const withdrawTimestamp = stakerDeposit.endDate.toNumber() + unstakingPeriod;
 			return {
 				startDate: stakerDeposit.startDate.toNumber(),
 				endDate: stakerDeposit.endDate.toNumber(),
 				reward: reward.toNumber(),
 				staked: stakerDeposit.amountDeposit.toNumber(),
 				unstaked: stakerDeposit.amountWithdrawn.toNumber(),
-				withdrawTimestamp: stakerDeposit.endDate.toNumber() + unstakingPeriod
+				withdrawTimestamp: withdrawTimestamp
 			} as StakerDetail;
 		} catch (error) {
-			// console.log("getStakeDetails error", error);
+			console.log("getStakeDetails error", error);
 			return {
 				startDate: 0,
 				endDate: 0,
@@ -119,6 +120,14 @@ class StakingWeb3Utils {
 		}
 
 	}
+
+	async getStakingWalletInfo(wallet: PublicKey): Promise<StakerDetail>{
+		const program = this.getStakingProgram();
+		const stakingContractPda = stakingFindPda.getPdaStaking(program);
+		return await this.getStakeDetails(stakingContractPda, wallet);
+	}
+
+
 
 
 
