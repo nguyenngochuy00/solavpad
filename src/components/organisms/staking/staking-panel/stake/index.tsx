@@ -109,7 +109,7 @@ const SolStakingStake = ({
 							)}
 						</div>
 						<div className="sol-staking-stake-action">
-							{currentStep !== 5 ? (
+							{currentStep !== 4 ? (
 								<>
 									<SolButton
 										onClick={onPrev}

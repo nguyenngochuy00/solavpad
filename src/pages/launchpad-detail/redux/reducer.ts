@@ -21,7 +21,8 @@ const initialState: LauchpadDetailState = {
 	isLoading: false,
 	isJoinPoolSuccess: false,
 	isClaimTokenSuccess: false,
-	transaction: ''
+	transaction: '',
+	isLoadingTransaction: false
 };
 
 const launchpadDetailReducer = createReducer(initialState, builder => {
@@ -52,30 +53,29 @@ const launchpadDetailReducer = createReducer(initialState, builder => {
 		})
 
 		.addCase(joinPool, (state, action) => {
-			state.isLoading = true;
+			state.isLoadingTransaction = true;
 		})
 		.addCase(joinPoolSuccess, (state: LauchpadDetailState, action) => {
-            debugger
-			state.isLoading = false;
+			state.isLoadingTransaction = false;
 			state.isJoinPoolSuccess = true;
 			state.transaction = action.payload;
 		})
 		.addCase(joinPoolFail, (state: LauchpadDetailState, action) => {
-			state.isLoading = false;
+			state.isLoadingTransaction = false;
 			state.isJoinPoolSuccess = false;
 			state.transaction = '';
 		})
 
 		.addCase(claimToken, (state, action) => {
-			state.isLoading = true;
+			state.isLoadingTransaction = true;
 		})
 		.addCase(claimTokenSuccess, (state: LauchpadDetailState, action) => {
-			state.isLoading = false;
+			state.isLoadingTransaction = false;
 			state.isClaimTokenSuccess = true;
 			state.transaction = action.payload;
 		})
 		.addCase(claimTokenFail, (state: LauchpadDetailState, action) => {
-			state.isLoading = false;
+			state.isLoadingTransaction = false;
 			state.isClaimTokenSuccess = false;
 			state.transaction = '';
 		});

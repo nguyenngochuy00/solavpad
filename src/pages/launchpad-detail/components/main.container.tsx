@@ -8,6 +8,9 @@ import SolLaunchpadDetailYourAllocationContainer from './your-allocation.contain
 import SolLaunchpadDetailTabs from '../../../components/organisms/launchpad-detail/tabs';
 import SolLaunchpadDetailTemplate from '../../../components/templates/launchpad-detail';
 import { TabType } from '../../../types';
+import OverlayLoading from '../../../components/molecules/overlay-loading';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../redux/rootReducer';
 
 const TABS: TabType[] = [
 	{ key: 'Description', text: 'Description' },
@@ -23,32 +26,41 @@ const SolLaunchpadDetailMainContainer: React.FC = () => {
 		setActiveTab(tabKey);
 	};
 
+	const isLoading = useSelector(
+		(state: AppState) => state.launchpadDetail.isLoadingTransaction
+	);
+
 	return (
-		<SolLaunchpadDetailTemplate
-			summary={<SolLaunchpadDetailSummaryContainer />}
-			poolCard={<SolLaunchpadDetailPoolCardContainer />}
-			tabs={
-				<SolLaunchpadDetailTabs
-					tabs={TABS}
-					activeTab={activeTab}
-					onTabChange={handleTabChange}
-				/>
-			}
-			details={
-				<>
-					{activeTab === TABS[0].key && (
-						<SolLaunchpadDetailDescriptionContainer />
-					)}
-					{activeTab === TABS[1].key && <SolLaunchpadDetailPoolInfoContainer />}
-					{/* { activeTab === TABS[2].key && 
+		<>
+			<OverlayLoading loading={isLoading} />
+			<SolLaunchpadDetailTemplate
+				summary={<SolLaunchpadDetailSummaryContainer />}
+				poolCard={<SolLaunchpadDetailPoolCardContainer />}
+				tabs={
+					<SolLaunchpadDetailTabs
+						tabs={TABS}
+						activeTab={activeTab}
+						onTabChange={handleTabChange}
+					/>
+				}
+				details={
+					<>
+						{activeTab === TABS[0].key && (
+							<SolLaunchpadDetailDescriptionContainer />
+						)}
+						{activeTab === TABS[1].key && (
+							<SolLaunchpadDetailPoolInfoContainer />
+						)}
+						{/* { activeTab === TABS[2].key && 
 						<SolLaunchpadDetailTokenMetricsContainer data={projectSelected?.tokenmetrics}/>
 					} */}
-					{activeTab === TABS[3].key && (
-						<SolLaunchpadDetailYourAllocationContainer />
-					)}
-				</>
-			}
-		/>
+						{activeTab === TABS[3].key && (
+							<SolLaunchpadDetailYourAllocationContainer />
+						)}
+					</>
+				}
+			/>
+		</>
 	);
 };
 export default SolLaunchpadDetailMainContainer;

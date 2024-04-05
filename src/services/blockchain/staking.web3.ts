@@ -111,7 +111,9 @@ class StakingWeb3Utils {
 			return {
 				startDate: 0,
 				endDate: 0,
-				reward: 0
+				reward: 0,
+				staked: 0,
+				unstaked: 0,
 			} as StakerDetail;
 
 		}

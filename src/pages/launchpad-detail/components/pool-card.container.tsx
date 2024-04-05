@@ -80,6 +80,7 @@ const SolLaunchpadDetailPoolCardContainer: React.FC = () => {
 	}, [projectSelected, walletInfo]);
 
 	useEffect(() => {
+		debugger
 		if (connected) {
 			dispatch(
 				getWalletInfor({

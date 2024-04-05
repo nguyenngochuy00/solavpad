@@ -1,9 +1,11 @@
-import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
+import { useAnchorWallet, useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import SolStakingStake from '../../../components/organisms/staking/staking-panel/stake';
 import { AppState } from '../../../redux/rootReducer';
 import { stakeService } from '../../../services/blockchain';
+import { getStakeDetail, stakeDeposite, stakeDepositeFail, stakeDepositeSuccess } from '../redux/actions';
 
 const SolStakingStakeContainer = () => {
 	const STEPS = [
@@ -18,7 +20,8 @@ const SolStakingStakeContainer = () => {
 	const walletInfo = useSelector(
 		(state: AppState) => state.application.walletInfo
 	);
-
+	const { publicKey } = useWallet();
+	const dispatch = useDispatch();
 	const connection = useConnection();
 	const anchorWallet = useAnchorWallet();
 	const currentBalance = 1;
@@ -47,11 +50,16 @@ const SolStakingStakeContainer = () => {
 		if (currentStep === STEPS.length) return;
 
 		if (currentStep === STEPS.length - 1 && anchorWallet) {
+			dispatch(stakeDeposite());
 			stakeService
 				.stakerDeposit(connection, anchorWallet, stakeAmount)
 				.then(result => {
-					debugger;
-					setCurrentStep(currentStep + 1);
+					if (result.status && result.data && publicKey) {
+						dispatch(stakeDepositeSuccess(result.data));
+						dispatch(getStakeDetail(publicKey))
+						setCurrentStep(currentStep + 1);
+						dispatch(stakeDepositeFail());
+					}
 				});
 		} else {
 			setCurrentStep(currentStep + 1);

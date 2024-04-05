@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../../../../../redux/rootReducer';
 import { solaUtils } from '../../../../../../../services/blockchain';
+import { formatNumberDownRound } from '../../../../../../../services/helpers';
 import { WalletInfo } from '../../../../../../../types/ido.type';
 import { config } from '../../../../../../../_config';
 import SolStakingStep from '../../../../../common/staking-step';
@@ -22,13 +23,13 @@ const SolStakingStakeStep2 = ({
 	onStakeAmountChange
 }: SolStakingStakeStep2Props) => {
 	const { publicKey } = useWallet();
-	const [balanceToken, setBalanceToken] = useState<string>('');
+	const [balanceToken, setBalanceToken] = useState<string | 0>('');
 	useEffect(() => {
 		if (publicKey) {
 			solaUtils
 				.getBalanceOfToken(new PublicKey(config.SOLVPAD_TOKEN_MINT), publicKey)
 				.then((value: string) => {
-					setBalanceToken(value);
+					setBalanceToken(formatNumberDownRound(value));
 				});
 		}
 	}, []);

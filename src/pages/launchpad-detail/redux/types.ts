@@ -4,6 +4,7 @@ import { WalletInfo } from "../../../types/ido.type";
 export interface LauchpadDetailState {
 	launchpad?: ProjectDetail;
 	isLoading: boolean;
+	isLoadingTransaction: boolean;
 	walletInfor?: WalletInfo;
 	isJoinPoolSuccess: boolean;
 	isClaimTokenSuccess: boolean;
