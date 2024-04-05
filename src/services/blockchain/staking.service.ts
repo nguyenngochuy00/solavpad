@@ -31,12 +31,12 @@ export class StackingService {
 
             const program = this.getStakingProgram(connection, anchorWallet);
     
-            const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
+            const stakingContractPda = stakingFindPda.getPdaStaking(program);
     
     
             const tokenMint =  new PublicKey(config.SOLVPAD_TOKEN_MINT);
-            const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, anchorWallet.publicKey);
-            const rewardPda = stakingFindPda.getPdaReward(programStakingID);
+            const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
+            const rewardPda = stakingFindPda.getPdaReward(program);
                   
             const transaction = await program.methods.stakerDeposit(new BN(amountDecimal.toString())).accounts({
                 tokenMint: tokenMint,
@@ -72,10 +72,10 @@ export class StackingService {
 
         try {
             const program = this.getStakingProgram(connection, anchorWallet);
-            const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
-            const rewardPda = stakingFindPda.getPdaReward(programStakingID);
+            const stakingContractPda = stakingFindPda.getPdaStaking(program);
+            const rewardPda = stakingFindPda.getPdaReward(program);
     
-            const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, anchorWallet.publicKey);
+            const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
     
             let amountDecimal = amount * 10 ** token_staking_decimals ;
     
@@ -102,10 +102,10 @@ export class StackingService {
     async stakerExecuteWithdraw(connection: ConnectionContextState, anchorWallet: AnchorWallet){
         try {
             const program = this.getStakingProgram(connection, anchorWallet);
-            const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
-            const rewardPda = stakingFindPda.getPdaReward(programStakingID);
+            const stakingContractPda = stakingFindPda.getPdaStaking(program);
+            const rewardPda = stakingFindPda.getPdaReward(program);
     
-            const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, anchorWallet.publicKey);
+            const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
     
             const tx = await program.methods.executeWithdrawal().accounts({
               userStakingAccount: userStakingPda,
@@ -133,10 +133,10 @@ export class StackingService {
     async stakerWithdrawReward(connection: ConnectionContextState, anchorWallet: AnchorWallet){
         try {
             const program = this.getStakingProgram(connection, anchorWallet);
-            const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
-            const rewardPda = stakingFindPda.getPdaReward(programStakingID);
+            const stakingContractPda = stakingFindPda.getPdaStaking(program);
+            const rewardPda = stakingFindPda.getPdaReward(program);
     
-            const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, anchorWallet.publicKey);
+            const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
     
             const tx = await program.methods.withdrawReward().accounts({
               userStakingAccount: userStakingPda,

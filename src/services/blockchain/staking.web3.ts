@@ -57,23 +57,23 @@ class StakingWeb3Utils {
 
 	async getStakingAccountData(): Promise<StakingAccountInfo> {
 		const program = this.getStakingProgram();
-		const stakingContractPda = stakingFindPda.getPdaStaking(programStakingID);
-		debugger
-		const pdaStakingInfo = await program.account.stakingAccount.fetch(stakingContractPda) as StakingAccountInfo;
+		const stakingContractPda = stakingFindPda.getPdaStaking(program);
+		const pdaStakingInfo = await program.account.swapStakingContract.fetch(stakingContractPda) as StakingAccountInfo;
 		return pdaStakingInfo;
 	}
 	async getStakerAccountData(stakingContractPda: PublicKey, wallet: PublicKey): Promise<StakerAccountInfo> {
-
-		const userStakingPda = stakingFindPda.getUserStakingPda(programStakingID, stakingContractPda, wallet);
 		const program = this.getStakingProgram();
+		const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, wallet);
+		
 		const userStakingData = await program.account.userStakingDepositAccount.fetch(userStakingPda) as StakerAccountInfo;
 		return userStakingData;
 	}
 
 	async getRewardAccountData(): Promise<RewardAccountInfo> {
 
-		const rewardPda = stakingFindPda.getPdaReward(programStakingID);
+
 		const program = this.getStakingProgram();
+		const rewardPda = stakingFindPda.getPdaReward(program);
 		const userStakingData = await program.account.rewardStakingContract.fetch(rewardPda) as RewardAccountInfo;
 		return userStakingData;
 	}
@@ -96,14 +96,14 @@ class StakingWeb3Utils {
 			const stakerDeposit = await this.getStakerAccountData(stakingContractPda, wallet);
 
 			const reward = await this._computed_Reward(stakingInfo, rewardInfo, stakerDeposit);
-
+			
 			return {
 				startDate: stakerDeposit.startDate.toNumber(),
 				endDate: stakerDeposit.endDate.toNumber(),
 				reward: reward.toNumber()
 			} as StakerDetail;
 		} catch (error) {
-			console.log("getStakeDetails error", error);
+			// console.log("getStakeDetails error", error);
 			return {
 				startDate: 0,
 				endDate: 0,
@@ -138,7 +138,6 @@ class StakingWeb3Utils {
 
 
 	private getStakingProgram() {
-		debugger
 		//@ts-ignore
 		return new Program(stakingIdl, programStakingID, this.provider);
 
