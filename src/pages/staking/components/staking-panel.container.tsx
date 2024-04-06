@@ -8,7 +8,7 @@ import SolStakingWithdrawContainer from './withdraw.container';
 const SolStakingPanelContainer: React.FC = () => {
 	const TABS: TabType[] = [
 		{ key: 'stake', text: 'Stake' },
-		{ key: 'unstake', text: 'Unstake', disabled: true },
+		{ key: 'unstake', text: 'Unstake' },
 		{ key: 'withdraw', text: 'Withdraw' }
 	];
 	const [activeTab, setActiveTab] = useState<string>(TABS[0].key);

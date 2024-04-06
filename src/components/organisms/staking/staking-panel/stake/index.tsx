@@ -1,22 +1,12 @@
 import { Col, Row } from 'react-bootstrap';
-// import SolStepperVertical from "src/components/organisms/common/stepper-vertical";
+import { WalletInfo } from '../../../../../types/ido.type';
+import SolButton from '../../../../atoms/button';
+import SolStepperVertical from '../../../common/stepper-vertical';
 import SolStakingStakeStep1 from './components/step-1';
 import SolStakingStakeStep2 from './components/step-2';
-import SolStakingStakeStep3 from './components/step-3';
 import SolStakingStakeStep4 from './components/step-4';
 import SolStakingStakeStep5 from './components/step-5';
 import './index.scss';
-// import SolButton from 'src/components/atoms/button';
-import SolStepperVertical from '../../../common/stepper-vertical';
-import SolButton from '../../../../atoms/button';
-import { WalletInfo } from '../../../../../types/ido.type';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useEffect, useState } from 'react';
-import { config } from '../../../../../_config';
-import { PublicKey } from '@solana/web3.js';
-import { solaUtils } from '../../../../../services/blockchain';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../../../../redux/rootReducer';
 
 interface SolStakingStakeProps {
 	steps?: {
@@ -60,7 +50,6 @@ const SolStakingStake = ({
 	onNext,
 	onDone
 }: SolStakingStakeProps) => {
-
 	return (
 		<div className="sol-staking-stake">
 			<Row>
@@ -106,7 +95,7 @@ const SolStakingStake = ({
 							) : (
 								<></>
 							)}
-							{currentStep === 4? (
+							{currentStep === 4 ? (
 								<SolStakingStakeStep5 stakingSymbol={stakingSymbol} />
 							) : (
 								<></>

@@ -25,12 +25,14 @@ function* handleStakeDeposite(action: ReturnType<typeof stakeDepositeSuccess>) {
 
 function* handleGetStakeDetail(action: ReturnType<typeof getStakeDetail>) {
 	try {
-		const result: StakerDetail = yield stakingWeb3Utils.getStakingWalletInfo(action.payload)
+		const result: StakerDetail = yield stakingWeb3Utils.getStakingWalletInfo(action.payload);
+        
 		if (result) {
 			yield put(getStakeDetailSuccess({
 				reward: Number(result.reward),
 				staked: Number(result.staked),
-				unstaked: Number(result.unstaked)
+				unstaked: Number(result.unstaked),
+                withdrawTimestamp: Number(result.withdrawTimestamp)
 			}));
 		}
 	} catch (error) {

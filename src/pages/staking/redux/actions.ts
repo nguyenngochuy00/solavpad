@@ -9,7 +9,10 @@ import {
 	GET_STAKE_DETAIL_ACTION_SUCCESS,
 	STAKE_DEPOSITE_ACTION_FAIL,
 	STAKE_DEPOSITE_ACTION_REQUEST,
-	STAKE_DEPOSITE_ACTION_SUCCESS
+	STAKE_DEPOSITE_ACTION_SUCCESS,
+    UNSTAKE_INIT_ACTION_FAIL,
+    UNSTAKE_INIT_ACTION_REQUEST,
+    UNSTAKE_INIT_ACTION_SUCCESS
 } from './types';
 
 export const stakeDeposite = createAction(STAKE_DEPOSITE_ACTION_REQUEST);
@@ -18,6 +21,12 @@ export const stakeDepositeSuccess = createAction<string>(
 );
 export const stakeDepositeFail = createAction(STAKE_DEPOSITE_ACTION_FAIL);
 
+export const unstakeInit = createAction(UNSTAKE_INIT_ACTION_REQUEST);
+export const unstakeInitSuccess = createAction<string>(
+	UNSTAKE_INIT_ACTION_SUCCESS
+);
+export const unstakeInitFail = createAction(UNSTAKE_INIT_ACTION_FAIL);
+
 export const getStakeDetail = createAction<PublicKey>(
 	GET_STAKE_DETAIL_ACTION_REQUEST
 );
@@ -25,6 +34,7 @@ export const getStakeDetailSuccess = createAction<{
 	staked: number;
 	unstaked: number;
 	reward: number;
+    withdrawTimestamp: number;
 }>(GET_STAKE_DETAIL_ACTION_SUCCESS);
 export const getStakeDetailFail = createAction(GET_STAKE_DETAIL_ACTION_FAIL);
 

@@ -79,6 +79,7 @@ const SolStakingStakeContainer = () => {
 	const handleDone: VoidFunction = () => {
 		dispatch(stakeDepositeFail());
 		setCurrentStep(1);
+		handleConfirmStake?.(false);
 		console.log('Done');
 	};
 

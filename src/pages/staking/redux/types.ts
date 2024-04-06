@@ -2,6 +2,12 @@ export const STAKE_DEPOSITE_ACTION_REQUEST = 'STAKE_DEPOSITE_ACTION_REQUEST';
 export const STAKE_DEPOSITE_ACTION_SUCCESS = 'STAKE_DEPOSITE_ACTION_SUCCESS';
 export const STAKE_DEPOSITE_ACTION_FAIL = 'STAKE_DEPOSITE_ACTION_FAIL';
 
+
+export const UNSTAKE_INIT_ACTION_REQUEST = 'UNSTAKE_INIT_ACTION_REQUEST';
+export const UNSTAKE_INIT_ACTION_SUCCESS = 'UNSTAKE_INIT_ACTION_SUCCESS';
+export const UNSTAKE_INIT_ACTION_FAIL = 'UNSTAKE_INIT_ACTION_FAIL';
+
+
 export const GET_STAKE_DETAIL_ACTION_REQUEST =
 	'GET_STAKE_DETAIL_ACTION_REQUEST';
 export const GET_STAKE_DETAIL_ACTION_SUCCESS =
@@ -22,6 +28,7 @@ export interface StakingState {
 		staked: number;
 		unstaked: number;
 		reward: number;
+        withdrawTimestamp: number;
 	};
     currentBalanceValue: string | number;
 }

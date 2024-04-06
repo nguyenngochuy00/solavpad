@@ -24,6 +24,7 @@ const SolStakingYourInformationContainer: React.FC = () => {
 		if (publicKey) dispatch(getStakeDetail(publicKey));
 	}, [publicKey]);
 
+
 	const handleStake = () => {};
 
 	const handleWithdraw = () => {};
@@ -33,6 +34,7 @@ const SolStakingYourInformationContainer: React.FC = () => {
 			staked={String(formatNumberDownRound(stakeDetail.staked))}
 			unstaked={String(formatNumberDownRound(stakeDetail.unstaked))}
 			rewards={String(formatNumberDownRound(stakeDetail.reward))}
+			withdrawTimestamp={stakeDetail.withdrawTimestamp}
 			symbol="USDB"
 			onStake={handleStake}
 			onWithdraw={handleWithdraw}
