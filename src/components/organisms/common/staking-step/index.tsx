@@ -19,7 +19,7 @@ const SolStakingStep = ({
 }: Props) => {
 	return (
 		<div className={`sol-staking-step ${className}`}>
-			{isWarning ? <img className='mt-3' width={60} height={60} src={'/images/icons/warning.svg'} alt="" /> : <></>}
+			{isWarning ? <img className={`mt-3 ${title ? 'mb-3' : ''}`} width={60} height={60} src={'/images/icons/warning.svg'} alt="" /> : <></>}
 
 			<div className="sol-staking-step-title">{title}</div>
 			<div className="sol-staking-step-description">{description}</div>

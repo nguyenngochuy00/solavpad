@@ -1,4 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../../redux/rootReducer';
 import { WalletInfo } from '../../../../../types/ido.type';
 import SolButton from '../../../../atoms/button';
 import SolStepperVertical from '../../../common/stepper-vertical';
@@ -16,7 +18,6 @@ interface SolStakingUnstakeProps {
 		text: string;
 	}[];
 	currentStep?: number;
-	isValid?: boolean;
 	onPrev?: () => void;
 	onNext?: () => void;
 	onDone?: () => void;
@@ -37,7 +38,6 @@ const SolStakingUnstake = ({
 	onPrev,
 	onDone,
 	onNext,
-	isValid,
 	stakingSymbol = '',
 	paymentSymbol = '',
 	paymentNetwork = '',
@@ -47,6 +47,7 @@ const SolStakingUnstake = ({
 	onStakeAmountChange,
 	onConfirmStake
 }: SolStakingUnstakeProps) => {
+	const isValid = useSelector((state: AppState) => state.staking.isValidNext)
 	return (
 		<div className="sol-staking-unstake">
 			<Row>
@@ -94,7 +95,7 @@ const SolStakingUnstake = ({
 
 									<SolButton
 										onClick={onNext}
-										// disabled={!isValid}
+										disabled={!isValid}
 										caption="Next"
 										className="icon-right"
 										icon={<img src="/images/icons/next.svg" alt="" />}

@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../../../../../constants';
 import { useSolBalance } from '../../../../../../../hooks/useState';
+import { checkIsValid } from '../../../../../../../pages/staking/redux/actions';
 import { AppState } from '../../../../../../../redux/rootReducer';
 import { formatNumberDownRound } from '../../../../../../../services/helpers';
-import { WalletInfo } from '../../../../../../../types/ido.type';
 import SolCheckpoints from '../../../../../common/checkpoints';
 import SolStakingStep from '../../../../../common/staking-step';
 import './index.scss';
@@ -26,6 +27,7 @@ const SolStakingUnstakeStep2 = ({
 	paymentNetwork = '',
 	stakeable = false
 }: SolStakingStakeStep2Props) => {
+	const dispatch = useDispatch();
 	const walletInfo = useSelector(
 		(state: AppState) => state.application.walletInfo
 	);
@@ -33,7 +35,17 @@ const SolStakingUnstakeStep2 = ({
 	const stakedValue = useSelector(
 		(state: AppState) => state.staking.stakeDetail.staked
 	);
+
 	const solBal = useSolBalance();
+
+	useEffect(() => {
+		if (walletInfo && stakedValue && solBal && stakeable) {
+			dispatch(checkIsValid(true));
+		} else {
+			dispatch(checkIsValid(false));
+		}
+	}, [walletInfo, stakedValue, solBal, stakeable]);
+    
 	return (
 		<SolStakingStep
 			title="Checkpoints"

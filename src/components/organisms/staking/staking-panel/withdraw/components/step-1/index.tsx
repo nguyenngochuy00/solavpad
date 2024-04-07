@@ -1,13 +1,14 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../../../../../constants';
+import { useSolBalance } from '../../../../../../../hooks/useState';
+import { checkIsValid } from '../../../../../../../pages/staking/redux/actions';
+import { AppState } from '../../../../../../../redux/rootReducer';
 import SolCheckpoints from '../../../../../common/checkpoints';
 import SolStakingStep from '../../../../../common/staking-step';
-// import SolCheckpoints from 'src/components/organisms/common/checkpoints';
-// import SolStakingStep from 'src/components/organisms/common/staking-step';
-// import { APP_ROUTES } from 'src/constants';
 
 interface SolStakingWithdrawStep1Props {
-	walletInfo?: string;
 	withdrawSymbol?: string;
 	yourStakedAmount?: number;
 	yourStakedRewards?: number;
@@ -18,15 +19,41 @@ interface SolStakingWithdrawStep1Props {
 }
 
 const SolStakingWithdrawStep1 = ({
-	walletInfo,
 	withdrawSymbol = '',
 	yourStakedAmount = 0,
 	yourStakedRewards = 0,
-	paymentBalance = 0,
 	paymentSymbol = '',
 	confirmedWithdraw = false,
-	onConfirmWithdraw = () => {}
+	onConfirmWithdraw
 }: SolStakingWithdrawStep1Props) => {
+	const dispatch = useDispatch();
+	const walletInfo = useSelector(
+		(state: AppState) => state.application.walletInfo
+	);
+
+	const stakeDetail = useSelector(
+		(state: AppState) => state.staking.stakeDetail
+	);
+	const handleChangeConfirm = (event: React.ChangeEvent<HTMLInputElement>) => {
+		onConfirmWithdraw?.(event.target.checked);
+	};
+
+	const solBal = useSolBalance();
+
+	useEffect(() => {
+		if (
+			walletInfo &&
+			stakeDetail.withdrawTimestamp <=
+				Number(parseInt(String(Date.now() / 1000))) &&
+			solBal &&
+			stakeDetail.unstaked && confirmedWithdraw
+		) {
+			dispatch(checkIsValid(true));
+		} else {
+			dispatch(checkIsValid(false));
+		}
+	}, [confirmedWithdraw, walletInfo, stakeDetail, solBal]);
+	
 	return (
 		<SolStakingStep
 			title="Prerequisites"
@@ -36,7 +63,7 @@ const SolStakingWithdrawStep1 = ({
 					<input
 						type="checkbox"
 						checked={confirmedWithdraw}
-						onChange={e => onConfirmWithdraw(e.target.checked)}
+						onChange={handleChangeConfirm}
 					/>
 					<span>
 						I have read the{' '}
@@ -55,14 +82,22 @@ const SolStakingWithdrawStep1 = ({
 							'If not connected, click the "Connect Wallet" button in the top right corner'
 					},
 					{
-						checked: yourStakedAmount && yourStakedRewards,
-						title: `Staked ${yourStakedAmount} ${withdrawSymbol}`,
-						description: `Your current rewards ${withdrawSymbol} stake: ${yourStakedRewards}`
+						checked:
+							stakeDetail.withdrawTimestamp <=
+							Number(parseInt(String(Date.now() / 1000))),
+						title: `7 day waiting period elapsed`,
+						description: ``
 					},
 					{
-						checked: paymentBalance,
-						title: `${paymentSymbol} balance greater than 0`,
-						description: `Only required for Binance Coin transaction fees`
+						checked: solBal,
+						title: `${paymentSymbol} available in wallet`,
+						description: `BNB is required to pay transaction fees on the Binance Smart Chain network.`
+					},
+
+					{
+						checked: stakeDetail.unstaked,
+						title: `You have Unstaked your Solana`,
+						description: ``
 					}
 				]}
 			/>

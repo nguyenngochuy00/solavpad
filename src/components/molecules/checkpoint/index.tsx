@@ -21,9 +21,9 @@ const SolCheckpoint: React.FC<SolCheckpointProps> = ({
 					alt=""
 				/>
 			</div>
-			<div className="sol-checkpoint-info">
-				<h5>{title}</h5>
-				<div>{description}</div>
+			<div className={`sol-checkpoint-info ${!description ? 'd-flex align-items-center' : ''}` }>
+				<h5 className={description ? 'mb-1': ''}>{title}</h5>
+				{description ? <div>{description}</div> : <></>}
 			</div>
 		</div>
 	);

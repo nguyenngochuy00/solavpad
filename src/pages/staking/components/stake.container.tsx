@@ -96,16 +96,6 @@ const SolStakingStakeContainer = () => {
 				confirmedStake={confirmedStake}
 				stakeAmount={stakeAmount}
 				stakeLoadingPercent={stakeLoadingPercent}
-				isValid={
-					(currentStep === 1 &&
-						confirmedStake &&
-						walletInfo &&
-						// currentBalance &&
-						stakeable) ||
-					(currentStep === 2 && stakeAmount) ||
-					(currentStep === 3 && stakeLoadingPercent === 100) ||
-					currentStep === 4
-				}
 				onStakeAmountChange={handleStakeAmountChange}
 				onConfirmStake={handleConfirmStake}
 				onPrev={handlePrev}

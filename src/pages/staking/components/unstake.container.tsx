@@ -91,7 +91,6 @@ const SolStakingUnstakeContainer: React.FC = () => {
 				onDone={handleDone}
 				onNext={handleNext}
 				onPrev={handlePrev}
-				isValid={true}
 				stakeable={true}
 				stakeAmount={stakeAmount}
 				onConfirmStake={handleConfirmStake}

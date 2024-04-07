@@ -1,5 +1,8 @@
 import { useWallet } from '@solana/wallet-adapter-react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { checkIsValid } from '../../../../../../../pages/staking/redux/actions';
 import { AppState } from '../../../../../../../redux/rootReducer';
 import { formatNumberDownRound } from '../../../../../../../services/helpers';
 import SolInputAmount from '../../../../../../molecules/input-amount';
@@ -17,9 +20,18 @@ const SolStakingUnstakeStep3 = ({
 	stakingSymbol,
 	onStakeAmountChange
 }: SolStakingUnstakeStep3Props) => {
+	const dispatch = useDispatch();
 	const stakedValue = useSelector(
 		(state: AppState) => state.staking.stakeDetail.staked
 	);
+
+	useEffect(() => {
+		if (stakeAmount) {
+			dispatch(checkIsValid(true));
+		} else {
+			dispatch(checkIsValid(false));
+		}
+	}, [stakeAmount]);
 
 	const handleStakeAmountChange = (value: string) => {
 		if (!value.length) return onStakeAmountChange?.(0);
@@ -30,7 +42,7 @@ const SolStakingUnstakeStep3 = ({
 				: Number(formatNumberDownRound(stakedValue).replace(/,/g, ''))
 		);
 	};
-    
+
 	return (
 		<SolStakingStep
 			title="How much do you want to unstake?"

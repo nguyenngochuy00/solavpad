@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../../../../../../constants';
 import { useSolBalance } from '../../../../../../../hooks/useState';
+import { checkIsValid } from '../../../../../../../pages/staking/redux/actions';
 import { AppState } from '../../../../../../../redux/rootReducer';
 import { formatNumberDownRound } from '../../../../../../../services/helpers';
 import { WalletInfo } from '../../../../../../../types/ido.type';
@@ -31,8 +33,18 @@ const SolStakingStakeStep1 = ({
 	confirmedStake = false,
 	onConfirmStake
 }: SolStakingStakeStep1Props) => {
+	const dispatch = useDispatch();
 	const solBal = useSolBalance();
-	const balanceToken = useSelector((state: AppState) => state.staking.currentBalanceValue)
+	const balanceToken = useSelector(
+		(state: AppState) => state.staking.currentBalanceValue
+	);
+	useEffect(() => {
+		if (walletInfo && balanceToken && solBal && stakeable && confirmedStake) {
+			dispatch(checkIsValid(true));
+		} else {
+			dispatch(checkIsValid(false));
+		}
+	}, [walletInfo, balanceToken, stakeable, solBal, confirmedStake]);
 
 	return (
 		<SolStakingStep
@@ -64,12 +76,16 @@ const SolStakingStakeStep1 = ({
 					{
 						checked: balanceToken,
 						title: `${stakingSymbol} available to deposit`,
-						description: `Current Balance: ${formatNumberDownRound(balanceToken)}`
+						description: `Current Balance: ${formatNumberDownRound(
+							balanceToken
+						)}`
 					},
 					{
 						checked: solBal,
 						title: `${paymentSymbol} available in wallet`,
-						description: `${paymentSymbol} is required to pay transaction fees on the ${paymentNetwork} network. ${paymentSymbol} Balance: ${formatNumberDownRound(solBal)}`
+						description: `${paymentSymbol} is required to pay transaction fees on the ${paymentNetwork} network. ${paymentSymbol} Balance: ${formatNumberDownRound(
+							solBal
+						)}`
 					},
 					{
 						checked: stakeable,

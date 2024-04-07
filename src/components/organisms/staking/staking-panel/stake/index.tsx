@@ -1,4 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../../redux/rootReducer';
 import { WalletInfo } from '../../../../../types/ido.type';
 import SolButton from '../../../../atoms/button';
 import SolStepperVertical from '../../../common/stepper-vertical';
@@ -23,7 +25,6 @@ interface SolStakingStakeProps {
 	confirmedStake?: boolean;
 	stakeAmount?: number;
 	stakeLoadingPercent?: number;
-	isValid?: boolean;
 	onConfirmStake?: any;
 	onStakeAmountChange?: (value: number) => void;
 	onPrev?: () => void;
@@ -43,13 +44,14 @@ const SolStakingStake = ({
 	confirmedStake,
 	stakeAmount,
 	stakeLoadingPercent,
-	isValid = false,
 	onConfirmStake,
 	onStakeAmountChange,
 	onPrev,
 	onNext,
 	onDone
 }: SolStakingStakeProps) => {
+	const isValid = useSelector((state: AppState) => state.staking.isValidNext)
+
 	return (
 		<div className="sol-staking-stake">
 			<Row>

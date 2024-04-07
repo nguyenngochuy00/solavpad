@@ -1,6 +1,5 @@
-// import SolStakingStep from 'src/components/organisms/common/staking-step';
-
 import SolStakingStep from '../../../../../common/staking-step';
+import './index.scss'
 
 interface SolStakingWithdrawStep3Props {
 	withdrawSymbol?: string;
@@ -11,16 +10,14 @@ const SolStakingWithdrawStep3 = ({
 }: SolStakingWithdrawStep3Props) => {
 	return (
 		<SolStakingStep
-			title="Successfully!"
+			title="Confirmed"
+			isWarning
 			description={
 				<>
+					<p>You have withdraw your Solana tokens.</p>
 					<p>
-						Congratulations!
-						<br />
-						You have completed the <b>{withdrawSymbol}</b> staking process.
-					</p>
-					<p className="sol-staking-step-highlight">
-						Please check Binance to see if the transaction was successful.
+						If desired, you may check Binance Smart Chain to confirm the
+						transaction.
 					</p>
 				</>
 			}

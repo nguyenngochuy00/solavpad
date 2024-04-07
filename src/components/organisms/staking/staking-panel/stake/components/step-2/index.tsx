@@ -2,7 +2,9 @@
 import { useWallet } from '@solana/wallet-adapter-react';
 import { PublicKey } from '@solana/web3.js';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { checkIsValid } from '../../../../../../../pages/staking/redux/actions';
 import { AppState } from '../../../../../../../redux/rootReducer';
 import { solaUtils } from '../../../../../../../services/blockchain';
 import { formatNumberDownRound } from '../../../../../../../services/helpers';
@@ -23,6 +25,7 @@ const SolStakingStakeStep2 = ({
 	stakingSymbol,
 	onStakeAmountChange
 }: SolStakingStakeStep2Props) => {
+	const dispatch = useDispatch();
 	const { publicKey } = useWallet();
 	const [balanceToken, setBalanceToken] = useState<string | 0>('');
 	useEffect(() => {
@@ -34,6 +37,15 @@ const SolStakingStakeStep2 = ({
 				});
 		}
 	}, []);
+
+
+	useEffect(() => {
+		if (stakeAmount) {
+			dispatch(checkIsValid(true));
+		} else {
+			dispatch(checkIsValid(false));
+		}
+	}, [stakeAmount]);
 
 	const handleStakeAmountChange = (value: string) => {
 		if(!value.length) return onStakeAmountChange?.(0);

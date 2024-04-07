@@ -1,31 +1,33 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
-    getCurrentBalanceValue,
-    getCurrentBalanceValueFail,
-    getCurrentBalanceValueSuccess,
-    getStakeDetail,
+	checkIsValid,
+	getCurrentBalanceValue,
+	getCurrentBalanceValueFail,
+	getCurrentBalanceValueSuccess,
+	getStakeDetail,
 	getStakeDetailFail,
 	getStakeDetailSuccess,
 	stakeDeposite,
 	stakeDepositeFail,
 	stakeDepositeSuccess,
-    unstakeInit,
-    unstakeInitFail,
-    unstakeInitSuccess
+	unstakeInit,
+	unstakeInitFail,
+	unstakeInitSuccess
 } from './actions';
 import { StakingState } from './types';
 
 const initialState: StakingState = {
 	isLoading: false,
-    isLoadingTransaction: false,
+	isLoadingTransaction: false,
 	transaction: '',
-    currentBalanceValue: '',
-    stakeDetail: {
-        reward: 0,
-        staked: 0,
-        unstaked: 0,
-        withdrawTimestamp: 0,
-    }
+	currentBalanceValue: '',
+	stakeDetail: {
+		reward: 0,
+		staked: 0,
+		unstaked: 0,
+		withdrawTimestamp: 0
+	},
+	isValidNext: false
 };
 
 const stakingReducer = createReducer(initialState, builder => {
@@ -41,9 +43,9 @@ const stakingReducer = createReducer(initialState, builder => {
 		.addCase(stakeDepositeFail, (state: StakingState, action) => {
 			state.isLoadingTransaction = false;
 			state.transaction = '';
-		}) 
+		})
 
-        .addCase(unstakeInit, (state, action) => {
+		.addCase(unstakeInit, (state, action) => {
 			state.isLoadingTransaction = true;
 		})
 		.addCase(unstakeInitSuccess, (state: StakingState, action) => {
@@ -54,44 +56,44 @@ const stakingReducer = createReducer(initialState, builder => {
 		.addCase(unstakeInitFail, (state: StakingState, action) => {
 			state.isLoadingTransaction = false;
 			state.transaction = '';
-		}) 
+		})
 
-
-        .addCase(getStakeDetail, (state, action) => {
+		.addCase(getStakeDetail, (state, action) => {
 			state.isLoading = true;
 		})
 		.addCase(getStakeDetailSuccess, (state: StakingState, action) => {
 			state.isLoading = false;
 			state.stakeDetail = {
-                ...action.payload
-            };
+				...action.payload
+			};
 		})
 
 		.addCase(getStakeDetailFail, (state: StakingState, action) => {
 			state.isLoading = false;
 			state.stakeDetail = {
-                reward: 0,
-                staked: 0,
-                unstaked: 0,
-                withdrawTimestamp: 0,
-            };
-		}) 
+				reward: 0,
+				staked: 0,
+				unstaked: 0,
+				withdrawTimestamp: 0
+			};
+		})
 
-
-        .addCase(getCurrentBalanceValue, (state, action) => {
+		.addCase(getCurrentBalanceValue, (state, action) => {
 			state.isLoading = true;
 		})
 		.addCase(getCurrentBalanceValueSuccess, (state: StakingState, action) => {
 			state.isLoading = false;
-			state.currentBalanceValue = action.payload
+			state.currentBalanceValue = action.payload;
 		})
 
 		.addCase(getCurrentBalanceValueFail, (state: StakingState, action) => {
 			state.isLoading = false;
-			state.currentBalanceValue = ''
+			state.currentBalanceValue = '';
 		})
 
-
+		.addCase(checkIsValid, (state, action) => {
+			state.isValidNext = action.payload;
+		});
 });
 
 export default stakingReducer;
