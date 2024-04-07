@@ -21,17 +21,19 @@ interface SolStakingStakeStep2Props {
 const SolStakingUnstakeStep2 = ({
 	confirmedStake,
 	onConfirmStake,
-    stakingSymbol = '',
+	stakingSymbol = '',
 	paymentSymbol = '',
 	paymentNetwork = '',
-    stakeable=false
+	stakeable = false
 }: SolStakingStakeStep2Props) => {
 	const walletInfo = useSelector(
 		(state: AppState) => state.application.walletInfo
 	);
 
-    const balanceToken = useSelector((state: AppState) => state.staking.currentBalanceValue)
-    const solBal = useSolBalance();
+	const stakedValue = useSelector(
+		(state: AppState) => state.staking.stakeDetail.staked
+	);
+	const solBal = useSolBalance();
 	return (
 		<SolStakingStep
 			title="Checkpoints"
@@ -60,10 +62,10 @@ const SolStakingUnstakeStep2 = ({
 							'If not connected, click the "Connect Wallet" button in the top right corner'
 					},
 					{
-						checked: balanceToken,
+						checked: stakedValue,
 						title: `Have an active Solana stake`,
 						description: `You currently have ${formatNumberDownRound(
-							balanceToken
+							stakedValue
 						)} staked`
 					},
 					{

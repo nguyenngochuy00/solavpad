@@ -1,9 +1,7 @@
 import { useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
-import { useEffect, useState } from 'react';
-import { solaUtils } from '../../../../../../../services/blockchain';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../../../../../../redux/rootReducer';
 import { formatNumberDownRound } from '../../../../../../../services/helpers';
-import { config } from '../../../../../../../_config';
 import SolInputAmount from '../../../../../../molecules/input-amount';
 import SolStakingStep from '../../../../../common/staking-step';
 import './index.scss';
@@ -19,32 +17,24 @@ const SolStakingUnstakeStep3 = ({
 	stakingSymbol,
 	onStakeAmountChange
 }: SolStakingUnstakeStep3Props) => {
-
-    const { publicKey } = useWallet();
-	const [balanceToken, setBalanceToken] = useState<string | 0>('');
-	useEffect(() => {
-		if (publicKey) {
-			solaUtils
-				.getBalanceOfToken(new PublicKey(config.SOLVPAD_TOKEN_MINT), publicKey)
-				.then((value: string) => {
-					setBalanceToken(value);
-				});
-		}
-	}, []);
+	const stakedValue = useSelector(
+		(state: AppState) => state.staking.stakeDetail.staked
+	);
 
 	const handleStakeAmountChange = (value: string) => {
-		if(!value.length) return onStakeAmountChange?.(0);
+		if (!value.length) return onStakeAmountChange?.(0);
 		const amount = parseFloat(value);
 		onStakeAmountChange?.(
-			amount <= Number(formatNumberDownRound(balanceToken).replace(/,/g, ''))
+			amount <= Number(formatNumberDownRound(stakedValue).replace(/,/g, ''))
 				? amount
-				: Number(formatNumberDownRound(balanceToken).replace(/,/g, ''))
+				: Number(formatNumberDownRound(stakedValue).replace(/,/g, ''))
 		);
 	};
+    
 	return (
 		<SolStakingStep
-			title="How much do you want to stake?"
-			description={`Please enter the amount of ${stakingSymbol} you want to stake`}
+			title="How much do you want to unstake?"
+			description={`Please enter the amount of ${stakingSymbol} you want to unstake`}
 			className="sol-staking-stake-step2"
 		>
 			<SolInputAmount
@@ -52,19 +42,18 @@ const SolStakingUnstakeStep3 = ({
 				isReverse
 				subLabel={
 					<>
-						Your balance:{' '}
+						Your staked:{' '}
 						{
 							<b>
-								{formatNumberDownRound(balanceToken)} {stakingSymbol}
+								{formatNumberDownRound(stakedValue)} {stakingSymbol}
 							</b>
 						}
 					</>
 				}
 				value={String(stakeAmount)}
-				maxValue={balanceToken}
+				maxValue={stakedValue}
 				onClickMax={() => {
-                    debugger
-					handleStakeAmountChange(String(balanceToken));
+					handleStakeAmountChange(String(stakedValue));
 				}}
 				onChange={handleStakeAmountChange}
 			/>

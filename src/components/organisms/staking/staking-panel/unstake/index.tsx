@@ -79,7 +79,7 @@ const SolStakingUnstake = ({
 								<></>
 							)}
 							{currentStep === 4 ? <SolStakingUnstakeStep4 /> : <></>}
-							{currentStep === 5 ? <SolStakingUnstakeStep5 /> : <></>}
+							{currentStep === 5 ? <SolStakingUnstakeStep5 stakingSymbol={stakingSymbol}/> : <></>}
 						</div>
 
 						<div className="sol-staking-stake-action">
