@@ -115,11 +115,12 @@ class StakingWeb3Utils {
 			
 			const unstakingPeriod = stakingInfo.unstakingPeriod;
 			const withdrawTimestamp = stakerDeposit.endDate.toNumber() + unstakingPeriod;
+			const staked = stakerDeposit.amountDeposit.sub(stakerDeposit.amountWithdrawn);
 			return {
 				startDate: stakerDeposit.startDate.toNumber(),
 				endDate: stakerDeposit.endDate.toNumber(),
 				reward: reward.toNumber(),
-				staked: stakerDeposit.amountDeposit.toNumber(),
+				staked: staked.toNumber(),
 				unstaked: stakerDeposit.amountWithdrawn.toNumber(),
 				withdrawTimestamp: withdrawTimestamp
 			} as StakerDetail;
