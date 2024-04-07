@@ -1,9 +1,21 @@
-import { get } from 'lodash';
+import {
+	useAnchorWallet,
+	useConnection,
+	useWallet
+} from '@solana/wallet-adapter-react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import SolStakingWithdraw from "../../../components/organisms/staking/staking-panel/withdraw";
+import { useDispatch } from 'react-redux';
+import SolStakingWithdraw from '../../../components/organisms/staking/staking-panel/withdraw';
+import { stakeService } from '../../../services/blockchain';
+import {
+	getStakeDetail,
+	implementWithdraw,
+	implementWithdrawFail,
+	implementWithdrawSuccess
+} from '../redux/actions';
 
 const SolStakingWithdrawContainer: React.FC = () => {
+	const dispatch = useDispatch();
 	const STEPS = [
 		{ step: 1, text: 'Checkpoints' },
 		{ step: 2, text: 'Initialize Withdrawal' },
@@ -12,9 +24,12 @@ const SolStakingWithdrawContainer: React.FC = () => {
 	const [currentStep, setCurrentStep] = useState<number>(1);
 	const withdrawSymbol = 'Sol';
 	const paymentSymbol = 'BNB';
+	const connection = useConnection();
+	const anchorWallet = useAnchorWallet();
 	const [confirmedWithdraw, setConfirmedWithdraw] = useState(false);
+	const { publicKey } = useWallet();
 
-	const handleConfirmWithdraw = (confirm : boolean) => {
+	const handleConfirmWithdraw = (confirm: boolean) => {
 		setConfirmedWithdraw(confirm);
 	};
 
@@ -25,12 +40,28 @@ const SolStakingWithdrawContainer: React.FC = () => {
 
 	const handleNext: VoidFunction = () => {
 		if (currentStep === STEPS.length) return;
-		setCurrentStep(currentStep + 1);
+
+		if (currentStep === STEPS.length - 1 && anchorWallet) {
+			dispatch(implementWithdraw());
+			stakeService
+				.stakerExecuteWithdraw(connection, anchorWallet)
+				.then(result => {
+					if (result.status && result.data && publicKey) {
+						dispatch(implementWithdrawSuccess(result.data));
+						dispatch(getStakeDetail(publicKey));
+						setCurrentStep(currentStep + 1);
+					}
+				});
+		} else {
+			setCurrentStep(currentStep + 1);
+		}
 	};
 
 	const handleDone = () => {
 		setCurrentStep(1);
 		console.log('Done');
+		dispatch(implementWithdrawFail());
+		handleConfirmWithdraw?.(false);
 	};
 
 	return (

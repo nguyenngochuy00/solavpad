@@ -44,6 +44,10 @@ const SolStakingStakeStep1 = ({
 		} else {
 			dispatch(checkIsValid(false));
 		}
+
+		return () => {
+			dispatch(checkIsValid(true));
+		};
 	}, [walletInfo, balanceToken, stakeable, solBal, confirmedStake]);
 
 	return (

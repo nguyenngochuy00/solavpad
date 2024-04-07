@@ -6,9 +6,6 @@ import { AppState } from '../../../redux/rootReducer';
 import SolStakingHeaderContainer from './header.container';
 import SolStakingPanelContainer from './staking-panel.container';
 import SolStakingYourInformationContainer from './your-information.container';
-import { useEffect } from 'react';
-import { stakingWeb3Utils } from '../../../services/blockchain';
-import { useWallet } from '@solana/wallet-adapter-react';
 
 const SolStakingMainContainer: React.FC = () => {
 	const isLoading = useSelector(

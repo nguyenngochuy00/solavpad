@@ -7,6 +7,9 @@ import {
 	getStakeDetail,
 	getStakeDetailFail,
 	getStakeDetailSuccess,
+	implementWithdraw,
+	implementWithdrawFail,
+	implementWithdrawSuccess,
 	stakeDeposite,
 	stakeDepositeFail,
 	stakeDepositeSuccess,
@@ -27,7 +30,7 @@ const initialState: StakingState = {
 		unstaked: 0,
 		withdrawTimestamp: 0
 	},
-	isValidNext: false
+	isValidNext: true,
 };
 
 const stakingReducer = createReducer(initialState, builder => {
@@ -54,6 +57,20 @@ const stakingReducer = createReducer(initialState, builder => {
 		})
 
 		.addCase(unstakeInitFail, (state: StakingState, action) => {
+			state.isLoadingTransaction = false;
+			state.transaction = '';
+		})
+
+
+        .addCase(implementWithdraw, (state, action) => {
+			state.isLoadingTransaction = true;
+		})
+		.addCase(implementWithdrawSuccess, (state: StakingState, action) => {
+			state.isLoadingTransaction = false;
+			state.transaction = action.payload;
+		})
+
+		.addCase(implementWithdrawFail, (state: StakingState, action) => {
 			state.isLoadingTransaction = false;
 			state.transaction = '';
 		})

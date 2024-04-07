@@ -45,6 +45,10 @@ const SolStakingStakeStep2 = ({
 		} else {
 			dispatch(checkIsValid(false));
 		}
+
+		return () => {
+			dispatch(checkIsValid(true));
+		};
 	}, [stakeAmount]);
 
 	const handleStakeAmountChange = (value: string) => {

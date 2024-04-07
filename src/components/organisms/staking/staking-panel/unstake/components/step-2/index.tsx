@@ -44,8 +44,12 @@ const SolStakingUnstakeStep2 = ({
 		} else {
 			dispatch(checkIsValid(false));
 		}
+
+		return () => {
+			dispatch(checkIsValid(true));
+		};
 	}, [walletInfo, stakedValue, solBal, stakeable]);
-    
+
 	return (
 		<SolStakingStep
 			title="Checkpoints"

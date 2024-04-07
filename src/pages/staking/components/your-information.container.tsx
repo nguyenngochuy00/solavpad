@@ -1,20 +1,27 @@
 // import SolStakingYourInformation from "src/components/organisms/staking/your-information";
 
-import { useWallet } from '@solana/wallet-adapter-react';
-import { PublicKey } from '@solana/web3.js';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import {
+	useAnchorWallet,
+	useConnection,
+	useWallet
+} from '@solana/wallet-adapter-react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SolStakingYourInformation from '../../../components/organisms/staking/your-information';
 import { AppState } from '../../../redux/rootReducer';
-import { stakingWeb3Utils } from '../../../services/blockchain';
+import { stakeService } from '../../../services/blockchain';
 import { formatNumberDownRound } from '../../../services/helpers';
-import { StakerDetail } from '../../../types/staking.type';
-import { getStakeDetail } from '../redux/actions';
+import {
+	getStakeDetail,
+	implementWithdraw,
+	implementWithdrawFail
+} from '../redux/actions';
 
 const SolStakingYourInformationContainer: React.FC = () => {
 	const { publicKey } = useWallet();
 	const dispatch = useDispatch();
+	const connection = useConnection();
+	const anchorWallet = useAnchorWallet();
 
 	const stakeDetail = useSelector(
 		(state: AppState) => state.staking.stakeDetail
@@ -24,8 +31,19 @@ const SolStakingYourInformationContainer: React.FC = () => {
 		if (publicKey) dispatch(getStakeDetail(publicKey));
 	}, [publicKey]);
 
-
-	const handleStake = () => {};
+	const handleStake = () => {
+		if (anchorWallet) {
+			dispatch(implementWithdraw());
+			stakeService
+				.stakerWithdrawReward(connection, anchorWallet)
+				.then(result => {
+					if (result.status && result.data && publicKey) {
+						dispatch(implementWithdrawFail());
+						dispatch(getStakeDetail(publicKey));
+					}
+				});
+		}
+	};
 
 	const handleWithdraw = () => {};
 

@@ -13,7 +13,10 @@ import {
 	STAKE_DEPOSITE_ACTION_SUCCESS,
     UNSTAKE_INIT_ACTION_FAIL,
     UNSTAKE_INIT_ACTION_REQUEST,
-    UNSTAKE_INIT_ACTION_SUCCESS
+    UNSTAKE_INIT_ACTION_SUCCESS,
+    WITHDRAW_ACTION_FAIL,
+    WITHDRAW_ACTION_REQUEST,
+    WITHDRAW_ACTION_SUCCESS
 } from './types';
 
 export const stakeDeposite = createAction(STAKE_DEPOSITE_ACTION_REQUEST);
@@ -27,6 +30,19 @@ export const unstakeInitSuccess = createAction<string>(
 	UNSTAKE_INIT_ACTION_SUCCESS
 );
 export const unstakeInitFail = createAction(UNSTAKE_INIT_ACTION_FAIL);
+
+
+export const implementWithdraw = createAction(WITHDRAW_ACTION_REQUEST);
+export const implementWithdrawSuccess = createAction<string>(
+	WITHDRAW_ACTION_SUCCESS
+);
+export const implementWithdrawFail = createAction(WITHDRAW_ACTION_FAIL);
+
+
+
+
+
+
 
 export const checkIsValid = createAction<boolean>(CHECK_VALID_NEXT_ACTION_REQUEST);
 
