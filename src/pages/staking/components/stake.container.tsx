@@ -5,6 +5,7 @@ import {
 } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import SolStakingStake from '../../../components/organisms/staking/staking-panel/stake';
 import { AppState } from '../../../redux/rootReducer';
 import { stakeService } from '../../../services/blockchain';
@@ -33,7 +34,7 @@ const SolStakingStakeContainer = () => {
 	const dispatch = useDispatch();
 	const connection = useConnection();
 	const anchorWallet = useAnchorWallet();
-	const stakingSymbol = 'SLPAD';
+	const stakingSymbol = 'SOLPAD';
 	const paymentSymbol = 'Sol';
 	const paymentNetwork = 'Solana';
 	const stakeable = true;
@@ -69,7 +70,17 @@ const SolStakingStakeContainer = () => {
 						dispatch(stakeDepositeSuccess(result.data));
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
+					} else {
+						const notifyTransaction = () => toast.success('Stake fail!');
+						dispatch(stakeDepositeFail());
+						notifyTransaction();
 					}
+				})
+				.catch(error => {
+					console.log(error);
+					const notifyTransaction = () => toast.success('Stake fail!');
+					dispatch(stakeDepositeFail());
+					notifyTransaction();
 				});
 		} else {
 			setCurrentStep(currentStep + 1);

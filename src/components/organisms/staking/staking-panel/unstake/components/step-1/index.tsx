@@ -8,7 +8,7 @@ const SolStakingUnstakeStep1 = () => {
 			description={
 				<p className="text-left">
 					After Unstaking, you must wait 7 days before you can withdraw your
-					Solana and reward. <br /> <div className="mt-3"></div> The amount of
+					SOLPAD and reward. <br /> <div className="mt-3"></div> The amount of
 					tokens you Unstake will not count towards your tier level for
 					upcomming project
 				</p>

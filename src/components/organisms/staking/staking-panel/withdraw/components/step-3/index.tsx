@@ -14,7 +14,7 @@ const SolStakingWithdrawStep3 = ({
 			isWarning
 			description={
 				<>
-					<p>You have withdraw your Solana tokens.</p>
+					<p>You have withdraw your SOLPAD tokens.</p>
 					<p>
 						If desired, you may check Binance Smart Chain to confirm the
 						transaction.

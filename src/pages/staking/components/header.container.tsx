@@ -6,7 +6,7 @@ import SolStakingStatistics from '../../../components/organisms/staking/statisti
 const SolStakingHeaderContainer: React.FC = () => {
 	const STATISTICS = [
 		{ label: 'Number of Stakers', value: '10,729' },
-		{ label: 'Total BSCPAD Staked', value: '101,443,068.02' },
+		{ label: 'Total SOLPAD Staked', value: '101,443,068.02' },
 		{ label: 'APY', value: '15.00%' }
 	];
 

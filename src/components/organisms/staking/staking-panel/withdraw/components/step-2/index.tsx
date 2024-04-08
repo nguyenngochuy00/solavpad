@@ -7,7 +7,7 @@ const SolStakingWithdrawStep2 = () => {
 		<SolStakingStep
 			title="Confirm Withdrawal"
 			description={
-				'In this step, you complete the transaction that withdraws your Solana tokens.'
+				'In this step, you complete the transaction that withdraws your SOLPAD tokens.'
 			}
 			className="sol-staking-withdraw-step2"
 		></SolStakingStep>

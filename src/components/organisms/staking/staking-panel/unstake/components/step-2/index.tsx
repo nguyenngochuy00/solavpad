@@ -73,13 +73,13 @@ const SolStakingUnstakeStep2 = ({
 				checkpoints={[
 					{
 						checked: walletInfo,
-						title: 'Connected with MetaMask',
+						title: 'Connected Wallet',
 						description:
 							'If not connected, click the "Connect Wallet" button in the top right corner'
 					},
 					{
 						checked: stakedValue,
-						title: `Have an active Solana stake`,
+						title: `Have an active SOLPAD stake`,
 						description: `You currently have ${formatNumberDownRound(
 							stakedValue
 						)} staked`

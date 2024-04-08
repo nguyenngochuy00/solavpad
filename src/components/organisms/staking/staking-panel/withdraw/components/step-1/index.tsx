@@ -77,7 +77,7 @@ const SolStakingWithdrawStep1 = ({
 				checkpoints={[
 					{
 						checked: walletInfo,
-						title: 'Connected with MetaMask',
+						title: 'Connected Wallet',
 						description:
 							'If not connected, click the "Connect Wallet" button in the top right corner'
 					},

@@ -6,6 +6,7 @@ import {
 } from '@solana/wallet-adapter-react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import SolStakingUnstake from '../../../components/organisms/staking/staking-panel/unstake';
 import { stakeService } from '../../../services/blockchain';
 import {
@@ -70,12 +71,18 @@ const SolStakingUnstakeContainer: React.FC = () => {
 						dispatch(unstakeInitSuccess(result.data));
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
+					} else {
+						const notifyTransaction = () => toast.success('Unstake fail!');
+						dispatch(unstakeInitFail());
+						notifyTransaction();
 					}
-				}).catch(error => {
+				})
+				.catch(error => {
 					console.log(error);
-					
-					//handle error close processing and show error message 
-
+					const notifyTransaction = () => toast.success('Unstake fail!');
+					dispatch(unstakeInitFail());
+					notifyTransaction();
+					//handle error close processing and show error message
 				});
 		} else {
 			setCurrentStep(currentStep + 1);

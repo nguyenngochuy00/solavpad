@@ -8,7 +8,7 @@ const SolStakingUnstakeStep4 = () => {
 			description={
 				<p className="text-left">
 					In this step, you initiate the unstaking process. After a 7 day
-					waiting period, you will be allowed to withdraw your Solana
+					waiting period, you will be allowed to withdraw your SOLPAD
 				</p>
 			}
 			className="sol-staking-unstake-step1"

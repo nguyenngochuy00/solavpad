@@ -1,4 +1,5 @@
 import { PublicKey } from '@solana/web3.js';
+import { toast } from 'react-toastify';
 import { put, takeLatest } from 'redux-saga/effects';
 import { solaUtils, stakingWeb3Utils } from '../../../services/blockchain';
 import { StakerDetail } from '../../../types/staking.type';
@@ -37,6 +38,8 @@ function* handleGetStakeDetail(action: ReturnType<typeof getStakeDetail>) {
 		}
 	} catch (error) {
 		yield put(getStakeDetailFail());
+        const notifyTransaction = () => toast.success('Get Stake detail fail!');
+        notifyTransaction();
 		console.error('Error fetching data:', error);
 	}
 }
@@ -50,6 +53,8 @@ function* handleGetCurrentBalance(action: ReturnType<typeof getCurrentBalanceVal
 			yield put(getCurrentBalanceValueSuccess(result));
 		}
 	} catch (error) {
+        const notifyTransaction = () => toast.success('Get Balance fail!');
+        notifyTransaction();
 		yield put(getCurrentBalanceValueFail());
 		console.error('Error fetching data:', error);
 	}

@@ -5,6 +5,7 @@ import {
 } from '@solana/wallet-adapter-react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import SolStakingWithdraw from '../../../components/organisms/staking/staking-panel/withdraw';
 import { stakeService } from '../../../services/blockchain';
 import {
@@ -50,9 +51,18 @@ const SolStakingWithdrawContainer: React.FC = () => {
 						dispatch(implementWithdrawSuccess(result.data));
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
+					} else {
+						const notifyTransaction = () => toast.success('Withdraw fail!');
+						dispatch(implementWithdrawFail());
+						notifyTransaction();
 					}
-				}).catch(error => {
-					//handle error close processing and show error message 
+				})
+				.catch(error => {
+					console.log(error);
+					const notifyTransaction = () => toast.success('Withdraw fail!');
+					dispatch(implementWithdrawFail());
+					notifyTransaction();
+					//handle error close processing and show error message
 				});
 		} else {
 			setCurrentStep(currentStep + 1);
