@@ -1,6 +1,13 @@
 {
   "version": "0.1.0",
   "name": "solpad_staking",
+  "constants": [
+    {
+      "name": "AUTHORITY_STAKING",
+      "type": "bytes",
+      "value": "[66, 76, 85, 69, 95, 83, 84, 65, 75, 73, 78, 71]"
+    }
+  ],
   "instructions": [
     {
       "name": "initializeStakingContract",
@@ -480,6 +487,57 @@
         }
       ],
       "args": []
+    },
+    {
+      "name": "stakeReward",
+      "accounts": [
+        {
+          "name": "stakingContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardContractAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userStakingAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "rewardTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -825,6 +883,16 @@
       "code": 6015,
       "name": "NotEnoughRewards",
       "msg": "[Validation] not enough rewards accumulated"
+    },
+    {
+      "code": 6016,
+      "name": "NoStakeAmount",
+      "msg": "[Stake Rewards] You have must have a staked amount"
+    },
+    {
+      "code": 6017,
+      "name": "AlreadyInitiatedUnstaking",
+      "msg": "[Stake Rewards] You have already initiated unstaking"
     }
   ],
   "metadata": {

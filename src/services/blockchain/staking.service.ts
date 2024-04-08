@@ -37,21 +37,24 @@ export class StackingService {
             const tokenMint =  new PublicKey(config.SOLVPAD_TOKEN_MINT);
             const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
 
-            console.log("userStakingPda", userStakingPda.toBase58());
-            
+            const tokenStakingAccount =  getAssociatedTokenAddressSync(tokenMint, stakingContractPda , true);
+            const tokenRewardAccount =  getAssociatedTokenAddressSync(tokenMint, stakingContractPda , true);
+      
+            const userTokenAccount = getAssociatedTokenAddressSync(tokenMint, anchorWallet.publicKey, true);
+         
             const rewardPda = stakingFindPda.getPdaReward(program);
                   
             const transaction = await program.methods.stakerDeposit(new BN(amountDecimal.toString())).accounts({
                 tokenMint: tokenMint,
                 userStakingAccount: userStakingPda,
                 stakingContractAccount: stakingContractPda,
-                userTokenAccount: getAssociatedTokenAddressSync(tokenMint, new PublicKey(anchorWallet.publicKey), true),
-                stakingTokenAccount: getAssociatedTokenAddressSync(tokenMint, stakingContractPda, true),
+                userTokenAccount: userTokenAccount,
+                stakingTokenAccount: tokenStakingAccount,
                 rewardContractAccount: rewardPda,
-                rewardTokenAccount: getAssociatedTokenAddressSync(tokenMint, rewardPda, true),
+                rewardTokenAccount: tokenRewardAccount,
                 authority: anchorWallet.publicKey,
-                systemProgram: SystemProgram.programId,
                 tokenProgram: TOKEN_PROGRAM_ID,
+                systemProgram: SystemProgram.programId,
             }).rpc();
             
             console.log("Your transaction signature", transaction);
@@ -109,14 +112,22 @@ export class StackingService {
             const rewardPda = stakingFindPda.getPdaReward(program);
     
             const userStakingPda = stakingFindPda.getUserStakingPda(program, stakingContractPda, anchorWallet.publicKey);
+
+            const tokenMint = new PublicKey(config.SOLVPAD_TOKEN_MINT)
+            const tokenStakingAccount =  getAssociatedTokenAddressSync(tokenMint, stakingContractPda , true);
+            const tokenRewardAccount =  getAssociatedTokenAddressSync(tokenMint, stakingContractPda , true);
+      
+            const userTokenAccount = getAssociatedTokenAddressSync(tokenMint, anchorWallet.publicKey, true);
+         
+            debugger
     
             const tx = await program.methods.executeWithdrawal().accounts({
               userStakingAccount: userStakingPda,
               stakingContractAccount: stakingContractPda,
               rewardContractAccount: rewardPda,
-              userTokenAccount: getAssociatedTokenAddressSync(new PublicKey(config.SOLVPAD_TOKEN_MINT), anchorWallet.publicKey, true),
-              stakingTokenAccount: getAssociatedTokenAddressSync(new PublicKey(config.SOLVPAD_TOKEN_MINT), stakingContractPda, true),
-              rewardTokenAccount: getAssociatedTokenAddressSync(new PublicKey(config.SOLVPAD_TOKEN_MINT), rewardPda, true),
+              userTokenAccount: userTokenAccount,
+              stakingTokenAccount: tokenStakingAccount,
+              rewardTokenAccount: tokenRewardAccount,
               authority: anchorWallet.publicKey,
               tokenProgram: TOKEN_PROGRAM_ID,
               systemProgram: SystemProgram.programId,
