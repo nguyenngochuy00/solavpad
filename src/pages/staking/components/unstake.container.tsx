@@ -71,6 +71,11 @@ const SolStakingUnstakeContainer: React.FC = () => {
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
 					}
+				}).catch(error => {
+					console.log(error);
+					
+					//handle error close processing and show error message 
+
 				});
 		} else {
 			setCurrentStep(currentStep + 1);

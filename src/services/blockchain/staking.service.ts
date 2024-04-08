@@ -127,6 +127,7 @@ export class StackingService {
                 data: tx
             }  
         } catch (error: any) {
+            console.log(error);
             return {
                 status: false,
                 message: error.message,
