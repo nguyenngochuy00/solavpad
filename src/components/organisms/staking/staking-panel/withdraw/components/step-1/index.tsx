@@ -34,6 +34,8 @@ const SolStakingWithdrawStep1 = ({
 	const stakeDetail = useSelector(
 		(state: AppState) => state.staking.stakeDetail
 	);
+
+	const isPause = useSelector((state: AppState) => state.staking.isPause)
 	const handleChangeConfirm = (event: React.ChangeEvent<HTMLInputElement>) => {
 		onConfirmWithdraw?.(event.target.checked);
 	};
@@ -46,13 +48,13 @@ const SolStakingWithdrawStep1 = ({
 			stakeDetail.withdrawTimestamp <=
 				Number(parseInt(String(Date.now() / 1000))) &&
 			solBal &&
-			stakeDetail.unstaked && confirmedWithdraw
+			stakeDetail.unstaked && confirmedWithdraw && !isPause
 		) {
 			dispatch(checkIsValid(true));
 		} else {
 			dispatch(checkIsValid(false));
 		}
-	}, [confirmedWithdraw, walletInfo, stakeDetail, solBal]);
+	}, [confirmedWithdraw, walletInfo, stakeDetail, solBal, isPause]);
 	
 	return (
 		<SolStakingStep
@@ -91,12 +93,12 @@ const SolStakingWithdrawStep1 = ({
 					{
 						checked: solBal,
 						title: `${paymentSymbol} available in wallet`,
-						description: `BNB is required to pay transaction fees on the Binance Smart Chain network.`
+						description: `SOL is required to pay transaction fees on the Solana network.`
 					},
 
 					{
 						checked: stakeDetail.unstaked,
-						title: `You have Unstaked your Solana`,
+						title: `You have Unstaked your SLPAD`,
 						description: ``
 					}
 				]}

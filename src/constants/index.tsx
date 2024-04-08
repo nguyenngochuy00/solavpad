@@ -143,12 +143,12 @@ export const CONNECT_WALLET_EXTEMSIONS: NetworkType[] = [
 export const ASSETS: NetworkType[] = [
 	{ name: 'Solana', logo: '/images/icons/solana.svg' },
 	{ name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
-	{ name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
+	{ name: 'SOL Chain', logo: '/images/icons/bsc-icon.svg' }
 ];
 export const NETWORKS: NetworkType[] = [
 	{ name: 'Ethereum', logo: '/images/icons/ethereum.svg' },
 	{ name: 'Solana', logo: '/images/icons/solana.svg' },
-	{ name: 'BNB Chain', logo: '/images/icons/bsc-icon.svg' }
+	{ name: 'SOL Chain', logo: '/images/icons/bsc-icon.svg' }
 ];
 export const LAUNCHPAD_STATUS = {
 	OPENING: 'O',

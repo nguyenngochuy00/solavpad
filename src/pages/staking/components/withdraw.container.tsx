@@ -24,7 +24,7 @@ const SolStakingWithdrawContainer: React.FC = () => {
 	];
 	const [currentStep, setCurrentStep] = useState<number>(1);
 	const withdrawSymbol = 'Sol';
-	const paymentSymbol = 'BNB';
+	const paymentSymbol = 'SOL';
 	const connection = useConnection();
 	const anchorWallet = useAnchorWallet();
 	const [confirmedWithdraw, setConfirmedWithdraw] = useState(false);

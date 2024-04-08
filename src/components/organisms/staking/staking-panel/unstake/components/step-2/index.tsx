@@ -36,10 +36,12 @@ const SolStakingUnstakeStep2 = ({
 		(state: AppState) => state.staking.stakeDetail.staked
 	);
 
+    const isPause = useSelector((state: AppState) => state.staking.isPause)
+
 	const solBal = useSolBalance();
 
 	useEffect(() => {
-		if (walletInfo && stakedValue && solBal && stakeable) {
+		if (walletInfo && stakedValue && solBal && stakeable && !isPause) {
 			dispatch(checkIsValid(true));
 		} else {
 			dispatch(checkIsValid(false));
@@ -48,7 +50,7 @@ const SolStakingUnstakeStep2 = ({
 		return () => {
 			dispatch(checkIsValid(true));
 		};
-	}, [walletInfo, stakedValue, solBal, stakeable]);
+	}, [walletInfo, stakedValue, solBal, stakeable, isPause]);
 
 	return (
 		<SolStakingStep
@@ -86,7 +88,7 @@ const SolStakingUnstakeStep2 = ({
 					},
 					{
 						checked: solBal,
-						title: `BNB available in wallet`,
+						title: `SOL available in wallet`,
 						description: `${paymentSymbol} is required to pay transaction fees on the ${paymentNetwork} network. ${paymentSymbol} Balance: ${formatNumberDownRound(
 							solBal
 						)}`

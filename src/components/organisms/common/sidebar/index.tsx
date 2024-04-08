@@ -25,6 +25,8 @@ type Props = {
 	onOverlayClick?: () => void;
 };
 
+const { version } = require('../../../../../package.json');
+
 const SolSidebar = ({
 	expanded,
 	siteUrl,
@@ -59,6 +61,7 @@ const SolSidebar = ({
 						/>
 					))}
 				</div>
+
 				<SolSidebarItem
 					icon={
 						isDarkMode ? (
@@ -98,6 +101,9 @@ const SolSidebar = ({
 					}
 					onClick={onToggleMode}
 				/>
+				<div style={{marginLeft: '7px', marginBottom: '7px'}}>
+					<span className="text-white">Version: {version}</span>
+				</div>
 			</div>
 			<div onClick={onOverlayClick} className="sol-sidebar-overlay">
 				<svg

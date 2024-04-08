@@ -109,7 +109,7 @@ const SolBridgeForm = ({
 					note={
 						<>
 							<img src="/images/icons/info.svg" alt="" width={16} height={16} />
-							<span>This is the destination address on the BNB Chain.</span>
+							<span>This is the destination address on the SOL Chain.</span>
 						</>
 					}
 				/>

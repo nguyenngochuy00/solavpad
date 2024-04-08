@@ -16,7 +16,7 @@ const SolStakingWithdrawStep3 = ({
 				<>
 					<p>You have withdraw your SOLPAD tokens.</p>
 					<p>
-						If desired, you may check Binance Smart Chain to confirm the
+						If desired, you may check Solana to confirm the
 						transaction.
 					</p>
 				</>

@@ -12,6 +12,7 @@ export const WITHDRAW_ACTION_SUCCESS = 'WITHDRAW_ACTION_SUCCESS';
 export const WITHDRAW_ACTION_FAIL = 'WITHDRAW_ACTION_FAIL';
 
 export const CHECK_VALID_NEXT_ACTION_REQUEST = 'CHECK_VALID_NEXT_ACTION_REQUEST';
+export const CHECK_PAUSE_ACTION_REQUEST = 'CHECK_PAUSE_ACTION_REQUEST';
 
 export const GET_STAKE_DETAIL_ACTION_REQUEST =
 	'GET_STAKE_DETAIL_ACTION_REQUEST';
@@ -37,4 +38,5 @@ export interface StakingState {
 	};
     currentBalanceValue: string | number;
     isValidNext: boolean;
+    isPause: boolean;
 }

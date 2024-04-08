@@ -24,14 +24,16 @@ const SolStakingUnstakeStep3 = ({
 	const stakedValue = useSelector(
 		(state: AppState) => state.staking.stakeDetail.staked
 	);
+    
+    const isPause = useSelector((state: AppState) => state.staking.isPause)
 
 	useEffect(() => {
-		if (stakeAmount) {
+		if (stakeAmount && !isPause) {
 			dispatch(checkIsValid(true));
 		} else {
 			dispatch(checkIsValid(false));
 		}
-	}, [stakeAmount]);
+	}, [stakeAmount, isPause]);
 
 	const handleStakeAmountChange = (value: string) => {
 		if (!value.length) return onStakeAmountChange?.(0);

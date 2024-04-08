@@ -47,7 +47,8 @@ const SolStakingUnstake = ({
 	onStakeAmountChange,
 	onConfirmStake
 }: SolStakingUnstakeProps) => {
-	const isValid = useSelector((state: AppState) => state.staking.isValidNext)
+	const isValid = useSelector((state: AppState) => state.staking.isValidNext);
+	const isPause = useSelector((state: AppState) => state.staking.isPause);
 	return (
 		<div className="sol-staking-unstake">
 			<Row>
@@ -95,7 +96,7 @@ const SolStakingUnstake = ({
 
 									<SolButton
 										onClick={onNext}
-										disabled={!isValid}
+										disabled={!isValid || isPause}
 										caption="Next"
 										className="icon-right"
 										icon={<img src="/images/icons/next.svg" alt="" />}

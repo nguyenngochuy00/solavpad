@@ -28,6 +28,7 @@ const SolStakingStakeStep2 = ({
 	const dispatch = useDispatch();
 	const { publicKey } = useWallet();
 	const [balanceToken, setBalanceToken] = useState<string | 0>('');
+	const isPause = useSelector((state: AppState) => state.staking.isPause)
 	useEffect(() => {
 		if (publicKey) {
 			solaUtils
@@ -40,7 +41,7 @@ const SolStakingStakeStep2 = ({
 
 
 	useEffect(() => {
-		if (stakeAmount) {
+		if (stakeAmount && !isPause) {
 			dispatch(checkIsValid(true));
 		} else {
 			dispatch(checkIsValid(false));
@@ -49,7 +50,7 @@ const SolStakingStakeStep2 = ({
 		return () => {
 			dispatch(checkIsValid(true));
 		};
-	}, [stakeAmount]);
+	}, [stakeAmount, isPause]);
 
 	const handleStakeAmountChange = (value: string) => {
 		if(!value.length) return onStakeAmountChange?.(0);

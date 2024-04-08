@@ -52,7 +52,7 @@ const SolBridgeProcessDialog = ({
 									symbol="BlastFi"
 									logo="/images/icons/blastfi.svg"
 									fromNetwork="Blast Sepolia"
-									toNetwork="BNB Chain"
+									toNetwork="SOL Chain"
 									fee={1}
 								/>
 							) : (

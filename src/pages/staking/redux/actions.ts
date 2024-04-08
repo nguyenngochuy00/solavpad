@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { PublicKey } from '@solana/web3.js';
 import {
+    CHECK_PAUSE_ACTION_REQUEST,
     CHECK_VALID_NEXT_ACTION_REQUEST,
     GET_BALANCE_VALUE_ACTION_FAIL,
     GET_BALANCE_VALUE_ACTION_REQUEST,
@@ -45,6 +46,9 @@ export const implementWithdrawFail = createAction(WITHDRAW_ACTION_FAIL);
 
 
 export const checkIsValid = createAction<boolean>(CHECK_VALID_NEXT_ACTION_REQUEST);
+export const checkIsPause = createAction<boolean>(CHECK_PAUSE_ACTION_REQUEST);
+
+
 
 export const getStakeDetail = createAction<PublicKey>(
 	GET_STAKE_DETAIL_ACTION_REQUEST

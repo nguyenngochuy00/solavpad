@@ -38,8 +38,10 @@ const SolStakingStakeStep1 = ({
 	const balanceToken = useSelector(
 		(state: AppState) => state.staking.currentBalanceValue
 	);
+
+	const isPause = useSelector((state: AppState) => state.staking.isPause)
 	useEffect(() => {
-		if (walletInfo && balanceToken && solBal && stakeable && confirmedStake) {
+		if (walletInfo && balanceToken && solBal && stakeable && confirmedStake && !isPause) {
 			dispatch(checkIsValid(true));
 		} else {
 			dispatch(checkIsValid(false));
@@ -48,7 +50,7 @@ const SolStakingStakeStep1 = ({
 		return () => {
 			dispatch(checkIsValid(true));
 		};
-	}, [walletInfo, balanceToken, stakeable, solBal, confirmedStake]);
+	}, [walletInfo, balanceToken, stakeable, solBal, confirmedStake, isPause]);
 
 	return (
 		<SolStakingStep

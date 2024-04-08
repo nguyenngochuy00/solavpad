@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+    checkIsPause,
 	checkIsValid,
 	getCurrentBalanceValue,
 	getCurrentBalanceValueFail,
@@ -31,6 +32,7 @@ const initialState: StakingState = {
 		withdrawTimestamp: 0
 	},
 	isValidNext: true,
+    isPause: false,
 };
 
 const stakingReducer = createReducer(initialState, builder => {
@@ -110,6 +112,10 @@ const stakingReducer = createReducer(initialState, builder => {
 
 		.addCase(checkIsValid, (state, action) => {
 			state.isValidNext = action.payload;
+		})
+        
+        .addCase(checkIsPause, (state, action) => {
+			state.isPause = action.payload;
 		});
 });
 
