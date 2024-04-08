@@ -114,6 +114,7 @@ export class StackingService {
               userStakingAccount: userStakingPda,
               stakingContractAccount: stakingContractPda,
               rewardContractAccount: rewardPda,
+              userTokenAccount: getAssociatedTokenAddressSync(new PublicKey(config.SOLVPAD_TOKEN_MINT), anchorWallet.publicKey, true),
               stakingTokenAccount: getAssociatedTokenAddressSync(new PublicKey(config.SOLVPAD_TOKEN_MINT), stakingContractPda, true),
               rewardTokenAccount: getAssociatedTokenAddressSync(new PublicKey(config.SOLVPAD_TOKEN_MINT), rewardPda, true),
               authority: anchorWallet.publicKey,
