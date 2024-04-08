@@ -73,9 +73,13 @@ function* handleJoinPool(action: ReturnType<typeof joinPool>) {
 			yield put(
 				getLaunchpadDetail(String(state.launchpadDetail.launchpad?.id))
 			);
+		} else {
+			const notifyTransaction = () => toast.error('Join pool fail!!');
+			notifyTransaction();
+			yield put(joinPoolFail());
 		}
 	} catch (error) {
-		const notifyTransaction = () => toast.success('Join pool fail!!');
+		const notifyTransaction = () => toast.error('Join pool fail!!');
 		notifyTransaction();
 		yield put(joinPoolFail());
 		console.error('Error fetching data:', error);
@@ -104,9 +108,13 @@ function* handleClaimToken(action: ReturnType<typeof claimToken>) {
 			yield put(
 				getLaunchpadDetail(String(state.launchpadDetail.launchpad?.id))
 			);
+		} else {
+			const notifyTransaction = () => toast.error('Claim fail!!');
+			notifyTransaction();
+			yield put(claimTokenFail());
 		}
 	} catch (error) {
-		const notifyTransaction = () => toast.success('Claim fail!!');
+		const notifyTransaction = () => toast.error('Claim fail!!');
 		notifyTransaction();
 		yield put(claimTokenFail());
 		console.error('Error fetching data:', error);

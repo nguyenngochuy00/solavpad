@@ -42,13 +42,13 @@ const SolStakingYourInformationContainer: React.FC = () => {
 						dispatch(implementWithdrawFail());
 						dispatch(getStakeDetail(publicKey));
 					} else {
-						const notifyTransaction = () => toast.success('Withdraw fail!');
+						const notifyTransaction = () => toast.error('Withdraw fail!');
                         dispatch(implementWithdrawFail());
                         notifyTransaction();
 					}
 				}).catch((error) => {
 					console.log(error);
-					const notifyTransaction = () => toast.success('Withdraw fail!');
+					const notifyTransaction = () => toast.error('Withdraw fail!');
 					dispatch(implementWithdrawFail());
 					notifyTransaction();
 				});

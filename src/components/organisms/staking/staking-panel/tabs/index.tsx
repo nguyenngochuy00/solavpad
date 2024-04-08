@@ -35,18 +35,16 @@ const SolStakingTabs = ({
 			{isPause ? (
 				<div
 					className="d-flex justify-content-center align-items-center"
-					style={{ flexDirection: 'column' }}
 				>
 					<img
-						className={'mt-3 mb-3'}
+						className={'m-3'}
 						width={60}
 						height={60}
 						src={'/images/icons/warning.svg'}
 						alt=""
 					/>
 					<h3
-						className="text-white"
-						style={{ fontSize: '20px', fontWeight: 600 }}
+						style={{ fontSize: '20px', fontWeight: 600, color: 'rgb(248 113 113)' }}
 					>
 						All staking functions are temporarily paused. Please check back
 						again later.{' '}

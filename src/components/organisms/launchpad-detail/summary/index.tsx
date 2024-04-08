@@ -30,6 +30,7 @@ const SolLaunchpadDetailSummary = ({
 	twitter,
 	webURL
 }: SolLaunchpadDetailSummaryProps) => {
+	debugger
 	return (
 		<div className="sol-launchpad-detail-summary">
 			<Row className="gx-xl-5 gy-4">

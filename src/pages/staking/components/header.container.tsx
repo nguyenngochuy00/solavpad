@@ -30,7 +30,10 @@ const SolStakingHeaderContainer: React.FC<SolStakingHeaderContainerProps> = ({
 					label: 'Total SOLPAD Staked',
 					value: formatNumberDownRound(data.currentTotalStake)
 				},
-				{ label: 'APY', value: data.apy }
+				{
+					label: 'APY',
+					value: `${Number(formatNumberDownRound(data.apy, 4)) * 100}%`
+				}
 			]);
 		}
 	}, [data]);

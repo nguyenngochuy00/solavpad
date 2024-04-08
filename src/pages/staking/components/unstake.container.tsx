@@ -26,14 +26,6 @@ const STEPS = [
 	{ step: 5, text: 'Confirmation' }
 ];
 
-interface SolStakingUnstakeContainerProps {
-	steps?: {
-		step: number;
-		text: string;
-	}[];
-	currentStep: number;
-}
-
 const SolStakingUnstakeContainer: React.FC = () => {
 	const dispatch = useDispatch();
 	const { publicKey } = useWallet();
@@ -72,14 +64,15 @@ const SolStakingUnstakeContainer: React.FC = () => {
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
 					} else {
-						const notifyTransaction = () => toast.success('Unstake fail!');
+						setCurrentStep(currentStep);
+						const notifyTransaction = () => toast.error('Unstake fail!');
 						dispatch(unstakeInitFail());
 						notifyTransaction();
 					}
 				})
 				.catch(error => {
-					console.log(error);
-					const notifyTransaction = () => toast.success('Unstake fail!');
+					setCurrentStep(currentStep);
+					const notifyTransaction = () => toast.error('Unstake fail!');
 					dispatch(unstakeInitFail());
 					notifyTransaction();
 					//handle error close processing and show error message

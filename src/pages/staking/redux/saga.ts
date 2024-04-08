@@ -38,7 +38,7 @@ function* handleGetStakeDetail(action: ReturnType<typeof getStakeDetail>) {
 		}
 	} catch (error) {
 		yield put(getStakeDetailFail());
-        const notifyTransaction = () => toast.success('Get Stake detail fail!');
+        const notifyTransaction = () => toast.error('Get Stake detail fail!');
         notifyTransaction();
 		console.error('Error fetching data:', error);
 	}
@@ -53,7 +53,7 @@ function* handleGetCurrentBalance(action: ReturnType<typeof getCurrentBalanceVal
 			yield put(getCurrentBalanceValueSuccess(result));
 		}
 	} catch (error) {
-        const notifyTransaction = () => toast.success('Get Balance fail!');
+        const notifyTransaction = () => toast.error('Get Balance fail!');
         notifyTransaction();
 		yield put(getCurrentBalanceValueFail());
 		console.error('Error fetching data:', error);

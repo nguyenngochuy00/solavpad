@@ -71,14 +71,15 @@ const SolStakingStakeContainer = () => {
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
 					} else {
-						const notifyTransaction = () => toast.success('Stake fail!');
+						setCurrentStep(currentStep);
+						const notifyTransaction = () => toast.error('Stake fail!');
 						dispatch(stakeDepositeFail());
 						notifyTransaction();
 					}
 				})
 				.catch(error => {
-					console.log(error);
-					const notifyTransaction = () => toast.success('Stake fail!');
+					setCurrentStep(currentStep);
+					const notifyTransaction = () => toast.error('Stake fail!');
 					dispatch(stakeDepositeFail());
 					notifyTransaction();
 				});

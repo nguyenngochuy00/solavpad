@@ -52,14 +52,16 @@ const SolStakingWithdrawContainer: React.FC = () => {
 						dispatch(getStakeDetail(publicKey));
 						setCurrentStep(currentStep + 1);
 					} else {
-						const notifyTransaction = () => toast.success('Withdraw fail!');
+						setCurrentStep(currentStep);
+						const notifyTransaction = () => toast.error('Withdraw fail!');
 						dispatch(implementWithdrawFail());
 						notifyTransaction();
 					}
 				})
 				.catch(error => {
+					setCurrentStep(currentStep);
 					console.log(error);
-					const notifyTransaction = () => toast.success('Withdraw fail!');
+					const notifyTransaction = () => toast.error('Withdraw fail!');
 					dispatch(implementWithdrawFail());
 					notifyTransaction();
 					//handle error close processing and show error message
