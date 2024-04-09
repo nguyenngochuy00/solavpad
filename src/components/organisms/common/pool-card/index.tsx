@@ -12,7 +12,7 @@ import Countdown from 'react-countdown';
 import moment from 'moment';
 // import { formatNumberDownRound } from 'src/services/helpers';
 import { APP_ROUTES, LAUNCHPAD_STATUS } from '../../../../constants';
-import { formatNumberDownRound } from '../../../../services/helpers/helpers';
+import { formatNumberDownRound, getProjectStatusTag } from '../../../../services/helpers/helpers';
 import { ProjectDetail } from '../../../../types';
 import SolButton from '../../../atoms/button';
 import SolAvailableOn from '../../../molecules/available-on';
@@ -79,17 +79,23 @@ const SolPoolCard = ({
 
 			{/* Launchpad name */}
 			{projectData.contract === null || projectData.contract === 'TBA' ? (
-				<div className="sol-pool-card-title">{projectData.name}</div>
+				<div className="d-flex justify-content-between align-items-center">
+					<div className="sol-pool-card-title">{projectData.name}</div>
+					<span className={`sol-pool-card-status sol-pool-card-status-${getProjectStatusTag(projectData.state)}`}>{getProjectStatusTag(projectData.state)}</span>
+				</div>
 			) : (
-				<Link
-					to={`/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(
-						':id',
-						String(projectData?.id || '')
-					)}`}
-					className="sol-pool-card-title"
-				>
-					{projectData.name}
-				</Link>
+				<div className="d-flex justify-content-between align-items-center">
+					<Link
+						to={`/${APP_ROUTES.LAUNCHPAD_DETAIL.path.replace(
+							':id',
+							String(projectData?.id || '')
+						)}`}
+						className="sol-pool-card-title"
+					>
+						{projectData.name}
+					</Link>
+					<span className={`sol-pool-card-status sol-pool-card-status-${getProjectStatusTag(projectData.state)}`}>{getProjectStatusTag(projectData.state)}</span>
+				</div>
 			)}
 
 			{/* Launchpad short description */}
