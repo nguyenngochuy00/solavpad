@@ -13,14 +13,26 @@ interface SolLaunchpadMainContainerProps {
 const SolLaunchpadMainContainer = ({
 	projects
 }: SolLaunchpadMainContainerProps) => {
-	
-
 	return (
 		<SolLaunchpadTemplate
 			banner={<SolLaunchpadBannerContainer />}
-			section1={<SolLaunchpadOpeningContainer projects={projects?.filter(item => item.state == 'O' ||  item.state == 'F' )}/>}
-			section2={<SolLaunchpadUpcomingContainer  projects={projects?.filter(item => item.state == 'P')}/>}
-			section3={<SolLaunchpadCompletedContainer projects={projects?.filter(item => item.state == 'C')}/>}
+			section1={
+				<SolLaunchpadOpeningContainer
+					projects={projects?.filter(
+						item => item.state == 'O' || item.state == 'F'
+					)}
+				/>
+			}
+			section2={
+				<SolLaunchpadUpcomingContainer
+					projects={projects?.filter(item => item.state == 'P')}
+				/>
+			}
+			section3={
+				<SolLaunchpadCompletedContainer
+					projects={projects?.filter(item => item.state == 'C')}
+				/>
+			}
 		/>
 	);
 };
